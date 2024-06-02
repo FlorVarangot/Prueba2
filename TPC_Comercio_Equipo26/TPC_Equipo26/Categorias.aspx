@@ -2,7 +2,5 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    Aquí iría el listado de CATEGORIAS + ABM
-    <br />
-    (Considerar si es necesario tener categorías)
+    Aquí iría el listado y filtrado de CATEGORIAS + ABM
 </asp:Content>

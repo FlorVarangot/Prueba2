@@ -33,7 +33,7 @@
                         <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Default.aspx">Articulos</a>
+                        <a class="nav-link" href="Articulos.aspx">Articulos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Marcas.aspx">Marcas</a>
@@ -52,9 +52,6 @@
                     </li>
                 </ul>
                 <div class="btn-group me-2" role="group" aria-label="Botones de acción">
-                    <a href="Carrito.aspx" style="text-decoration: none; color: black">
-                        <i class="fa-solid fa-cart-shopping" style="margin-inline: 20px; align-items: center"></i>
-                    </a>
                     <button type="button" class="btn btn-warning me-2">
                         <a href="LogIn.aspx" style="text-decoration: none; color: black">
                             <i class="fa-solid fa-user"></i>&nbsp; Ingresar
