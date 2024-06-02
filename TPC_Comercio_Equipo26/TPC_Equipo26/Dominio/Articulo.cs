@@ -9,10 +9,10 @@ namespace TPC_Equipo26.Dominio
     public class Articulo
     {
         public int ID {get; set;}
-        [DisplayName("Código")]
+        //[DisplayName("Código")]
         public string Codigo { get; set; }
         public string Nombre { get; set; }
-        [DisplayName("Descripción")]
+        //[DisplayName("Descripción")]
         public string Descripcion { get; set; }
         //public Marca Marca { get; set; }
         //[DisplayName("Categoría")]

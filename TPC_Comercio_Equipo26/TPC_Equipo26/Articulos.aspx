@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    ARTíCULOS
+    <h1>ARTíCULOS</h1>
     <asp:GridView ID="gvArticulos" runat="server" CssClass="Table">
         <Columns>
             <asp:BoundField DataField="ID" HeaderText="Id" />
@@ -25,19 +25,24 @@
             <asp:BoundField DataField="Activo" HeaderText="Activo" />
             <asp:TemplateField>
                 <ItemTemplate>
-                    <a href="AgregarArticulo.aspx">
-                        <i class="fa-solid fa-pen" style="color:black"></i>
+                    <a href="AltaArticulo.aspx">
+                        <i class="fa-solid fa-pen" style="color: black"></i>
                     </a>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
                     <a href="#">
-                        <i class="fa-solid fa-trash-can" style="color:black"></i>
+                        <i class="fa-solid fa-trash-can" style="color: black"></i>
                     </a>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
+
+        <%-- Corregir:
+                1. Muestra la grilla dos veces (Con distinta nomenclatura, puede ser un indicador del por qué)
+                2. Boton AgregarArticulo no dirige a página correcta.--%>
+
     </asp:GridView>
     <asp:Button ID="btnAgregarArticulo" runat="server" Text="Agregar Artículo" OnClick="btnAgregarArticulo_Click" CssClass="btn btn-primary" />
 </asp:Content>

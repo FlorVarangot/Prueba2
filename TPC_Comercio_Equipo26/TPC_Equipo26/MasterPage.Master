@@ -69,7 +69,6 @@
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
-
         <footer class="d-flex justify-content-center" style="color: ghostwhite; margin: 20px">
             <hr />
             <div class="footer">
@@ -77,6 +76,7 @@
                 <p>Di Giovanni, Rodriguez Varangot, Velazquez</p>
             </div>
         </footer>
+
     </form>
 </body>
 </html>
