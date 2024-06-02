@@ -5,11 +5,12 @@ using System.Web;
 
 namespace TPC_Equipo26.Dominio
 {
-    public class Categoria
+    public class Imagen
     {
-        public int ID { get; set; }
-        public string Descripcion { get; set; }
+        public int ID {get; set;}
+        public int IdArticulo { get; set; }
+        public string UrlImagen { get; set; }
         public bool Activo { get; set; }
 
-    }
+}
 }
