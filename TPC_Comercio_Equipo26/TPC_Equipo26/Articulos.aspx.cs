@@ -25,7 +25,7 @@ namespace TPC_Equipo26
             }
 
         }
-        protected void btnAgregarArticulo_Click(object sender, EventArgs e)
+        protected void BtnAgregarArticulo_Click(object sender, EventArgs e)
         {
             try
             {

@@ -4,14 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>ARTíCULOS</h1>
-    <asp:GridView ID="gvArticulos" runat="server" CssClass="Table">
+    <asp:GridView class="table" style="text-align:center" runat="server" CssClass="table table-light table-bordered" ID="gvArticulos" AutoGenerateColumns="false">
         <Columns>
-            <asp:BoundField DataField="ID" HeaderText="Id" />
-            <asp:BoundField DataField="Codigo" HeaderText="Cod." />
-            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-            <%--<asp:BoundField DataField="Descripcion" HeaderText="Desc." />
-            <asp:BoundField DataField="Marca" HeaderText="Marca" />
-            <asp:BoundField DataField="Categoria" HeaderText="Categ." />
+            <asp:BoundField HeaderText="Id" DataField="ID"/>
+            <asp:BoundField HeaderText="Código" DataField="Codigo" />
+            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+            <%--<asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
+            <asp:BoundField HeaderText="Marca" DataField="Marca"  />
+            <asp:BoundField HeaderText="Categoría" DataField="Categoria"/>
             <asp:TemplateField HeaderText="Imagen">
                 <ItemTemplate>
                     <asp:Repeater ID="rptImagenes" runat="server" DataSource='<%# Eval("Imagenes") %>'>
@@ -21,28 +21,23 @@
                     </asp:Repeater>
                 </ItemTemplate>
             </asp:TemplateField>--%>
-            <asp:BoundField DataField="Precio" HeaderText="Precio U." />
-            <asp:BoundField DataField="Activo" HeaderText="Activo" />
-            <asp:TemplateField>
+            <asp:BoundField HeaderText="Precio Unitario ($)" DataField="Precio" />
+            <asp:BoundField HeaderText="Activo" DataField="Activo" />
+            <asp:TemplateField HeaderText="Editar">
                 <ItemTemplate>
                     <a href="AltaArticulo.aspx">
-                        <i class="fa-solid fa-pen" style="color: black"></i>
+                        <i class="fa-solid fa-pen" style="color:dimgrey; margin:10px"></i>
                     </a>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <a href="#">
-                        <i class="fa-solid fa-trash-can" style="color: black"></i>
+                    <a href="#" class="icon">
+                        <i class="fa-solid fa-trash-can" style="color:dimgrey; margin:10px"></i>
                     </a>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
 
         <%-- Corregir:
-                1. Muestra la grilla dos veces (Con distinta nomenclatura, puede ser un indicador del por qué)
-                2. Boton AgregarArticulo no dirige a página correcta.--%>
-
+                1. Boton AgregarArticulo no dirige a página correcta, sí a ERROR.ASPX (ver evento en Articulo.aspx.cs)--%>
     </asp:GridView>
-    <asp:Button ID="btnAgregarArticulo" runat="server" Text="Agregar Artículo" OnClick="btnAgregarArticulo_Click" CssClass="btn btn-primary" />
+    <a href="AltaArticulo.aspx">Agregar un artículo</a>
+    <%--<asp:Button ID="btnAgregarArticulo" runat="server" Text="Agregar Artículo" OnClick="BtnAgregarArticulo_Click" CssClass="btn btn-success" />--%>
 </asp:Content>

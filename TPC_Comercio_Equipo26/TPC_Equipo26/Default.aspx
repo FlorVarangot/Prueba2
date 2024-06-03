@@ -17,7 +17,7 @@
             <button type="submit" class="btn btn-primary">Ingresar</button>
             <div class="registro">
                 <p>¿No tenés cuenta? <a href="Registro.aspx">Registrate</a></p>
-                <p>O hacé <a href="Articulos.aspx">clic acá</a> para seguir navegando sin iniciar sesión.</p>
+                <p>O hacé <a href="Articulos.aspx">CLIC ACÁ</a> para seguir navegando sin iniciar sesión.</p>
             </div>
         </div>
     </main>
