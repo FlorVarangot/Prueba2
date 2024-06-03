@@ -50,6 +50,6 @@ namespace TPC_Equipo26.Negocio
 
             return listaArticulos;
         }
-
+        ///prueba
     }
 }
