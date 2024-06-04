@@ -8,19 +8,16 @@ namespace TPC_Equipo26.Dominio
 {
     public class Articulo
     {
-        public int ID {get; set;}
-        //[DisplayName("Código")]
+        public long ID {get; set;}
         public string Codigo { get; set; }
         public string Nombre { get; set; }
-        //[DisplayName("Descripción")]
         public string Descripcion { get; set; }
-        //public Marca Marca { get; set; }
-        //[DisplayName("Categoría")]
-        //public Categoria Categoria { get; set; }
-        //public List<Imagen> Imagenes { get; set; }
-        //public int Cantidad { get; set; }
+        public Marca Marca { get; set; }
+        public Categoria Categoria { get; set; }
+        public List<Imagen> Imagenes { get; set; }
         public float Precio { get; set; }
-        //public int StockMin {get; set;}
+        public int StockMin {get; set;}
+        public int Stock { get; set;}
         public bool Activo { get; set; }
     }
 }

@@ -11,6 +11,5 @@ namespace TPC_Equipo26.Dominio
         public int IdArticulo { get; set; }
         public string UrlImagen { get; set; }
         public bool Activo { get; set; }
-
-}
+    }
 }

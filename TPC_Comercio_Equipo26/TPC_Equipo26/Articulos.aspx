@@ -19,7 +19,7 @@
             <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Código" DataField="Codigo" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-            <%--<asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
+            <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
             <asp:BoundField HeaderText="Marca" DataField="Marca"  />
             <asp:BoundField HeaderText="Categoría" DataField="Categoria"/>
             <asp:TemplateField HeaderText="Imagen">
@@ -30,8 +30,10 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </ItemTemplate>
-            </asp:TemplateField>--%>
-            <asp:BoundField HeaderText="Precio Unitario ($)" DataField="Precio" />
+            </asp:TemplateField>
+            <asp:BoundField HeaderText="Precio Unitario ($)" DataField="PrecioVenta" />
+            <asp:BoundField HeaderText="Stock" DataField="Stock" />
+            <asp:BoundField HeaderText="Stock Min" DataField="StockMin" />            
             <asp:BoundField HeaderText="Activo" DataField="Activo" />
             <asp:TemplateField HeaderText="Editar">
                 <ItemTemplate>

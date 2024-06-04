@@ -19,7 +19,7 @@ namespace TPC_Equipo26.Negocio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=PRUEBA_TPC; integrated security = true");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=LIBRERIA_DB; integrated security = true");
             comando = new SqlCommand();
         }
 

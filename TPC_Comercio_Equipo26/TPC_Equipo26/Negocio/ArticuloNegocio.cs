@@ -16,27 +16,35 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT * FROM ARTICULOS;");
+                datos.setearConsulta("SELECT A.*, M.Descripcion AS Marca, C.Descripcion AS Categoria FROM ARTICULOS A " +
+                             "LEFT JOIN MARCAS M ON A.IdMarca = M.Id " +
+                             "LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id;");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Articulo arti= new Articulo();
                     {
-                        arti.ID = datos.Lector.GetInt32(0);
+                        arti.ID = datos.Lector.GetInt64(0);
                         arti.Codigo = datos.Lector["Codigo"].ToString();
                         arti.Nombre = datos.Lector["Nombre"].ToString();
                         arti.Descripcion = datos.Lector["Descripcion"].ToString();
-                        //arti.Marca = new Marca { Descripcion = datos.Lector["Marca"].ToString};
-                        //arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString};
-                        arti.Precio = (float)datos.Lector.GetDecimal(4);
+                        arti.Marca = new Marca { Descripcion = datos.Lector["Marca"].ToString()};
+                        arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString()};
+                        
+                        //string urlImagen = datos.Lector["Imagen"] as string;
+                        //Imagen imagen = new Imagen { UrlImagen = urlImagen };
+                        //arti.Imagenes.Add(imagen);
+                        //listaArticulos.Add(arti);
+
+
+                        arti.Precio = (float)datos.Lector.GetDecimal(7);
+                        arti.Stock = datos.Lector.GetInt32(8);
+                        arti.StockMin = datos.Lector.GetInt32(9);
                         arti.Activo = (bool)datos.Lector["Activo"];
                     };
 
-                    //string urlImagen = datos.Lector["Imagen"] as string;
-                    //Imagen imagen = new Imagen { UrlImagen = urlImagen };
-                    //arti.Imagenes.Add(imagen);
-                    listaArticulos.Add(arti);
+                    
                 }
             }
             catch (Exception ex)
@@ -50,6 +58,5 @@ namespace TPC_Equipo26.Negocio
 
             return listaArticulos;
         }
-        ///prueba
     }
 }

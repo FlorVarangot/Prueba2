@@ -69,10 +69,12 @@
     <Content Include="Categorias.aspx" />
     <Content Include="Clientes.aspx" />
     <Content Include="Articulos.aspx" />
+    <Content Include="Compras.aspx" />
     <Content Include="DetalleArticulo.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Marcas.aspx" />
+    <Content Include="MiPerfil.aspx" />
     <Content Include="Proveedores.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Style.css" />
@@ -107,6 +109,13 @@
     </Compile>
     <Compile Include="Articulos.aspx.designer.cs">
       <DependentUpon>Articulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Compras.aspx.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras.aspx.designer.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
     </Compile>
     <Compile Include="DetalleArticulo.aspx.cs">
       <DependentUpon>DetalleArticulo.aspx</DependentUpon>
@@ -152,6 +161,13 @@
     </Compile>
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Negocio\AccesoDatos.cs" />
     <Compile Include="Negocio\ArticuloNegocio.cs" />
