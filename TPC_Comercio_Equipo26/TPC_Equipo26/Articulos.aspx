@@ -3,10 +3,20 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>ARTíCULOS</h1>
-    <asp:GridView class="table" style="text-align:center" runat="server" CssClass="table table-light table-bordered" ID="gvArticulos" AutoGenerateColumns="false">
+    <h1>ARTICULOS</h1>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <asp:Label Text="Filtrar" runat="server" />
+                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="filtro_TextChanged" />
+            </div>
+        </div>
+    </div>
+
+    <asp:GridView class="table" Style="text-align: center" runat="server" CssClass="table table-light table-bordered" ID="gvArticulos" AutoGenerateColumns="false">
         <Columns>
-            <asp:BoundField HeaderText="Id" DataField="ID"/>
+            <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Código" DataField="Codigo" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <%--<asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
@@ -26,10 +36,10 @@
             <asp:TemplateField HeaderText="Editar">
                 <ItemTemplate>
                     <a href="AltaArticulo.aspx">
-                        <i class="fa-solid fa-pen" style="color:dimgrey; margin:10px"></i>
+                        <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
                     </a>
                     <a href="#" class="icon">
-                        <i class="fa-solid fa-trash-can" style="color:dimgrey; margin:10px"></i>
+                        <i class="fa-solid fa-trash-can" style="color: dimgrey; margin: 10px"></i>
                     </a>
                 </ItemTemplate>
             </asp:TemplateField>

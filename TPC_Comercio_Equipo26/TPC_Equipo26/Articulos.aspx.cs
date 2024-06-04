@@ -14,16 +14,13 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-
             if (!IsPostBack)
             {
-
-                List<Articulo> articulos = articuloNegocio.ListarArticulosConImagenes();
-                gvArticulos.DataSource = articulos;
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                Session.Add("ListaArticulos", articuloNegocio.ListarArticulosConImagenes());
+                gvArticulos.DataSource = Session["ListaArticulos"];
                 gvArticulos.DataBind();
             }
-
         }
         protected void BtnAgregarArticulo_Click(object sender, EventArgs e)
         {
@@ -37,7 +34,13 @@ namespace TPC_Equipo26
             }
         }
 
-
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> lista = (List<Articulo>)Session["ListaArticulos"];
+            List<Articulo> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+            gvArticulos.DataSource = listaFiltrada;
+            gvArticulos.DataBind();
+        }
     }
 
 }
