@@ -15,15 +15,15 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT * FROM MARCAS");
+                datos.setearConsulta("SELECT Id, Descripcion, IdProveedor, Activo FROM MARCAS");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Marca aux = new Marca();
-                    aux.ID = (int)datos.Lector["Id"];
+                    aux.ID = (short)datos.Lector["Id"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    aux.IdProveedor = (int)datos.Lector["Id_Proveedor"];
+                    aux.IdProveedor = (short)datos.Lector["IdProveedor"];
                     aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
