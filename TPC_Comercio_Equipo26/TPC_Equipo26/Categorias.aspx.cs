@@ -15,9 +15,9 @@ namespace TPC_Equipo26
         {
             if (!IsPostBack)
             {
-                MarcaNegocio marcaNegocio = new MarcaNegocio();
-                List<Marca> marcas = marcaNegocio.Listar();
-                gvCategorias.DataSource = marcas;
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                List<Categoria> categorias = categoriaNegocio.Listar();
+                gvCategorias.DataSource = categorias;
                 gvCategorias.DataBind();
             }
         }

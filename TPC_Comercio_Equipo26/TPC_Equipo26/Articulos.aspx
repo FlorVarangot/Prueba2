@@ -20,20 +20,16 @@
             <asp:BoundField HeaderText="Código" DataField="Codigo" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
-            <asp:BoundField HeaderText="Marca" DataField="Marca"  />
-            <asp:BoundField HeaderText="Categoría" DataField="Categoria"/>
-            <asp:TemplateField HeaderText="Imagen">
+            <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
+            <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
+            <asp:TemplateField HeaderText="Imágenes">
                 <ItemTemplate>
-                    <asp:Repeater ID="rptImagenes" runat="server" DataSource='<%# Eval("Imagenes") %>'>
-                        <ItemTemplate>
-                            <img src='<%# Eval("UrlImagen") %>' alt="Imgaen del artículo" />
-                        </ItemTemplate>
-                    </asp:Repeater>
+                    <asp:Image ID="imgArticulo" runat="server" ImageUrl='<%# Eval("Imagenes[0].UrlImagen") %>' AlternateText="Imagen del artículo" Style="height:40px; width:45px;"/>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField HeaderText="Precio Unitario ($)" DataField="PrecioVenta" />
-            <asp:BoundField HeaderText="Stock" DataField="Stock" />
-            <asp:BoundField HeaderText="Stock Min" DataField="StockMin" />            
+            <asp:BoundField HeaderText="Precio Unitario ($)" DataField="Precio" />
+            <asp:BoundField HeaderText="Stock disponible" DataField="Stock" />
+            <asp:BoundField HeaderText="Stock Mínimo" DataField="StockMin" />
             <asp:BoundField HeaderText="Activo" DataField="Activo" />
             <asp:TemplateField HeaderText="Editar">
                 <ItemTemplate>
@@ -47,8 +43,6 @@
             </asp:TemplateField>
         </Columns>
 
-        <%-- Corregir:
-                1. Boton AgregarArticulo no dirige a página correcta, sí a ERROR.ASPX (ver evento en Articulo.aspx.cs)--%>
     </asp:GridView>
     <a href="AltaArticulo.aspx">Agregar un artículo</a>
     <%--<asp:Button ID="btnAgregarArticulo" runat="server" Text="Agregar Artículo" OnClick="BtnAgregarArticulo_Click" CssClass="btn btn-success" />--%>

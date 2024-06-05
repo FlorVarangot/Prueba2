@@ -31,13 +31,13 @@
                         <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Articulos.aspx">Articulos</a>
+                        <a class="nav-link" href="Articulos.aspx">Artículos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Marcas.aspx">Marcas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Categorias.aspx">Categorias</a>
+                        <a class="nav-link" href="Categorias.aspx">Categorías</a>
                     </li>
                     <li class="nav-item">
                     <%-- Proveedores (tmbClientes) podria ser un desplegable con opciones: -ver proveedores, -ver compras" --%>

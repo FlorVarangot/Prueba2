@@ -17,10 +17,12 @@ namespace TPC_Equipo26
             if (!IsPostBack)
             {
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-                Session.Add("ListaArticulos", articuloNegocio.ListarArticulosConImagenes());
+                Session.Add("ListaArticulos", articuloNegocio.ListarConImagenes());
                 gvArticulos.DataSource = Session["ListaArticulos"];
                 gvArticulos.DataBind();
             }
+
+           
         }
         protected void BtnAgregarArticulo_Click(object sender, EventArgs e)
         {

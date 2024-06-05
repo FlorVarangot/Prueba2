@@ -13,5 +13,14 @@ namespace TPC_Equipo26
 
     public partial class Categorias
     {
+
+        /// <summary>
+        /// Control gvCategorias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvCategorias;
     }
 }

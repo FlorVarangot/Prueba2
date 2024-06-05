@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>CATEGORÍAS</h1>
-    <asp:GridView class="table" style="text-align:center" runat="server" CssClass="table table-light table-bordered" ID="gvCategorias" AutoGenerateColumns="false">
+    <asp:GridView ID="gvCategorias" class="table" style="text-align:center" runat="server" CssClass="table table-light table-bordered" AutoGenerateColumns="false">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Categoría" DataField="Descripcion" />
