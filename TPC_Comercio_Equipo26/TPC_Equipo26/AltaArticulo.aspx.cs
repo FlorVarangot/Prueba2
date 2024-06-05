@@ -13,5 +13,10 @@ namespace TPC_Equipo26
         {
 
         }
+
+        protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
+        {
+            imgArticulos.ImageUrl = txtImagenUrl.Text;
+        }
     }
 }

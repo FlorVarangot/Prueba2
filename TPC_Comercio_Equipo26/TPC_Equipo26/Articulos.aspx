@@ -62,5 +62,5 @@
         </Columns>
 
     </asp:GridView>
-    <a href="AltaArticulo.aspx">Agregar un artículo</a>
+    <a href="AltaArticulo.aspx" class="btn btn-primary">Agregar un artículo</a>
 </asp:Content>
