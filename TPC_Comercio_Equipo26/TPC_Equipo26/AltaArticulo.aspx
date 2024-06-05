@@ -9,7 +9,7 @@
         <div class="col-6">
             <div class="mb-3">
                 <label for="txtId" class="form-label">ID</label>
-                <asp:TextBox runat="server" ID="txtId" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtID" CssClass="form-control" />
             </div>
             <div class="mb-3">
                 <label for="txtCodigo" class="form-label">Codigo: </label>
@@ -28,7 +28,11 @@
                 <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server"></asp:DropDownList>
             </div>
             <div class="mb-3">
-                <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary" runat="server" />
+                <label for="ddlCategoria" class="form-label">Categoria</label>
+                <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server"></asp:DropDownList>
+            </div>
+            <div class="mb-3">
+                <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" runat="server" />
                 <a href="Articulos.aspx" class="btn btn-danger">Cancelar</a>
                 <asp:Button Text="Inactivar" ID="btnInactivar" CssClass="btn btn-warning" runat="server" />
             </div>
@@ -36,8 +40,16 @@
 
         <div class="col-6">
             <div class="mb-3">
-                <label for="ddlCategoria" class="form-label">Categoria</label>
-                <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server"></asp:DropDownList>
+                <label for="txtPrecio" class="form-label">Precio Unitario $</label>
+                <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server"></asp:TextBox>
+            </div>
+            <div class="mb-3">
+                <label for="ddlStock" class="form-label">Stock</label>
+                <asp:DropDownList ID="ddlStock" CssClass="form-select" runat="server"></asp:DropDownList>
+            </div>
+            <div class="mb-3">
+                <label for="ddlStockMinimo" class="form-label">Stock Minimo</label>
+                <asp:DropDownList ID="ddlStockMinimo" CssClass="form-select" runat="server"></asp:DropDownList>
             </div>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>

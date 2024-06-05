@@ -78,5 +78,9 @@ namespace TPC_Equipo26.Negocio
             return listaArticulos;
         }
 
+        internal void agregar(Articulo articulo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
