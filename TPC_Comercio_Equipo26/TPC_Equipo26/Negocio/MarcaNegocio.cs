@@ -15,7 +15,8 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Descripcion, IdProveedor, Activo FROM MARCAS");
+                datos.setearConsulta("SELECT Id, Descripcion, IdProveedor, ImagenUrl, Activo " +
+                                 "FROM MARCAS");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -24,6 +25,7 @@ namespace TPC_Equipo26.Negocio
                     aux.ID = (short)datos.Lector["Id"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.IdProveedor = (short)datos.Lector["IdProveedor"];
+                    aux.ImagenUrl = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : null;
                     aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
