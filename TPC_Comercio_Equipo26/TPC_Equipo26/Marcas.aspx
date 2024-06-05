@@ -16,10 +16,10 @@
                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                 <ControlStyle Height="100px" Width="100px" CssClass="rounded-circle" />
             </asp:ImageField>
-            <asp:TemplateField HeaderText="Editar" ItemStyle-HorizontalAlign="Center">
+            <asp:TemplateField HeaderText="Editar">
                 <ItemTemplate>
                     <a href="#">
-                        <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
+                        <i class="fa-solid fa-pen" style="color:dimgrey; margin:10px"></i>
                     </a>
                     <a href="#" class="icon">
                         <i class="fa-solid fa-trash-can" style="color: dimgrey; margin: 10px"></i>

@@ -3,16 +3,36 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>ARTICULOS</h1>
+    <h1>ARTíCULOS</h1>
 
-    <div class="row">
-        <div class="col-6">
-            <div class="mb-3">
-                <asp:Label Text="Filtrar" runat="server" />
-                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="filtro_TextChanged" />
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
+                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" />
+            </div>
+            <div class="col-2">
+                <asp:Label Text="Marca:" runat="server" CssClass="form-label" />
+                <asp:DropDownList runat="server" ID="ddlMarca" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroMarca_SelectedIndexChanged" />
+            </div>
+            <div class="col-2">
+                <asp:Label Text="Categoría:" runat="server" CssClass="form-label" />
+                <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroCategoria_SelectedIndexChanged" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin:15px" />
             </div>
         </div>
     </div>
+
+
 
     <asp:GridView class="table" Style="text-align: center" runat="server" CssClass="table table-light table-bordered" ID="gvArticulos" AutoGenerateColumns="false">
         <Columns>
@@ -24,7 +44,7 @@
             <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
             <asp:TemplateField HeaderText="Imágenes">
                 <ItemTemplate>
-                    <asp:Image ID="imgArticulo" runat="server" ImageUrl='<%# Eval("Imagenes[0].UrlImagen") %>' AlternateText="Imagen del artículo" Style="height:40px; width:45px;"/>
+                    <asp:Image ID="imgArticulo" runat="server" ImageUrl='<%# Eval("Imagenes[0].UrlImagen") %>' AlternateText="Imagen del artículo" Style="height: 40px; width: 45px;" />
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField HeaderText="Precio Unitario ($)" DataField="Precio" />
@@ -45,5 +65,4 @@
 
     </asp:GridView>
     <a href="AltaArticulo.aspx">Agregar un artículo</a>
-    <%--<asp:Button ID="btnAgregarArticulo" runat="server" Text="Agregar Artículo" OnClick="BtnAgregarArticulo_Click" CssClass="btn btn-success" />--%>
 </asp:Content>
