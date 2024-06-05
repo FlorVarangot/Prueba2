@@ -30,7 +30,7 @@ namespace TPC_Equipo26
                 ddlMarca.DataTextField = "Descripcion";
                 ddlMarca.DataValueField = "ID";
                 ddlMarca.DataBind();
-                ddlMarca.Items.Insert(0, new ListItem("Seleccinar Marca", "0"));
+                ddlMarca.Items.Insert(0, new ListItem("Seleccionar Marca", "0"));
 
                 ddlCategoria.DataSource = categorias;
                 ddlCategoria.DataTextField = "Descripcion";

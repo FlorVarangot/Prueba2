@@ -7,16 +7,14 @@
 
     <div class="container">
         <div class="row">
+            <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
             <div class="col-2">
-                <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" />
             </div>
             <div class="col-2">
-                <asp:Label Text="Marca:" runat="server" CssClass="form-label" />
                 <asp:DropDownList runat="server" ID="ddlMarca" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroMarca_SelectedIndexChanged" />
             </div>
             <div class="col-2">
-                <asp:Label Text="Categoría:" runat="server" CssClass="form-label" />
                 <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroCategoria_SelectedIndexChanged" />
             </div>
         </div>
@@ -27,7 +25,7 @@
         </div>
         <div class="row">
             <div class="col-2">
-                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin:15px" />
+                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin: 15px" />
             </div>
         </div>
     </div>
