@@ -84,7 +84,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datosImagenes = new AccesoDatos();
 
             try
-            {
+            {     
                 datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, PrecioVenta, Stock, Stock_Minimo, Activo, Ganancia_Porcentaje) " +
                                      "VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @PrecioVenta, @Stock, @Stock_Minimo, @Activo, @Ganancia_Porcentaje)");
 
@@ -100,15 +100,13 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Ganancia_Porcentaje", 0); // Reemplaza valorPorDefecto con el valor que desees establecer para Ganancia_Porcentaje
 
                 datos.ejecutarAccion();
-
                 int idArticulo = seleccionoUltimoRegistro();
-
                 foreach (Imagen imagen in articulo.Imagenes)
                 {
-                    datosImagenes.setearConsulta("INSERT INTO IMAGENES (IdArticulo, UrlImagen, Activo) " +
-                                         "VALUES (@IdArticulo, @UrlImagen, @ActivoImagen)");
+                    datosImagenes.setearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl, Activo) " +
+                                         "VALUES (@IdArticulo, @ImagenUrl, @ActivoImagen)");
                     datosImagenes.setearParametro("@IdArticulo", idArticulo);
-                    datosImagenes.setearParametro("@UrlImagen", imagen.UrlImagen);
+                    datosImagenes.setearParametro("@ImagenUrl", imagen.UrlImagen);
                     datosImagenes.setearParametro("@ActivoImagen", imagen.Activo);
                     datosImagenes.ejecutarAccion();
                 }
@@ -116,7 +114,7 @@ namespace TPC_Equipo26.Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine("Error al agregar el artículo: " + ex.Message);              
             }
             finally
             {

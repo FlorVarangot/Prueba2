@@ -23,14 +23,14 @@
                 <label for="txtDescripcion" class="form-label">Descripcion: </label>
                 <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
             </div>
-           <div class="mb-3">
-    <label for="ddlMarca" class="form-label">Marca</label>
-    <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
-</div>
-<div class="mb-3">
-    <label for="ddlCategoria" class="form-label">Categoria</label>
-    <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
-</div>
+            <div class="mb-3">
+                <label for="ddlMarca" class="form-label">Marca</label>
+                <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
+            </div>
+            <div class="mb-3">
+                <label for="ddlCategoria" class="form-label">Categoria</label>
+                <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
+            </div>
             <div class="mb-3">
                 <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" runat="server" />
                 <a href="Articulos.aspx" class="btn btn-danger">Cancelar</a>

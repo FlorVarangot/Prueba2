@@ -87,6 +87,7 @@ namespace TPC_Equipo26
                 nuevo.Imagenes = new List<Imagen> { imagen };
 
                 negocio.agregar(nuevo);
+                LimpiarCampos();
                 Response.Redirect("Articulos.aspx", false);
             }
             catch
@@ -94,6 +95,21 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
+
+        private void LimpiarCampos()
+        {
+            txtCodigo.Text = "";
+            txtNombre.Text = "";
+            txtDescripcion.Text = "";
+            ddlMarca.SelectedIndex = 0;
+            ddlCategoria.SelectedIndex = 0;
+            txtPrecio.Text = "";
+            ddlStock.SelectedIndex = 0;
+            ddlStockMinimo.SelectedIndex = 0;
+            txtImagenUrl.Text = "";
+            imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+        }
+
         protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
         {
             //actualiza la URL de la imagen cada vez que cambia el texto
