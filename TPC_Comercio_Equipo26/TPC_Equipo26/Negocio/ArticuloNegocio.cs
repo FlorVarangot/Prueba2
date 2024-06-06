@@ -54,7 +54,7 @@ namespace TPC_Equipo26.Negocio
                         arti.Imagenes.Add(imagen);
                     }
                     datosImagenes.cerrarConexion();
-                    
+
                     if (arti.Imagenes.Count == 0)
                     {
                         Imagen imagenPorDefecto = new Imagen
@@ -78,9 +78,81 @@ namespace TPC_Equipo26.Negocio
             return listaArticulos;
         }
 
-        internal void agregar(Articulo articulo)
+        public void agregar(Articulo articulo)
         {
-            throw new NotImplementedException();
+            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datosImagenes = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, PrecioVenta, Stock, Stock_Minimo, Activo, Ganancia_Porcentaje) " +
+                                     "VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @PrecioVenta, @Stock, @Stock_Minimo, @Activo, @Ganancia_Porcentaje)");
+
+                datos.setearParametro("@Codigo", articulo.Codigo);
+                datos.setearParametro("@Nombre", articulo.Nombre);
+                datos.setearParametro("@Descripcion", articulo.Descripcion);
+                datos.setearParametro("@IdMarca", articulo.Marca.ID);
+                datos.setearParametro("@IdCategoria", articulo.Categoria.ID);
+                datos.setearParametro("@PrecioVenta", articulo.Precio);
+                datos.setearParametro("@Stock", articulo.Stock);
+                datos.setearParametro("@Stock_Minimo", articulo.StockMin);
+                datos.setearParametro("@Activo", articulo.Activo);
+                datos.setearParametro("@Ganancia_Porcentaje", 0); // Reemplaza valorPorDefecto con el valor que desees establecer para Ganancia_Porcentaje
+
+                datos.ejecutarAccion();
+
+                int idArticulo = seleccionoUltimoRegistro();
+
+                foreach (Imagen imagen in articulo.Imagenes)
+                {
+                    datosImagenes.setearConsulta("INSERT INTO IMAGENES (IdArticulo, UrlImagen, Activo) " +
+                                         "VALUES (@IdArticulo, @UrlImagen, @ActivoImagen)");
+                    datosImagenes.setearParametro("@IdArticulo", idArticulo);
+                    datosImagenes.setearParametro("@UrlImagen", imagen.UrlImagen);
+                    datosImagenes.setearParametro("@ActivoImagen", imagen.Activo);
+                    datosImagenes.ejecutarAccion();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+                datosImagenes.cerrarConexion();
+            }
+        }
+
+
+
+        public int seleccionoUltimoRegistro()
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("select top(1) Id from ARTICULOS order by Id desc");
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return Convert.ToInt32(datos.Lector["Id"]);
+                }
+                else
+                {
+                    throw new Exception("No se pudo obtener el ID del último registro insertado.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }
