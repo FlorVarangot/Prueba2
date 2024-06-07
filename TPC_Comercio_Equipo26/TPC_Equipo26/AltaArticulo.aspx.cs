@@ -107,7 +107,6 @@ namespace TPC_Equipo26
                 }
                 else
                 {
-                    // Agregar nuevo artículo
                     negocio.agregar(nuevo);
                 }
                 LimpiarCampos();

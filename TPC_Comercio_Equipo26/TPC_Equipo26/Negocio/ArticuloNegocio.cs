@@ -97,7 +97,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Stock", articulo.Stock);
                 datos.setearParametro("@Stock_Minimo", articulo.StockMin);
                 datos.setearParametro("@Activo", articulo.Activo);
-                datos.setearParametro("@Ganancia_Porcentaje", 0); // Reemplaza valorPorDefecto con el valor que desees establecer para Ganancia_Porcentaje
+                datos.setearParametro("@Ganancia_Porcentaje", 0); 
 
                 datos.ejecutarAccion();
                 int idArticulo = seleccionoUltimoRegistro();
@@ -114,7 +114,7 @@ namespace TPC_Equipo26.Negocio
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al agregar el artículo: " + ex.Message);              
+                throw ex;             
             }
             finally
             {
@@ -236,9 +236,50 @@ namespace TPC_Equipo26.Negocio
                 //PENDIENTE
             }
 
-        internal void modificar(Articulo nuevo)
+        public void modificar(Articulo nuevo)
         {
-            throw new NotImplementedException();
+            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datosImagenes = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion,IdMarca = @IdMarca, IdCategoria = @IdCategoria, PrecioVenta = @PrecioVenta, Stock = @Stock, Stock_Minimo = @Stock_Minimo, Activo = @Activo, Ganancia_Porcentaje = @Ganancia_Porcentaje WHERE Id = @Id");
+                datos.setearParametro("@Codigo", nuevo.Codigo);
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Descripcion",nuevo.Descripcion);
+                datos.setearParametro("@IdMarca", nuevo.Marca.ID);
+                datos.setearParametro("@IdCategoria", nuevo.Categoria.ID);
+                datos.setearParametro("@PrecioVenta", nuevo.Precio);
+                datos.setearParametro("@Stock", nuevo.Stock);
+                datos.setearParametro("@Stock_Minimo", nuevo.StockMin);
+                datos.setearParametro("@Activo", nuevo.Activo);
+                datos.setearParametro("@Ganancia_Porcentaje", 0);
+                datos.setearParametro("@Id", nuevo.ID);
+
+                datos.ejecutarAccion();
+
+                datosImagenes.setearConsulta("DELETE FROM IMAGENES WHERE IdArticulo = @IdArticulo");
+                datosImagenes.setearParametro("@IdArticulo",nuevo.ID);
+                datosImagenes.ejecutarAccion();
+
+                foreach (Imagen imagen in nuevo.Imagenes)
+                {
+                    datosImagenes.setearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl, Activo) " +
+                                         "VALUES (@IdArticulo, @ImagenUrl, @ActivoImagen)");
+                    datosImagenes.setearParametro("@IdArticulo",nuevo.ID);
+                    datosImagenes.setearParametro("@ImagenUrl", imagen.UrlImagen);
+                    datosImagenes.setearParametro("@ActivoImagen", imagen.Activo);
+                    datosImagenes.ejecutarAccion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+                datosImagenes.cerrarConexion();
+            }
         }
     }
 }
