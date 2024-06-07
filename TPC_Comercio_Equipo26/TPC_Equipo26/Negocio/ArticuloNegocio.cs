@@ -33,7 +33,7 @@ namespace TPC_Equipo26.Negocio
                         arti.Precio = datos.Lector.GetDecimal(6);
                         arti.Stock = datos.Lector.GetInt32(7);
                         arti.StockMin = datos.Lector.GetInt32(8);
-                        arti.Activo = (bool)datos.Lector["Activo"];
+                        arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
                     };
 
                     AccesoDatos datosImagenes = new AccesoDatos();
@@ -47,7 +47,7 @@ namespace TPC_Equipo26.Negocio
                         Imagen imagen = new Imagen
                         {
                             ID = datosImagenes.Lector.GetInt64(0),
-                            IdArticulo = datosImagenes.Lector.GetInt32(1),
+                            IdArticulo = datosImagenes.Lector.GetInt64(1),
                             UrlImagen = datosImagenes.Lector["ImagenUrl"].ToString(),
                             Activo = (bool)datosImagenes.Lector["Activo"]
                         };
@@ -123,8 +123,6 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-
-
         public int seleccionoUltimoRegistro()
         {
             AccesoDatos datos = new AccesoDatos();
@@ -152,5 +150,66 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+        public Articulo ObtenerArticuloPorID(int idArticulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Imagen image = new Imagen();
+
+            try
+            {
+                string consulta = "SELECT * FROM ARTICULOS WHERE Id = @IdArticulo";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdArticulo", idArticulo);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Articulo arti = new Articulo();
+                    arti.ID = Convert.ToInt64(datos.Lector["Id"]);
+                    arti.Codigo = datos.Lector["Codigo"].ToString();
+                    arti.Nombre = datos.Lector["Nombre"].ToString();
+                    arti.Descripcion = datos.Lector["Descripcion"].ToString();
+
+                    arti.Marca = new Marca();
+                    arti.Marca.ID = Convert.ToInt32(datos.Lector["IdMarca"]);
+
+                    arti.Categoria = new Categoria();
+                    arti.Categoria.ID = Convert.ToInt32(datos.Lector["IdCategoria"]);
+
+                    //Imagenes:
+                    //arti.Imagenes = ObtenerImagenesPorID(arti.ID);
+
+                    arti.Precio = Convert.ToDecimal(datos.Lector["PrecioVenta"]);
+                    arti.Stock = Convert.ToInt32(datos.Lector["Stock"]);
+                    arti.StockMin = Convert.ToInt32(datos.Lector["Stock_Minimo"]);
+
+                    return arti;
+                }
+                else
+                {
+                    return null;
+                }
+
+            } catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el artículo por ID", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+        }
+            public void EliminarLogico(int id)
+            {
+                //PENDIENTE
+            }
+
+
+
+
     }
 }

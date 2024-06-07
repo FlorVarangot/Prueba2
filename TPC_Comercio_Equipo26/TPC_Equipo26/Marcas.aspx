@@ -14,15 +14,15 @@
             <asp:BoundField HeaderText="Activo" DataField="Activo" ItemStyle-HorizontalAlign="Center" />
             <asp:ImageField HeaderText="Imagen" DataImageUrlField="ImagenUrl" ControlStyle-Height="100" ControlStyle-Width="100" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                <ControlStyle Height="100px" Width="100px" CssClass="rounded-circle" />
+                <ControlStyle Height="40px" Width="40px" CssClass="rounded-circle" />
             </asp:ImageField>
-            <asp:TemplateField HeaderText="Editar">
+            <asp:TemplateField>
                 <ItemTemplate>
-                    <a href="#">
-                        <i class="fa-solid fa-pen" style="color:dimgrey; margin:10px"></i>
+                    <a href="#" class="icono" title="Editar">
+                        <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
                     </a>
-                    <a href="#" class="icon">
-                        <i class="fa-solid fa-trash-can" style="color: dimgrey; margin: 10px"></i>
+                    <a href="#" class="icono" title="Ver más detalles">
+                        <i class="fa-solid fa-plus" style="color: dimgrey; margin: 10px"></i>
                     </a>
                 </ItemTemplate>
             </asp:TemplateField>

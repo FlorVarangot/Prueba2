@@ -97,6 +97,19 @@ namespace TPC_Equipo26
             gvArticulos.DataBind();
         }
 
+        protected void gvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvArticulos.PageIndex = e.NewPageIndex;
+
+            gvArticulos.DataSource = Session["ListaArticulos"];
+            gvArticulos.DataBind();
+        }
+
+        protected void gvArticulos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = gvArticulos.SelectedDataKey.Value.ToString();
+            Response.Redirect("AltaArticulos.aspx?ID=" + id);
+        }
     }
 
 }

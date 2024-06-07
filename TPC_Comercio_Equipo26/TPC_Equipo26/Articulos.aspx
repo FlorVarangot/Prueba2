@@ -32,7 +32,11 @@
 
 
 
-    <asp:GridView class="table" Style="text-align: center" runat="server" CssClass="table table-light table-bordered" ID="gvArticulos" AutoGenerateColumns="false">
+    <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-light table-bordered"
+        Style="text-align: center" AutoGenerateColumns="false" 
+        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged"
+        OnPageIndexChanging="gvArticulos_PageIndexChanging"
+        AllowPaging="true" PageSize="10">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Código" DataField="Codigo" />
@@ -40,7 +44,7 @@
             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
             <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
             <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
-            <asp:TemplateField HeaderText="Imágenes">
+            <asp:TemplateField HeaderText="Imagen">
                 <ItemTemplate>
                     <asp:Image ID="imgArticulo" runat="server" ImageUrl='<%# Eval("Imagenes[0].UrlImagen") %>' AlternateText="Imagen del artículo" Style="height: 40px; width: 45px;" />
                 </ItemTemplate>
@@ -49,18 +53,18 @@
             <asp:BoundField HeaderText="Stock disponible" DataField="Stock" />
             <asp:BoundField HeaderText="Stock Mínimo" DataField="StockMin" />
             <asp:BoundField HeaderText="Activo" DataField="Activo" />
-            <asp:TemplateField HeaderText="Editar">
+            <asp:TemplateField>
                 <ItemTemplate>
-                    <a href="AltaArticulo.aspx">
+                    <a href='<%# "AltaArticulo.aspx?ID=" + Eval("ID") %>' class="icono" title="Editar">
                         <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
                     </a>
-                    <a href="#" class="icon">
-                        <i class="fa-solid fa-trash-can" style="color: dimgrey; margin: 10px"></i>
+                    <a href="DetalleArticulo.aspx" class="icono" title="Ver más detalles">
+                        <i class="fa-solid fa-plus" style="color: dimgrey; margin: 10px"></i>
                     </a>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
 
     </asp:GridView>
-    <a href="AltaArticulo.aspx" class="btn btn-primary">Agregar un artículo</a>
+    <a href="AltaArticulo.aspx" class="btn btn-success">Agregar un artículo</a>
 </asp:Content>

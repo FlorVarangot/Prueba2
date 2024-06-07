@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TPC_Equipo26.Dominio;
+using static System.Net.WebRequestMethods;
 
 namespace TPC_Equipo26.Negocio
 {
@@ -25,7 +26,10 @@ namespace TPC_Equipo26.Negocio
                     aux.ID = (short)datos.Lector["Id"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.IdProveedor = (short)datos.Lector["IdProveedor"];
-                    aux.ImagenUrl = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : null;
+
+                    //F: agrego imagen por defecto si no tiene img:
+                    aux.ImagenUrl = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
+
                     aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }

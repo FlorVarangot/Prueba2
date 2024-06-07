@@ -10,13 +10,13 @@
             <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Categoría" DataField="Descripcion" />
             <asp:BoundField HeaderText="Activo" DataField="Activo" />
-            <asp:TemplateField HeaderText="Editar">
+            <asp:TemplateField>
                 <ItemTemplate>
-                    <a href="#">
+                    <a href="#" class="icono" title="Editar">
                         <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
                     </a>
-                    <a href="#" class="icon">
-                        <i class="fa-solid fa-trash-can" style="color: dimgrey; margin: 10px"></i>
+                    <a href="#" class="icono" title="Ver más detalles">
+                        <i class="fa-solid fa-plus" style="color: dimgrey; margin: 10px"></i>
                     </a>
                 </ItemTemplate>
             </asp:TemplateField>

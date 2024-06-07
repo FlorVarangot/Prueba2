@@ -20,6 +20,12 @@ namespace TPC_Equipo26
             {
                 if (!IsPostBack)
                 {
+
+                    //F: Creo que la carga de stock y stockmin se puede simplificar en un solo IF
+                    //Aunque de todas maneras, no sé si limitaría el stock a 10. Debieran ser numeros más grandes.
+                    //El STOCK se maneja desde COMPRAS a PROVEEDORES, no desde ALTA ARTICULO.
+                    //Solo debería ir StockMin acá
+
                     for (int i = 1; i <= 10; i++)
                     {
                         ddlStock.Items.Add(new ListItem(i.ToString(), i.ToString()));
@@ -28,6 +34,8 @@ namespace TPC_Equipo26
                     {
                         ddlStockMinimo.Items.Add(new ListItem(i.ToString(), i.ToString()));
                     }
+                    
+                    //F:La carga de desplegables de MARCAS y CATEGORIAS lo metería en Métodos().
 
                     ///Cargo los desplegables para marcas
                     MarcaNegocio negocioMarca = new MarcaNegocio();
@@ -46,6 +54,22 @@ namespace TPC_Equipo26
                     ddlCategoria.DataValueField = "ID";
                     ddlCategoria.DataTextField = "Descripcion";
                     ddlCategoria.DataBind();
+
+                    //F: Evalua si viene o no un ID en la url
+                    if (Request.QueryString["ID"] != null)
+                    {
+                        //Modificar:
+                        lblTituloModificar.Visible = true;
+                        int idArticulo = int.Parse(Request.QueryString["ID"]);
+                        CargarDatosArticulo(idArticulo);
+                    }
+                    else
+                    {
+                        //Agregar:
+                        lblTituloAgregar.Visible = true;
+                        LimpiarCampos();
+
+                    }
                 }
             }
             catch (Exception)
@@ -53,7 +77,8 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-        protected void btnAceptar_Click(object sender, EventArgs e)
+
+        protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -95,7 +120,6 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-
         private void LimpiarCampos()
         {
             txtCodigo.Text = "";
@@ -114,6 +138,49 @@ namespace TPC_Equipo26
         {
             //actualiza la URL de la imagen cada vez que cambia el texto
             imgArticulos.ImageUrl = txtImagenUrl.Text;        
+        }
+
+        protected void BtnInactivar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                
+                //método pendiente en Articulo Negocio:
+                negocio.EliminarLogico(int.Parse(txtID.Text));
+                
+                Response.Redirect("Articulos.aspx");
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex);
+            }
+        }
+
+        private void CargarDatosArticulo(int idArticulo)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo articulo = negocio.ObtenerArticuloPorID(idArticulo);
+            
+            if(articulo != null)
+            {
+                txtID.Text = articulo.ID.ToString();
+                txtCodigo.Text = articulo.Codigo;
+                txtNombre.Text = articulo.Nombre;
+                txtDescripcion.Text = articulo.Descripcion;
+                ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
+                ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
+                ddlStock.SelectedValue = articulo.Stock.ToString();
+                ddlStockMinimo.SelectedValue = articulo.StockMin.ToString();
+                txtPrecio.Text = articulo.Precio.ToString();
+                //F: Aqui deberiamos manejar diferente las imagenes para mostrar mas de una.
+                
+            }
+            else
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
     }

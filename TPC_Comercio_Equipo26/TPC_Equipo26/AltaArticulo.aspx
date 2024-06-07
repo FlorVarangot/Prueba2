@@ -3,12 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>AGREGAR NUEVO ARTICULO</h1>
+    <asp:Label ID="lblTituloAgregar" runat="server" Text="AGREGAR ARTICULO NUEVO" Visible="false" CssClass="titulo-label"></asp:Label>
+    <asp:Label ID="lblTituloModificar" runat="server" Text="MODIFICAR ARTICULO" Visible="false" CssClass="titulo-label"></asp:Label>
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="row">
         <div class="col-6">
             <div class="mb-3">
-                <label for="txtId" class="form-label">ID</label>
+                <label for="txtID" class="form-label">ID</label>
                 <asp:TextBox runat="server" ID="txtID" CssClass="form-control" />
             </div>
             <div class="mb-3">
@@ -32,9 +33,9 @@
                 <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
             </div>
             <div class="mb-3">
-                <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" runat="server" />
+                <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
                 <a href="Articulos.aspx" class="btn btn-danger">Cancelar</a>
-                <asp:Button Text="Inactivar" ID="btnInactivar" CssClass="btn btn-warning" runat="server" />
+                <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning" OnClick="BtnInactivar_Click" runat="server" />
             </div>
         </div>
 
