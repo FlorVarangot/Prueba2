@@ -152,7 +152,7 @@ namespace TPC_Equipo26.Negocio
         }
 
 
-        public Articulo ObtenerArticuloPorID(int idArticulo)
+        public Articulo ObtenerArticuloPorID(long idArticulo)
         {
             AccesoDatos datos = new AccesoDatos();
             Imagen image = new Imagen();
@@ -178,9 +178,6 @@ namespace TPC_Equipo26.Negocio
                     arti.Categoria = new Categoria();
                     arti.Categoria.ID = Convert.ToInt32(datos.Lector["IdCategoria"]);
 
-                    //Imagenes:
-                    //arti.Imagenes = ObtenerImagenesPorID(arti.ID);
-
                     arti.Precio = Convert.ToDecimal(datos.Lector["PrecioVenta"]);
                     arti.Stock = Convert.ToInt32(datos.Lector["Stock"]);
                     arti.StockMin = Convert.ToInt32(datos.Lector["Stock_Minimo"]);
@@ -200,16 +197,48 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.cerrarConexion();
             }
-
-
         }
-            public void EliminarLogico(int id)
+
+        public List<Imagen> ObtenerImagenesPorID(long idArticulo)
+        {
+            List<Imagen> imagenes = new List<Imagen>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT ImagenUrl FROM Imagenes WHERE IdArticulo = @IdArticulo");
+                datos.setearParametro("@IdArticulo", idArticulo);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Imagen imagen = new Imagen
+                    {
+                        UrlImagen = (string)datos.Lector["ImagenUrl"]
+                    };
+                    imagenes.Add(imagen);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return imagenes;
+        }
+
+        public void EliminarLogico(int id)
             {
                 //PENDIENTE
             }
 
-
-
-
+        internal void modificar(Articulo nuevo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

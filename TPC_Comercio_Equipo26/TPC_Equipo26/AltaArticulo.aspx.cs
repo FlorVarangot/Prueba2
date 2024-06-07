@@ -20,8 +20,6 @@ namespace TPC_Equipo26
             {
                 if (!IsPostBack)
                 {
-
-                    //F: Creo que la carga de stock y stockmin se puede simplificar en un solo IF
                     //Aunque de todas maneras, no sé si limitaría el stock a 10. Debieran ser numeros más grandes.
                     //El STOCK se maneja desde COMPRAS a PROVEEDORES, no desde ALTA ARTICULO.
                     //Solo debería ir StockMin acá
@@ -29,12 +27,9 @@ namespace TPC_Equipo26
                     for (int i = 1; i <= 10; i++)
                     {
                         ddlStock.Items.Add(new ListItem(i.ToString(), i.ToString()));
-                    }
-                    for (int i = 1; i <= 10; i++)
-                    {
                         ddlStockMinimo.Items.Add(new ListItem(i.ToString(), i.ToString()));
                     }
-                    
+
                     //F:La carga de desplegables de MARCAS y CATEGORIAS lo metería en Métodos().
 
                     ///Cargo los desplegables para marcas
@@ -54,21 +49,16 @@ namespace TPC_Equipo26
                     ddlCategoria.DataValueField = "ID";
                     ddlCategoria.DataTextField = "Descripcion";
                     ddlCategoria.DataBind();
-
-                    //F: Evalua si viene o no un ID en la url
                     if (Request.QueryString["ID"] != null)
                     {
-                        //Modificar:
                         lblTituloModificar.Visible = true;
                         int idArticulo = int.Parse(Request.QueryString["ID"]);
                         CargarDatosArticulo(idArticulo);
                     }
                     else
-                    {
-                        //Agregar:
+                    {                 
                         lblTituloAgregar.Visible = true;
                         LimpiarCampos();
-
                     }
                 }
             }
@@ -110,8 +100,16 @@ namespace TPC_Equipo26
                 imagen.UrlImagen = txtImagenUrl.Text;
                 imagen.Activo = true;
                 nuevo.Imagenes = new List<Imagen> { imagen };
-
-                negocio.agregar(nuevo);
+                if (Request.QueryString["ID"] != null)
+                {
+                    nuevo.ID = long.Parse(Request.QueryString["ID"]);
+                    negocio.modificar(nuevo);
+                }
+                else
+                {
+                    // Agregar nuevo artículo
+                    negocio.agregar(nuevo);
+                }
                 LimpiarCampos();
                 Response.Redirect("Articulos.aspx", false);
             }
@@ -174,8 +172,17 @@ namespace TPC_Equipo26
                 ddlStock.SelectedValue = articulo.Stock.ToString();
                 ddlStockMinimo.SelectedValue = articulo.StockMin.ToString();
                 txtPrecio.Text = articulo.Precio.ToString();
-                //F: Aqui deberiamos manejar diferente las imagenes para mostrar mas de una.
-                
+                List<Imagen> imagenes = negocio.ObtenerImagenesPorID(articulo.ID);
+                if (imagenes != null && imagenes.Count > 0)
+                {
+                    txtImagenUrl.Text = imagenes[0].UrlImagen;
+                    imgArticulos.ImageUrl = imagenes[0].UrlImagen;
+                }
+                else
+                {
+                    txtImagenUrl.Text = "";
+                    imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+                }
             }
             else
             {
