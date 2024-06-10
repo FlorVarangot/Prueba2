@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using TPC_Equipo26.Dominio;
 using static System.Net.WebRequestMethods;
 
@@ -16,16 +18,15 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Descripcion, IdProveedor, ImagenUrl, Activo " +
-                                 "FROM MARCAS");
+                datos.setearConsulta("SELECT * FROM MARCAS");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Marca aux = new Marca();
-                    aux.ID = (short)datos.Lector["Id"];
-                    aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    aux.IdProveedor = (short)datos.Lector["IdProveedor"];
+                    aux.ID = int.Parse(datos.Lector["Id"].ToString());
+                    aux.Descripcion = datos.Lector["Descripcion"].ToString();
+                    aux.IdProveedor = int.Parse(datos.Lector["IdProveedor"].ToString());
 
                     //F: agrego imagen por defecto si no tiene img:
                     aux.ImagenUrl = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
@@ -45,9 +46,108 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.cerrarConexion();
             }
+
         }
 
+        public void Agregar(Marca marca)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO MARCAS VALUES (@Descripcion, @IdProveedor, @ImagenUrl, @Activo)");
+                datos.setearParametro("@Descripcion", marca.Descripcion);
+                datos.setearParametro("@IdProveedor", marca.IdProveedor);
+                datos.setearParametro("@ImagenUrl", marca.ImagenUrl);
+                datos.setearParametro("@Activo", marca.Activo);
 
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Modificar(Marca marca)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE MARCAS SET Descripcion = @Descripcion, IdProveedor = @IdProveedor, ImagenUrl = @ImagenUrl, Activo = @Activo WHERE Id = @Id");
+
+                datos.setearParametro("@Descripcion", marca.Descripcion);
+                datos.setearParametro("@IdProveedor", marca.IdProveedor);
+                datos.setearParametro("@ImagenUrl", marca.ImagenUrl);
+                datos.setearParametro("@Activo", marca.Activo);
+                datos.setearParametro("@Id", marca.ID);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+        public void EliminarLogico(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE MARCAS SET Activo = False WHERE Id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public Marca ObtenerMarcaPorId(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT * FROM MARCAS WHERE Id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Marca marca = new Marca();
+                    marca.ID = int.Parse(datos.Lector["Id"].ToString());
+                    marca.Descripcion = datos.Lector["Descripcion"].ToString();
+                    marca.IdProveedor = int.Parse(datos.Lector["IdProveedor"].ToString());
+                    marca.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+                    marca.Activo = (bool)datos.Lector["Activo"];
+
+                    return marca;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+
+        }
 
     }
 }

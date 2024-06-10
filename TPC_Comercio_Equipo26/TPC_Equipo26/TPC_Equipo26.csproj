@@ -66,13 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AltaArticulo.aspx" />
+    <Content Include="AltaMarca.aspx" />
     <Content Include="Categorias.aspx" />
     <Content Include="Clientes.aspx" />
-    <Content Include="Articulos.aspx" />
-    <Content Include="Compras.aspx" />
-    <Content Include="DetalleArticulo.aspx" />
-    <Content Include="Error.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Compras.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="LogIn.aspx" />
     <Content Include="Marcas.aspx" />
     <Content Include="MiPerfil.aspx" />
     <Content Include="Proveedores.aspx" />
@@ -89,6 +89,13 @@
     <Compile Include="AltaArticulo.aspx.designer.cs">
       <DependentUpon>AltaArticulo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AltaMarca.aspx.cs">
+      <DependentUpon>AltaMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaMarca.aspx.designer.cs">
+      <DependentUpon>AltaMarca.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Categorias.aspx.cs">
       <DependentUpon>Categorias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -103,12 +110,12 @@
     <Compile Include="Clientes.aspx.designer.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Articulos.aspx.cs">
-      <DependentUpon>Articulos.aspx</DependentUpon>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Articulos.aspx.designer.cs">
-      <DependentUpon>Articulos.aspx</DependentUpon>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Compras.aspx.cs">
       <DependentUpon>Compras.aspx</DependentUpon>
@@ -117,19 +124,11 @@
     <Compile Include="Compras.aspx.designer.cs">
       <DependentUpon>Compras.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DetalleArticulo.aspx.cs">
-      <DependentUpon>DetalleArticulo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DetalleArticulo.aspx.designer.cs">
-      <DependentUpon>DetalleArticulo.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Dominio\Articulo.cs" />
     <Compile Include="Dominio\Categoria.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Compra.cs" />
     <Compile Include="Dominio\Factura.cs" />
-    <Compile Include="Dominio\Imagen.cs" />
     <Compile Include="Dominio\Marca.cs" />
     <Compile Include="Dominio\Proveedor.cs" />
     <Compile Include="Dominio\Usuario.cs" />
@@ -141,12 +140,12 @@
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="LogIn.aspx.cs">
+      <DependentUpon>LogIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="LogIn.aspx.designer.cs">
+      <DependentUpon>LogIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="Marcas.aspx.cs">
       <DependentUpon>Marcas.aspx</DependentUpon>

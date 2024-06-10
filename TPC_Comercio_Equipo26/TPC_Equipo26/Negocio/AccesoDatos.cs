@@ -56,7 +56,6 @@ namespace TPC_Equipo26.Negocio
             {
                 conexion.Open();
                 comando.ExecuteNonQuery();
-
             }
             catch (Exception ex)
             {

@@ -32,38 +32,34 @@
                 <label for="ddlCategoria" class="form-label">Categoria</label>
                 <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
             </div>
-            <div class="mb-3">
-                <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
-                <a href="Articulos.aspx" class="btn btn-danger">Cancelar</a>
-                <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning" OnClick="BtnInactivar_Click" runat="server" />
-            </div>
         </div>
 
         <div class="col-6">
             <div class="mb-3">
-                <label for="txtPrecio" class="form-label">Precio Unitario $</label>
-                <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server"></asp:TextBox>
-            </div>
-            <div class="mb-3">
-                <label for="ddlStock" class="form-label">Stock</label>
-                <asp:DropDownList ID="ddlStock" CssClass="form-select" runat="server"></asp:DropDownList>
+                <label for="txtGanancia" class="form-label">Porcentaje de ganancia sobre el costo %</label>
+                <asp:TextBox ID="txtGanancia" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="mb-3">
                 <label for="ddlStockMinimo" class="form-label">Stock Minimo</label>
                 <asp:DropDownList ID="ddlStockMinimo" CssClass="form-select" runat="server"></asp:DropDownList>
             </div>
+
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <div class="mb-3">
-                        <label for="txtImagenUrl" class="form-label">Url Imagen</label>
+                        <label for="txtImagenUrl" class="form-label">Url Imagen:</label>
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
                             AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged" />
                     </div>
-                    <asp:Image runat="server" ID="imgArticulos" Width="60%" Style="max-width: 100%; height: auto;"
+                    <asp:Image runat="server" ID="imgArticulos" Width="20%" Style="max-width: 100%; height: auto;"
                         ImageUrl="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+        <div class="mb-3" style="align-content:center; text-align:center; margin:20px">
+            <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
+            <a href="Default.aspx" class="btn btn-danger">Cancelar</a>
+            <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning" OnClick="BtnInactivar_Click" runat="server" />
+        </div>
     </div>
-
 </asp:Content>

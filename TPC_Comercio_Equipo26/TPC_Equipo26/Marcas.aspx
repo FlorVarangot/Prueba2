@@ -6,28 +6,52 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>MARCAS</h1>
-    <asp:GridView class="table" Style="text-align: center" runat="server" CssClass="table table-light table-bordered" ID="gvMarcas" AutoGenerateColumns="false">
+    <div class="container">
+        <div class="row">
+            <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
+            <div class="col-2">
+                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" />
+            </div>
+            <div class="col-2">
+                <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroProveedor_SelectedIndexChanged" />
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin: 15px" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <asp:GridView ID="gvMarcas" runat="server" DataKeyNames="ID" CssClass="table table-light table-bordered"
+        Style="text-align: center" AutoGenerateColumns="false"
+        OnSelectedIndexChanged="gvMarcas_SelectedIndexChanged"
+        AllowPaging="true" PageSize="10">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Marca" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Proveedor" DataField="IdProveedor" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Activo" DataField="Activo" ItemStyle-HorizontalAlign="Center" />
-            <asp:ImageField HeaderText="Imagen" DataImageUrlField="ImagenUrl" ControlStyle-Height="100" ControlStyle-Width="100" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
-                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                <ControlStyle Height="40px" Width="40px" CssClass="rounded-circle" />
-            </asp:ImageField>
+            <asp:TemplateField HeaderText="Imagen">
+                <ItemTemplate>
+                    <asp:Image ID="imgMarca" runat="server" ImageUrl='<%# Eval("ImagenUrl") %>' AlternateText="Logo de marca" Style="height: 40px; width: 45px;" />
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <a href="#" class="icono" title="Editar">
+                    <a href='<%# "AltaMarca.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">
                         <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
                     </a>
-                    <a href="#" class="icono" title="Ver más detalles">
-                        <i class="fa-solid fa-plus" style="color: dimgrey; margin: 10px"></i>
-                    </a>
+
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <a href="#">Agregar una marca</a>
+    <a href="AltaMarca.aspx" class="btn btn-success">Agregar una marca</a>
 </asp:Content>
 

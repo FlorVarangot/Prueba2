@@ -14,10 +14,9 @@ namespace TPC_Equipo26.Dominio
         public string Descripcion { get; set; }
         public Marca Marca { get; set; }
         public Categoria Categoria { get; set; }
-        public List<Imagen> Imagenes { get; set; }
-        public decimal Precio { get; set; }
+        public string Imagen { get; set; }
+        public decimal Ganancia { get; set; }
         public int StockMin {get; set;}
-        public int Stock { get; set;}
         public bool Activo { get; set; }
     }
 }

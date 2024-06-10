@@ -21,7 +21,7 @@ namespace TPC_Equipo26.Negocio
                 while (datos.Lector.Read())
                 {
                     Categoria aux = new Categoria();
-                    aux.ID = (short)datos.Lector["Id"];
+                    aux.ID = (int)datos.Lector["Id"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);

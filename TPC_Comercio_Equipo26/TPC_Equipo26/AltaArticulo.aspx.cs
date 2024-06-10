@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Policy;
 using System.Web;
@@ -20,13 +21,12 @@ namespace TPC_Equipo26
             {
                 if (!IsPostBack)
                 {
-                    //Aunque de todas maneras, no sé si limitaría el stock a 10. Debieran ser numeros más grandes.
-                    //El STOCK se maneja desde COMPRAS a PROVEEDORES, no desde ALTA ARTICULO.
+                    //No limitaría el stock a 10. Debieran ser numeros más grandes.
+                    //Aunque El STOCK se maneja desde COMPRAS a PROVEEDORES, no desde ALTA ARTICULO.
                     //Solo debería ir StockMin acá
 
                     for (int i = 1; i <= 10; i++)
                     {
-                        ddlStock.Items.Add(new ListItem(i.ToString(), i.ToString()));
                         ddlStockMinimo.Items.Add(new ListItem(i.ToString(), i.ToString()));
                     }
 
@@ -49,6 +49,7 @@ namespace TPC_Equipo26
                     ddlCategoria.DataValueField = "ID";
                     ddlCategoria.DataTextField = "Descripcion";
                     ddlCategoria.DataBind();
+
                     if (Request.QueryString["ID"] != null)
                     {
                         lblTituloModificar.Visible = true;
@@ -91,26 +92,30 @@ namespace TPC_Equipo26
                 {
                     nuevo.Categoria.ID = int.Parse(categoriaIDString);
                 }
-                nuevo.Precio = decimal.Parse(txtPrecio.Text);
-                nuevo.Stock = int.Parse(ddlStock.SelectedValue);
+
+                nuevo.Ganancia = decimal.Parse(txtGanancia.Text);
                 nuevo.StockMin = int.Parse(ddlStockMinimo.SelectedValue);
+                nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.Activo = true;
 
-                Imagen imagen = new Imagen();
-                imagen.UrlImagen = txtImagenUrl.Text;
-                imagen.Activo = true;
-                nuevo.Imagenes = new List<Imagen> { imagen };
+                //Imagen imagen = new Imagen();
+                //imagen.UrlImagen = txtImagenUrl.Text;
+                //imagen.Activo = true;
+
+                //nuevo.Imagenes = new List<Imagen> { imagen };
+
                 if (Request.QueryString["ID"] != null)
                 {
                     nuevo.ID = long.Parse(Request.QueryString["ID"]);
-                    negocio.modificar(nuevo);
+                    negocio.Modificar(nuevo);
                 }
                 else
                 {
-                    negocio.agregar(nuevo);
+                    negocio.Agregar(nuevo);
                 }
+
                 LimpiarCampos();
-                Response.Redirect("Articulos.aspx", false);
+                Response.Redirect("Default.aspx", false);
             }
             catch
             {
@@ -122,31 +127,28 @@ namespace TPC_Equipo26
             txtCodigo.Text = "";
             txtNombre.Text = "";
             txtDescripcion.Text = "";
+            txtGanancia.Text = "";
+            txtImagenUrl.Text = "";
             ddlMarca.SelectedIndex = 0;
             ddlCategoria.SelectedIndex = 0;
-            txtPrecio.Text = "";
-            ddlStock.SelectedIndex = 0;
             ddlStockMinimo.SelectedIndex = 0;
-            txtImagenUrl.Text = "";
             imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
         }
 
         protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
         {
             //actualiza la URL de la imagen cada vez que cambia el texto
-            imgArticulos.ImageUrl = txtImagenUrl.Text;        
+            imgArticulos.ImageUrl = txtImagenUrl.Text;
         }
+
 
         protected void BtnInactivar_Click(object sender, EventArgs e)
         {
             try
             {
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                
-                //método pendiente en Articulo Negocio:
+                ArticuloNegocio negocio = new ArticuloNegocio();                
                 negocio.EliminarLogico(int.Parse(txtID.Text));
-                
-                Response.Redirect("Articulos.aspx");
+                Response.Redirect("Default.aspx");
 
             }
             catch (Exception ex)
@@ -166,22 +168,34 @@ namespace TPC_Equipo26
                 txtCodigo.Text = articulo.Codigo;
                 txtNombre.Text = articulo.Nombre;
                 txtDescripcion.Text = articulo.Descripcion;
+                txtGanancia.Text = articulo.Ganancia.ToString();
+                txtImagenUrl.Text = articulo.Imagen.ToString();
+
                 ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
                 ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
-                ddlStock.SelectedValue = articulo.Stock.ToString();
+
                 ddlStockMinimo.SelectedValue = articulo.StockMin.ToString();
-                txtPrecio.Text = articulo.Precio.ToString();
-                List<Imagen> imagenes = negocio.ObtenerImagenesPorID(articulo.ID);
-                if (imagenes != null && imagenes.Count > 0)
+                
+                if (articulo.Imagen != null)
                 {
-                    txtImagenUrl.Text = imagenes[0].UrlImagen;
-                    imgArticulos.ImageUrl = imagenes[0].UrlImagen;
-                }
-                else
-                {
+                    txtImagenUrl.Text = articulo.Imagen.ToString();
+                    imgArticulos.ImageUrl = articulo.Imagen.ToString();
+                } else {
                     txtImagenUrl.Text = "";
                     imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
                 }
+
+                //List<Imagen> imagenes = negocio.ObtenerImagenesPorID(articulo.ID);
+                //if (imagenes != null && imagenes.Count > 0)
+                //{
+                //    txtImagenUrl.Text = imagenes[0].UrlImagen;
+                //    imgArticulos.ImageUrl = imagenes[0].UrlImagen;
+                //}
+                //else
+                //{
+                //    txtImagenUrl.Text = "";
+                //    imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+                //}
             }
             else
             {

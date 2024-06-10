@@ -1,24 +1,65 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPC_Equipo26.LogIn" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPC_Equipo26.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h4>¡Bienvenido/a a nuestro gestor online de artículos de librería!</h4>
-    <main>
-        <div class="formulario">
-            <div class="mb-3">
-                <label for="InputEmail" class="form-label">Usuario:</label>
-                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+    <h1>ARTíCULOS</h1>
+
+    <div class="container">
+        <div class="row">
+            <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
+            <div class="col-2">
+                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" />
             </div>
-            <div class="mb-3">
-                <label for="InputPassword" class="form-label">Contraseña:</label>
-                <input type="password" class="form-control" id="inputPassword">
+            <div class="col-2">
+                <asp:DropDownList runat="server" ID="ddlMarca" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroMarca_SelectedIndexChanged" />
             </div>
-            <button type="submit" class="btn btn-primary">Ingresar</button>
-            <div class="registro">
-                <p>¿No tenés cuenta? <a href="Registro.aspx">Registrate</a></p>
-                <p>O hacé <a href="Articulos.aspx">CLIC ACÁ</a> para seguir navegando sin iniciar sesión.</p>
+            <div class="col-2">
+                <asp:DropDownList runat="server" ID="ddlCategoria" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroCategoria_SelectedIndexChanged" />
             </div>
         </div>
-    </main>
+        <div class="row">
+            <div class="col-2">
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin: 15px" />
+            </div>
+        </div>
+    </div>
+
+    <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-light table-bordered"
+        Style="text-align: center" AutoGenerateColumns="false"
+        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged"
+        OnPageIndexChanging="gvArticulos_PageIndexChanging"
+        AllowPaging="true" PageSize="10">
+        <Columns>
+            <asp:BoundField HeaderText="Id" DataField="ID" />
+            <asp:BoundField HeaderText="Código" DataField="Codigo" />
+            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+            <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
+            <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
+            <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
+            <asp:TemplateField HeaderText="Imagen">
+                <ItemTemplate>
+                    <asp:Image ID="imgArticulo" runat="server" ImageUrl='<%# Eval("Imagen") %>' AlternateText="Imagen del artículo" Style="height: 40px; width: 45px;" />
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:BoundField HeaderText="Precio Unitario ($)" />
+            <asp:BoundField HeaderText="Stock disponible" />
+            <asp:BoundField HeaderText="Stock Mínimo" DataField="StockMin" />
+            <asp:BoundField HeaderText="Activo" DataField="Activo" />
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <a href='<%# "AltaArticulo.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">
+                        <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
+                    </a>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+
+    </asp:GridView>
+    <a href="AltaArticulo.aspx" class="btn btn-success">Agregar un artículo</a>
 </asp:Content>

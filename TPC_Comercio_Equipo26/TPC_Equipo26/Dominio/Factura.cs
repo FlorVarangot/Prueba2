@@ -7,13 +7,11 @@ namespace TPC_Equipo26.Dominio
 {
     public class Factura
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
+        public long Numero { get; set; }
         public DateTime FechaFactura { get; set; }
-        public Venta Venta {get; set;}
-
-        //public bool Activo {get; set;}
+        public long IdVenta {get; set;}
+        public bool Activo {get; set;}
         
-        //public int IdVenta { get; set; }
-        //total, artículos, cantidades, precio unitario
     }
 }
