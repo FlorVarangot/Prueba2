@@ -288,5 +288,120 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Articulo> Filtrar(string campo, string criterio, string filtro, bool incluirInactivos)
+        {
+            List<Articulo> lista = new List<Articulo>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion AS DescripcionArticulo, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Ganancia_Porcentaje, A.Stock_Minimo, A.Imagen, A.Activo FROM ARTICULOS A INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria WHERE ";
+
+                if (campo == "Marca")
+                {
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            consulta += "M.Descripcion LIKE '" + filtro + "%'";
+                            break;
+                        case "Termina con":
+                            consulta += "M.Descripcion LIKE '%" + filtro + "'";
+                            break;
+                        default:
+                            consulta += "M.Descripcion LIKE '%" + filtro + "%'";
+                            break;
+                    }
+                }
+                else if (campo == "Categoría")
+                {
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            consulta += "C.Descripcion LIKE '" + filtro + "%'";
+                            break;
+                        case "Termina con":
+                            consulta += "C.Descripcion LIKE '%" + filtro + "'";
+                            break;
+                        default:
+                            consulta += "C.Descripcion LIKE '%" + filtro + "%'";
+                            break;
+                    }
+                }
+                else if (campo == "Precio Unitario ($)")
+                {
+                    switch (criterio)
+                    {
+                        case "Mayor a":
+                            consulta += "A.PrecioUnitario > " + filtro;
+                            break;
+                        case "Menor a":
+                            consulta += "A.PrecioUnitario < " + filtro;
+                            break;
+                        default:
+                            consulta += "A.PrecioUnitario = " + filtro;
+                            break;
+                    }
+                }
+                else if (campo == "Descripción")
+                {
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            consulta += "A.Descripcion LIKE '" + filtro + "%'";
+                            break;
+                        case "Termina con":
+                            consulta += "A.Descripcion LIKE '%" + filtro + "'";
+                            break;
+                        default:
+                            consulta += "A.Descripcion LIKE '%" + filtro + "%'";
+                            break;
+                    }
+                }
+
+                if (!incluirInactivos)
+                {
+                    consulta += " AND A.Activo = 1";
+                }
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Articulo arti = new Articulo();
+                    {
+                        arti.ID = datos.Lector.GetInt64(0);
+                        arti.Codigo = datos.Lector["Codigo"].ToString();
+                        arti.Nombre = datos.Lector["Nombre"].ToString();
+                        arti.Descripcion = datos.Lector["DescripcionArticulo"].ToString();
+                        arti.Marca = new Marca { Descripcion = datos.Lector["Marca"].ToString() };
+                        arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString() };
+                        arti.Ganancia = (decimal)datos.Lector["Ganancia_Porcentaje"];
+                        arti.StockMin = datos.Lector.GetInt32(7);
+                        arti.Imagen = datos.Lector["Imagen"].ToString();
+                        arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
+                    };
+
+                    if (string.IsNullOrEmpty(arti.Imagen))
+                    {
+                        arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
+                    }
+
+                    lista.Add(arti);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return lista;
+        }
+
+
     }
 }

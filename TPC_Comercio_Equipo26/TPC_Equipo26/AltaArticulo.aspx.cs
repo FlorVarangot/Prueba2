@@ -153,7 +153,7 @@ namespace TPC_Equipo26
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex);
+                Response.Redirect("Error.aspx");
             }
         }
 
