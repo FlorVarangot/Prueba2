@@ -239,7 +239,6 @@ namespace TPC_Equipo26.Negocio
                 datos.setearConsulta("UPDATE ARTICULOS SET Activo = 0 WHERE Id = @Id");
                 datos.setearParametro("@Id", Id);
                 datos.ejecutarAccion();
-
             }
             catch (Exception ex)
             {
@@ -247,6 +246,25 @@ namespace TPC_Equipo26.Negocio
             }
             finally { datos.cerrarConexion();}
 
+        }
+        public void Reactivar(long id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE ARTICULOS SET Activo = 1 WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
         public void Modificar(Articulo nuevo)
@@ -402,6 +420,6 @@ namespace TPC_Equipo26.Negocio
             return lista;
         }
 
-
+        
     }
 }

@@ -56,10 +56,26 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-        <div class="mb-3" style="align-content:center; text-align:center; margin:20px">
+        <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
             <a href="Default.aspx" class="btn btn-danger">Cancelar</a>
             <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning" OnClick="BtnInactivar_Click" runat="server" />
+            <asp:Button Text="Reactivar" ID="btnReactivar" CssClass="btn btn-primary" OnClick="btnReactivar_Click"  runat="server" />
         </div>
+
+        <% if (ConfirmarInactivar)
+            { %>
+        <div class="mb-3">
+            <asp:CheckBox Text="Confirmar Inactivación" ID="chkConfirmaInactivacion" runat="server" />
+            <asp:Button Text="Inactivar" ID="btnConfirmaInactivar" OnClick="btnConfirmaInactivar_Click" CssClass="btn btn-outline-danger" runat="server" />
+        </div>
+        <% } %>
+        <% if (ConfirmarReactivar)
+            { %>
+        <div class="mb-3">
+            <asp:CheckBox Text="Confirmar Reactivación" ID="chkConfirmaReactivacion" runat="server" />
+            <asp:Button Text="Reactivar" ID="btnConfirmaReactivar" OnClick="btnConfirmaReactivar_Click" CssClass="btn btn-outline-primary" runat="server" />
+        </div>
+        <% } %>
     </div>
 </asp:Content>

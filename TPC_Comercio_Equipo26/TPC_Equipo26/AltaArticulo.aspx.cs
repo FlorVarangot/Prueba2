@@ -13,10 +13,14 @@ namespace TPC_Equipo26
 {
     public partial class AltaArticulo : System.Web.UI.Page
     {
-       
+        public bool ConfirmarInactivar { get; set; }
+        public bool ConfirmarReactivar { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             txtID.Enabled = false;
+            ConfirmarInactivar = false;
+            ConfirmarReactivar = false;
             try
             {
                 if (!IsPostBack)
@@ -57,7 +61,7 @@ namespace TPC_Equipo26
                         CargarDatosArticulo(idArticulo);
                     }
                     else
-                    {                 
+                    {
                         lblTituloAgregar.Visible = true;
                         LimpiarCampos();
                     }
@@ -141,17 +145,44 @@ namespace TPC_Equipo26
             imgArticulos.ImageUrl = txtImagenUrl.Text;
         }
 
-
+        //Inactivar
         protected void BtnInactivar_Click(object sender, EventArgs e)
+        {
+            ConfirmarInactivar = true;
+        }
+        protected void btnConfirmaInactivar_Click(object sender, EventArgs e)
         {
             try
             {
-                ArticuloNegocio negocio = new ArticuloNegocio();                
-                negocio.EliminarLogico(int.Parse(txtID.Text));
-                Response.Redirect("Default.aspx");
-
+                if (chkConfirmaInactivacion.Checked)
+                {
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    negocio.EliminarLogico(long.Parse(txtID.Text));
+                    Response.Redirect("Default.aspx");
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
+        }
+        //Reactivar
+        protected void btnReactivar_Click(object sender, EventArgs e)
+        {
+            ConfirmarReactivar = true;
+        }
+        protected void btnConfirmaReactivar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkConfirmaReactivacion.Checked)
+                {
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    negocio.Reactivar(long.Parse(txtID.Text));
+                    Response.Redirect("Default.aspx");
+                }
+            }
+            catch (Exception)
             {
                 Response.Redirect("Error.aspx");
             }
@@ -161,8 +192,8 @@ namespace TPC_Equipo26
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             Articulo articulo = negocio.ObtenerArticuloPorID(idArticulo);
-            
-            if(articulo != null)
+
+            if (articulo != null)
             {
                 txtID.Text = articulo.ID.ToString();
                 txtCodigo.Text = articulo.Codigo;
@@ -175,12 +206,14 @@ namespace TPC_Equipo26
                 ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
 
                 ddlStockMinimo.SelectedValue = articulo.StockMin.ToString();
-                
+
                 if (articulo.Imagen != null)
                 {
                     txtImagenUrl.Text = articulo.Imagen.ToString();
                     imgArticulos.ImageUrl = articulo.Imagen.ToString();
-                } else {
+                }
+                else
+                {
                     txtImagenUrl.Text = "";
                     imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
                 }
@@ -202,6 +235,5 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-
     }
 }
