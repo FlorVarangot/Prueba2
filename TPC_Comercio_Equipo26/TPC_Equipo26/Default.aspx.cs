@@ -12,10 +12,9 @@ namespace TPC_Equipo26
 {
     public partial class Default : System.Web.UI.Page
     {
-        public bool FiltroAvanzado { get; set; }
+       
         protected void Page_Load(object sender, EventArgs e)
-        {
-            FiltroAvanzado = chkAvanzado.Checked;
+        {         
             if (!IsPostBack)
             {
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
@@ -40,7 +39,6 @@ namespace TPC_Equipo26
                 ddlCategoria.DataValueField = "ID";
                 ddlCategoria.DataBind();
                 ddlCategoria.Items.Insert(0, new ListItem("Seleccionar Categoría", "0"));*/
-
             }
         }
 
@@ -66,10 +64,6 @@ namespace TPC_Equipo26
             FiltrarArticulos();
         }
 
-        protected void FiltroInactivos_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
 
         private void FiltrarArticulos()
         {
@@ -99,9 +93,16 @@ namespace TPC_Equipo26
         {
             txtFiltro.Text = string.Empty;
             chkIncluirInactivos.Checked = false;
+
             //ddlMarca.SelectedIndex = 0;
             //ddlCategoria.SelectedIndex = 0;
             chkIncluirInactivos.Checked = false;
+            chkAvanzado.Checked = false;
+            pnlFiltroAvanzado.Visible = false;
+            ddlCampo.SelectedIndex = 0;
+            ddlCriterio.Items.Clear();
+            ddlCriterio.Items.Add("Comienza con");
+            txtFiltroAvanzado.Text = string.Empty;
 
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             List<Articulo> listaArticulos = articuloNegocio.Listar();
@@ -144,7 +145,7 @@ namespace TPC_Equipo26
             else
             {
                 ddlCriterio.Items.Add("Comienza con");
-                ddlCriterio.Items.Add("Contiene");               
+                ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Termina con");
             }
         }
@@ -161,7 +162,7 @@ namespace TPC_Equipo26
             chkIncluirInactivos.Checked);
                 gvArticulos.DataBind();
             }
-            catch (Exception )
+            catch (Exception)
             {
                 Response.Redirect("Error.aspx");
             }

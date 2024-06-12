@@ -149,6 +149,7 @@ namespace TPC_Equipo26
         protected void BtnInactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = true;
+            ConfirmarReactivar = false;
         }
         protected void btnConfirmaInactivar_Click(object sender, EventArgs e)
         {
@@ -157,18 +158,21 @@ namespace TPC_Equipo26
                 if (chkConfirmaInactivacion.Checked)
                 {
                     ArticuloNegocio negocio = new ArticuloNegocio();
-                    negocio.EliminarLogico(long.Parse(txtID.Text));
-                    Response.Redirect("Default.aspx");
+
+                    negocio.EliminarLogico(long.Parse(txtID.Text),false);
+                    Response.Redirect("Default.aspx",false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
         }
         //Reactivar
         protected void btnReactivar_Click(object sender, EventArgs e)
         {
+            ConfirmarInactivar = false;
             ConfirmarReactivar = true;
         }
         protected void btnConfirmaReactivar_Click(object sender, EventArgs e)
@@ -178,8 +182,8 @@ namespace TPC_Equipo26
                 if (chkConfirmaReactivacion.Checked)
                 {
                     ArticuloNegocio negocio = new ArticuloNegocio();
-                    negocio.Reactivar(long.Parse(txtID.Text));
-                    Response.Redirect("Default.aspx");
+                    negocio.EliminarLogico(long.Parse(txtID.Text),true);
+                    Response.Redirect("Default.aspx",false);
                 }
             }
             catch (Exception)

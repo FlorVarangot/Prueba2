@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mb-3">
-                        <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
+                        <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true"/>
                     </div>
                 </div>
             </div>

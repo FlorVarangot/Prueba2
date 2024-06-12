@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Globalization;
 using System.Linq;
 using System.Security.AccessControl;
@@ -228,44 +229,7 @@ namespace TPC_Equipo26.Negocio
         //    }
 
         //    return imagenes;
-        //}
-
-        public void EliminarLogico(long Id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("UPDATE ARTICULOS SET Activo = 0 WHERE Id = @Id");
-                datos.setearParametro("@Id", Id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally { datos.cerrarConexion();}
-
-        }
-        public void Reactivar(long id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("UPDATE ARTICULOS SET Activo = 1 WHERE Id = @Id");
-                datos.setearParametro("@Id", id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
+        //}   
 
         public void Modificar(Articulo nuevo)
         {
@@ -420,6 +384,23 @@ namespace TPC_Equipo26.Negocio
             return lista;
         }
 
-        
+        public void EliminarLogico(long Id, bool activo= false)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE ARTICULOS SET Activo = @activo WHERE Id = @Id");
+                datos.setearParametro("@Id", Id);
+                datos.setearParametro("@activo", activo);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion(); }
+
+        }     
     }
 }
