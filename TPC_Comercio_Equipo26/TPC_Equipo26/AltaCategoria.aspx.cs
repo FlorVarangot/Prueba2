@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -120,7 +119,7 @@ namespace TPC_Equipo26
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx",false);
+                Response.Redirect("Error.aspx", false);
             }
         }
     }

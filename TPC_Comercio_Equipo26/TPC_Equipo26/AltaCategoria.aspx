@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AltaCategoria.aspx.cs" Inherits="TPC_Equipo26.AltaCategoria" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -21,14 +20,14 @@
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
             <a href="Categorias.aspx" class="btn btn-danger">Cancelar</a>
-            <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning" OnClick="BtnInactivar_Click" runat="server" />
+            <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning"  OnClick="BtnInactivar_Click" runat="server" />
             <asp:Button Text="Reactivar" ID="btnReactivar" CssClass="btn btn-primary" OnClick="btnReactivar_Click" runat="server" />
         </div>
         <% if (ConfirmarInactivar)
             { %>
         <div class="mb-3">
             <asp:CheckBox Text="Confirmar Inactivación" ID="chkConfirmaInactivacion" runat="server" />
-            <asp:Button Text="Inactivar" ID="btnConfirmaInactivar" OnClick="btnConfirmaInactivar_Click" CssClass="btn btn-outline-danger" runat="server" />
+            <asp:Button Text="Inactivar" ID="btnConfirmaInactivar"  OnClick="btnConfirmaInactivar_Click" CssClass="btn btn-outline-danger" runat="server" />
         </div>
         <% } %>
         <% if (ConfirmarReactivar)
