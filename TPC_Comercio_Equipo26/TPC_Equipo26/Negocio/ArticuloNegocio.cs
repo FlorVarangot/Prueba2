@@ -249,17 +249,6 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Id", nuevo.ID);
 
                 datos.ejecutarAccion();
-
-                //List<Imagen> imagenes = ObtenerImagenesPorID(nuevo.ID);
-
-                //foreach (Imagen imagen in nuevo.Imagenes)
-                //{
-                //    datos.setearConsulta("INSERT INTO IMAGENES IdArticulo, ImagenUrl, Activo VALUES @IdArticulo, @ImagenUrl, @ActivoImagen");
-                //    datos.setearParametro("@IdArticulo", nuevo.ID);
-                //    datos.setearParametro("@ImagenUrl", imagen.UrlImagen);
-                //    datos.setearParametro("@ActivoImagen", imagen.Activo);
-                //    datos.ejecutarAccion();
-                //}
             }
             catch (Exception ex)
             {

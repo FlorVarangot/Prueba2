@@ -24,17 +24,11 @@ namespace TPC_Equipo26
             try
             {
                 if (!IsPostBack)
-                {
-                    //No limitaría el stock a 10. Debieran ser numeros más grandes.
-                    //Aunque El STOCK se maneja desde COMPRAS a PROVEEDORES, no desde ALTA ARTICULO.
-                    //Solo debería ir StockMin acá
-
+                {                  
                     for (int i = 1; i <= 10; i++)
                     {
                         ddlStockMinimo.Items.Add(new ListItem(i.ToString(), i.ToString()));
                     }
-
-                    //F:La carga de desplegables de MARCAS y CATEGORIAS lo metería en Métodos().
 
                     ///Cargo los desplegables para marcas
                     MarcaNegocio negocioMarca = new MarcaNegocio();
