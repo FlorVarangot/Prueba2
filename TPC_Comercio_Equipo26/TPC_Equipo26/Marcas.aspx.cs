@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Discovery;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TPC_Equipo26.Dominio;
@@ -13,69 +14,81 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
-                MarcaNegocio marcaNegocio = new MarcaNegocio();
-                Session.Add("ListaMarcas", marcaNegocio.Listar());
-                gvMarcas.DataSource = Session["ListaMarcas"];
-                gvMarcas.DataBind();
-
-                ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-                List<Proveedor> proveedor = proveedorNegocio.Listar();
-
-                ddlProveedor.DataSource = proveedor;
-                ddlProveedor.DataTextField = "Nombre";
-                ddlProveedor.DataValueField = "ID";
-                ddlProveedor.DataBind();
-                ddlProveedor.Items.Insert(0, new ListItem("Seleccionar Proveedor", "0"));
+                CargarMarcas();
             }
         }
 
-        protected void Filtro_TextChanged(object sender, EventArgs e)
+        private void CargarMarcas()
         {
-            FiltrarMarcas();
-        }
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            List<Marca> marcas = marcaNegocio.Listar();
+            CargarDdlProveedores();
 
-        protected void FiltroProveedor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FiltrarMarcas();
-        }
-
-        protected void FiltroInactivos_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarMarcas();
+            Session["listaMarcas"] = marcas;
+            gvMarcas.DataSource = marcas;
+            gvMarcas.DataBind();
         }
 
         private void FiltrarMarcas()
         {
-            List<Marca> lista = (List<Marca>)Session["ListaMarcas"];
+            List<Marca> lista = (List<Marca>)Session["listaMarcas"];
+            string filtro = txtFiltro.Text.Trim().ToUpper();
+            bool incluirInactivos = chkIncluirInactivos.Checked;
+            int proveedorSelec = int.Parse(ddlProveedor.SelectedValue);
+
+            List<Marca> listaFiltrada;
+
             if (lista != null)
             {
-                string filtroTexto = txtFiltro.Text.ToUpper();
-                List<Marca> listaFiltrada = lista.FindAll(x =>
-                    x.Descripcion.ToUpper().Contains(filtroTexto) ||
-                    x.ID.ToString().Contains(filtroTexto) &&
-                    (ddlProveedor.SelectedValue == "0" || x.IdProveedor.Equals(ddlProveedor.SelectedValue)) &&
-                    (x.Activo || chkIncluirInactivos.Checked));
+                if (proveedorSelec == 0)
+                {
+                    if (string.IsNullOrEmpty(filtro))
+                    {
+                        listaFiltrada = incluirInactivos
+                            ? lista
+                            : lista.FindAll(x => x.Activo);
+                    }
+                    else
+                    {
+                        listaFiltrada = lista.FindAll(x =>
+                            x.Descripcion.ToUpper().Contains(filtro) &&
+                            (x.Activo || incluirInactivos));
+                    }
+                }
+                else
+                {
+                    listaFiltrada = lista.FindAll(x =>
+                        x.IdProveedor == proveedorSelec &&
+                        x.Descripcion.ToUpper().Contains(filtro) &&
+                        (x.Activo || incluirInactivos));
+                }
                 gvMarcas.DataSource = listaFiltrada;
             }
             else
             {
-                gvMarcas.DataSource = null;
+                gvMarcas.DataSource = lista;
             }
             gvMarcas.DataBind();
         }
 
+
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
-            txtFiltro.Text = string.Empty;
-            ddlProveedor.SelectedIndex = 0;
-            chkIncluirInactivos.Checked = false;
+            LimpiarFiltros();
+        }
 
-            MarcaNegocio negocio = new MarcaNegocio();
-            List<Marca> listaMarcas = negocio.Listar();
-            gvMarcas.DataSource = listaMarcas;
+        protected void GvMarcas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = gvMarcas.SelectedDataKey.Value.ToString();
+            Response.Redirect("AltaMarca.aspx?ID=" + id);
+        }
+
+        protected void GvMarcas_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvMarcas.PageIndex = e.NewPageIndex;
+            gvMarcas.DataSource = Session["ListaMarcas"];
             gvMarcas.DataBind();
         }
 
@@ -83,13 +96,39 @@ namespace TPC_Equipo26
         {
             string id = gvMarcas.SelectedDataKey.Value.ToString();
             Response.Redirect("AltaMarca.aspx?ID=" + id);
+
+        }
+        protected void FiltroProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarMarcas();
+        }
+        protected void FiltroInactivos_CheckedChanged(object sender, EventArgs e)
+        {
+            bool incluirInactivos = chkIncluirInactivos.Checked;
+            FiltrarMarcas();
+        }
+        protected void Filtro_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarMarcas();
         }
 
-        protected void gvMarcas_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        public void LimpiarFiltros()
         {
-            gvMarcas.PageIndex = e.NewPageIndex;
-            gvMarcas.DataSource = Session["ListaMarcas"];
-            gvMarcas.DataBind();
+            txtFiltro.Text = string.Empty;
+            ddlProveedor.SelectedIndex = -1;
+            chkIncluirInactivos.Checked = false;
+            CargarMarcas();
+        }
+
+        public void CargarDdlProveedores()
+        {
+            ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+            List<Proveedor> proveedores = proveedorNegocio.Listar();
+            ddlProveedor.DataSource = proveedores;
+            ddlProveedor.DataTextField = "Nombre";
+            ddlProveedor.DataValueField = "ID";
+            ddlProveedor.DataBind();
+            ddlProveedor.Items.Insert(0, new ListItem("Seleccionar Proveedor", "0"));
         }
 
     }

@@ -96,7 +96,7 @@ namespace TPC_Equipo26
 
             //ddlMarca.SelectedIndex = 0;
             //ddlCategoria.SelectedIndex = 0;
-            chkIncluirInactivos.Checked = false;
+            //chkIncluirInactivos.Checked = false;
             chkAvanzado.Checked = false;
             pnlFiltroAvanzado.Visible = false;
             ddlCampo.SelectedIndex = 0;
@@ -158,8 +158,8 @@ namespace TPC_Equipo26
                 gvArticulos.DataSource = negocio.Filtrar(
                     ddlCampo.SelectedItem.ToString(),
                     ddlCriterio.SelectedItem.ToString(),
-                   txtFiltroAvanzado.Text,
-            chkIncluirInactivos.Checked);
+                    txtFiltroAvanzado.Text,
+                    chkIncluirInactivos.Checked);
                 gvArticulos.DataBind();
             }
             catch (Exception)

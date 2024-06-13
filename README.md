@@ -1,5 +1,5 @@
 Trabajo práctico cuatrimestral - Programación III - UTN FRGP 2024
-Equipo 26: Maria Florencia Rodríguez Varangot - Damian Alejandro Sanchez Di Giovanni - Matias Federico Velazquez Segovia
+Equipo 26: Maria Florencia Rodríguez Varangot - Matias Federico Velazquez Segovia
 
 Propuesta: Aplicación para un negocio de artículos de librería
 

@@ -46,7 +46,6 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.cerrarConexion();
             }
-
         }
 
         public void Agregar(Marca marca)
@@ -98,14 +97,15 @@ namespace TPC_Equipo26.Negocio
             }
 
         }
-        public void EliminarLogico(int id)
+        internal void ActivarLogico(int id, bool activo=false)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("UPDATE MARCAS SET Activo = False WHERE Id = @id");
+                datos.setearConsulta("UPDATE MARCAS SET Activo = @activo WHERE Id = @id");
                 datos.setearParametro("@id", id);
+                datos.setearParametro("@activo", activo);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

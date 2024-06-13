@@ -58,8 +58,8 @@ namespace TPC_Equipo26
             txtFiltro.Text = string.Empty;
             chkIncluirInactivos.Checked = false;
             CategoriaNegocio negocio = new CategoriaNegocio();
-            List<Categoria> listaArticulos = negocio.Listar();
-            gvCategorias.DataSource = listaArticulos;
+            List<Categoria> listaCategorias = negocio.Listar();
+            gvCategorias.DataSource = listaCategorias;
             gvCategorias.DataBind();
         }
 
