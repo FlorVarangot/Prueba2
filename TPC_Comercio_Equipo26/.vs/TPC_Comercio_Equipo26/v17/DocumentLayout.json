@@ -1,15 +1,52 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\flore\\OneDrive\\Escritorio\\Nueva carpeta (2)\\Prueba2\\TPC_Comercio_Equipo26\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\categorias.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\categorias.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\categorias.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\categorias.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\negocio\\articulonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\negocio\\articulonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\negocio\\categorianegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\negocio\\categorianegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\negocio\\marcanegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\negocio\\marcanegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\altaarticulo.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\altaarticulo.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\altaarticulo.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\altaarticulo.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 256,
+      "VerticalTabListWidth": 168,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +59,123 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Categorias.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Categorias.aspx.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Categorias.aspx.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAAAQwBsAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T22:08:35.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Categorias.aspx",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Categorias.aspx",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx",
+              "RelativeToolTip": "TPC_Equipo26\\Categorias.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-14T22:08:22.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CategoriaNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\CategoriaNegocio.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Negocio\\CategoriaNegocio.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\CategoriaNegocio.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Negocio\\CategoriaNegocio.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAzwCAAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T19:45:31.694Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MarcaNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\MarcaNegocio.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Negocio\\MarcaNegocio.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\MarcaNegocio.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Negocio\\MarcaNegocio.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAA0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T19:45:17.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Default.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Default.aspx.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Default.aspx.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Default.aspx.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Default.aspx.cs",
+              "ViewState": "AQIAANIAAAAAAAAAAADwv9wAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T19:24:09.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AltaArticulo.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\AltaArticulo.aspx.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\AltaArticulo.aspx.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\AltaArticulo.aspx.cs",
+              "RelativeToolTip": "TPC_Equipo26\\AltaArticulo.aspx.cs",
+              "ViewState": "AQIAAMkAAAAAAAAAAAAAANYAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T19:21:34.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Default.aspx",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Default.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Default.aspx",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Default.aspx",
+              "RelativeToolTip": "TPC_Equipo26\\Default.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-14T19:21:31.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AltaArticulo.aspx",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\AltaArticulo.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\AltaArticulo.aspx",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\AltaArticulo.aspx",
+              "RelativeToolTip": "TPC_Equipo26\\AltaArticulo.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-14T19:21:28.974Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ArticuloNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\ArticuloNegocio.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Negocio\\ArticuloNegocio.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\ArticuloNegocio.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Negocio\\ArticuloNegocio.cs",
+              "ViewState": "AQIAAAYBAAAAAAAAAAAAAAYBAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T19:21:26.09Z",
+              "EditorCaption": ""
             }
           ]
         },

@@ -118,7 +118,7 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        internal void EliminarLogico(int Id, bool activo=false)
+        public void EliminarLogico(int Id, bool activo=false)
         {
             AccesoDatos datos = new AccesoDatos();
 

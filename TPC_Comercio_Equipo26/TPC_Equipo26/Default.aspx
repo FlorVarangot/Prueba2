@@ -33,7 +33,7 @@
                 <div class="col-md-3">
                     <div class="mb-3">
                         <asp:Label Text="Criterio" runat="server" />
-                        <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-control"></asp:DropDownList>
+                        <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-control" OnSelectedIndexChanged="ddlCriterio_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mb-3">
-                        <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true"/>
+                        <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged"/>
                     </div>
                 </div>
             </div>

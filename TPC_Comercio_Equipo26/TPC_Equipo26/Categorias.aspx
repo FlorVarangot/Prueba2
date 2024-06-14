@@ -13,7 +13,7 @@
         </div>
         <div class="row">
             <div class="col-2">
-                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos"  AutoPostBack="true" />
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos"  AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
             </div>
         </div>
         <div class="row">
@@ -28,9 +28,9 @@
         Style="text-align: center" AutoGenerateColumns="false"
         OnSelectedIndexChanged ="gvCategorias_SelectedIndexChanged">
                 <Columns>
-            <asp:BoundField HeaderText="Id" DataField="ID" />
-            <asp:BoundField HeaderText="Categoría" DataField="Descripcion" />
-            <asp:BoundField HeaderText="Activo" DataField="Activo" />
+            <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField HeaderText="Categoría" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField HeaderText="Activo" DataField="Activo" ItemStyle-HorizontalAlign="Center" />
             <asp:TemplateField>
                 <ItemTemplate>
                     <a href='<%# "AltaCategoria.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">
