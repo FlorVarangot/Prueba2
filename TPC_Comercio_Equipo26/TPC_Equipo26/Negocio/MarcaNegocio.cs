@@ -57,7 +57,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Descripcion", marca.Descripcion);
                 datos.setearParametro("@IdProveedor", marca.IdProveedor);
                 datos.setearParametro("@ImagenUrl", marca.ImagenUrl);
-                datos.setearParametro("@Activo", marca.Activo);
+                datos.setearParametro("@Activo", 1);
 
                 datos.ejecutarAccion();
             }

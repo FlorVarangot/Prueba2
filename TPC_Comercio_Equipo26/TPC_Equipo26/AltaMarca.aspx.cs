@@ -41,6 +41,8 @@ namespace TPC_Equipo26
                     else
                     {
                         lblTituloAgregar.Visible = true;
+                        BtnInactivar.Visible = false;
+                        BtnReactivar.Visible = false;
                         LimpiarCampos();
                     }
                 }
@@ -92,6 +94,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
+        
         private void LimpiarCampos()
         {
             txtDescripcion.Text = "";
@@ -100,7 +103,7 @@ namespace TPC_Equipo26
             imgMarcas.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
         }
 
-        protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
+        protected void TxtImagenUrl_TextChanged(object sender, EventArgs e)
         {
             imgMarcas.ImageUrl = txtImagenUrl.Text;
         }

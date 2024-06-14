@@ -30,7 +30,7 @@
                     <div class="mb-3">
                         <label for="txtImagenUrl" class="form-label">Url Imagen:</label>
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
-                            AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged" />
+                            AutoPostBack="true" OnTextChanged="TxtImagenUrl_TextChanged" />
                     </div>
                     <asp:Image runat="server" ID="imgMarcas" Width="20%" Style="max-width: 100%; height: auto;"
                         ImageUrl="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png" />
