@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,21 +16,28 @@ namespace TPC_Equipo26
         public bool ConfirmarReactivar { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ConfirmarInactivar = false;
-            ConfirmarReactivar = false;
-            if (!IsPostBack)
+            try
             {
-                if (Request.QueryString["ID"] != null)
+                if (!IsPostBack)
                 {
-                    int idCategoria = int.Parse(Request.QueryString["ID"]);
-                    CargarDatosCategoria(idCategoria);
-                    lblTituloModificar.Visible = true;
+                    ConfirmarInactivar = false;
+                    ConfirmarReactivar = false;
+                    if (Request.QueryString["ID"] != null)
+                    {
+                        int idCategoria = int.Parse(Request.QueryString["ID"]);
+                        CargarDatosCategoria(idCategoria);
+                        lblTituloModificar.Visible = true;
+                    }
+                    else
+                    {
+                        lblTituloAgregar.Visible = true;
+                        LimpiarCampos();
+                    }
                 }
-                else
-                {
-                    lblTituloAgregar.Visible = true;
-                    LimpiarCampos();
-                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -42,6 +50,21 @@ namespace TPC_Equipo26
             {
                 txtID.Text = categoria.ID.ToString();
                 txtDescripcion.Text = categoria.Descripcion;
+
+                if (categoria.Activo == true)
+                {
+                    BtnInactivar.Visible = true;
+                    btnReactivar.Visible = false;
+                }
+                else
+                {
+                    BtnInactivar.Visible = false;
+                    btnReactivar.Visible = true;
+                }
+            }
+            else
+            {
+                Response.Redirect("Error.aspx");
             }
         }
         private void LimpiarCampos()

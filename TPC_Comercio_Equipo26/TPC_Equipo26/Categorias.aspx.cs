@@ -13,18 +13,26 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CargarCategorias();
+            if (!IsPostBack)
+            {
+                CargarCategorias();
+            }
         }
 
         private void CargarCategorias()
         {
+            chkIncluirInactivos.Checked = true;
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            List<Categoria> categorias = categoriaNegocio.Listar();       
+            List<Categoria> categorias = categoriaNegocio.Listar();
             Session["listaCategorias"] = categorias;
             gvCategorias.DataSource = categorias;
             gvCategorias.DataBind();
         }
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarCategorias();
+        }
+        private void FiltrarCategorias()
         {
             List<Categoria> lista = (List<Categoria>)Session["listaCategorias"];
             string filtro = txtFiltro.Text.Trim().ToUpper();
@@ -32,41 +40,42 @@ namespace TPC_Equipo26
 
             List<Categoria> listaFiltrada;
 
-            if (string.IsNullOrEmpty(filtro))
+            if (lista != null)
             {
-                if (incluirInactivos)
+                if (string.IsNullOrEmpty(filtro))
                 {
-                    listaFiltrada = lista;
+                    listaFiltrada = incluirInactivos ? lista : lista.Where(x => x.Activo).ToList();
                 }
                 else
                 {
-                    listaFiltrada = lista.Where(x => x.Activo).ToList();
+                    listaFiltrada = lista.Where(x =>
+                        x.Descripcion.ToUpper().Contains(filtro) &&
+                        (x.Activo || incluirInactivos)).ToList();
                 }
+                gvCategorias.DataSource = listaFiltrada;
             }
             else
             {
-                listaFiltrada = lista.Where(x =>
-                    x.Descripcion.ToUpper().Contains(filtro) &&
-                    (incluirInactivos || x.Activo)
-                ).ToList();
+                gvCategorias.DataSource = lista;
             }
-            gvCategorias.DataSource = listaFiltrada;
             gvCategorias.DataBind();
         }
         protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             txtFiltro.Text = string.Empty;
             chkIncluirInactivos.Checked = false;
-            CategoriaNegocio negocio = new CategoriaNegocio();
-            List<Categoria> listaCategorias = negocio.Listar();
-            gvCategorias.DataSource = listaCategorias;
-            gvCategorias.DataBind();
+            CargarCategorias();
         }
 
         protected void gvCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = gvCategorias.SelectedDataKey.Value.ToString();
             Response.Redirect("AltaCategoria.aspx?ID=" + id);
+        }
+
+        protected void chkIncluirInactivos_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarCategorias();
         }
     }
 }

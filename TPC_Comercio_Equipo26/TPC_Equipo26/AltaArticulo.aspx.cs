@@ -96,12 +96,6 @@ namespace TPC_Equipo26
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.Activo = true;
 
-                //Imagen imagen = new Imagen();
-                //imagen.UrlImagen = txtImagenUrl.Text;
-                //imagen.Activo = true;
-
-                //nuevo.Imagenes = new List<Imagen> { imagen };
-
                 if (Request.QueryString["ID"] != null)
                 {
                     nuevo.ID = long.Parse(Request.QueryString["ID"]);
@@ -215,18 +209,17 @@ namespace TPC_Equipo26
                     txtImagenUrl.Text = "";
                     imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
                 }
+                if (articulo.Activo == true)
+                {
+                    BtnInactivar.Visible = true;
+                    btnReactivar.Visible = false;
+                }
+                else
+                {
+                    BtnInactivar.Visible = false;
+                    btnReactivar.Visible = true;
+                }
 
-                //List<Imagen> imagenes = negocio.ObtenerImagenesPorID(articulo.ID);
-                //if (imagenes != null && imagenes.Count > 0)
-                //{
-                //    txtImagenUrl.Text = imagenes[0].UrlImagen;
-                //    imgArticulos.ImageUrl = imagenes[0].UrlImagen;
-                //}
-                //else
-                //{
-                //    txtImagenUrl.Text = "";
-                //    imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
-                //}
             }
             else
             {
