@@ -22,6 +22,7 @@ namespace TPC_Equipo26
 
         private void CargarMarcas()
         {
+            chkIncluirInactivos.Checked = true;
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             List<Marca> marcas = marcaNegocio.Listar();
             CargarDdlProveedores();
@@ -104,7 +105,6 @@ namespace TPC_Equipo26
         }
         protected void FiltroInactivos_CheckedChanged(object sender, EventArgs e)
         {
-            bool incluirInactivos = chkIncluirInactivos.Checked;
             FiltrarMarcas();
         }
         protected void Filtro_TextChanged(object sender, EventArgs e)

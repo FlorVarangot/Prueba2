@@ -40,8 +40,11 @@
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
             <a href="Marcas.aspx" class="btn btn-danger">Cancelar</a>
+            
             <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning" OnClick="BtnInactivar_Click" runat="server" />
+            
             <asp:Button Text="Reactivar" ID="BtnReactivar" CssClass="btn btn-primary" OnClick="BtnReactivar_Click" runat="server" />
+        
         </div>
         <% if (ConfirmarInactivar)
             { %>

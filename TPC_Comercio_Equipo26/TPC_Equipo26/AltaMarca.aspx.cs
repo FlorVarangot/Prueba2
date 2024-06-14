@@ -13,6 +13,7 @@ namespace TPC_Equipo26
     {
         public bool ConfirmarInactivar { get; set; }
         public bool ConfirmarReactivar { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             txtID.Enabled = false;
@@ -73,6 +74,18 @@ namespace TPC_Equipo26
                     txtImagenUrl.Text = "";
                     imgMarcas.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
                 }
+
+                if (marca.Activo == true)
+                {
+                    BtnInactivar.Visible = true;
+                    BtnReactivar.Visible = false;
+                }
+                else
+                {
+                    BtnInactivar.Visible = false;
+                    BtnReactivar.Visible = true;
+                }
+
             }
             else
             {
@@ -91,6 +104,7 @@ namespace TPC_Equipo26
         {
             imgMarcas.ImageUrl = txtImagenUrl.Text;
         }
+        
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -126,16 +140,6 @@ namespace TPC_Equipo26
 
             ConfirmarInactivar = true;
             ConfirmarReactivar = false;
-            //try
-            //{
-            //    MarcaNegocio negocio = new MarcaNegocio();
-            //    negocio.EliminarLogico(int.Parse(txtID.Text));
-            //    Response.Redirect("Marcas.aspx");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Session.Add("Error", ex);
-            //}
         }
 
         protected void BtnConfirmaInactivar_Click(object sender, EventArgs e)
@@ -154,6 +158,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+        
         protected void BtnReactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = false;
@@ -176,7 +181,6 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
-
 
     }
 }

@@ -97,6 +97,7 @@ namespace TPC_Equipo26.Negocio
             }
 
         }
+        
         internal void ActivarLogico(int id, bool activo=false)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -148,6 +149,5 @@ namespace TPC_Equipo26.Negocio
             finally { datos.cerrarConexion(); }
 
         }
-
     }
 }
