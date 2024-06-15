@@ -29,11 +29,20 @@ namespace TPC_Equipo26
 
             Session["listaMarcas"] = marcas;
             gvMarcas.DataSource = marcas;
+            if(marcas != null)
+            {
+                lblVacio.Visible = false;
+            }
+            //gvMarcas.DataSource = marcaNegocio.ListarConProveedor();
+            //gvMarcas.DataSource = marcaNegocio.Listar2();
             gvMarcas.DataBind();
         }
 
         private void FiltrarMarcas()
         {
+            //List<dynamic> lista = (List<dynamic>)Session["listaMarcas"];
+            //string proveedorSelec = ddlProveedor.SelectedItem.Text;
+            //List<dynamic> listaFiltrada;
             List<Marca> lista = (List<Marca>)Session["listaMarcas"];
             string filtro = txtFiltro.Text.Trim().ToUpper();
             bool incluirInactivos = chkIncluirInactivos.Checked;
@@ -44,6 +53,7 @@ namespace TPC_Equipo26
             if (lista != null)
             {
                 if (proveedorSelec == 0)
+                //if (proveedorSelec == "Seleccionar Proveedor")
                 {
                     if (string.IsNullOrEmpty(filtro))
                     {
@@ -62,28 +72,33 @@ namespace TPC_Equipo26
                 {
                     listaFiltrada = lista.FindAll(x =>
                         x.IdProveedor == proveedorSelec &&
+                        //x.Proveedor == proveedorSelec &&
                         x.Descripcion.ToUpper().Contains(filtro) &&
                         (x.Activo || incluirInactivos));
                 }
+
+                if (listaFiltrada.Count > 0)
+                {
+                    lblVacio.Visible = false;
+                }
+                else
+                {
+                    lblVacio.Visible = true;
+                }
+
                 gvMarcas.DataSource = listaFiltrada;
             }
             else
             {
                 gvMarcas.DataSource = lista;
             }
+
             gvMarcas.DataBind();
         }
-
 
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             LimpiarFiltros();
-        }
-
-        protected void GvMarcas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string id = gvMarcas.SelectedDataKey.Value.ToString();
-            Response.Redirect("AltaMarca.aspx?ID=" + id);
         }
 
         protected void GvMarcas_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -93,12 +108,13 @@ namespace TPC_Equipo26
             gvMarcas.DataBind();
         }
 
-        protected void gvMarcas_SelectedIndexChanged(object sender, EventArgs e)
+        protected void GvMarcas_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = gvMarcas.SelectedDataKey.Value.ToString();
             Response.Redirect("AltaMarca.aspx?ID=" + id);
 
         }
+
         protected void FiltroProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarMarcas();

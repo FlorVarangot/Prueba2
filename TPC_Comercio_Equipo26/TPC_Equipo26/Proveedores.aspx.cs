@@ -27,6 +27,10 @@ namespace TPC_Equipo26
 
             Session["listaProveedores"] = proveedores;
             GvProveedores.DataSource = proveedores;
+            if (proveedores != null)
+            {
+                lblVacio.Visible = false;
+            }
             GvProveedores.DataBind();
         }
 
@@ -38,39 +42,46 @@ namespace TPC_Equipo26
 
             List<Proveedor> listaFiltrada;
 
-            if (string.IsNullOrEmpty(filtro))
+            if (lista != null)
             {
-                if (incluirInactivos)
+                if (string.IsNullOrEmpty(filtro))
                 {
-                    listaFiltrada = lista;
+                    listaFiltrada = incluirInactivos
+                        ? lista
+                        : lista.FindAll(x => x.Activo);
                 }
                 else
                 {
-                    listaFiltrada = lista.Where(x => x.Activo).ToList();
+                    listaFiltrada = lista.FindAll(x =>
+                        x.Nombre.ToUpper().Contains(filtro) ||
+                        x.CUIT.ToUpper().Contains(filtro) ||
+                        x.Email.ToUpper().Contains(filtro) ||
+                        x.Telefono.ToUpper().Contains(filtro) ||
+                        x.Direccion.ToUpper().Contains(filtro) &&
+                        (x.Activo || incluirInactivos));
                 }
+
+                if (listaFiltrada.Count > 0)
+                {
+                    lblVacio.Visible = false;
+                }
+                else
+                {
+                    lblVacio.Visible = true;
+                }
+
+                GvProveedores.DataSource = listaFiltrada;
             }
             else
             {
-                listaFiltrada = lista.Where(x =>
-                    x.Nombre.ToUpper().Contains(filtro) || 
-                    x.CUIT.Contains(filtro) || x.Email.Contains(filtro) ||
-                    x.Telefono.Contains(filtro) || x.Direccion.ToUpper().Contains(filtro) &&
-                    (incluirInactivos || x.Activo)
-                ).ToList();
+                GvProveedores.DataSource = lista;
             }
-            GvProveedores.DataSource = listaFiltrada;
             GvProveedores.DataBind();
         }
 
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             LimpiarFiltros();
-        }
-
-        protected void GvProveedores_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string id = GvProveedores.SelectedDataKey.Value.ToString();
-            Response.Redirect("AltaProveedor.aspx?ID=" + id);
         }
 
         protected void GvProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -80,16 +91,16 @@ namespace TPC_Equipo26
             GvProveedores.DataBind();
         }
 
-        protected void FiltroProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        protected void GvProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FiltrarProveedores();
+            string id = GvProveedores.SelectedDataKey.Value.ToString();
+            Response.Redirect("AltaProveedor.aspx?ID=" + id);
         }
-        
+
         protected void FiltroInactivos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarProveedores();
         }
-        
         protected void TxtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarProveedores();

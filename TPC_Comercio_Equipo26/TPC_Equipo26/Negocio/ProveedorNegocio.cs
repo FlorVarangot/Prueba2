@@ -13,7 +13,6 @@ namespace TPC_Equipo26.Negocio
         {
             List<Proveedor> lista = new List<Proveedor>();
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("SELECT * FROM PROVEEDORES");
@@ -42,7 +41,6 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.cerrarConexion();
             }
-
         }
 
         public void Agregar(Proveedor proveedor)
@@ -85,6 +83,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Telefono", proveedor.Telefono);
                 datos.setearParametro("@Direccion", proveedor.Direccion);
                 datos.setearParametro("@Activo", proveedor.Activo);
+                datos.setearParametro("@Id", proveedor.ID);
 
                 datos.ejecutarAccion();
             }
@@ -151,7 +150,6 @@ namespace TPC_Equipo26.Negocio
             finally { datos.cerrarConexion(); }
 
         }
-
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,6 @@ namespace TPC_Equipo26.Negocio
         {
             List<Marca> lista = new List<Marca>();
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("SELECT * FROM MARCAS");
@@ -27,19 +27,16 @@ namespace TPC_Equipo26.Negocio
                     aux.ID = int.Parse(datos.Lector["Id"].ToString());
                     aux.Descripcion = datos.Lector["Descripcion"].ToString();
                     aux.IdProveedor = int.Parse(datos.Lector["IdProveedor"].ToString());
-
                     //F: agrego imagen por defecto si no tiene img:
                     aux.ImagenUrl = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
-
                     aux.Activo = (bool)datos.Lector["Activo"];
+                    
                     lista.Add(aux);
                 }
-
                 return lista;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -47,6 +44,63 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
+
+        //public datatable listar2()
+        //{
+        //    accesodatos datos = new accesodatos();
+        //    datatable dt = new datatable();
+
+        //    try
+        //    {
+        //        datos.setearconsulta("select * from vistamarcasconproveedores");
+        //        datos.ejecutarlectura();
+
+        //        dt.load(datos.lector);
+        //        return dt;
+        //    }
+        //    catch (exception ex)
+        //    {
+
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarconexion();
+        //    }
+        //}
+
+        //public list<dynamic> listarconproveedor()
+        //{
+        //    list<dynamic> lista = new list<dynamic>();
+        //    accesodatos datos = new accesodatos();
+
+        //    datos.setearconsulta("select m.id, m.descripcion, p.nombre as proveedor, m.imagenurl, m.activo from marcas m inner join proveedores p on m.idproveedor = p.id");
+        //    datos.ejecutarlectura();
+        //    try
+        //    {
+        //        while (datos.lector.read())
+        //        {
+        //            var marcaconproveedor = new
+        //            {
+        //                id = int.parse(datos.lector["id"].tostring()),
+        //                descripcion = datos.lector["descripcion"].tostring(),
+        //                proveedor = datos.lector["proveedor"].tostring(),
+        //                imagenurl = datos.lector["imagenurl"].tostring(),
+        //                activo = (bool)datos.lector["activo"],
+        //            };
+        //            lista.add(marcaconproveedor);
+        //        }
+        //        return lista;
+        //    }
+        //    catch (exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarconexion();
+        //    }
+        //}
 
         public void Agregar(Marca marca)
         {
@@ -97,8 +151,8 @@ namespace TPC_Equipo26.Negocio
             }
 
         }
-        
-        internal void ActivarLogico(int id, bool activo=false)
+
+        internal void ActivarLogico(int id, bool activo = false)
         {
             AccesoDatos datos = new AccesoDatos();
 
