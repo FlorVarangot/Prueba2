@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -20,89 +23,147 @@ namespace TPC_Equipo26
                 if (!IsPostBack)
                 {
                     CargarArticulos();
-                    chkIncluirInactivos.Checked = true;
+                    CargarMarcasYCategorias();
                 }
             }
             catch
-            {Response.Redirect("Error.aspx",false); }
+            { Response.Redirect("Error.aspx", false); }
         }
 
         protected void CargarArticulos()
         {
-            
-            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-            List<Articulo> listaArticulos = articuloNegocio.Listar();
-            if (!chkIncluirInactivos.Checked)
+            try
             {
-                listaArticulos = listaArticulos.Where(a => a.Activo).ToList();
+                chkIncluirInactivos.Checked = false;
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                List<Articulo> listaArticulos = articuloNegocio.Listar();
+                Session["ListaArticulos"] = listaArticulos;
+                FiltrarArticulos();
+                pnlFiltroAvanzado.Visible = chkAvanzado.Checked;
+                if (chkAvanzado.Checked)
+                {
+                    CargarMarcasYCategorias();
+                }
             }
-            Session["ListaArticulos"] = articuloNegocio.Listar();
-            gvArticulos.DataSource = Session["ListaArticulos"];
-            gvArticulos.DataBind();
-            pnlFiltroAvanzado.Visible = chkAvanzado.Checked;
-        }
-        protected void Filtro_TextChanged(object sender, EventArgs e)
-        {
-            //aca filtro rapido
-            List<Articulo> lista = (List<Articulo>)Session["listaArticulos"];
-            List<Articulo> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
-            gvArticulos.DataSource = listaFiltrada;
-            gvArticulos.DataBind();
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
-        protected void FiltroMarca_SelectedIndexChanged(object sender, EventArgs e)
+        protected void CargarMarcasYCategorias()
         {
-            FiltrarArticulos();
-        }
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            List<Marca> marcas = marcaNegocio.Listar();
+            ddlMarca.DataSource = marcas;
+            ddlMarca.DataTextField = "Descripcion";
+            ddlMarca.DataValueField = "ID";
+            ddlMarca.DataBind();
+            ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", "0"));
 
-        protected void FiltroCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            List<Categoria> categorias = categoriaNegocio.Listar();
+            ddlCategoria.DataSource = categorias;
+            ddlCategoria.DataTextField = "Descripcion";
+            ddlCategoria.DataValueField = "ID";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem("Seleccione Categoría", "0"));
         }
-
 
         private void FiltrarArticulos()
         {
-            List<Articulo> lista = (List<Articulo>)Session["ListaArticulos"];
-
-            if (lista != null)
+            List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
+            if (!chkIncluirInactivos.Checked)
             {
-                lista = lista.Where(x => x.Activo || chkIncluirInactivos.Checked).ToList();
-
-                if (ddlCampo.SelectedItem.Text == "Marca" && ddlCriterio.SelectedValue != "Seleccionar Marca")
-                {
-                    int idMarca = int.Parse(ddlCriterio.SelectedValue);
-                    lista = lista.Where(x => x.Marca.ID == idMarca).ToList();
-                }
-                else if (ddlCampo.SelectedItem.Text == "Categoría" && ddlCriterio.SelectedValue != "Seleccionar Categoría")
-                {
-                    int idCategoria = int.Parse(ddlCriterio.SelectedValue);
-                    lista = lista.Where(x => x.Categoria.ID == idCategoria).ToList();
-                }
-
-                gvArticulos.DataSource = lista;
+                listaArticulos = listaArticulos.Where(x => x.Activo).ToList();
+            }
+            if (!string.IsNullOrEmpty(txtFiltro.Text.Trim()))
+            {
+                string filtro = txtFiltro.Text.Trim().ToUpper();
+                listaArticulos = listaArticulos
+                    .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
+                                x.Codigo.ToUpper().Contains(filtro) ||
+                                x.Descripcion.ToUpper().Contains(filtro) ||
+                                x.StockMin.ToString().Contains(filtro))
+                    .ToList();
+            }
+            if (ddlMarca.SelectedIndex > 0)
+            {
+                string marcaSeleccionada = ddlMarca.SelectedItem.Text;
+                listaArticulos = listaArticulos.Where(x => x.Marca.Descripcion.Equals(marcaSeleccionada)).ToList();
+            }
+            if (ddlCategoria.SelectedIndex > 0)
+            {
+                string CategoriaSeleccionada = ddlCategoria.SelectedItem.Text;
+                listaArticulos = listaArticulos.Where(x => x.Categoria.Descripcion.Equals(CategoriaSeleccionada)).ToList();
+            }
+            if (chkOrdenarAZ.Checked)
+            {
+                listaArticulos = listaArticulos.OrderBy(x => x.Nombre).ToList();
             }
             else
             {
-                gvArticulos.DataSource = null;
+                listaArticulos = listaArticulos.OrderByDescending(x => x.Nombre).ToList();
             }
-
+            if (chkOrdenarPorStock.Checked)
+            {
+                listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
+            }
+            else
+            {                
+                listaArticulos = listaArticulos.OrderBy(x => x.StockMin).ToList();
+            }
+            gvArticulos.DataSource = listaArticulos;
             gvArticulos.DataBind();
         }
 
+        
+        protected void Filtro_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+        protected void chkIncluirInactivos_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+
+        protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+
+        protected void chkOrdenarAZ_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+
+        protected void chkOrdenarPorStock_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
 
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
-            txtFiltro.Text = string.Empty;
-            chkIncluirInactivos.Checked = false;
-            chkAvanzado.Checked = false;
-            pnlFiltroAvanzado.Visible = false;
-            ddlCampo.SelectedIndex = 0;
-            ddlCriterio.Items.Clear();
-            ddlCriterio.Items.Add("Comienza con");
-            txtFiltroAvanzado.Text = string.Empty;
-
-            CargarArticulos();
+            try
+            {
+                txtFiltro.Text = string.Empty;
+                chkAvanzado.Checked = false;
+                pnlFiltroAvanzado.Visible = false;
+                chkIncluirInactivos.Checked = false;
+                ddlMarca.SelectedIndex = 0;
+                ddlCategoria.SelectedIndex = 0;
+               // CargarMarcasYCategorias();
+                CargarArticulos();
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void gvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -132,69 +193,18 @@ namespace TPC_Equipo26
             txtFiltro.Enabled = !chkAvanzado.Checked;
             if (!chkAvanzado.Checked)
             {
-                ddlCampo.SelectedIndex = 0;
-                ddlCriterio.Items.Clear();
-                txtFiltroAvanzado.Text = string.Empty;
+                ddlMarca.SelectedIndex = 0;
+                ddlCategoria.SelectedIndex = 0;
+
             }
+            CargarArticulos();
         }
 
-        protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ddlCriterio.Items.Clear();
 
-            string selectedItemText = ddlCampo.SelectedItem.Text;
-
-            if (selectedItemText == "Precio Unitario ($)")
-            {
-                ddlCriterio.Items.Add("Igual a");
-                ddlCriterio.Items.Add("Mayor a");
-                ddlCriterio.Items.Add("Menor a");
-            }
-            else if (selectedItemText == "Descripción")
-            {
-                ddlCriterio.Items.Add("Comienza con");
-                ddlCriterio.Items.Add("Contiene");
-                ddlCriterio.Items.Add("Termina con");
-            }
-            else if (selectedItemText == "Marca")
-            {
-                MarcaNegocio marcaNegocio = new MarcaNegocio();
-                List<Marca> marcas = marcaNegocio.Listar();
-
-                ddlCriterio.Items.Add("Seleccionar Marca");
-                foreach (Marca marca in marcas)
-                {
-                    ddlCriterio.Items.Add(new ListItem(marca.Descripcion, marca.ID.ToString()));
-                }
-            }
-            else if (selectedItemText == "Categoría")
-            {
-                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                List<Categoria> categorias = categoriaNegocio.Listar();
-
-                ddlCriterio.Items.Add("Seleccionar Categoría");
-                foreach (Categoria categoria in categorias)
-                {
-                    ddlCriterio.Items.Add(new ListItem(categoria.Descripcion, categoria.ID.ToString()));
-                }
-            }
-
-            if (selectedItemText == "Marca" || selectedItemText == "Categoría")
-            {
-                txtFiltroAvanzado.Visible = false;
-                btnBuscar.Visible = false;
-            }
-            else
-            {
-                txtFiltroAvanzado.Visible = true;
-                btnBuscar.Visible = true;
-            }
-         
-        }
 
 
         protected void btnBuscar_Click(object sender, EventArgs e)
-        {
+        {/*
             try
             {
                 ArticuloNegocio negocio = new ArticuloNegocio();
@@ -208,18 +218,11 @@ namespace TPC_Equipo26
             catch (Exception)
             {
                 Response.Redirect("Error.aspx");
-            }
+            
+            }*/
         }
 
-        protected void ddlCriterio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           btnBuscar_Click(sender, e);
-        }
-
-        protected void chkIncluirInactivos_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
+        
     }
 
 }

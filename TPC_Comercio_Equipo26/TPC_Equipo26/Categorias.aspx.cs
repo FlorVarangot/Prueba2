@@ -13,20 +13,32 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                CargarCategorias();
+                if (!IsPostBack)
+                {
+                    CargarCategorias();
+                }
             }
+            catch
+            { Response.Redirect("Error.aspx", false); }
         }
 
         private void CargarCategorias()
         {
-            chkIncluirInactivos.Checked = true;
+            try
+            {
+                chkIncluirInactivos.Checked = true;
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
             List<Categoria> categorias = categoriaNegocio.Listar();
             Session["listaCategorias"] = categorias;
             gvCategorias.DataSource = categorias;
             gvCategorias.DataBind();
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx", false);
+            }
         }
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
         {

@@ -9,7 +9,7 @@
         <div class="row">
             <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
             <div class="col-4">
-                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" />
+                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar productos, marcas y más..." />
             </div>
             <div class="col-4" style="display: flex; flex-direction: column; justify-content: flex-end;">
                 <div class="mb-3">
@@ -18,51 +18,38 @@
             </div>
         </div>
         <asp:Panel ID="pnlFiltroAvanzado" runat="server" Visible="false">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <asp:Label Text="Campo" ID="lblCampo" runat="server" />
-                        <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control" ID="ddlCampo" OnSelectedIndexChanged="ddlCampo_SelectedIndexChanged">
-                            <asp:ListItem Text="Descripción" />
-                            <asp:ListItem Text="Marca" />
-                            <asp:ListItem Text="Categoría" />
-                            <asp:ListItem Text="Precio Unitario ($)" />
-                        </asp:DropDownList>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <asp:Label Text="Criterio" runat="server" />
-                        <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-control" OnSelectedIndexChanged="ddlCriterio_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <asp:Label Text="Filtro" runat="server" />
-                        <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control" />
-                    </div>
-                </div>
-                <div class="col-md-3 align-self-end">
-                    <div class="mb-3">
-                        <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />
-                    </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <asp:Label Text="Marca" ID="lblMarca" runat="server" />
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlMarca" AutoPostBack="true" OnSelectedIndexChanged="ddlMarca_SelectedIndexChanged"></asp:DropDownList>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged"/>
-                    </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <asp:Label Text="Categoría" ID="lblCategoria" runat="server" />
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged"></asp:DropDownList>
                 </div>
+            </div>        
+        </div>
+    </asp:Panel>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-3">
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
+                <asp:CheckBox ID="chkOrdenarAZ" runat="server" Text="Ordenar A-Z" AutoPostBack="true" OnCheckedChanged="chkOrdenarAZ_CheckedChanged" />
+                <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="Ordenar por Stock" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
             </div>
-        </asp:Panel>
+        </div>
+    </div>
         <div class="row">
             <div class="col-md-2">
                 <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" />
             </div>
         </div>
         <br />
-        <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-light table-bordered"
+        <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
             Style="text-align: center" AutoGenerateColumns="false"
             OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged"
             OnPageIndexChanging="gvArticulos_PageIndexChanging"

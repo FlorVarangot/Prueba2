@@ -24,7 +24,7 @@
     </div>
 </div>
 
-    <asp:GridView ID="gvCategorias" runat="server" DataKeyNames="ID" CssClass="table table-light table-bordered"
+    <asp:GridView ID="gvCategorias" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
         Style="text-align: center" AutoGenerateColumns="false"
         OnSelectedIndexChanged ="gvCategorias_SelectedIndexChanged">
                 <Columns>
