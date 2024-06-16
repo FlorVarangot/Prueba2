@@ -103,6 +103,7 @@ namespace TPC_Equipo26
             }
             else
             {
+
                 listaArticulos = listaArticulos.OrderByDescending(x => x.Nombre).ToList();
             }
             if (chkOrdenarPorStock.Checked)
@@ -110,14 +111,14 @@ namespace TPC_Equipo26
                 listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
             }
             else
-            {                
+            {
                 listaArticulos = listaArticulos.OrderBy(x => x.StockMin).ToList();
             }
             gvArticulos.DataSource = listaArticulos;
             gvArticulos.DataBind();
         }
 
-        
+
         protected void Filtro_TextChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
@@ -157,7 +158,7 @@ namespace TPC_Equipo26
                 chkIncluirInactivos.Checked = false;
                 ddlMarca.SelectedIndex = 0;
                 ddlCategoria.SelectedIndex = 0;
-               // CargarMarcasYCategorias();
+                // CargarMarcasYCategorias();
                 CargarArticulos();
             }
             catch (Exception)
@@ -222,7 +223,7 @@ namespace TPC_Equipo26
             }*/
         }
 
-        
+
     }
 
 }

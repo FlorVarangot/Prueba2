@@ -3,20 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\webform1.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\webform1.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\webform1.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\webform1.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\negocio\\proveedornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\negocio\\proveedornegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\dominio\\proveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\dominio\\proveedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\tpc_equipo26\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\categorias.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\compras.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\compras.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\tpc_equipo26\\categorias.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\categorias.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\categorias.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\tpc_equipo26\\categorias.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\categorias.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|c:\\users\\matii\\desktop\\nueva carpeta\\prueba2\\tpc_comercio_equipo26\\tpc_equipo26\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{F78E1FC4-3942-4ECE-8036-B45FB8144288}|TPC_Equipo26\\TPC_Equipo26.csproj|solutionrelative:tpc_equipo26\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,20 +62,85 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProveedorNegocio.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\ProveedorNegocio.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Negocio\\ProveedorNegocio.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Negocio\\ProveedorNegocio.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Negocio\\ProveedorNegocio.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAuwBYAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T22:10:56.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Proveedor.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Dominio\\Proveedor.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Dominio\\Proveedor.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Dominio\\Proveedor.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Dominio\\Proveedor.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAmwBMAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T22:09:10.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Compras.aspx",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Compras.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\Compras.aspx",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Compras.aspx",
+              "RelativeToolTip": "TPC_Equipo26\\Compras.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-16T21:56:57.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "WebForm1.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\WebForm1.aspx.cs",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\WebForm1.aspx.cs",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\WebForm1.aspx.cs",
+              "RelativeToolTip": "TPC_Equipo26\\WebForm1.aspx.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAYwC8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T21:56:47.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WebForm1.aspx",
+              "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\WebForm1.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo26\\WebForm1.aspx",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\WebForm1.aspx",
+              "RelativeToolTip": "TPC_Equipo26\\WebForm1.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-16T21:51:52.576Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Categorias.aspx.cs",
               "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx.cs",
               "RelativeDocumentMoniker": "TPC_Equipo26\\Categorias.aspx.cs",
-              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx.cs*",
-              "RelativeToolTip": "TPC_Equipo26\\Categorias.aspx.cs*",
-              "ViewState": "AQIAABMAAAAAAAAAAAAAABoAAAAnAAAA",
+              "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx.cs",
+              "RelativeToolTip": "TPC_Equipo26\\Categorias.aspx.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-16T21:30:30.987Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "Categorias.aspx",
               "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Categorias.aspx",
               "RelativeDocumentMoniker": "TPC_Equipo26\\Categorias.aspx",
@@ -63,25 +148,24 @@
               "RelativeToolTip": "TPC_Equipo26\\Categorias.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-16T21:30:23.73Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-16T21:30:23.73Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Default.aspx.cs",
               "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Default.aspx.cs",
               "RelativeDocumentMoniker": "TPC_Equipo26\\Default.aspx.cs",
               "ToolTip": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Default.aspx.cs",
               "RelativeToolTip": "TPC_Equipo26\\Default.aspx.cs",
-              "ViewState": "AQIAAB8AAAAAAAAAAAAAANIAAAA5AAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAQwDEAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-16T19:03:08.19Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Default.aspx",
               "DocumentMoniker": "C:\\Users\\matii\\Desktop\\Nueva carpeta\\Prueba2\\TPC_Comercio_Equipo26\\TPC_Equipo26\\Default.aspx",
               "RelativeDocumentMoniker": "TPC_Equipo26\\Default.aspx",
