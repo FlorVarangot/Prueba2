@@ -28,12 +28,11 @@ namespace TPC_Equipo26
         {
             try
             {
-                chkIncluirInactivos.Checked = true;
+                chkIncluirInactivos.Checked = false;
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
             List<Categoria> categorias = categoriaNegocio.Listar();
             Session["listaCategorias"] = categorias;
-            gvCategorias.DataSource = categorias;
-            gvCategorias.DataBind();
+                FiltrarCategorias();
             }
             catch (Exception)
             {
