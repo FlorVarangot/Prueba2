@@ -3,8 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Label ID="lblTituloAgregar" runat="server" Text="AGREGAR PROVEEDOR" Visible="false" CssClass="titulo-label"></asp:Label>
-    <asp:Label ID="lblTituloModificar" runat="server" Text="MODIFICAR PROVEEDOR" Visible="false" CssClass="titulo-label"></asp:Label>
+    <div class="my-4">
+        <asp:Label ID="lblTituloAgregar" runat="server" Text="AGREGAR PROVEEDOR" Visible="false" CssClass="titulo-label"></asp:Label>
+        <asp:Label ID="lblTituloModificar" runat="server" Text="MODIFICAR PROVEEDOR" Visible="false" CssClass="titulo-label"></asp:Label>
+    </div>
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
     <div class="row">

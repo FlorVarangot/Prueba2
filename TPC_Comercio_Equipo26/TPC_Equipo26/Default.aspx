@@ -3,20 +3,35 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>ARTÍCULOS</h1>
-
     <div class="container">
-        <div class="row">
-            <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
-            <div class="col-4">
+        <div class="text-center my-4">
+            <h1>ARTÍCULOS</h1>
+        </div>
+        <div class="row mb-2">
+            <%--<asp:Label Text="Buscar:" runat="server" CssClass="form-label" />--%>
+            <div class="col-6">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar artículos, marcas y más..." />
             </div>
-            <div class="col-4" style="display: flex; flex-direction: column; justify-content: flex-end;">
-                <div class="mb-3">
-                    <asp:CheckBox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
-                </div>
+            <div class="col-2">
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
+            </div>
+            <div class="col-1">
+                <asp:CheckBox ID="chkOrdenarAZ" runat="server" Text="A-Z ↑↓" AutoPostBack="true" OnCheckedChanged="chkOrdenarAZ_CheckedChanged" />
+            </div>
+            <div class="col-1">
+                <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="Stock ↑↓" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
             </div>
         </div>
+
+        <div class="row mb-3">
+            <div class="col-10" style="display: flex; flex-direction: column">
+                <asp:CheckBox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
+            </div>
+            <div class="col-1 text-end">
+                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
+            </div>
+        </div>
+
         <asp:Panel ID="pnlFiltroAvanzado" runat="server" Visible="false">
             <div class="row">
                 <div class="col-md-3">
@@ -34,20 +49,6 @@
             </div>
         </asp:Panel>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="mb-3">
-                    <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
-                    <asp:CheckBox ID="chkOrdenarAZ" runat="server" Text="Ordenar A-Z" AutoPostBack="true" OnCheckedChanged="chkOrdenarAZ_CheckedChanged" />
-                    <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="Ordenar por Stock" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 mb-2">
-                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" />
-            </div>
-        </div>
     </div>
 
     <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
@@ -68,7 +69,9 @@
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:BoundField HeaderText="Precio Unitario ($)" />
+            <%-- Calculo de precio unitario --%>
             <asp:BoundField HeaderText="Stock disponible" />
+            <%-- Calculo stock disponible --%>
             <asp:BoundField HeaderText="Stock Mínimo" DataField="StockMin" />
             <asp:BoundField HeaderText="Activo" DataField="Activo" />
             <asp:TemplateField>

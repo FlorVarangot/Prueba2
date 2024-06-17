@@ -4,25 +4,24 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>CATEGORÍAS</h1>
     <div class="container">
+        <div class="text-center my-4">
+            <h1>CATEGORÍAS</h1>
+        </div>
         <div class="row">
-            <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
-            <div class="col-2">
-                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" />
+            <div class="col-4">
+                <%--<asp:Label Text="Buscar:" runat="server" CssClass="form-label" />--%>
+                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" Placeholder="Buscar" />
             </div>
-            <div class="row">
-                <div class="col-2">
-                    <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-2">
-                    <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Limpiar filtros" OnClick="btnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin: 15px" />
-                </div>
+            <div class="col-1">
+                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="btnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-12 mb-2">
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
+            </div>
+        </div>
 
     <asp:GridView ID="gvCategorias" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
         Style="text-align: center" AutoGenerateColumns="false"

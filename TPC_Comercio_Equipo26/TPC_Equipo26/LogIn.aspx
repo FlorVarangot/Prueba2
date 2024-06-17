@@ -3,6 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="text-center my-4">
+        <h1>LOG IN</h1>
+    </div>
     <h4>¡Bienvenido/a a nuestro gestor online de artículos de librería!</h4>
     <main>
         <div class="formulario">

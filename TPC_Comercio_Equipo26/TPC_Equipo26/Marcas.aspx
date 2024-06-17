@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-        <div class="<%--text-center --%> my-4">
+        <div class="text-center my-4">
             <h1>MARCAS</h1>
         </div>
         <div class="row">
