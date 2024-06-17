@@ -103,29 +103,19 @@ namespace TPC_Equipo26
             }
             if (chkOrdenarAZ.Checked)
             {
-                listaArticulos = listaArticulos.OrderBy(x => x.Nombre).ToList();
-            }
-            else
-            {
-                listaArticulos = listaArticulos.OrderByDescending(x => x.Nombre).ToList();
-            }
-            if (chkOrdenarPorStock.Checked)
+                listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ToList();
+            }          
+            else if (chkOrdenarPorStock.Checked)
             {
                 listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
             }
             else
             {
-                listaArticulos = listaArticulos.OrderBy(x => x.StockMin).ToList();
+                listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
             }
+            Session["ListaArticulosFiltrada"] = listaArticulos;
 
-            if (listaArticulos.Count > 0)
-            {
-                lblVacio.Visible = false;
-            }
-            else
-            {
-                lblVacio.Visible = true;
-            }
+            lblVacio.Visible = (listaArticulos.Count == 0);
 
             gvArticulos.DataSource = listaArticulos;
             gvArticulos.DataBind();
@@ -170,7 +160,7 @@ namespace TPC_Equipo26
                 chkIncluirInactivos.Checked = false;
                 ddlMarca.SelectedIndex = 0;
                 ddlCategoria.SelectedIndex = 0;
-                // CargarMarcasYCategorias();
+               
                 CargarArticulos();
             }
             catch (Exception)
@@ -184,8 +174,10 @@ namespace TPC_Equipo26
             try
             {
                 gvArticulos.PageIndex = e.NewPageIndex;
+                List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulosFiltrada"];
 
-                gvArticulos.DataSource = Session["ListaArticulos"];
+                lblVacio.Visible = (listaArticulos.Count == 0);
+                gvArticulos.DataSource = listaArticulos;
                 gvArticulos.DataBind();
             }
             catch (Exception)
@@ -215,22 +207,7 @@ namespace TPC_Equipo26
 
 
         protected void btnBuscar_Click(object sender, EventArgs e)
-        {/*
-            try
-            {
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                gvArticulos.DataSource = negocio.Filtrar(
-                    ddlCampo.SelectedItem.Text,
-                ddlCriterio.SelectedItem.Text,
-                    txtFiltroAvanzado.Text,
-                    chkIncluirInactivos.Checked);
-                gvArticulos.DataBind();
-            }
-            catch (Exception)
-            {
-                Response.Redirect("Error.aspx");
-            
-            }*/
+        {
         }
 
 

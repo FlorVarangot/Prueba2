@@ -22,18 +22,24 @@ namespace TPC_Equipo26
 
         private void CargarMarcas()
         {
-            chkIncluirInactivos.Checked = true;
-            MarcaNegocio marcaNegocio = new MarcaNegocio();
-            List<Marca> marcas = marcaNegocio.Listar();
-            CargarDdlProveedores();
-
-            Session["listaMarcas"] = marcas;
-            gvMarcas.DataSource = marcas;
-            if(marcas != null)
+            try
             {
-                lblVacio.Visible = false;
+                chkIncluirInactivos.Checked = false;
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                List<Marca> marcas = marcaNegocio.Listar();
+                CargarDdlProveedores();
+
+                Session["listaMarcas"] = marcas;
+                FiltrarMarcas();
+                if (marcas != null)
+                {
+                    lblVacio.Visible = false;
+                }
             }
-            gvMarcas.DataBind();
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         private void FiltrarMarcas()
@@ -53,24 +59,23 @@ namespace TPC_Equipo26
                     {
                         listaFiltrada = incluirInactivos
                             ? lista
-                            : lista.FindAll(x => x.Activo);
+                            : lista.Where(x => x.Activo).ToList();
                     }
                     else
                     {
-                        listaFiltrada = lista.FindAll(x =>
-                            //x.ID.ToString().Contains(filtro) ||
-                            x.Descripcion.ToUpper().Contains(filtro) &&
-                            (x.Activo || incluirInactivos));
+                        listaFiltrada = lista.Where(x =>
+                    //x.ID.ToString().Contains(filtro) ||
+                    x.Descripcion.ToUpper().Contains(filtro) &&
+                    (x.Activo || incluirInactivos)).ToList();
                     }
                 }
                 else
                 {
-                    listaFiltrada = lista.FindAll(x =>
-                        x.IdProveedor == proveedorSelec &&
-                        x.Descripcion.ToUpper().Contains(filtro) &&
-                        (x.Activo || incluirInactivos));
+                    listaFiltrada = lista.Where(x =>
+                x.IdProveedor == proveedorSelec &&
+                x.Descripcion.ToUpper().Contains(filtro) &&
+                (x.Activo || incluirInactivos)).ToList();
                 }
-
                 if (listaFiltrada.Count > 0)
                 {
                     lblVacio.Visible = false;
@@ -98,8 +103,7 @@ namespace TPC_Equipo26
         protected void GvMarcas_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvMarcas.PageIndex = e.NewPageIndex;
-            gvMarcas.DataSource = Session["ListaMarcas"];
-            gvMarcas.DataBind();
+            FiltrarMarcas();
         }
 
         protected void GvMarcas_SelectedIndexChanged(object sender, EventArgs e)
