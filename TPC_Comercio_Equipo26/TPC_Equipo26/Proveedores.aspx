@@ -3,24 +3,24 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>PROVEEDORES</h1>
     <div class="container">
+        <div class="<%--text-center --%> my-4">
+            <h1>PROVEEDORES</h1>
+        </div>
         <div class="row">
-            <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
-            <div class="col-2">
-                <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" />
+            <div class="col-4">
+                <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
+            </div>
+            <div class="col-1">
+                <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
             <div class="row">
-                <div class="col-2">
-                    <asp:CheckBox runat="server" ID="ChkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-2">
-                    <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin: 15px" />
+                <div class="col-12 mb-2">
+                    <asp:CheckBox runat="server" ID="ChkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
                 </div>
             </div>
         </div>
+
     </div>
 
     <asp:GridView ID="GvProveedores" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
@@ -45,5 +45,7 @@
     </asp:GridView>
     <asp:Label ID="lblVacio" Text="No se encontraron Proveedores con ese criterio." runat="server" />
     <hr />
-    <a href="AltaProveedor.aspx" class="btn btn-success">Agregar un Proveedor</a>
+    <div class="text-end">
+        <a href="AltaProveedor.aspx" class="btn btn-success">Agregar un Proveedor</a>
+    </div>
 </asp:Content>

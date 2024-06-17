@@ -33,16 +33,11 @@ namespace TPC_Equipo26
             {
                 lblVacio.Visible = false;
             }
-            //gvMarcas.DataSource = marcaNegocio.ListarConProveedor();
-            //gvMarcas.DataSource = marcaNegocio.Listar2();
             gvMarcas.DataBind();
         }
 
         private void FiltrarMarcas()
         {
-            //List<dynamic> lista = (List<dynamic>)Session["listaMarcas"];
-            //string proveedorSelec = ddlProveedor.SelectedItem.Text;
-            //List<dynamic> listaFiltrada;
             List<Marca> lista = (List<Marca>)Session["listaMarcas"];
             string filtro = txtFiltro.Text.Trim().ToUpper();
             bool incluirInactivos = chkIncluirInactivos.Checked;
@@ -53,7 +48,6 @@ namespace TPC_Equipo26
             if (lista != null)
             {
                 if (proveedorSelec == 0)
-                //if (proveedorSelec == "Seleccionar Proveedor")
                 {
                     if (string.IsNullOrEmpty(filtro))
                     {
@@ -64,6 +58,7 @@ namespace TPC_Equipo26
                     else
                     {
                         listaFiltrada = lista.FindAll(x =>
+                            //x.ID.ToString().Contains(filtro) ||
                             x.Descripcion.ToUpper().Contains(filtro) &&
                             (x.Activo || incluirInactivos));
                     }
@@ -72,7 +67,6 @@ namespace TPC_Equipo26
                 {
                     listaFiltrada = lista.FindAll(x =>
                         x.IdProveedor == proveedorSelec &&
-                        //x.Proveedor == proveedorSelec &&
                         x.Descripcion.ToUpper().Contains(filtro) &&
                         (x.Activo || incluirInactivos));
                 }
@@ -144,7 +138,7 @@ namespace TPC_Equipo26
             ddlProveedor.DataTextField = "Nombre";
             ddlProveedor.DataValueField = "ID";
             ddlProveedor.DataBind();
-            ddlProveedor.Items.Insert(0, new ListItem("Seleccionar Proveedor", "0"));
+            ddlProveedor.Items.Insert(0, new ListItem("Proveedor...", "0"));
         }
 
     }

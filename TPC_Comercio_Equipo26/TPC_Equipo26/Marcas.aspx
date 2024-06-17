@@ -4,28 +4,29 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>MARCAS</h1>
     <div class="container">
+        <div class="<%--text-center --%> my-4">
+            <h1>MARCAS</h1>
+        </div>
         <div class="row">
-            <asp:Label Text="Buscar:" runat="server" CssClass="form-label" />
-            <div class="col-2">
-                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" />
+            <div class="col-4">
+                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar" />
             </div>
-            <div class="col-2">
+            <div class="col-4">
                 <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroProveedor_SelectedIndexChanged" />
             </div>
-            <div class="row">
-                <div class="col-2">
-                    <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
-                </div>
+            <div class="col-1">
+                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
-            <div class="row">
-                <div class="col-2">
-                    <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light mt-3" Style="margin: 15px" />
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-2">
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
             </div>
         </div>
     </div>
+
+
     <asp:GridView ID="gvMarcas" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
         Style="text-align: center" AutoGenerateColumns="false"
         OnSelectedIndexChanged="GvMarcas_SelectedIndexChanged"
@@ -34,8 +35,6 @@
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Marca" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
-            <%--<asp:BoundField HeaderText="Proveedor" DataField="IdProveedor" ItemStyle-HorizontalAlign="Center" />--%>
-            <%--<asp:BoundField HeaderText="Proveedor" DataField="Proveedor" ItemStyle-HorizontalAlign="Center" />--%>
             <asp:TemplateField HeaderText="Imagen">
                 <ItemTemplate>
                     <asp:Image ID="imgMarca" runat="server" ImageUrl='<%# Eval("ImagenUrl") %>' AlternateText="Logo de marca" Style="height: 40px; width: 45px;" />
@@ -51,8 +50,10 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Label ID="lblVacio" Text="No se encontraron Marcas con ese criterio." runat="server" /> 
+    <asp:Label ID="lblVacio" Text="No se encontraron Marcas con ese criterio." runat="server" />
     <hr />
-    <a href="AltaMarca.aspx" class="btn btn-success">Agregar una marca</a>
+    <div class="text-end">
+        <a href="AltaMarca.aspx" class="btn btn-success btn-success">Agregar una marca</a>
+    </div>
 </asp:Content>
 

@@ -24,15 +24,6 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.TextBox TxtFiltro;
 
         /// <summary>
-        /// Control ChkIncluirInactivos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkIncluirInactivos;
-
-        /// <summary>
         /// Control BtnLimpiarFiltros.
         /// </summary>
         /// <remarks>
@@ -40,6 +31,15 @@ namespace TPC_Equipo26
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnLimpiarFiltros;
+
+        /// <summary>
+        /// Control ChkIncluirInactivos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ChkIncluirInactivos;
 
         /// <summary>
         /// Control GvProveedores.

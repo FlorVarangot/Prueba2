@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -36,49 +37,38 @@ namespace TPC_Equipo26
 
         private void FiltrarProveedores()
         {
-            List<Proveedor> lista = (List<Proveedor>)Session["ListaProveedores"];
-            string filtro = TxtFiltro.Text.Trim().ToUpper();
-            bool incluirInactivos = ChkIncluirInactivos.Checked;
 
-            List<Proveedor> listaFiltrada;
-
-            if (lista != null)
+            List<Proveedor> proveedores = (List<Proveedor>)Session["ListaProveedores"];
+            if (!ChkIncluirInactivos.Checked)
             {
-                if (string.IsNullOrEmpty(filtro))
-                {
-                    listaFiltrada = incluirInactivos
-                        ? lista
-                        : lista.FindAll(x => x.Activo);
-                }
-                else
-                {
-                    listaFiltrada = lista.FindAll(x =>
-                        x.Nombre.ToUpper().Contains(filtro) ||
-                        x.CUIT.ToUpper().Contains(filtro) ||
-                        x.Email.ToUpper().Contains(filtro) ||
-                        x.Telefono.ToUpper().Contains(filtro) ||
-                        x.Direccion.ToUpper().Contains(filtro) &&
-                        (x.Activo || incluirInactivos));
-                }
+                proveedores = proveedores.Where(x => x.Activo).ToList();
+            }
 
-                if (listaFiltrada.Count > 0)
-                {
-                    lblVacio.Visible = false;
-                }
-                else
-                {
-                    lblVacio.Visible = true;
-                }
+            if (!string.IsNullOrEmpty(TxtFiltro.Text.Trim()))
+            {
+                string filtro = TxtFiltro.Text.Trim().ToUpper();
+                proveedores = proveedores
+                    .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
+                    x.CUIT.ToUpper().Contains(filtro) ||
+                    x.Email.ToUpper().Contains(filtro) ||
+                    x.Telefono.ToString().Contains(filtro) ||
+                    x.Direccion.ToUpper().Contains(filtro))
+                    .ToList();
+            }
 
-                GvProveedores.DataSource = listaFiltrada;
+            if (proveedores.Count > 0)
+            {
+                lblVacio.Visible = false;
             }
             else
             {
-                GvProveedores.DataSource = lista;
+                lblVacio.Visible = true;
             }
+
+            GvProveedores.DataSource = proveedores;
             GvProveedores.DataBind();
         }
-
+            
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             LimpiarFiltros();

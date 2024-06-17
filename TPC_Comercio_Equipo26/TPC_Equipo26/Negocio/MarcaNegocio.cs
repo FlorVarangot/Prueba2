@@ -45,63 +45,6 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        //public datatable listar2()
-        //{
-        //    accesodatos datos = new accesodatos();
-        //    datatable dt = new datatable();
-
-        //    try
-        //    {
-        //        datos.setearconsulta("select * from vistamarcasconproveedores");
-        //        datos.ejecutarlectura();
-
-        //        dt.load(datos.lector);
-        //        return dt;
-        //    }
-        //    catch (exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarconexion();
-        //    }
-        //}
-
-        //public list<dynamic> listarconproveedor()
-        //{
-        //    list<dynamic> lista = new list<dynamic>();
-        //    accesodatos datos = new accesodatos();
-
-        //    datos.setearconsulta("select m.id, m.descripcion, p.nombre as proveedor, m.imagenurl, m.activo from marcas m inner join proveedores p on m.idproveedor = p.id");
-        //    datos.ejecutarlectura();
-        //    try
-        //    {
-        //        while (datos.lector.read())
-        //        {
-        //            var marcaconproveedor = new
-        //            {
-        //                id = int.parse(datos.lector["id"].tostring()),
-        //                descripcion = datos.lector["descripcion"].tostring(),
-        //                proveedor = datos.lector["proveedor"].tostring(),
-        //                imagenurl = datos.lector["imagenurl"].tostring(),
-        //                activo = (bool)datos.lector["activo"],
-        //            };
-        //            lista.add(marcaconproveedor);
-        //        }
-        //        return lista;
-        //    }
-        //    catch (exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarconexion();
-        //    }
-        //}
-
         public void Agregar(Marca marca)
         {
             AccesoDatos datos = new AccesoDatos();

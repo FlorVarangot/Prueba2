@@ -57,6 +57,8 @@ namespace TPC_Equipo26
                     else
                     {
                         lblTituloAgregar.Visible = true;
+                        BtnInactivar.Visible = false;
+                        btnReactivar.Visible = false;
                         LimpiarCampos();
                     }
                 }
@@ -114,6 +116,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
+        
         private void LimpiarCampos()
         {
             txtCodigo.Text = "";
@@ -157,6 +160,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
+        
         //Reactivar
         protected void btnReactivar_Click(object sender, EventArgs e)
         {
@@ -209,6 +213,7 @@ namespace TPC_Equipo26
                     txtImagenUrl.Text = "";
                     imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
                 }
+                
                 if (articulo.Activo == true)
                 {
                     BtnInactivar.Visible = true;
