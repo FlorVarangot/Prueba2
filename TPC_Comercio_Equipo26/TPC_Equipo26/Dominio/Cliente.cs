@@ -8,7 +8,7 @@ namespace TPC_Equipo26.Dominio
 {
     public class Cliente
     {
-        public int ID {get; set;}
+        public long ID {get; set;}
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public int Dni { get; set; }

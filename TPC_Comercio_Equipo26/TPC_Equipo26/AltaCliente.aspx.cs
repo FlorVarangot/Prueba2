@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,7 +9,7 @@ using TPC_Equipo26.Negocio;
 
 namespace TPC_Equipo26
 {
-    public partial class AltaCategoria : System.Web.UI.Page
+    public partial class AltaCliente : System.Web.UI.Page
     {
         public bool ConfirmarInactivar { get; set; }
         public bool ConfirmarReactivar { get; set; }
@@ -22,10 +21,11 @@ namespace TPC_Equipo26
                 {
                     ConfirmarInactivar = false;
                     ConfirmarReactivar = false;
+
                     if (Request.QueryString["ID"] != null)
                     {
-                        int idCategoria = int.Parse(Request.QueryString["ID"]);
-                        CargarDatosCategoria(idCategoria);
+                        long Id = long.Parse(Request.QueryString["ID"]);
+                        CargarDatosCliente(Id);
                         lblTituloModificar.Visible = true;
                     }
                     else
@@ -43,17 +43,33 @@ namespace TPC_Equipo26
             }
         }
 
-        private void CargarDatosCategoria(int Id)
+        private void LimpiarCampos()
         {
-            CategoriaNegocio negocio = new CategoriaNegocio();
-            Categoria categoria = negocio.ObtenerCategoriaPorId(Id);
+            txtID.Text = string.Empty;
+            txtNombre.Text = string.Empty;
+            txtApellido.Text = string.Empty;
+            txtDNI.Text = string.Empty;
+            txtTelefono.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtDireccion.Text = string.Empty;
+        }
 
-            if (categoria != null)
+        private void CargarDatosCliente(long Id)
+        {
+            ClienteNegocio negocio = new ClienteNegocio();
+            Cliente cliente = negocio.ObtenerClientePorId(Id);
+
+            if (cliente != null)
             {
-                txtID.Text = categoria.ID.ToString();
-                txtDescripcion.Text = categoria.Descripcion;
+                txtID.Text = cliente.ID.ToString();
+                txtNombre.Text = cliente.Nombre;
+                txtApellido.Text = cliente.Apellido;
+                txtDNI.Text = cliente.Dni.ToString();
+                txtTelefono.Text = cliente.Telefono;
+                txtEmail.Text = cliente.Email;
+                txtDireccion.Text = cliente.Direccion;
 
-                if (categoria.Activo == true)
+                if (cliente.Activo)
                 {
                     BtnInactivar.Visible = true;
                     btnReactivar.Visible = false;
@@ -69,37 +85,38 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-        private void LimpiarCampos()
-        {
-            txtID.Text = string.Empty;
-            txtDescripcion.Text = string.Empty;
-        }
 
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
-                Categoria categoria = new Categoria();
-                CategoriaNegocio negocio = new CategoriaNegocio();
+                Cliente cliente = new Cliente();
+                ClienteNegocio negocio = new ClienteNegocio();
 
-                categoria.Descripcion = txtDescripcion.Text;
-                categoria.Activo = true;
-                if (Request.QueryString["ID"] != null)
+                cliente.Nombre = txtNombre.Text;
+                cliente.Apellido = txtApellido.Text;
+                cliente.Dni = int.Parse(txtDNI.Text);
+                cliente.Telefono = txtTelefono.Text;
+                cliente.Email = txtEmail.Text;
+                cliente.Direccion = txtDireccion.Text;
+                cliente.Activo = true;
+
+                if (txtID.Text != string.Empty)
                 {
-                    categoria.ID = int.Parse(Request.QueryString["ID"]);
-                    negocio.Modificar(categoria);
+                    cliente.ID = long.Parse(txtID.Text);
+                    negocio.Modificar(cliente);
                 }
                 else
                 {
-                    negocio.Agregar(categoria);
+                    negocio.Agregar(cliente);
                 }
 
                 LimpiarCampos();
-                Response.Redirect("Categorias.aspx", false);
+                Response.Redirect("Clientes.aspx", false);
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -115,9 +132,9 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaInactivacion.Checked)
                 {
-                    CategoriaNegocio negocio = new CategoriaNegocio();
-                    negocio.EliminarLogico(int.Parse(txtID.Text), false);
-                    Response.Redirect("Categorias.aspx", false);
+                    ClienteNegocio negocio = new ClienteNegocio();
+                    negocio.EliminarLogico(long.Parse(txtID.Text), false);
+                    Response.Redirect("Clientes.aspx", false);
                 }
             }
             catch (Exception)
@@ -125,21 +142,22 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+
         protected void btnReactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = false;
             ConfirmarReactivar = true;
         }
-
+      
         protected void btnConfirmaReactivar_Click(object sender, EventArgs e)
         {
             try
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
-                    CategoriaNegocio negocio = new CategoriaNegocio();
-                    negocio.EliminarLogico(int.Parse(txtID.Text), true);
-                    Response.Redirect("Categorias.aspx", false);
+                    ClienteNegocio negocio = new ClienteNegocio();
+                    negocio.EliminarLogico(long.Parse(txtID.Text), true);
+                    Response.Redirect("Clientes.aspx", false);
                 }
             }
             catch (Exception)

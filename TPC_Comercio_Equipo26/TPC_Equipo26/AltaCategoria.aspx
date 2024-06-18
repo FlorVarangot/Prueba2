@@ -32,6 +32,10 @@
             <asp:CheckBox Text="Confirmar Inactivación" ID="chkConfirmaInactivacion" runat="server" />
             <asp:Button Text="Inactivar" ID="btnConfirmaInactivar" OnClick="btnConfirmaInactivar_Click" CssClass="btn btn-outline-danger" runat="server" />
         </div>
+        <div class="mb-3">
+            <asp:CheckBox Text="Inactivar Artículos Relacionados" ID="chkInactivarArticulos" runat="server" />
+            <asp:Button Text="Inactivar Categorías y Artículos" ID="btnConfirmaInactivarArticulos"  CssClass="btn btn-outline-danger" runat="server" />
+        </div>
         <% } %>
         <% if (ConfirmarReactivar)
             { %>
