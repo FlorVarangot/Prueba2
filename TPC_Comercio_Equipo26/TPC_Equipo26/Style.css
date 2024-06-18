@@ -14,19 +14,19 @@ header {
 }
 
 
-a{
+a {
     text-decoration:none;
 }
 
 footer {
     text-align:center;
-    padding:20px;
+    padding:10px;
     background-color:dimgrey;
     color:antiquewhite;
     font-size:14px;
 }
 
-h1{
+h1 {
     margin-top:20px;
 }
 
@@ -39,7 +39,7 @@ p {
     font-size: 14px;
 }
 
-img{
+img {
     width: 45px;
     height:40px
 }
@@ -85,7 +85,6 @@ img{
     text-align:center;
 }
 
-
 .ver-mas {
     font-size: 20px;
     color: dimgrey;
@@ -103,9 +102,11 @@ img{
         font-size: 14px;
         color: #333;
         z-index: 1;
-        top: 30px; /*revisar estas medidass*/
+        top: 30px;
         left: 0;
     }
+
+
 
 
 .titulo-label{

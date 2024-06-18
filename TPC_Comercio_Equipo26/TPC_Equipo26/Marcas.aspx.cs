@@ -64,17 +64,17 @@ namespace TPC_Equipo26
                     else
                     {
                         listaFiltrada = lista.Where(x =>
-                    //x.ID.ToString().Contains(filtro) ||
-                    x.Descripcion.ToUpper().Contains(filtro) &&
-                    (x.Activo || incluirInactivos)).ToList();
+                        //x.ID.ToString().Contains(filtro) ||
+                        x.Descripcion.ToUpper().Contains(filtro) &&
+                        (x.Activo || incluirInactivos)).ToList();
                     }
                 }
                 else
                 {
                     listaFiltrada = lista.Where(x =>
-                x.IdProveedor == proveedorSelec &&
-                x.Descripcion.ToUpper().Contains(filtro) &&
-                (x.Activo || incluirInactivos)).ToList();
+                    x.IdProveedor == proveedorSelec &&
+                    x.Descripcion.ToUpper().Contains(filtro) &&
+                    (x.Activo || incluirInactivos)).ToList();
                 }
                 if (listaFiltrada.Count > 0)
                 {

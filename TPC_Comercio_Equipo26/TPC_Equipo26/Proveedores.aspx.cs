@@ -22,22 +22,21 @@ namespace TPC_Equipo26
 
         private void CargarProveedores()
         {
-            ChkIncluirInactivos.Checked = true;
+            ChkIncluirInactivos.Checked = false;
             ProveedorNegocio negocio = new ProveedorNegocio();
             List<Proveedor> proveedores = negocio.Listar();
 
             Session["listaProveedores"] = proveedores;
-            GvProveedores.DataSource = proveedores;
+            FiltrarProveedores();
+            
             if (proveedores != null)
             {
                 lblVacio.Visible = false;
             }
-            GvProveedores.DataBind();
         }
 
         private void FiltrarProveedores()
         {
-
             List<Proveedor> proveedores = (List<Proveedor>)Session["ListaProveedores"];
             if (!ChkIncluirInactivos.Checked)
             {
@@ -55,6 +54,8 @@ namespace TPC_Equipo26
                     x.Direccion.ToUpper().Contains(filtro))
                     .ToList();
             }
+
+            Session["ProveedoresFiltrada"] = proveedores;
 
             if (proveedores.Count > 0)
             {

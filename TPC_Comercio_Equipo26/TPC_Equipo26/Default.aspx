@@ -12,22 +12,25 @@
             <div class="col-6">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar artículos, marcas y más..." />
             </div>
-            <div class="col-2">
-                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
-            </div>
-            <div class="col-1">
-                <asp:CheckBox ID="chkOrdenarAZ" runat="server" Text="A-Z ↑↓" AutoPostBack="true" OnCheckedChanged="chkOrdenarAZ_CheckedChanged" />
-            </div>
-            <div class="col-1">
-                <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="Stock ↑↓" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
+            <div class="col-6" style="display: flex; flex-direction: column">
+                <asp:CheckBox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
             </div>
         </div>
 
         <div class="row mb-3">
-            <div class="col-10" style="display: flex; flex-direction: column">
-                <asp:CheckBox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
+            <div class="col-2">
+                <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
             </div>
-            <div class="col-1 text-end">
+            <div class="col-2">
+                <asp:CheckBox ID="chkOrdenarAZ" runat="server" Text="↑↓ Descripción A-Z" AutoPostBack="true" OnCheckedChanged="chkOrdenarAZ_CheckedChanged" />
+            </div>
+
+            <%-- Esto en realidad va a tener sentido hacerlo por Stock Disponible, ¿no? 
+     Incluso podemos sumar otro para precio (F) --%>
+            <div class="col-2">
+                <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="↑↓ Stock Min." AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
+            </div>
+            <div class="col-6 text-end">
                 <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>

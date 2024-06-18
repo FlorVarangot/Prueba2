@@ -79,8 +79,9 @@
         <footer class="d-flex justify-content-center" style="color: ghostwhite; margin: 20px">
             <hr />
             <div class="footer">
-                <p>© 2024 TP CUATRIMESTRAL - PROG III UTN FRGP - Equipo 26</p>
+                <p>Trabajo Práctico Cuatrimestral - Comercio - Equipo 26 </p>
                 <p>Rodriguez Varangot, Velazquez Segovia</p>
+                <p>© 2024 PROGRAMACIÓN III UTN FRGP </p>
             </div>
         </footer>
 
