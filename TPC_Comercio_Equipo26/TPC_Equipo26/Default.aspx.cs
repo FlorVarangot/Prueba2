@@ -101,16 +101,21 @@ namespace TPC_Equipo26
                 string CategoriaSeleccionada = ddlCategoria.SelectedItem.Text;
                 listaArticulos = listaArticulos.Where(x => x.Categoria.Descripcion.Equals(CategoriaSeleccionada)).ToList();
             }
-            if (chkOrdenarAZ.Checked)
+            if (chkOrdenarAZ.Checked && chkOrdenarPorStock.Checked)
+            {
+                listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ThenByDescending(x => x.StockMin).ToList();
+            }
+            else if (chkOrdenarAZ.Checked)
             {
                 listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ToList();
-            }          
+            }
             else if (chkOrdenarPorStock.Checked)
             {
                 listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
             }
             else
             {
+                // Si ninguno de los checkboxes está seleccionado, ordenar por ID (o el criterio que prefieras)
                 listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
             }
             Session["ListaArticulosFiltrada"] = listaArticulos;
