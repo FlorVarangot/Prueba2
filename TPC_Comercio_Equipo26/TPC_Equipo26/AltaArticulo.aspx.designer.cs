@@ -42,15 +42,6 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// Control txtID.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtID;
-
-        /// <summary>
         /// Control txtCodigo.
         /// </summary>
         /// <remarks>
@@ -96,22 +87,22 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
 
         /// <summary>
-        /// Control txtGanancia.
+        /// Control numGanancia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGanancia;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl numGanancia;
 
         /// <summary>
-        /// Control ddlStockMinimo.
+        /// Control numStockMinimo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStockMinimo;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl numStockMinimo;
 
         /// <summary>
         /// Control UpdatePanel1.

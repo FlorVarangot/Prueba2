@@ -50,7 +50,6 @@ namespace TPC_Equipo26
 
             if (categoria != null)
             {
-                txtID.Text = categoria.ID.ToString();
                 txtDescripcion.Text = categoria.Descripcion;
 
                 if (categoria.Activo == true)
@@ -71,7 +70,6 @@ namespace TPC_Equipo26
         }
         private void LimpiarCampos()
         {
-            txtID.Text = string.Empty;
             txtDescripcion.Text = string.Empty;
         }
 
@@ -116,7 +114,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaInactivacion.Checked)
                 {
                     CategoriaNegocio negocio = new CategoriaNegocio();
-                    negocio.EliminarLogico(int.Parse(txtID.Text), false);
+                    negocio.EliminarLogico(int.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Categorias.aspx", false);
                 }
             }
@@ -138,7 +136,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaReactivacion.Checked)
                 {
                     CategoriaNegocio negocio = new CategoriaNegocio();
-                    negocio.EliminarLogico(int.Parse(txtID.Text), true);
+                    negocio.EliminarLogico(int.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Categorias.aspx", false);
                 }
             }

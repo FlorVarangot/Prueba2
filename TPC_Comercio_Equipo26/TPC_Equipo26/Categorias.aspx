@@ -23,25 +23,29 @@
             </div>
         </div>
 
-    <asp:GridView ID="gvCategorias" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-        Style="text-align: center" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="gvCategorias_SelectedIndexChanged">
-        <Columns>
-            <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
-            <asp:BoundField HeaderText="Categoría" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
-            <asp:BoundField HeaderText="Activo" DataField="Activo" ItemStyle-HorizontalAlign="Center" />
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <a href='<%# "AltaCategoria.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">
-                        <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
-                    </a>
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-    <asp:Label ID="lblVacio" Text="No se encontraron Marcas con ese criterio." runat="server" />
-    <hr />
-    <div class="text-end">
-        <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoria</a>
-    </div>
+        <asp:GridView ID="gvCategorias" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
+            Style="text-align: center" AutoGenerateColumns="false"
+            OnSelectedIndexChanged="gvCategorias_SelectedIndexChanged">
+            <Columns>
+                <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField HeaderText="Categoría" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
+                <asp:TemplateField HeaderText="Estado">
+                    <ItemTemplate>
+                        <%# Convert.ToBoolean(Eval("Activo")) ? "Disponible" : "No disponible" %>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <a href='<%# "AltaCategoria.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">
+                            <i class="fa-solid fa-pen" style="color: dimgrey; margin: 10px"></i>
+                        </a>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+        <asp:Label ID="lblVacio" Text="No se encontraron Marcas con ese criterio." runat="server" />
+        <hr />
+        <div class="text-end">
+            <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoria</a>
+        </div>
 </asp:Content>

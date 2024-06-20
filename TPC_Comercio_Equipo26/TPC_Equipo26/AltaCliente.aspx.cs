@@ -45,7 +45,6 @@ namespace TPC_Equipo26
 
         private void LimpiarCampos()
         {
-            txtID.Text = string.Empty;
             txtNombre.Text = string.Empty;
             txtApellido.Text = string.Empty;
             txtDNI.Text = string.Empty;
@@ -61,7 +60,6 @@ namespace TPC_Equipo26
 
             if (cliente != null)
             {
-                txtID.Text = cliente.ID.ToString();
                 txtNombre.Text = cliente.Nombre;
                 txtApellido.Text = cliente.Apellido;
                 txtDNI.Text = cliente.Dni.ToString();
@@ -101,9 +99,9 @@ namespace TPC_Equipo26
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Activo = true;
 
-                if (txtID.Text != string.Empty)
+                if (Request.QueryString["ID"] != null)
                 {
-                    cliente.ID = long.Parse(txtID.Text);
+                    cliente.ID = long.Parse(Request.QueryString["ID"]);
                     negocio.Modificar(cliente);
                 }
                 else
@@ -133,7 +131,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaInactivacion.Checked)
                 {
                     ClienteNegocio negocio = new ClienteNegocio();
-                    negocio.EliminarLogico(long.Parse(txtID.Text), false);
+                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Clientes.aspx", false);
                 }
             }
@@ -156,7 +154,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaReactivacion.Checked)
                 {
                     ClienteNegocio negocio = new ClienteNegocio();
-                    negocio.EliminarLogico(long.Parse(txtID.Text), true);
+                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Clientes.aspx", false);
                 }
             }

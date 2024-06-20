@@ -71,12 +71,19 @@
                     <asp:Image ID="imgArticulo" runat="server" ImageUrl='<%# Eval("Imagen") %>' AlternateText="Imagen del artículo" Style="height: 40px; width: 45px;" />
                 </ItemTemplate>
             </asp:TemplateField>
+
             <asp:BoundField HeaderText="Precio Unitario ($)" />
             <%-- Calculo de precio unitario --%>
             <asp:BoundField HeaderText="Stock disponible" />
             <%-- Calculo stock disponible --%>
             <asp:BoundField HeaderText="Stock Mínimo" DataField="StockMin" />
-            <asp:BoundField HeaderText="Activo" DataField="Activo" />
+
+            <asp:TemplateField HeaderText="Estado">
+                <ItemTemplate>
+                    <%# Convert.ToBoolean(Eval("Activo")) ? "Disponible" : "No disponible" %>
+                </ItemTemplate>
+            </asp:TemplateField>
+
             <asp:TemplateField>
                 <ItemTemplate>
                     <a href='<%# "AltaArticulo.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">

@@ -16,14 +16,16 @@ namespace TPC_Equipo26
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            txtID.Enabled = false;
             try
             {
                 if (!IsPostBack)
                 {
                     ProveedorNegocio negocio = new ProveedorNegocio();
-                    List<Proveedor> proveedores = negocio.Listar();
-                    
+
+                    //F: Ahora si va a modificar sólo trae los proveedores activos
+                    List<Proveedor> proveedores = negocio.Listar().Where(prov => prov.Activo).ToList();
+                    //List<Proveedor> proveedores = negocio.Listar();
+
                     ddlProveedor.DataSource = proveedores;
                     ddlProveedor.DataValueField = "ID";
                     ddlProveedor.DataTextField = "Nombre";
@@ -60,7 +62,6 @@ namespace TPC_Equipo26
 
             if (marca != null)
             {
-                txtID.Text = marca.ID.ToString();
                 txtDescripcion.Text = marca.Descripcion;
                 txtImagenUrl.Text = marca.ImagenUrl.ToString();
 
@@ -94,7 +95,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-        
+
         private void LimpiarCampos()
         {
             txtDescripcion.Text = "";
@@ -107,7 +108,7 @@ namespace TPC_Equipo26
         {
             imgMarcas.ImageUrl = txtImagenUrl.Text;
         }
-        
+
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -152,7 +153,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaInactivacion.Checked)
                 {
                     MarcaNegocio negocio = new MarcaNegocio();
-                    negocio.ActivarLogico(int.Parse(txtID.Text), false);
+                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Marcas.aspx", false);
                 }
             }
@@ -161,7 +162,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
-        
+
         protected void BtnReactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = false;
@@ -175,7 +176,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaReactivacion.Checked)
                 {
                     MarcaNegocio negocio = new MarcaNegocio();
-                    negocio.ActivarLogico(int.Parse(txtID.Text), true);
+                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Marcas.aspx", false);
                 }
             }

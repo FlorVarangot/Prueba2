@@ -40,7 +40,11 @@
                     <asp:Image ID="imgMarca" runat="server" ImageUrl='<%# Eval("ImagenUrl") %>' AlternateText="Logo de marca" Style="height: 40px; width: 45px;" />
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField HeaderText="Activo" DataField="Activo" ItemStyle-HorizontalAlign="Center" />
+            <asp:TemplateField HeaderText="Estado">
+                <ItemTemplate>
+                    <%# Convert.ToBoolean(Eval("Activo")) ? "Disponible" : "No disponible" %>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
                     <a href='<%# "AltaMarca.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">

@@ -32,7 +32,11 @@
                 <asp:BoundField HeaderText="Teléfono" DataField="Telefono" ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField HeaderText="Email" DataField="Email" ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField HeaderText="Dirección" DataField="Direccion" ItemStyle-HorizontalAlign="Center" />
-                <asp:BoundField HeaderText="Activo" DataField="Activo" ItemStyle-HorizontalAlign="Center" />
+                <asp:TemplateField HeaderText="Estado">
+                    <ItemTemplate>
+                        <%# Convert.ToBoolean(Eval("Activo")) ? "Disponible" : "No disponible" %>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
                         <a href='<%# "AltaCliente.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">

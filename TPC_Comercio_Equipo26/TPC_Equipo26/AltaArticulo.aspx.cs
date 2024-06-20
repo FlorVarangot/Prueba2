@@ -17,23 +17,20 @@ namespace TPC_Equipo26
         public bool ConfirmarReactivar { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            txtID.Enabled = false;
-            
+        {   
             try
             {
                 if (!IsPostBack)
                 {
                     ConfirmarInactivar = false;
                     ConfirmarReactivar = false;
-                    for (int i = 1; i <= 10; i++)
-                    {
-                        ddlStockMinimo.Items.Add(new ListItem(i.ToString(), i.ToString()));
-                    }
 
                     ///Cargo los desplegables para marcas
                     MarcaNegocio negocioMarca = new MarcaNegocio();
-                    List<Marca> listaMarca = negocioMarca.Listar();
+
+                    //F: Ahora si va a modificar sólo trae las marcas y categorias Activas.
+                    List<Marca> listaMarca = negocioMarca.Listar().Where(mar=> mar.Activo).ToList();
+                    //List<Marca> listaMarca = negocioMarca.Listar();
 
                     ddlMarca.DataSource = listaMarca;
                     ddlMarca.DataValueField = "ID";
@@ -42,7 +39,9 @@ namespace TPC_Equipo26
 
                     ///lo mismo para categoria
                     CategoriaNegocio negocioCategoria = new CategoriaNegocio();
-                    List<Categoria> listaCategoria = negocioCategoria.Listar();
+                    List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
+                    //List<Categoria> listaCategoria = negocioCategoria.Listar();
+
 
                     ddlCategoria.DataSource = listaCategoria;
                     ddlCategoria.DataValueField = "ID";
@@ -94,8 +93,8 @@ namespace TPC_Equipo26
                     nuevo.Categoria.ID = int.Parse(categoriaIDString);
                 }
 
-                nuevo.Ganancia = decimal.Parse(txtGanancia.Text);
-                nuevo.StockMin = int.Parse(ddlStockMinimo.SelectedValue);
+                nuevo.Ganancia = decimal.Parse(numGanancia.Value);
+                nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.Activo = true;
 
@@ -123,11 +122,11 @@ namespace TPC_Equipo26
             txtCodigo.Text = "";
             txtNombre.Text = "";
             txtDescripcion.Text = "";
-            txtGanancia.Text = "";
             txtImagenUrl.Text = "";
-            ddlMarca.SelectedIndex = 0;
-            ddlCategoria.SelectedIndex = 0;
-            ddlStockMinimo.SelectedIndex = 0;
+            numGanancia.Value = "10";
+            numStockMinimo.Value = "5";
+            ddlMarca.SelectedIndex = -1;
+            ddlCategoria.SelectedIndex = -1;
             imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
         }
 
@@ -149,7 +148,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaInactivacion.Checked)
                 {
                     ArticuloNegocio negocio = new ArticuloNegocio();                   
-                    negocio.EliminarLogico(long.Parse(txtID.Text),false);
+                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Default.aspx",false);
                 }
             }
@@ -172,7 +171,7 @@ namespace TPC_Equipo26
                 if (chkConfirmaReactivacion.Checked)
                 {
                     ArticuloNegocio negocio = new ArticuloNegocio();
-                    negocio.EliminarLogico(long.Parse(txtID.Text), true);
+                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Default.aspx",false);
                 }
             }
@@ -189,22 +188,22 @@ namespace TPC_Equipo26
 
             if (articulo != null)
             {
-                txtID.Text = articulo.ID.ToString();
                 txtCodigo.Text = articulo.Codigo;
                 txtNombre.Text = articulo.Nombre;
                 txtDescripcion.Text = articulo.Descripcion;
-                txtGanancia.Text = articulo.Ganancia.ToString();
-                txtImagenUrl.Text = articulo.Imagen.ToString();
+                txtImagenUrl.Text = articulo.Imagen;
+                
+                numGanancia.Value = articulo.Ganancia.ToString();
+                numStockMinimo.Value = articulo.StockMin.ToString();
 
                 ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
                 ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
 
-                ddlStockMinimo.SelectedValue = articulo.StockMin.ToString();
 
                 if (articulo.Imagen != null)
                 {
-                    txtImagenUrl.Text = articulo.Imagen.ToString();
-                    imgArticulos.ImageUrl = articulo.Imagen.ToString();
+                    txtImagenUrl.Text = articulo.Imagen;
+                    imgArticulos.ImageUrl = articulo.Imagen; 
                 }
                 else
                 {

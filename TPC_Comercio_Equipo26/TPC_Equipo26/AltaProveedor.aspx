@@ -12,10 +12,6 @@
     <div class="row">
         <div class="col">
             <div class="mb-3">
-                <label for="txtID" class="form-label">ID</label>
-                <asp:TextBox runat="server" ID="TxtID" CssClass="form-control" />
-            </div>
-            <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre</label>
                 <asp:TextBox runat="server" ID="TxtNombre" CssClass="form-control" />
             </div>

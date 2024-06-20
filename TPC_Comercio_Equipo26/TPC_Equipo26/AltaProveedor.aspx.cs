@@ -15,7 +15,6 @@ namespace TPC_Equipo26
         public bool ConfirmarReactivar { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            TxtID.Enabled = false;
             try
             {
                 if (!IsPostBack)
@@ -48,7 +47,6 @@ namespace TPC_Equipo26
 
             if (proveedor != null)
             {
-                TxtID.Text = proveedor.ID.ToString();
                 TxtNombre.Text = proveedor.Nombre;
                 TxtCuit.Text = proveedor.CUIT;
                 TxtEmail.Text = proveedor.Email;
@@ -74,7 +72,6 @@ namespace TPC_Equipo26
         
         private void LimpiarCampos()
         {
-            TxtID.Text = string.Empty;
             TxtNombre.Text = string.Empty;
             TxtCuit.Text = string.Empty;
             TxtEmail.Text = string.Empty;
@@ -127,7 +124,7 @@ namespace TPC_Equipo26
                 if (ChkConfirmaInactivacion.Checked)
                 {
                     ProveedorNegocio negocio = new ProveedorNegocio();
-                    negocio.ActivarLogico(int.Parse(TxtID.Text), false);
+                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Proveedores.aspx", false);
                 }
             }
@@ -150,7 +147,7 @@ namespace TPC_Equipo26
                 if (ChkConfirmaReactivacion.Checked)
                 {
                     ProveedorNegocio negocio = new ProveedorNegocio();
-                    negocio.ActivarLogico(int.Parse(TxtID.Text), true);
+                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
                     Response.Redirect("Proveedores.aspx", false);
                 }
             }

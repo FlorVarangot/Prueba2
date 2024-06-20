@@ -7,19 +7,19 @@
         <div class="text-center my-4">
             <h1>PROVEEDORES</h1>
         </div>
-    <div class="row">
-        <div class="col-4">
-            <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
-        </div>
-        <div class="col-1">
-            <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
-        </div>
         <div class="row">
-            <div class="col-12 mb-2">
-                <asp:CheckBox runat="server" ID="ChkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
+            <div class="col-4">
+                <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
+            </div>
+            <div class="col-1">
+                <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
+            </div>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <asp:CheckBox runat="server" ID="ChkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
+                </div>
             </div>
         </div>
-    </div>
 
     </div>
 
@@ -33,7 +33,11 @@
             <asp:BoundField HeaderText="E-Mail" DataField="Email" />
             <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
             <asp:BoundField HeaderText="Dirección" DataField="Direccion" />
-            <asp:BoundField HeaderText="Estado" DataField="Activo" />
+            <asp:TemplateField HeaderText="Estado">
+                <ItemTemplate>
+                    <%# Convert.ToBoolean(Eval("Activo")) ? "Disponible" : "No disponible" %>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
                     <a href='<%# "AltaProveedor.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">

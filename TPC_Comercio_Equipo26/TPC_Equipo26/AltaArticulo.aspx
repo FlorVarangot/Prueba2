@@ -11,10 +11,6 @@
     <div class="row">
         <div class="col-6">
             <div class="mb-3">
-                <label for="txtID" class="form-label">ID</label>
-                <asp:TextBox runat="server" ID="txtID" CssClass="form-control" />
-            </div>
-            <div class="mb-3">
                 <label for="txtCodigo" class="form-label">Codigo: </label>
                 <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" />
             </div>
@@ -27,29 +23,37 @@
                 <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
             </div>
             <div class="mb-3">
-                <label for="ddlMarca" class="form-label">Marca</label>
-                <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
+                <label for="ddlMarca" class="form-label">Marca:</label>
+                <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server" AutoPostBack="true" AppendDataBoundItems="true">
+                    <asp:ListItem Text="Seleccionar..." Value="-1" />
+                </asp:DropDownList>
             </div>
             <div class="mb-3">
-                <label for="ddlCategoria" class="form-label">Categoria</label>
-                <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server" AutoPostBack="true"></asp:DropDownList>
+                <label for="ddlCategoria" class="form-label">Categoria: </label>
+                <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server" AutoPostBack="true" AppendDataBoundItems="true">
+                    <asp:ListItem Text="Seleccionar..." Value="-1" />
+                </asp:DropDownList>
             </div>
         </div>
 
         <div class="col-6">
             <div class="mb-3">
-                <label for="txtGanancia" class="form-label">Porcentaje de ganancia sobre el costo %</label>
-                <asp:TextBox ID="txtGanancia" CssClass="form-control" runat="server"></asp:TextBox>
+                <label for="numGanancia" class="form-label">Porcentaje de ganancia aplicable sobre el costo (%): </label>
+                <div>
+                    <input type="number" id="numGanancia" value="10" cssclass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px" step=".01">
+                </div>
             </div>
             <div class="mb-3">
-                <label for="ddlStockMinimo" class="form-label">Stock Minimo</label>
-                <asp:DropDownList ID="ddlStockMinimo" CssClass="form-select" runat="server"></asp:DropDownList>
+                <label for="numStockMinimo" class="form-label">Stock mínimo: </label>
+                <div>
+                    <input type="number" id="numStockMinimo" value="1" min="1" cssclass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px">
+                </div>
             </div>
 
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <div class="mb-3">
-                        <label for="txtImagenUrl" class="form-label">Url Imagen:</label>
+                        <label for="txtImagenUrl" class="form-label">Url de imagen: </label>
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
                             AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged" />
                     </div>
