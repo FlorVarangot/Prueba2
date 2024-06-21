@@ -153,9 +153,11 @@
     <Compile Include="Dominio\Categoria.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Compra.cs" />
+    <Compile Include="Dominio\DetalleCompra.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Marca.cs" />
     <Compile Include="Dominio\Proveedor.cs" />
+    <Compile Include="Dominio\StockArticulo.cs" />
     <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Dominio\Venta.cs" />
     <Compile Include="Error.aspx.cs">

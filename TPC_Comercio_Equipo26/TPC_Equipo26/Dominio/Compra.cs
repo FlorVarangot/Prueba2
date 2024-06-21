@@ -7,13 +7,17 @@ namespace TPC_Equipo26.Dominio
 {
     public class Compra
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
         public DateTime FechaCompra { get; set; }
         public int IdProveedor { get; set; }
         public float Total { get; set; }
-        public List<Articulo> DetalleCompra { get; set; }
+        public List<DetalleCompra> Detalles { get; set; }
 
         //public bool Activo {get; set;}
+        public Compra()
+        {
+            Detalles = new List<DetalleCompra>();
+        }
 
     }
 }

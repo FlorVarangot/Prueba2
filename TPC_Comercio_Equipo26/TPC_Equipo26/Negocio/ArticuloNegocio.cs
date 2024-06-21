@@ -60,6 +60,8 @@ namespace TPC_Equipo26.Negocio
             return listaArticulos;
         }
 
+        
+
         public void Agregar(Articulo articulo)
         {
             AccesoDatos datos = new AccesoDatos();
