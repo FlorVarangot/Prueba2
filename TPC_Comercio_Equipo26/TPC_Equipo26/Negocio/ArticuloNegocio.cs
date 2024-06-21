@@ -60,7 +60,108 @@ namespace TPC_Equipo26.Negocio
             return listaArticulos;
         }
 
-        
+        public List<Articulo> ListarPorProveedor(int idProveedor)
+        {
+            List<Articulo> listaArticulos = new List<Articulo>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Ganancia_Porcentaje, A.Stock_Minimo, A.Imagen, A.Activo 
+                            FROM ARTICULOS A 
+                            INNER JOIN MARCAS M ON M.Id = A.IdMarca 
+                            INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria
+                            WHERE M.IdProveedor = @IdProveedor";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdProveedor", idProveedor);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Articulo arti = new Articulo();
+                    {
+                        arti.ID = datos.Lector.GetInt64(0);
+                        arti.Codigo = datos.Lector["Codigo"].ToString();
+                        arti.Nombre = datos.Lector["Nombre"].ToString();
+                        arti.Descripcion = datos.Lector["Descripcion"].ToString();
+                        arti.Marca = new Marca { Descripcion = datos.Lector["Marca"].ToString() };
+                        arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString() };
+                        arti.Ganancia = (decimal)datos.Lector["Ganancia_Porcentaje"];
+                        arti.StockMin = datos.Lector.GetInt32(7);
+                        arti.Imagen = datos.Lector["Imagen"].ToString();
+                        arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
+                    };
+
+                    if (arti.Imagen == null)
+                    {
+                        arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
+                    }
+
+                    listaArticulos.Add(arti);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return listaArticulos;
+        }
+
+        public List<Articulo> ListarPorMarca(int idMarca)
+        {
+            List<Articulo> listaArticulos = new List<Articulo>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = @"SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, A.Ganancia_Porcentaje, A.Stock_Minimo, A.Imagen, A.Activo 
+                            FROM ARTICULOS A 
+                            INNER JOIN MARCAS M ON M.Id = A.IdMarca 
+                            INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria
+                            WHERE A.IdMarca = @IdMarca";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdMarca", idMarca);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Articulo arti = new Articulo();
+                    {
+                        arti.ID = datos.Lector.GetInt64(0);
+                        arti.Codigo = datos.Lector["Codigo"].ToString();
+                        arti.Nombre = datos.Lector["Nombre"].ToString();
+                        arti.Descripcion = datos.Lector["Descripcion"].ToString();
+                        arti.Marca = new Marca { Descripcion = datos.Lector["Marca"].ToString() };
+                        arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString() };
+                        arti.Ganancia = (decimal)datos.Lector["Ganancia_Porcentaje"];
+                        arti.StockMin = datos.Lector.GetInt32(7);
+                        arti.Imagen = datos.Lector["Imagen"].ToString();
+                        arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
+                    };
+
+                    if (arti.Imagen == null)
+                    {
+                        arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
+                    }
+
+                    listaArticulos.Add(arti);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return listaArticulos;
+        }
+
 
         public void Agregar(Articulo articulo)
         {

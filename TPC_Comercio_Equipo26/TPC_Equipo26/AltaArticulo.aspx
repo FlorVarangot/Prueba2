@@ -40,13 +40,13 @@
             <div class="mb-3">
                 <label for="numGanancia" class="form-label">Porcentaje de ganancia aplicable sobre el costo (%): </label>
                 <div>
-                    <input type="number" id="numGanancia" value="10" cssclass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px" step=".01">
+                    <input type="number" id="numGanancia" value="10" cssClass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px" step=".01">
                 </div>
             </div>
             <div class="mb-3">
                 <label for="numStockMinimo" class="form-label">Stock mínimo: </label>
                 <div>
-                    <input type="number" id="numStockMinimo" value="1" min="1" cssclass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px">
+                    <input type="number" id="numStockMinimo" value="1" min="1" cssClass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px">
                 </div>
             </div>
 

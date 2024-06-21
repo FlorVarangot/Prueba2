@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 using System.Linq;
 using System.Security.Policy;
 using System.Web;
@@ -61,9 +62,58 @@ namespace TPC_Equipo26
                         btnReactivar.Visible = false;
                         LimpiarCampos();
                     }
+                    
                 }
             }
             catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        private void CargarDatosArticulo(long idArticulo)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo articulo = negocio.ObtenerArticuloPorID(idArticulo);
+
+            if (articulo != null)
+            {
+                txtCodigo.Text = articulo.Codigo;
+                txtNombre.Text = articulo.Nombre;
+                txtDescripcion.Text = articulo.Descripcion;
+                txtImagenUrl.Text = articulo.Imagen;
+
+                numGanancia.Value = articulo.Ganancia.ToString("F4", CultureInfo.InvariantCulture);    
+                numStockMinimo.Value = articulo.StockMin.ToString();
+
+                ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
+                ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
+
+
+                if (articulo.Imagen != null)
+                {
+                    txtImagenUrl.Text = articulo.Imagen;
+                    imgArticulos.ImageUrl = articulo.Imagen;
+                }
+                else
+                {
+                    txtImagenUrl.Text = "";
+                    imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+                }
+
+                if (articulo.Activo == true)
+                {
+                    BtnInactivar.Visible = true;
+                    btnReactivar.Visible = false;
+                }
+                else
+                {
+                    BtnInactivar.Visible = false;
+                    btnReactivar.Visible = true;
+                }
+
+            }
+            else
             {
                 Response.Redirect("Error.aspx");
             }
@@ -183,52 +233,6 @@ namespace TPC_Equipo26
             }
         }
 
-        private void CargarDatosArticulo(long idArticulo)
-        {
-            ArticuloNegocio negocio = new ArticuloNegocio();
-            Articulo articulo = negocio.ObtenerArticuloPorID(idArticulo);
-
-            if (articulo != null)
-            {
-                txtCodigo.Text = articulo.Codigo;
-                txtNombre.Text = articulo.Nombre;
-                txtDescripcion.Text = articulo.Descripcion;
-                txtImagenUrl.Text = articulo.Imagen;
-
-                numGanancia.Value = articulo.Ganancia.ToString();
-                numStockMinimo.Value = articulo.StockMin.ToString();
-
-                ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
-                ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
-
-
-                if (articulo.Imagen != null)
-                {
-                    txtImagenUrl.Text = articulo.Imagen;
-                    imgArticulos.ImageUrl = articulo.Imagen;
-                }
-                else
-                {
-                    txtImagenUrl.Text = "";
-                    imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
-                }
-
-                if (articulo.Activo == true)
-                {
-                    BtnInactivar.Visible = true;
-                    btnReactivar.Visible = false;
-                }
-                else
-                {
-                    BtnInactivar.Visible = false;
-                    btnReactivar.Visible = true;
-                }
-
-            }
-            else
-            {
-                Response.Redirect("Error.aspx");
-            }
-        }
+       
     }
 }

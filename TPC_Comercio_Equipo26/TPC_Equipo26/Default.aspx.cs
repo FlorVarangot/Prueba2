@@ -114,8 +114,7 @@ namespace TPC_Equipo26
                 listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
             }
             else
-            {
-                // Si ninguno de los checkboxes está seleccionado, ordenar por ID (o el criterio que prefieras)
+            {             
                 listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
             }
             Session["ListaArticulosFiltrada"] = listaArticulos;

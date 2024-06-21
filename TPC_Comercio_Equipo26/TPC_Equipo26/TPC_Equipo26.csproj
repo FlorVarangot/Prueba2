@@ -73,7 +73,7 @@
     <Content Include="Categorias.aspx" />
     <Content Include="Clientes.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Compras.aspx" />
+    <Content Include="AltaCompra.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="LogIn.aspx" />
     <Content Include="Marcas.aspx" />
@@ -83,7 +83,6 @@
     <Content Include="Style.css" />
     <Content Include="Ventas.aspx" />
     <Content Include="Web.config" />
-    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AltaArticulo.aspx.cs">
@@ -142,12 +141,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Compras.aspx.cs">
-      <DependentUpon>Compras.aspx</DependentUpon>
+    <Compile Include="AltaCompra.aspx.cs">
+      <DependentUpon>AltaCompra.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Compras.aspx.designer.cs">
-      <DependentUpon>Compras.aspx</DependentUpon>
+    <Compile Include="AltaCompra.aspx.designer.cs">
+      <DependentUpon>AltaCompra.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Articulo.cs" />
     <Compile Include="Dominio\Categoria.cs" />
@@ -222,13 +221,6 @@
     </Compile>
     <Compile Include="Ventas.aspx.designer.cs">
       <DependentUpon>Ventas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
