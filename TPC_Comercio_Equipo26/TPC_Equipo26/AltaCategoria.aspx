@@ -24,18 +24,18 @@
         </div>
         <% if (ConfirmarInactivar)
             { %>
-        <div class="mb-3">
+        <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:CheckBox Text="Confirmar Inactivación" ID="chkConfirmaInactivacion" runat="server" />
             <asp:Button Text="Inactivar" ID="btnConfirmaInactivar" OnClick="btnConfirmaInactivar_Click" CssClass="btn btn-outline-danger" runat="server" />
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:CheckBox Text="Inactivar Artículos Relacionados" ID="chkInactivarArticulos" runat="server" />
             <asp:Button Text="Inactivar Categorías y Artículos" ID="btnConfirmaInactivarArticulos"  CssClass="btn btn-outline-danger" runat="server" />
         </div>
         <% } %>
         <% if (ConfirmarReactivar)
             { %>
-        <div class="mb-3">
+        <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:CheckBox Text="Confirmar Reactivación" ID="chkConfirmaReactivacion" runat="server" />
             <asp:Button Text="Reactivar" ID="btnConfirmaReactivar" OnClick="btnConfirmaReactivar_Click" CssClass="btn btn-outline-primary" runat="server" />
         </div>

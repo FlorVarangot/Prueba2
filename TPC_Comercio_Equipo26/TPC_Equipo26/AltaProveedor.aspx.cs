@@ -19,10 +19,11 @@ namespace TPC_Equipo26
             {
                 if (!IsPostBack)
                 {
+
                     if (Request.QueryString["ID"] != null)
                     {
-                        lblTituloModificar.Visible = true;
                         int idProv = int.Parse(Request.QueryString["ID"]);
+                        lblTituloModificar.Visible = true;
                         PrecargarProveedores(idProv);
                     }
                     else
@@ -69,7 +70,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-        
+
         private void LimpiarCampos()
         {
             TxtNombre.Text = string.Empty;
@@ -91,7 +92,7 @@ namespace TPC_Equipo26
                 proveedor.Email = TxtEmail.Text;
                 proveedor.Telefono = TxtTel.Text;
                 proveedor.Direccion = TxtDirec.Text;
-                
+
                 if (Request.QueryString["ID"] != null)
                 {
                     proveedor.ID = int.Parse(Request.QueryString["ID"]);
@@ -123,8 +124,9 @@ namespace TPC_Equipo26
             {
                 if (ChkConfirmaInactivacion.Checked)
                 {
+                    int id = Convert.ToInt32(Request.QueryString["ID"]);
                     ProveedorNegocio negocio = new ProveedorNegocio();
-                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
+                    negocio.ActivarLogico(id, false);
                     Response.Redirect("Proveedores.aspx", false);
                 }
             }
@@ -133,7 +135,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
-        
+
         protected void BtnReactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = false;
@@ -146,8 +148,9 @@ namespace TPC_Equipo26
             {
                 if (ChkConfirmaReactivacion.Checked)
                 {
+                    int id = Convert.ToInt32(Request.QueryString["ID"]);
                     ProveedorNegocio negocio = new ProveedorNegocio();
-                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
+                    negocio.ActivarLogico(id, true);
                     Response.Redirect("Proveedores.aspx", false);
                 }
             }

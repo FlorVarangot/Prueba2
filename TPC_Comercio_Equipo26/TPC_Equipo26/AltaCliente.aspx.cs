@@ -130,8 +130,9 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaInactivacion.Checked)
                 {
+                    long id = Convert.ToInt64(Request.QueryString["ID"]);
                     ClienteNegocio negocio = new ClienteNegocio();
-                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
+                    negocio.EliminarLogico(id, false);
                     Response.Redirect("Clientes.aspx", false);
                 }
             }
@@ -153,8 +154,9 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
+                    long id = Convert.ToInt64(Request.QueryString["ID"]);
                     ClienteNegocio negocio = new ClienteNegocio();
-                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
+                    negocio.EliminarLogico(id, true);
                     Response.Redirect("Clientes.aspx", false);
                 }
             }

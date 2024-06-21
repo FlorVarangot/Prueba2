@@ -113,8 +113,9 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaInactivacion.Checked)
                 {
+                    int id = Convert.ToInt32(Request.QueryString["ID"]);
                     CategoriaNegocio negocio = new CategoriaNegocio();
-                    negocio.EliminarLogico(int.Parse(Request.QueryString["ID"]));
+                    negocio.EliminarLogico(id, false);
                     Response.Redirect("Categorias.aspx", false);
                 }
             }
@@ -135,8 +136,9 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
+                    int id = Convert.ToInt32(Request.QueryString["ID"]);
                     CategoriaNegocio negocio = new CategoriaNegocio();
-                    negocio.EliminarLogico(int.Parse(Request.QueryString["ID"]));
+                    negocio.EliminarLogico(id, true);
                     Response.Redirect("Categorias.aspx", false);
                 }
             }

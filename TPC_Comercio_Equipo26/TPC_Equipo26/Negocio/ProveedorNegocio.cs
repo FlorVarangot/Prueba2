@@ -97,7 +97,7 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        internal void ActivarLogico(int id, bool activo = false)
+        internal void ActivarLogico(int id, bool activo)
         {
             AccesoDatos datos = new AccesoDatos();
 

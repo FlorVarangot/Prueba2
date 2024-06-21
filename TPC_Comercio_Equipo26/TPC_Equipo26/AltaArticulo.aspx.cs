@@ -17,7 +17,7 @@ namespace TPC_Equipo26
         public bool ConfirmarReactivar { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
-        {   
+        {
             try
             {
                 if (!IsPostBack)
@@ -29,7 +29,7 @@ namespace TPC_Equipo26
                     MarcaNegocio negocioMarca = new MarcaNegocio();
 
                     //F: Ahora si va a modificar sólo trae las marcas y categorias Activas.
-                    List<Marca> listaMarca = negocioMarca.Listar().Where(mar=> mar.Activo).ToList();
+                    List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
                     //List<Marca> listaMarca = negocioMarca.Listar();
 
                     ddlMarca.DataSource = listaMarca;
@@ -116,15 +116,15 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-        
+
         private void LimpiarCampos()
         {
             txtCodigo.Text = "";
             txtNombre.Text = "";
             txtDescripcion.Text = "";
             txtImagenUrl.Text = "";
-            numGanancia.Value = "10";
-            numStockMinimo.Value = "5";
+            numGanancia.Value = "";
+            numStockMinimo.Value = "";
             ddlMarca.SelectedIndex = -1;
             ddlCategoria.SelectedIndex = -1;
             imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
@@ -134,7 +134,7 @@ namespace TPC_Equipo26
         {
             //actualiza la URL de la imagen cada vez que cambia el texto
             imgArticulos.ImageUrl = txtImagenUrl.Text;
-        }       
+        }
         //Inactivar
         protected void BtnInactivar_Click(object sender, EventArgs e)
         {
@@ -147,16 +147,17 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaInactivacion.Checked)
                 {
-                    ArticuloNegocio negocio = new ArticuloNegocio();                   
-                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
-                    Response.Redirect("Default.aspx",false);
+                    long id = Convert.ToInt64(Request.QueryString["ID"]);
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    negocio.EliminarLogico(id, false);
+                    Response.Redirect("Default.aspx", false);
                 }
             }
             catch (Exception)
             {
                 Response.Redirect("Error.aspx");
             }
-        }      
+        }
 
         //Reactivar
         protected void btnReactivar_Click(object sender, EventArgs e)
@@ -170,9 +171,10 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
+                    long id = Convert.ToInt64(Request.QueryString["ID"]);
                     ArticuloNegocio negocio = new ArticuloNegocio();
-                    negocio.EliminarLogico(long.Parse(Request.QueryString["ID"]));
-                    Response.Redirect("Default.aspx",false);
+                    negocio.EliminarLogico(id, true);
+                    Response.Redirect("Default.aspx", false);
                 }
             }
             catch (Exception)
@@ -192,7 +194,7 @@ namespace TPC_Equipo26
                 txtNombre.Text = articulo.Nombre;
                 txtDescripcion.Text = articulo.Descripcion;
                 txtImagenUrl.Text = articulo.Imagen;
-                
+
                 numGanancia.Value = articulo.Ganancia.ToString();
                 numStockMinimo.Value = articulo.StockMin.ToString();
 
@@ -203,7 +205,7 @@ namespace TPC_Equipo26
                 if (articulo.Imagen != null)
                 {
                     txtImagenUrl.Text = articulo.Imagen;
-                    imgArticulos.ImageUrl = articulo.Imagen; 
+                    imgArticulos.ImageUrl = articulo.Imagen;
                 }
                 else
                 {

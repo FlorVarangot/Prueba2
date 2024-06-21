@@ -195,8 +195,7 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-
-        public void EliminarLogico(long Id, bool activo = false)
+        public void EliminarLogico(long Id, bool activo)
         {
             AccesoDatos datos = new AccesoDatos();
 

@@ -20,20 +20,17 @@
                 <asp:TextBox runat="server" ID="TxtCuit" CssClass="form-control" />
             </div>
         </div>
-        <div class="col">
-            <div class="mb-3">
-                <label for="txtEmail" class="form-label">E-Mail</label>
-                <asp:TextBox runat="server" ID="TxtEmail" CssClass="form-control" />
-            </div>
-            <div class="mb-3">
-                <label for="txtTelefono" class="form-label">Teléfono</label>
-                <asp:TextBox runat="server" ID="TxtTel" CssClass="form-control" />
-            </div>
-            <div class="mb-3">
-                <label for="txtDireccion" class="form-label">Dirección</label>
-                <asp:TextBox runat="server" ID="TxtDirec" CssClass="form-control" />
-            </div>
-
+        <div class="mb-3">
+            <label for="txtEmail" class="form-label">E-Mail</label>
+            <asp:TextBox runat="server" ID="TxtEmail" CssClass="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="txtTelefono" class="form-label">Teléfono</label>
+            <asp:TextBox runat="server" ID="TxtTel" CssClass="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="txtDireccion" class="form-label">Dirección</label>
+            <asp:TextBox runat="server" ID="TxtDirec" CssClass="form-control" />
         </div>
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
@@ -43,19 +40,17 @@
         </div>
         <% if (ConfirmarInactivar)
             { %>
-        <div class="mb-3">
-            <asp:CheckBox Text="Confirmar inactivación" ID="ChkConfirmaInactivacion" runat="server" />
+        <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
+            <asp:CheckBox Text="Confirmar inactivación" ID="ChkConfirmaInactivacion" runat="server"/>
             <asp:Button Text="Inactivar" ID="BtnConfirmaInactivar" OnClick="BtnConfirmaInactivar_Click" CssClass="btn btn-outline-danger" runat="server" />
         </div>
         <% } %>
         <% if (ConfirmarReactivar)
             { %>
-        <div class="mb-3">
+        <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:CheckBox Text="Confirmar reactivación" ID="ChkConfirmaReactivacion" runat="server" />
             <asp:Button Text="Reactivar" ID="BtnConfirmaReactivar" OnClick="BtnConfirmaReactivar_Click" CssClass="btn btn-outline-primary" runat="server" />
         </div>
         <% } %>
     </div>
-
-
 </asp:Content>

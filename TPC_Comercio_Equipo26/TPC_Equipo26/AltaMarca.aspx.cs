@@ -152,8 +152,9 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaInactivacion.Checked)
                 {
+                    int id = Convert.ToInt32(Request.QueryString["ID"]);
                     MarcaNegocio negocio = new MarcaNegocio();
-                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
+                    negocio.ActivarLogico(id, false);
                     Response.Redirect("Marcas.aspx", false);
                 }
             }
@@ -175,8 +176,9 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
+                    int id = Convert.ToInt32(Request.QueryString["ID"]);
                     MarcaNegocio negocio = new MarcaNegocio();
-                    negocio.ActivarLogico(int.Parse(Request.QueryString["ID"]));
+                    negocio.ActivarLogico(id, true);
                     Response.Redirect("Marcas.aspx", false);
                 }
             }
