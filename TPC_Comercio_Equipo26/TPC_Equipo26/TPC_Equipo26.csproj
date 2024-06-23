@@ -198,6 +198,7 @@
     <Compile Include="Negocio\ArticuloNegocio.cs" />
     <Compile Include="Negocio\CategoriaNegocio.cs" />
     <Compile Include="Negocio\ClienteNegocio.cs" />
+    <Compile Include="Negocio\CompraNegocio.cs" />
     <Compile Include="Negocio\MarcaNegocio.cs" />
     <Compile Include="Negocio\ProveedorNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
