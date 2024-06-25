@@ -72,8 +72,10 @@
     <Content Include="AltaProveedor.aspx" />
     <Content Include="Categorias.aspx" />
     <Content Include="Clientes.aspx" />
+    <Content Include="Compras.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="AltaCompra.aspx" />
+    <Content Include="DetallesCompra.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="LogIn.aspx" />
     <Content Include="Marcas.aspx" />
@@ -134,6 +136,13 @@
     <Compile Include="Clientes.aspx.designer.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Compras.aspx.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras.aspx.designer.cs">
+      <DependentUpon>Compras.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,6 +156,13 @@
     </Compile>
     <Compile Include="AltaCompra.aspx.designer.cs">
       <DependentUpon>AltaCompra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetallesCompra.aspx.cs">
+      <DependentUpon>DetallesCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesCompra.aspx.designer.cs">
+      <DependentUpon>DetallesCompra.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Articulo.cs" />
     <Compile Include="Dominio\Categoria.cs" />
@@ -199,6 +215,7 @@
     <Compile Include="Negocio\CategoriaNegocio.cs" />
     <Compile Include="Negocio\ClienteNegocio.cs" />
     <Compile Include="Negocio\CompraNegocio.cs" />
+    <Compile Include="Negocio\DetalleCompraNegocio.cs" />
     <Compile Include="Negocio\MarcaNegocio.cs" />
     <Compile Include="Negocio\ProveedorNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

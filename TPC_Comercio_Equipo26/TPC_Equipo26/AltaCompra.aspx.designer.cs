@@ -11,7 +11,7 @@ namespace TPC_Equipo26
 {
 
 
-    public partial class Compras
+    public partial class AltaCompra
     {
 
         /// <summary>

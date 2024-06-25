@@ -9,7 +9,7 @@ using TPC_Equipo26.Negocio;
 
 namespace TPC_Equipo26
 {
-    public partial class Compras : System.Web.UI.Page
+    public partial class AltaCompra : System.Web.UI.Page
     {
         private List<DetalleCompra> detallesCompra;
         protected void Page_Load(object sender, EventArgs e)
@@ -30,6 +30,7 @@ namespace TPC_Equipo26
             {
                 detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
             }
+
         }
 
         private void CargarProveedores()
@@ -173,15 +174,16 @@ namespace TPC_Equipo26
             try
             {
                 Compra compra = new Compra();
-                compra.FechaCompra = DateTime.ParseExact(txtFechaCompra.Text, "dd/MM/yyyy", null);
+                compra.FechaCompra = DateTime.ParseExact(txtFechaCompra.Text, "yyyy-MM-dd", null);
                 compra.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
                 compra.Detalles = detallesCompra;
-                compra.Total = Calcular();
-                Session["CompraActual"] = compra;
+                compra.TotalCompra = Calcular();             
 
-                //  ComprasNegocio negocio = new ComprasNegocio();
-                //  negocio.AgregarCompra(compra);
-
+                 CompraNegocio negocio = new CompraNegocio();
+                 negocio.AgregarCompra(compra);
+                Session["DetallesCompra"] = null;
+                Session["Total"] = null;
+                Response.Redirect("Compras.aspx", false);
             }
             catch (Exception)
             {
