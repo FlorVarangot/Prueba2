@@ -27,7 +27,6 @@ namespace TPC_Equipo26.Negocio
                     aux.ID = int.Parse(datos.Lector["Id"].ToString());
                     aux.Descripcion = datos.Lector["Descripcion"].ToString();
                     aux.IdProveedor = int.Parse(datos.Lector["IdProveedor"].ToString());
-                    //F: agrego imagen por defecto si no tiene img:
                     aux.ImagenUrl = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                     aux.Activo = (bool)datos.Lector["Activo"];
                     

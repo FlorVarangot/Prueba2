@@ -145,6 +145,46 @@ namespace TPC_Equipo26
             ddlProveedor.Items.Insert(0, new ListItem("Proveedor...", "0"));
         }
 
+        protected void GvMarcas_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                int id = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ID"));
+                string proveedor = TraerNombreProveedor(id);
+                e.Row.Cells[2].Text = proveedor;
+            }
+        }
+
+        private string TraerNombreProveedor(int id)
+        {
+            try
+            {
+                MarcaNegocio marcaNegocio= new MarcaNegocio();
+                Marca marca = marcaNegocio.ObtenerMarcaPorId(id);
+                string proveedor = "";
+
+                if (marca != null)
+                {
+                    int idProveedor = marca.IdProveedor;
+                    ProveedorNegocio proveedorNegocio= new ProveedorNegocio();
+                    Proveedor prov = proveedorNegocio.ObtenerProveedorPorId(idProveedor);
+
+                    if (prov != null)
+                    {
+                        proveedor = prov.Nombre;
+                        return proveedor;
+                    }
+                }
+
+                return proveedor;
+            }
+            catch (Exception)
+            {
+                //    Response.Redirect("Error.aspx");
+                return "Error al obtener el nombre del proveedor";
+            }
+        }
+
     }
 
 }

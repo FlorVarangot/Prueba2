@@ -29,12 +29,12 @@
 
     <asp:GridView ID="gvMarcas" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
         Style="text-align: center" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="GvMarcas_SelectedIndexChanged"
-        OnPageIndexChanging="GvMarcas_PageIndexChanging"
-        AllowPaging="true" PageSize="10">
+        OnSelectedIndexChanged="GvMarcas_SelectedIndexChanged" OnPageIndexChanging="GvMarcas_PageIndexChanging"
+        AllowPaging="true" PageSize="10" OnRowDataBound="GvMarcas_RowDataBound">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Marca" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField HeaderText="Proveedor" DataField="IdProveedor" ItemStyle-HorizontalAlign="Center" />
             <asp:TemplateField HeaderText="Imagen">
                 <ItemTemplate>
                     <asp:Image ID="imgMarca" runat="server" ImageUrl='<%# Eval("ImagenUrl") %>' AlternateText="Logo de marca" Style="height: 40px; width: 45px;" />

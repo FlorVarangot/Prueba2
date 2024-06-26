@@ -70,12 +70,14 @@
     <Content Include="AltaCliente.aspx" />
     <Content Include="AltaMarca.aspx" />
     <Content Include="AltaProveedor.aspx" />
+    <Content Include="AltaVenta.aspx" />
     <Content Include="Categorias.aspx" />
     <Content Include="Clientes.aspx" />
     <Content Include="Compras.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="AltaCompra.aspx" />
     <Content Include="DetallesCompra.aspx" />
+    <Content Include="DetallesVenta.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="LogIn.aspx" />
     <Content Include="Marcas.aspx" />
@@ -122,6 +124,13 @@
     <Compile Include="AltaProveedor.aspx.designer.cs">
       <DependentUpon>AltaProveedor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AltaVenta.aspx.cs">
+      <DependentUpon>AltaVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AltaVenta.aspx.designer.cs">
+      <DependentUpon>AltaVenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Categorias.aspx.cs">
       <DependentUpon>Categorias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -164,11 +173,19 @@
     <Compile Include="DetallesCompra.aspx.designer.cs">
       <DependentUpon>DetallesCompra.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DetallesVenta.aspx.cs">
+      <DependentUpon>DetallesVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesVenta.aspx.designer.cs">
+      <DependentUpon>DetallesVenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dominio\Articulo.cs" />
     <Compile Include="Dominio\Categoria.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Compra.cs" />
     <Compile Include="Dominio\DetalleCompra.cs" />
+    <Compile Include="Dominio\DetalleVenta.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Marca.cs" />
     <Compile Include="Dominio\Proveedor.cs" />
@@ -218,6 +235,7 @@
     <Compile Include="Negocio\DetalleCompraNegocio.cs" />
     <Compile Include="Negocio\MarcaNegocio.cs" />
     <Compile Include="Negocio\ProveedorNegocio.cs" />
+    <Compile Include="Negocio\VentaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedores.aspx.cs">
       <DependentUpon>Proveedores.aspx</DependentUpon>

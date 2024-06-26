@@ -37,7 +37,7 @@ namespace TPC_Equipo26
 
         private void FiltrarProveedores()
         {
-            List<Proveedor> proveedores = (List<Proveedor>)Session["ListaProveedores"];
+            List<Proveedor> proveedores = (List<Proveedor>)Session["listaProveedores"];
             if (!ChkIncluirInactivos.Checked)
             {
                 proveedores = proveedores.Where(x => x.Activo).ToList();

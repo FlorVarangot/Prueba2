@@ -93,7 +93,7 @@ namespace TPC_Equipo26
 
                 cliente.Nombre = txtNombre.Text;
                 cliente.Apellido = txtApellido.Text;
-                cliente.Dni = int.Parse(txtDNI.Text);
+                cliente.Dni = txtDNI.Text;
                 cliente.Telefono = txtTelefono.Text;
                 cliente.Email = txtEmail.Text;
                 cliente.Direccion = txtDireccion.Text;

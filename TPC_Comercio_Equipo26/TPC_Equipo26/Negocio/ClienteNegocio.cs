@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 using TPC_Equipo26.Dominio;
 
 namespace TPC_Equipo26.Negocio
@@ -24,7 +25,7 @@ namespace TPC_Equipo26.Negocio
                     aux.ID = (long)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Apellido = (string)datos.Lector["Apellido"];
-                    aux.Dni = (int)datos.Lector["DNI"];
+                    aux.Dni = (string)datos.Lector["DNI"];
                     aux.Telefono = (string)datos.Lector["Telefono"];
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Direccion = (string)datos.Lector["Direccion"];
@@ -33,7 +34,7 @@ namespace TPC_Equipo26.Negocio
                 }
 
                 return lista;
-            }
+        }
             catch (Exception ex)
             {
                 throw ex;
@@ -136,7 +137,7 @@ namespace TPC_Equipo26.Negocio
                     cliente.ID = (long)datos.Lector["Id"];
                     cliente.Nombre = datos.Lector["Nombre"].ToString();
                     cliente.Apellido = datos.Lector["Apellido"].ToString();
-                    cliente.Dni = (int)datos.Lector["DNI"];
+                    cliente.Dni = datos.Lector["DNI"].ToString();
                     cliente.Telefono = datos.Lector["Telefono"].ToString();
                     cliente.Email = datos.Lector["Email"].ToString();
                     cliente.Direccion = datos.Lector["Direccion"].ToString();

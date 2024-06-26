@@ -74,6 +74,7 @@ namespace TPC_Equipo26
                     listaFiltrada = lista.Where(x =>
                 x.Nombre.ToUpper().Contains(filtro) ||
                 x.Apellido.ToUpper().Contains(filtro) ||
+                x.Dni.ToUpper().Contains(filtro) ||
                 x.Telefono.ToUpper().Contains(filtro) ||
                 x.Email.ToUpper().Contains(filtro) ||
                 x.Direccion.ToUpper().Contains(filtro) ||              

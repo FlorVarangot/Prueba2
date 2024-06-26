@@ -11,7 +11,7 @@ namespace TPC_Equipo26.Dominio
         public long ID {get; set;}
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public int Dni { get; set; }
+        public string Dni { get; set; }
         [DisplayName("Teléfono")]
         public string Telefono { get; set; }
         public string Email { get; set; }

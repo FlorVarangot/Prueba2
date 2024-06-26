@@ -7,11 +7,11 @@ namespace TPC_Equipo26.Dominio
 {
     public class Venta
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
         public DateTime FechaVenta { get; set; }
-        public int IdCliente { get; set; }
-        public float Total { get; set; }
-        public List<Articulo> DetalleVenta { get; set; }
+        public long IdCliente { get; set; }
+        public decimal Total { get; set; }
+        public List<DetalleVenta> Detalles { get; set; }
         
         //public bool Activo {get; set;}
     }
