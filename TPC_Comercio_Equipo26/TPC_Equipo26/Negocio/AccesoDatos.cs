@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace TPC_Equipo26.Negocio
 {
-    public class AccesoDatos
+    public class AccesoDatos : IDisposable
     {
         private SqlConnection conexion;
         private SqlCommand comando;
@@ -84,6 +84,13 @@ namespace TPC_Equipo26.Negocio
         }
 
         public void cerrarConexion()
+        {
+            if (lector != null)
+                lector.Close();
+            conexion.Close();
+        }
+
+        public void Dispose()
         {
             if (lector != null)
                 lector.Close();

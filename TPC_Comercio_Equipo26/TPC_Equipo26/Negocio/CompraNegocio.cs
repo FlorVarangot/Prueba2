@@ -7,28 +7,35 @@ using TPC_Equipo26.Dominio;
 namespace TPC_Equipo26.Negocio
 {
     public class CompraNegocio
-    {       
+    {
         public void AgregarCompra(Compra compra)
         {
             AccesoDatos datosCompra = new AccesoDatos();
-            AccesoDatos datosDetalle = new AccesoDatos();
 
             try
             {
-                datosCompra.setearConsulta("INSERT INTO COMPRAS (FechaCompra, IdProveedor, TotalCompra) VALUES (@FechaCompra, @IdProveedor, @TotalCompra); SELECT SCOPE_IDENTITY();");
+                datosCompra.setearConsulta("INSERT INTO COMPRAS (FechaCompra, IdProveedor, TotalCompra) VALUES (@FechaCompra, @IdProveedor, @TotalCompra)");
                 datosCompra.setearParametro("@FechaCompra", compra.FechaCompra);
                 datosCompra.setearParametro("@IdProveedor", compra.IdProveedor);
                 datosCompra.setearParametro("@TotalCompra", compra.TotalCompra);
-                long idCompra = datosCompra.ejecutarAccionScalar();
+
+                datosCompra.ejecutarAccion();
+
+                long idCompra = ObtenerUltimoIdCompra();
 
                 foreach (var detalle in compra.Detalles)
                 {
-                    datosDetalle.setearConsulta("INSERT INTO DETALLE_COMPRAS (IdCompra, IdArticulo, Precio, Cantidad) VALUES (@IdCompra, @IdArticulo, @Precio, @Cantidad)");
-                    datosDetalle.setearParametro("@IdCompra", idCompra);
-                    datosDetalle.setearParametro("@IdArticulo", detalle.IdArticulo);
-                    datosDetalle.setearParametro("@Precio", detalle.Precio);
-                    datosDetalle.setearParametro("@Cantidad", detalle.Cantidad);
-                    datosDetalle.ejecutarAccion(); 
+                    //limpia al salir del bloque y optimiza la memoria
+                    using (AccesoDatos datosDetalle = new AccesoDatos())
+                    {
+                        datosDetalle.setearConsulta("INSERT INTO DETALLE_COMPRAS (IdCompra, IdArticulo, Precio, Cantidad) VALUES (@IdCompra, @IdArticulo, @Precio, @Cantidad)");
+                        datosDetalle.setearParametro("@IdCompra", idCompra);
+                        datosDetalle.setearParametro("@IdArticulo", detalle.IdArticulo);
+                        datosDetalle.setearParametro("@Precio", detalle.Precio);
+                        datosDetalle.setearParametro("@Cantidad", detalle.Cantidad);
+
+                        datosDetalle.ejecutarAccion();
+                    }
                 }
             }
             catch (Exception ex)
@@ -37,8 +44,35 @@ namespace TPC_Equipo26.Negocio
             }
             finally
             {
-                datosCompra.cerrarConexion();
-                datosDetalle.cerrarConexion();
+                datosCompra.Dispose(); // Utilizar Dispose para cerrar la conexión de datosCompra
+            }
+        }
+
+        public long ObtenerUltimoIdCompra()
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT TOP(1) Id FROM COMPRAS ORDER BY Id DESC");
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return Convert.ToInt64(datos.Lector["Id"]);
+                }
+                else
+                {
+                    throw new Exception("No se pudo obtener el ID del último registro insertado en COMPRAS.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 
@@ -75,6 +109,6 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        
+
     }
 }

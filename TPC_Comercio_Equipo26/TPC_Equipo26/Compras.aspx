@@ -8,7 +8,9 @@
             <h1>COMPRAS</h1>
         </div>
         <asp:GridView ID="gvCompras" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-            Style="text-align: center" AutoGenerateColumns="false">
+            Style="text-align: center" AutoGenerateColumns="false"
+            AllowPaging="true" PageSize="10"
+            OnPageIndexChanging="gvCompras_PageIndexChanging">
             <Columns>
                 <asp:BoundField HeaderText="ID Compra" DataField="ID" ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField HeaderText="Fecha de Compra" DataField="FechaCompra" DataFormatString="{0:dd/MM/yyyy}" ItemStyle-HorizontalAlign="Center" />
@@ -17,7 +19,7 @@
                 <asp:TemplateField HeaderText="Detalles">
                     <ItemTemplate>
                         <a href='<%# "DetallesCompra.aspx?ID=" + Eval("ID") %>' class="icono" title="Ver Detalles">
-                            <i class="fa-solid fa-search"  style="color: dimgrey; margin: 10px"></i>
+                            <i class="fa-solid fa-search" style="color: dimgrey; margin: 10px"></i>
                         </a>
                     </ItemTemplate>
                 </asp:TemplateField>

@@ -22,7 +22,7 @@ namespace TPC_Equipo26
                 CargarArticulos();
                 //esto muestra la fecha actual
                 txtFechaCompra.Text = DateTime.Now.ToString("yyyy-MM-dd");
-
+                lblTotalCompra.Text = "$0.00";
                 detallesCompra = new List<DetalleCompra>();
                 Session["DetallesCompra"] = detallesCompra;
             }
@@ -155,7 +155,7 @@ namespace TPC_Equipo26
         private void ActualizarCompra()
         {
             decimal total = Calcular();
-            lblTotalCompra.Text = "Total compra: $" + total.ToString("N2");
+            lblTotalCompra.Text = total.ToString("C2"); // Esto muestra solo el valor numérico con formato de moneda
             Session["Total"] = total;
         }
         private decimal Calcular()
@@ -181,8 +181,11 @@ namespace TPC_Equipo26
 
                  CompraNegocio negocio = new CompraNegocio();
                  negocio.AgregarCompra(compra);
+
+                
                 Session["DetallesCompra"] = null;
                 Session["Total"] = null;
+                lblTotalCompra.Text = "$0.00";
                 Response.Redirect("Compras.aspx", false);
             }
             catch (Exception)

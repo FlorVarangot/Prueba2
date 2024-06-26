@@ -18,9 +18,7 @@
             </div>
             <div class="col-md-2">
                 <label for="lblTotalCompra" class="form-label">Total compra:</label>
-        <asp:Label ID="lblTotalCompra" runat="server" CssClass="form-control">
-            <%# "Total compra: $" + ((decimal)Session["Total"]).ToString("N2") %>
-        </asp:Label>
+                <asp:Label ID="lblTotalCompra" runat="server" CssClass="form-control"></asp:Label>
             </div>
         </div>
 

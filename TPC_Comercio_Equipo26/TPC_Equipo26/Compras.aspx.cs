@@ -34,6 +34,21 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
+    
+
+        protected void gvCompras_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvCompras.PageIndex = e.NewPageIndex;
+               
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
+        }
+       
        
     }
 }
