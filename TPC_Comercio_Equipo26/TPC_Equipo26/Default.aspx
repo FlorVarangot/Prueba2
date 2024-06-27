@@ -8,7 +8,6 @@
             <h1>ARTÍCULOS</h1>
         </div>
         <div class="row mb-2">
-            <%--<asp:Label Text="Buscar:" runat="server" CssClass="form-label" />--%>
             <div class="col-6">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar artículos, marcas y más..." />
             </div>
@@ -24,13 +23,13 @@
             <div class="col-2">
                 <asp:CheckBox ID="chkOrdenarAZ" runat="server" Text="↑↓ Descripción A-Z" AutoPostBack="true" OnCheckedChanged="chkOrdenarAZ_CheckedChanged" />
             </div>
-
-            <%-- Esto en realidad va a tener sentido hacerlo por Stock Disponible, ¿no? 
-     Incluso podemos sumar otro para precio (F) --%>
             <div class="col-2">
-                <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="↑↓ Stock Min." AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
+                <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="↑↓ Stock disponible" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
             </div>
-            <div class="col-6 text-end">
+            <div class="col-2">
+                <asp:CheckBox ID="chkOrdenarPorPrecio" runat="server" Text="↑↓ Precio unitario" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorPrecio_CheckedChanged" />
+            </div>
+            <div class="col-4 text-end">
                 <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>
@@ -56,9 +55,8 @@
 
     <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
         Style="text-align: center" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged"
-        OnPageIndexChanging="gvArticulos_PageIndexChanging"
-        AllowPaging="true" PageSize="10">
+        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" OnPageIndexChanging="gvArticulos_PageIndexChanging"
+        AllowPaging="true" PageSize="10" OnRowDataBound="gvArticulos_RowDataBound">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Código" DataField="Codigo" />
@@ -73,9 +71,7 @@
             </asp:TemplateField>
 
             <asp:BoundField HeaderText="Precio Unitario ($)" />
-            <%-- Calculo de precio unitario --%>
             <asp:BoundField HeaderText="Stock disponible" />
-            <%-- Calculo stock disponible --%>
             <asp:BoundField HeaderText="Stock Mínimo" DataField="StockMin" />
 
             <asp:TemplateField HeaderText="Estado">

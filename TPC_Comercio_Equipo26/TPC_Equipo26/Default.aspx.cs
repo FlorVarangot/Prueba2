@@ -15,7 +15,6 @@ namespace TPC_Equipo26
 {
     public partial class Default : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -30,7 +29,7 @@ namespace TPC_Equipo26
             { Response.Redirect("Error.aspx", false); }
         }
 
-        protected void CargarArticulos()
+        private void CargarArticulos()
         {
             try
             {
@@ -55,7 +54,7 @@ namespace TPC_Equipo26
             }
         }
 
-        protected void CargarMarcasYCategorias()
+        private void CargarMarcasYCategorias()
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             List<Marca> marcas = marcaNegocio.Listar();
@@ -77,6 +76,8 @@ namespace TPC_Equipo26
         private void FiltrarArticulos()
         {
             List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
+            DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+
             if (!chkIncluirInactivos.Checked)
             {
                 listaArticulos = listaArticulos.Where(x => x.Activo).ToList();
@@ -103,7 +104,8 @@ namespace TPC_Equipo26
             }
             if (chkOrdenarAZ.Checked && chkOrdenarPorStock.Checked)
             {
-                listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ThenByDescending(x => x.StockMin).ToList();
+                //listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ThenByDescending(x => x.StockMin).ToList();
+                listaArticulos = listaArticulos .OrderBy(x => x.Descripcion).ThenByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
             }
             else if (chkOrdenarAZ.Checked)
             {
@@ -111,11 +113,18 @@ namespace TPC_Equipo26
             }
             else if (chkOrdenarPorStock.Checked)
             {
-                listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
+                //listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
+                listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
+            }
+            else if (chkOrdenarPorPrecio.Checked)
+            {
+                //listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
+                listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
             }
             else
-            {             
-                listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
+            {
+                //listaArticulos = listaArticulos.OrdeerBy(x => x.ID);
+                listaArticulos = listaArticulos.OrderBy(x => x.ID).ThenBy(x => datoNegocio.ObtenerStockArticulo(x.ID)).ThenBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
             }
             Session["ListaArticulosFiltrada"] = listaArticulos;
 
@@ -129,6 +138,7 @@ namespace TPC_Equipo26
         {
             FiltrarArticulos();
         }
+
         protected void chkIncluirInactivos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
@@ -154,6 +164,11 @@ namespace TPC_Equipo26
             FiltrarArticulos();
         }
 
+        protected void chkOrdenarPorPrecio_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             try
@@ -162,9 +177,12 @@ namespace TPC_Equipo26
                 chkAvanzado.Checked = false;
                 pnlFiltroAvanzado.Visible = false;
                 chkIncluirInactivos.Checked = false;
+                chkOrdenarAZ.Checked = false;
+                chkOrdenarPorPrecio.Checked = false;
+                chkOrdenarPorStock.Checked = false;
                 ddlMarca.SelectedIndex = 0;
                 ddlCategoria.SelectedIndex = 0;
-               
+
                 CargarArticulos();
             }
             catch (Exception)
@@ -209,11 +227,63 @@ namespace TPC_Equipo26
             CargarArticulos();
         }
 
-
-        protected void btnBuscar_Click(object sender, EventArgs e)
+        protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                int id = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ID"));
+                decimal precio = TraerPrecio(id);
+                int stock = TraerStock(id);
+                e.Row.Cells[7].Text = precio.ToString("C");
+                e.Row.Cells[8].Text = stock.ToString();
+            }
         }
 
+        private decimal TraerPrecio(long id)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                Articulo articulo = negocio.ObtenerArticuloPorID(id);
+
+                if (articulo != null)
+                {
+                    long idArticulo = articulo.ID;
+                    DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                    decimal precio = datoNegocio.ObtenerPrecioArticulo(idArticulo);
+
+                    return precio;
+                }
+                return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+        private int TraerStock(long id)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                Articulo articulo = negocio.ObtenerArticuloPorID(id);
+
+                if (articulo != null)
+                {
+                    long idArticulo = articulo.ID;
+                    DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                    int stock = datoNegocio.ObtenerStockArticulo(idArticulo);
+
+                    return stock;
+                }
+                return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
 
     }
 

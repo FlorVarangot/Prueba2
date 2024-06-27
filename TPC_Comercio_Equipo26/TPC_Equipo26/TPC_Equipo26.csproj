@@ -184,12 +184,12 @@
     <Compile Include="Dominio\Categoria.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Compra.cs" />
+    <Compile Include="Dominio\DatoArticulo.cs" />
     <Compile Include="Dominio\DetalleCompra.cs" />
     <Compile Include="Dominio\DetalleVenta.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Marca.cs" />
     <Compile Include="Dominio\Proveedor.cs" />
-    <Compile Include="Dominio\StockArticulo.cs" />
     <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Dominio\Venta.cs" />
     <Compile Include="Error.aspx.cs">
@@ -232,6 +232,7 @@
     <Compile Include="Negocio\CategoriaNegocio.cs" />
     <Compile Include="Negocio\ClienteNegocio.cs" />
     <Compile Include="Negocio\CompraNegocio.cs" />
+    <Compile Include="Negocio\DatoArticuloNegocio.cs" />
     <Compile Include="Negocio\DetalleCompraNegocio.cs" />
     <Compile Include="Negocio\MarcaNegocio.cs" />
     <Compile Include="Negocio\ProveedorNegocio.cs" />
