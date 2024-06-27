@@ -46,7 +46,7 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:Label ID="lblVacio" Text="No se encontraron clientes con ese criterio." runat="server" />
+        <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
         <hr />
         <div class="text-end">
             <a href="AltaCliente.aspx" class="btn btn-success">Agregar un Cliente</a>

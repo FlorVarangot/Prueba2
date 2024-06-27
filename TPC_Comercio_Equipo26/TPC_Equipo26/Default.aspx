@@ -94,7 +94,7 @@
         </Columns>
     </asp:GridView>
 
-    <asp:Label ID="lblVacio" Text="No se encontraron Artículos con ese criterio." runat="server" />
+    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaArticulo.aspx" class="btn btn-success">Agregar un artículo</a>

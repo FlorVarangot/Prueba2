@@ -43,7 +43,7 @@
 
             <asp:TemplateField>
                 <ItemTemplate>
-                    <a href='<%# "DetalleVenta.aspx?ID=" + Eval("ID") %>' class="icono" title="Ver detalle">
+                    <a href='<%# "DetallesVenta.aspx?ID=" + Eval("ID") %>' class="icono" title="Ver detalle">
                         <i class="fa-solid fa-magnifying-glass" style="color: dimgrey; margin: 10px"></i>
                     </a>
                 </ItemTemplate>
@@ -51,7 +51,7 @@
         </Columns>
     </asp:GridView>
 
-    <asp:Label ID="lblVacio" Text="No se encontraron registros con ese criterio." runat="server" />
+    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaVenta.aspx" class="btn btn-success btn-success">Registrar una venta</a>

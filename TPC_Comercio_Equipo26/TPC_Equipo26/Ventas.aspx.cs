@@ -115,7 +115,6 @@ namespace TPC_Equipo26
             FiltrarVentas();
         }
 
-        
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             try

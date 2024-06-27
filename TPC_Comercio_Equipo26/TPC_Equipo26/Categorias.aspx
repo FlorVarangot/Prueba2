@@ -43,7 +43,7 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:Label ID="lblVacio" Text="No se encontraron Marcas con ese criterio." runat="server" />
+        <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
         <hr />
         <div class="text-end">
             <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoria</a>

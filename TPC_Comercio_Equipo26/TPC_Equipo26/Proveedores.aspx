@@ -47,7 +47,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Label ID="lblVacio" Text="No se encontraron Proveedores con ese criterio." runat="server" />
+    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaProveedor.aspx" class="btn btn-success">Agregar un Proveedor</a>

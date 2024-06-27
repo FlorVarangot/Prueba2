@@ -54,7 +54,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Label ID="lblVacio" Text="No se encontraron Marcas con ese criterio." runat="server" />
+    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaMarca.aspx" class="btn btn-success btn-success">Agregar una marca</a>
