@@ -8,15 +8,14 @@
             <h1>VENTAS</h1>
         </div>
         <div class="row">
-            <div class="col-4 mb-3">
-                <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
+           <div class="col-4 mb-3">
+            <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
+        </div>
+        <div class="col-4 mb-3">
+            <div class="mb-3">
+                <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
             </div>
-            <div class="col-4 md-3">
-                <div class="mb-3">
-                    <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged">
-                    </asp:DropDownList>
-                </div>
-            </div>
+        </div>
             <div class="row mb-3">
                 <div class="col-1">
                     <asp:CheckBox ID="ChkOrdenarPorFecha" runat="server" Text="↑↓ Fecha" AutoPostBack="true" OnCheckedChanged="ChkOrdenarPorFecha_CheckedChanged" />

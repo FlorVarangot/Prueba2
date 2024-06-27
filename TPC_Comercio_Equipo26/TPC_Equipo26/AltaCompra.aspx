@@ -9,9 +9,10 @@
     <div class="container">
         <div class="row mb-4">
             <div class="col-md-4">
-                <label for="txtFechaCompra" class="form-label">Fecha de Compra:</label>
-                <asp:TextBox runat="server" ID="txtFechaCompra" CssClass="form-control" placeholder="dd/mm/aa" />
-            </div>
+    <label for="txtFechaCompra" class="form-label">Fecha de Compra:</label>
+    <asp:TextBox runat="server" ID="txtFechaCompra" CssClass="form-control" placeholder="dd/MM/yyyy" />
+</div>
+
             <div class="col-md-4">
                 <label for="ddlProveedor" class="form-label">Proveedor:</label>
                 <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>

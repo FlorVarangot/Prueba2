@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -21,7 +22,7 @@ namespace TPC_Equipo26
                 CargarMarcas();
                 CargarArticulos();
                 //esto muestra la fecha actual
-                txtFechaCompra.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                txtFechaCompra.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 lblTotalCompra.Text = "$0.00";
                 detallesCompra = new List<DetalleCompra>();
                 Session["DetallesCompra"] = detallesCompra;
@@ -174,7 +175,15 @@ namespace TPC_Equipo26
             try
             {
                 Compra compra = new Compra();
-                compra.FechaCompra = DateTime.ParseExact(txtFechaCompra.Text, "yyyy-MM-dd", null);
+                if (DateTime.TryParseExact(txtFechaCompra.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaCompra))
+                {
+                    compra.FechaCompra = fechaCompra;
+                }
+                else
+                {                   
+                    throw new Exception("La fecha de compra ingresada no es válida.");
+                }
+                compra.FechaCompra = DateTime.ParseExact(txtFechaCompra.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 compra.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
                 compra.Detalles = detallesCompra;
                 compra.TotalCompra = Calcular();             
