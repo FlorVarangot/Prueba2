@@ -12,7 +12,7 @@ namespace TPC_Equipo26
 {
     public partial class AltaCompra : System.Web.UI.Page
     {
-        private List<DetalleCompra> detallesCompra;
+        private List<DetalleCompra> detallesCompra;      
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -30,10 +30,10 @@ namespace TPC_Equipo26
             else
             {
                 detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
-            }
+            }        
 
         }
-
+       
         private void CargarProveedores()
         {
             try
@@ -88,6 +88,7 @@ namespace TPC_Equipo26
                 ddlMarca.DataValueField = "ID";
                 ddlMarca.DataBind();
                 ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", ""));
+                ddlProveedor.Enabled = false;
             }
             else
             {
@@ -128,6 +129,8 @@ namespace TPC_Equipo26
                 detalle.Cantidad = int.Parse(txtCantidad.Text);
                 detalle.Precio = decimal.Parse(txtPrecio.Text);
 
+                int idProveedor = int.Parse(ddlProveedor.SelectedValue);
+                detalle.IdProveedor = idProveedor;
                 detallesCompra.Add(detalle);
                 Session["DetallesCompra"] = detallesCompra;
                 //Actulizo dinamicamente arriba de los ddl
@@ -146,7 +149,6 @@ namespace TPC_Equipo26
             }
         }
 
-
         private void ActualizarArticulosAgregados()
         {
             rptArticulosAgregados.DataSource = detallesCompra;
@@ -156,7 +158,7 @@ namespace TPC_Equipo26
         private void ActualizarCompra()
         {
             decimal total = Calcular();
-            lblTotalCompra.Text = total.ToString("C2"); // Esto muestra solo el valor numérico con formato de moneda
+            lblTotalCompra.Text = total.ToString("C2");
             Session["Total"] = total;
         }
         private decimal Calcular()
@@ -173,7 +175,7 @@ namespace TPC_Equipo26
         protected void btnGuardarCompra_Click(object sender, EventArgs e)
         {
             try
-            {
+            {             
                 Compra compra = new Compra();
                 if (DateTime.TryParseExact(txtFechaCompra.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaCompra))
                 {
@@ -185,12 +187,11 @@ namespace TPC_Equipo26
                 }
                 compra.FechaCompra = DateTime.ParseExact(txtFechaCompra.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 compra.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
-                compra.Detalles = detallesCompra;
+                compra.Detalles = Session["DetallesCompra"] as List<DetalleCompra>;
                 compra.TotalCompra = Calcular();             
 
                  CompraNegocio negocio = new CompraNegocio();
                  negocio.AgregarCompra(compra);
-
                 
                 Session["DetallesCompra"] = null;
                 Session["Total"] = null;
@@ -203,6 +204,11 @@ namespace TPC_Equipo26
             }
         }
 
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+           
+        }
+       
 
     }
 }

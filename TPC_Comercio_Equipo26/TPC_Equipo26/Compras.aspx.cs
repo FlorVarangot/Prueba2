@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -16,8 +17,7 @@ namespace TPC_Equipo26
             if (!IsPostBack)
             {
                 CargarCompras();
-                CargarProveedores();
-                            
+                CargarProveedores();                          
             }
         }
 
@@ -44,58 +44,55 @@ namespace TPC_Equipo26
         {
             try
             {
-                CompraNegocio negocio = new CompraNegocio();
-                ArticuloNegocio negocioArticulo = new ArticuloNegocio();
-                List<Compra> compras;
-
-                compras = negocio.Listar();
-                if (ddlProveedor.SelectedIndex > 0)
-                {
-                    int idProveedor = Convert.ToInt32(ddlProveedor.SelectedValue);
-                    List<Articulo> listaArticulos = negocioArticulo.ListarPorProveedor(idProveedor);
-
-                    compras = negocio.Listar().Where(c => listaArticulos.Any(a => a.ID == c.IdProveedor)).ToList();
-                }
-                else
-                {
-                    compras = negocio.Listar();
-                }
-
-                if (ChkOrdenarPorFecha.Checked)
-                {
-                    compras = compras.OrderByDescending(x => x.FechaCompra).ToList();
-                }
-                else if (ChkOrdenarPorPrecio.Checked)
-                {
-                    compras = compras.OrderBy(x => x.TotalCompra).ToList();
-                }
-                else
-                {
-                    compras = compras.OrderBy(x => x.ID).ToList();
-                }
-
-                Session["ListaFiltrada"] = compras;
-                gvCompras.DataSource = compras;
-                gvCompras.DataBind();
+                CompraNegocio compraNegocio = new CompraNegocio();
+                List<Compra> listaCompras = compraNegocio.Listar();
+                Session["ListaCompras"] = listaCompras;
+                FiltrarCompras();
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
+        private void FiltrarCompras()
+        {
+            List<Compra> listaCompras = (List<Compra>)Session["ListaCompras"];
+            string filtroFecha = txtFiltro.Text.Trim();
+            if (!string.IsNullOrEmpty(filtroFecha))
+            {
+                listaCompras = listaCompras.Where(x => x.FechaCompra.ToString("dd/MM").Contains(filtroFecha)).ToList();
+            }
+            if (ddlProveedor.SelectedIndex > 0)
+            {
+                int proveedorSeleccionado = int.Parse(ddlProveedor.SelectedValue);
+                listaCompras = listaCompras.Where(x => x.IdProveedor == proveedorSeleccionado).ToList();
+            }
+            if (ChkOrdenarPorPrecio.Checked)
+            {
+                listaCompras = listaCompras.OrderByDescending(x => x.TotalCompra).ToList();
+            }
+            else if (ChkOrdenarPorFecha.Checked)
+            {
+                listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ToList();
+            }
+           
+            lblVacio.Visible = (listaCompras.Count == 0);
+            Session["ListaFiltrada"] = listaCompras;
+
+            gvCompras.DataSource = listaCompras;
+            gvCompras.DataBind();
+        }
 
         protected void gvCompras_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
             {
                 gvCompras.PageIndex = e.NewPageIndex;
-                List<Compra> compras = (List<Compra>)Session["ListaElementosFiltrada"];
+                List<Compra> compras = (List<Compra>)Session["ListaFiltrada"];
 
-               // lblVacio.Visible = (compras.Count == 0);
                 gvCompras.DataSource = compras;
                 gvCompras.DataBind();
-
             }
             catch (Exception)
             {
@@ -107,33 +104,24 @@ namespace TPC_Equipo26
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                int id = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ID"));
-                string proveedor = TraerNombreProveedor(id);
-                e.Row.Cells[2].Text = proveedor;
+                Compra compra = (Compra)e.Row.DataItem;
+                int idProveedor = compra.IdProveedor;
+                string proveedor = TraerNombreProveedor(idProveedor);
+                e.Row.Cells[2].Text = proveedor; 
             }
         }
-        private string TraerNombreProveedor(int id)
+        private string TraerNombreProveedor(int idProveedor)
         {
             try
             {
-                MarcaNegocio marcaNegocio = new MarcaNegocio();
-                Marca marca = marcaNegocio.ObtenerMarcaPorId(id);
-                string proveedor = "";
+                ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+                Proveedor proveedor = proveedorNegocio.ObtenerProveedorPorId(idProveedor);
 
-                if (marca != null)
+                if (proveedor != null)
                 {
-                    int idProveedor = marca.IdProveedor;
-                    ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-                    Proveedor prov = proveedorNegocio.ObtenerProveedorPorId(idProveedor);
-
-                    if (prov != null)
-                    {
-                        proveedor = prov.Nombre;
-                        return proveedor;
-                    }
+                    return proveedor.Nombre;
                 }
-
-                return proveedor;
+                return "Proveedor no encontrado";
             }
             catch (Exception)
             {
@@ -143,17 +131,17 @@ namespace TPC_Equipo26
 
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
         {
-
+            FiltrarCompras();
         }
 
         protected void ChkOrdenarPorFecha_CheckedChanged(object sender, EventArgs e)
         {
-            CargarCompras();
+            FiltrarCompras();
         }
 
         protected void ChkOrdenarPorPrecio_CheckedChanged(object sender, EventArgs e)
         {
-            CargarCompras();
+            FiltrarCompras();
         }
 
         protected void btnRestablecer_Click(object sender, EventArgs e)
@@ -161,12 +149,13 @@ namespace TPC_Equipo26
             ChkOrdenarPorFecha.Checked = false;
             ChkOrdenarPorPrecio.Checked = false;
             ddlProveedor.SelectedIndex = 0;
+            txtFiltro.Text = string.Empty;
             CargarCompras();
         }
 
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarCompras();
+            FiltrarCompras();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, IdArticulo, Precio, Cantidad FROM DETALLE_COMPRAS WHERE IdCompra = @IdCompra");
+                datos.setearConsulta("SELECT dc.Id, dc.IdArticulo, dc.Precio, dc.Cantidad, dc.IdProveedor FROM DETALLE_COMPRAS dc INNER JOIN COMPRAS c ON dc.IdCompra = c.Id WHERE dc.IdCompra = @IdCompra");
                 datos.setearParametro("@IdCompra", idCompra);
                 datos.ejecutarLectura();
 
@@ -26,7 +26,7 @@ namespace TPC_Equipo26.Negocio
                     detalle.IdArticulo = (long)datos.Lector["IdArticulo"];
                     detalle.Precio = (decimal)datos.Lector["Precio"];
                     detalle.Cantidad = (int)datos.Lector["Cantidad"];
-
+                    detalle.IdProveedor = (int)datos.Lector["IdProveedor"];
                     detalles.Add(detalle);
                 }
 

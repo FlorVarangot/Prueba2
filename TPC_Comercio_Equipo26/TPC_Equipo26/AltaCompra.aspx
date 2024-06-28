@@ -24,16 +24,6 @@
             </div>
         </div>
 
-        <h3 class="my-4">Detalles de la Compra</h3>
-        <asp:Panel ID="panelDetallesCompra" runat="server">
-            <asp:Repeater ID="rptArticulosAgregados" runat="server">
-                <ItemTemplate>
-                    <div>
-                        Artículo: <%# Eval("IdArticulo") %>, Cantidad: <%# Eval("Cantidad") %>, Precio: <%# Eval("Precio", "{0:C2}") %>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
-        </asp:Panel>
 
         <div class="row mb-2">
             <div class="col-md-3">
@@ -55,11 +45,42 @@
             <div class="col-md-2 d-flex align-items-end">
                 <asp:Button runat="server" ID="btnAgregar" Text="+" CssClass="btn btn-primary btn-agregar" Autopostback="true" OnClick="btnAgregar_Click1" />
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12 text-center">
-                <asp:Button runat="server" ID="btnGuardarCompra" Text="Guardar Compra" CssClass="btn btn-success" OnClick="btnGuardarCompra_Click" />
+             <div class="col-md-2 d-flex align-items-end">
+        <a href="#" id="btnEditar" class="btn btn-editar" onclick='<%# $"return btnEditar_Click({Eval("ID")})" %>'>
+            Editar <i class="fas fa-pencil-alt"></i>
+        </a>
+    </div>
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <asp:Button runat="server" ID="btnGuardarCompra" Text="Guardar Compra" CssClass="btn btn-success" OnClick="btnGuardarCompra_Click" />
+                </div>
             </div>
         </div>
-    </div>
+        <h3 class="my-4">Detalles de la Compra</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <asp:Panel ID="panelDetallesCompra" runat="server">
+                            <asp:Repeater ID="rptArticulosAgregados" runat="server">
+                                <ItemTemplate>
+                                    <div class="row mb-2">
+                                        <div class="col-md-4">
+                                            <strong>Artículo:</strong> <%# Eval("IdArticulo") %>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong>Cantidad:</strong> <%# Eval("Cantidad") %>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong>Precio:</strong> <%# Eval("Precio", "{0:C2}") %>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </asp:Panel>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 </asp:Content>

@@ -37,7 +37,7 @@
         <Columns>
             <asp:BoundField HeaderText="ID Compra" DataField="ID" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Fecha de Compra" DataField="FechaCompra" DataFormatString="{0:dd/MM/yyyy}" ItemStyle-HorizontalAlign="Center" />
-            <asp:BoundField HeaderText="ID Proveedor" DataField="IdProveedor" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField HeaderText="Proveedor" DataField="IdProveedor" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Total de Compra" DataField="TotalCompra" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Center" />
             <asp:TemplateField HeaderText="Detalles">
                 <ItemTemplate>
@@ -48,6 +48,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+    <asp:Label ID="lblVacio" runat="server" Text="No se encontraron registros." Visible="false" CssClass="text-danger" />
     <div class="text-end">
         <a href="AltaCompra.aspx" class="btn btn-success">Agregar una Compra</a>
     </div>
