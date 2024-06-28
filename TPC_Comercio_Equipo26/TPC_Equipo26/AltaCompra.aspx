@@ -9,13 +9,14 @@
     <div class="container">
         <div class="row mb-4">
             <div class="col-md-4">
-    <label for="txtFechaCompra" class="form-label">Fecha de Compra:</label>
-    <asp:TextBox runat="server" ID="txtFechaCompra" CssClass="form-control" placeholder="dd/MM/yyyy" />
-</div>
+                <label for="txtFechaCompra" class="form-label">Fecha de Compra:</label>
+                <asp:TextBox runat="server" ID="txtFechaCompra" CssClass="form-control" placeholder="dd/MM/yyyy" />
+            </div>
 
             <div class="col-md-4">
                 <label for="ddlProveedor" class="form-label">Proveedor:</label>
                 <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
+                ¿No existe el proveedor? <a href="AltaProveedor.aspx">Agregar proveedor</a>
             </div>
             <div class="col-md-2">
                 <label for="lblTotalCompra" class="form-label">Total compra:</label>

@@ -107,12 +107,22 @@ img {
     }
 
 
-
-
 .titulo-label{
     font-size:35px;
     margin-bottom:20px;
 }
+
+.detalle {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    margin: 0 auto;
+}
+
+.detalle tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+
 
 /*Media query para celulares*/
 @media (max-width:768px) {

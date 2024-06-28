@@ -14,36 +14,39 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             try
             {
                 if (!IsPostBack)
                 {
                     CargarVentas();
                 }
-        }
+            }
             catch
             {
                 Response.Redirect("Error.aspx");
             }
-}
+        }
 
         protected void CargarVentas()
         {
-            VentaNegocio negocio = new VentaNegocio();
-            List<Venta> ventas = negocio.Listar();
-
-            Session["listaVentas"] = ventas;
-            FiltrarVentas();
-            CargarClientes();
-
-            GvVentas.DataSource = ventas;
-            GvVentas.DataBind();
-
-
-            if (ventas != null)
+            try
             {
-                lblVacio.Visible = false;
+
+                VentaNegocio negocio = new VentaNegocio();
+                List<Venta> ventas = negocio.Listar();
+                CargarClientes();
+
+                Session["listaVentas"] = ventas;
+                FiltrarVentas();
+
+                if (ventas != null)
+                {
+                    lblVacio.Visible = false;
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -72,27 +75,41 @@ namespace TPC_Equipo26
             }
         }
 
-        protected void FiltrarVentas()
+        // Funciona ok el ddlCliente.
+        private void FiltrarVentas()
         {
-
             List<Venta> ventas = (List<Venta>)Session["listaVentas"];
+            List<Venta> ventasFiltrada;
 
-            if (!string.IsNullOrEmpty(TxtFiltro.Text.Trim()))
+            if (ventas != null)
             {
-                string filtro = TxtFiltro.Text.Trim().ToUpper();
-                ventas = ventas.Where(x => x.Total.Equals(filtro)).ToList();
-            }
+                string valorSelec = ddlCliente.SelectedValue;
 
-            Session["ventasFiltrada"] = ventas;
+                if (!string.IsNullOrEmpty(valorSelec))
+                {
+                    long clienteSelec = long.Parse(valorSelec);
+                    ventasFiltrada = ventas.Where(x => x.IdCliente == clienteSelec).ToList();
+                }
+                else
+                {
+                    ventasFiltrada = ventas;
+                }
 
-            if (ventas.Count > 0)
-            {
-                lblVacio.Visible = false;
+                if (ventasFiltrada.Count > 0)
+                {
+                    lblVacio.Visible = false;
+                }
+                else
+                {
+                    lblVacio.Visible = true;
+                }
+                GvVentas.DataSource = ventasFiltrada;
             }
             else
             {
-                lblVacio.Visible = true;
+                GvVentas.DataSource = ventas;
             }
+            GvVentas.DataBind();
         }
 
         protected void TxtFiltro_TextChanged(object sender, EventArgs e)
@@ -142,7 +159,7 @@ namespace TPC_Equipo26
             try
             {
                 GvVentas.PageIndex = e.NewPageIndex;
-                List<Venta> listaVentas = (List<Venta>)Session["ListaFiltrada"];
+                List<Venta> listaVentas = (List<Venta>)Session["listaFiltrada"];
 
                 lblVacio.Visible = (listaVentas.Count == 0);
                 GvVentas.DataSource = listaVentas;
@@ -171,7 +188,7 @@ namespace TPC_Equipo26
                 VentaNegocio ventaNegocio = new VentaNegocio();
                 Venta venta = ventaNegocio.ObtenerVentaPorId(id);
                 string apellidoNombre = "cliente";
-                
+
                 if (venta != null)
                 {
                     long idCliente = venta.IdCliente;
@@ -184,12 +201,10 @@ namespace TPC_Equipo26
                         return apellidoNombre;
                     }
                 }
-                
                 return apellidoNombre;
             }
             catch (Exception)
             {
-                //    Response.Redirect("Error.aspx");
                 return "Error al obtener el nombre del cliente";
             }
         }

@@ -234,6 +234,7 @@
     <Compile Include="Negocio\CompraNegocio.cs" />
     <Compile Include="Negocio\DatoArticuloNegocio.cs" />
     <Compile Include="Negocio\DetalleCompraNegocio.cs" />
+    <Compile Include="Negocio\DetalleVentaNegocio.cs" />
     <Compile Include="Negocio\MarcaNegocio.cs" />
     <Compile Include="Negocio\ProveedorNegocio.cs" />
     <Compile Include="Negocio\VentaNegocio.cs" />

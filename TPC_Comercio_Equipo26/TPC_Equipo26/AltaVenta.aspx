@@ -15,6 +15,7 @@
             <div class="col-4">
                 <label for="ddlCliente" class="form-label">Cliente:</label>
                 <asp:DropDownList runat="server" ID="ddlCliente" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
+                ¿No existe el cliente? <a href="AltaCliente.aspx">Agregar cliente</a>
             </div>
         </div>
 
