@@ -33,10 +33,6 @@ namespace TPC_Equipo26
                 List<Categoria> categorias = categoriaNegocio.Listar();
                 Session["listaCategorias"] = categorias;
                 FiltrarCategorias();
-                if (categorias != null)
-                {
-                    lblVacio.Visible = false;
-                }
             }
             catch (Exception)
             {
@@ -66,15 +62,6 @@ namespace TPC_Equipo26
                     listaFiltrada = lista.Where(x =>
                         x.Descripcion.ToUpper().Contains(filtro) &&
                         (x.Activo || incluirInactivos)).ToList();
-                }
-
-                if (listaFiltrada.Count > 0)
-                {
-                    lblVacio.Visible = false;
-                }
-                else
-                {
-                    lblVacio.Visible = true;
                 }
 
                 gvCategorias.DataSource = listaFiltrada;

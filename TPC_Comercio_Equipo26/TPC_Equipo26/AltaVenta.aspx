@@ -15,47 +15,69 @@
             <div class="col-4">
                 <label for="ddlCliente" class="form-label">Cliente:</label>
                 <asp:DropDownList runat="server" ID="ddlCliente" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
-                ¿No existe el cliente? <a href="AltaCliente.aspx">Agregar cliente</a>
+                <asp:Label runat="server" ID="lblExists" Text="¿No existe el cliente?"></asp:Label>
+                <asp:HyperLink runat="server" ID="lnkAltaCli" href="AltaCliente.aspx">Agregar cliente</asp:HyperLink>
             </div>
         </div>
 
-        <div class="row mb-2">
-            <div class="col-6">
-                <label for="ddlArticulo" class="form-label">Artículo:</label>
-                <asp:DropDownList runat="server" ID="ddlArticulo" CssClass="form-control"></asp:DropDownList>
+        <asp:Panel ID="selectores" runat="server" Style="align-content: center">
+            <div class="row mb-3">
+                <div class="col-5">
+                    <asp:DropDownList runat="server" ID="ddlArticulo" CssClass="form-control" OnSelectedIndexChanged="ddlArticulo_SelectedIndexChanged"></asp:DropDownList>
+                </div>
+                <div class="col-1">
+                    <input type="number" id="numCantidad" min="1" cssclass="form-control" runat="server" style="border-radius: 5px; height: 40px; width: 50px">
+                </div>
+                <div class="col-1 d-flex align-items-center">
+                    <asp:Button runat="server" ID="btnAgregar" Text="+" Autopostback="true" OnClick="btnAgregar_Click" />
+                </div>
             </div>
-            <div class="col-2">
-                <label for="txtCantidad" class="form-label">Cantidad:</label>
-                <input type="number" id="numCantidad" cssclass="form-control" runat="server" style="border-radius: 5px; height: 40px">
-            </div>
-            <div class="col-2">
-                <label for="lblPrecio" class="form-label">Precio Unitario:</label>
-                <asp:Label ID="lblPrecio" runat="server"></asp:Label>
-            </div>
-            <div class="col-2 d-flex align-items-end">
-                <asp:Button runat="server" ID="btnAgregar" Text="+" CssClass="btn btn-primary btn-agregar" Autopostback="true" OnClick="btnAgregar_Click" />
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12 text-center">
-                <asp:Button runat="server" ID="btnGuardarVenta" Text="Confirmar" CssClass="btn btn-success" OnClick="btnConfirmarVenta_Click" />
-            </div>
-        </div>
+        </asp:Panel>
 
-        <asp:Label ID="lblDetalles" runat="server" Text="Detalles de la Venta:" Visible="false" CssClass="titulo-label"></asp:Label>
         <asp:Panel ID="panelDetallesVenta" runat="server">
-            <asp:Repeater ID="rptArticulos" runat="server">
-                <ItemTemplate>
-                    <div>
-                        Artículo: <%# Eval("IdArticulo") %>, Cantidad: <%# Eval("Cantidad") %>, Total parcial:  %>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+            <asp:Label ID="lblDetalles" runat="server" Text="Detalles de la venta:" Visible="false" CssClass="titulo-label"></asp:Label>
+            <asp:GridView ID="gvAltaVenta" runat="server" CssClass="detalle" AutoGenerateColumns="false" Style="text-align: center; align-content: center" AutoSizeMode="true"
+                OnSelectedIndexChanged="gvAltaVenta_SelectedIndexChanged" OnPageIndexChanging="gvAltaVenta_PageIndexChanging" OnRowDataBound="gvAltaVenta_RowDataBound">
+                <Columns>
+                    <asp:BoundField HeaderText="Artículo" DataField="IdArticulo" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="40%" />
+                    
+                    <%-- terminar: --%>
+                    <asp:BoundField HeaderText="Precio unitario" DataField="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="20%" />
+                    
+                    <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="5%" />
+                    <asp:BoundField HeaderText="Total" DataField="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25%" />
+                    
+                    <%-- seguir pensando para eliminar art ingresado y despues tambien para cambiar cantidades --%>
+                    <asp:TemplateField ItemStyle-Width="10%">
+                        <ItemTemplate>
+                            <%--<a href='<%# "AltaArticulo.aspx?ID=" + Eval("ID") %>' class="icono" title="Eliminar">--%>
+                                <i class="fa-solid fa-trashcan" style="color: dimgrey; margin: 10px"></i>
+                            </a>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Repeater ID="rptArticulos" runat="server">
+                                <ItemTemplate>
+                                    <div>
+                                        <%# Eval("IdArticulo") %>, <%# Eval("Cantidad") %>, <%# Eval("TotalParcial", "{0:C}") %>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </asp:Panel>
 
         <div class="col-12 text-end">
-            <label for="lblTotalVenta" class="form-label">Total venta:</label>
             <asp:Label ID="lblTotalVenta" runat="server"></asp:Label>
+        </div>
+        <div class="row my-4">
+            <div class="col-md-12 text-center">
+                <asp:Button runat="server" ID="btnGuardarVenta" Text="Confirmar venta" CssClass="btn btn-success" OnClick="btnConfirmarVenta_Click" />
+            </div>
         </div>
 
     </div>

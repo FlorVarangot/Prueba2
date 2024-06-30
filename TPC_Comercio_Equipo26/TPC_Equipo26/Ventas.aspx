@@ -4,19 +4,20 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
+
         <div class="text-center my-4">
             <h1>VENTAS</h1>
         </div>
-        <div class="row">
-            <div class="col-4 mb-3">
+
+        <div class="row mb-2">
+            <div class="col-4">
                 <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
             </div>
-            <div class="col-4 mb-3">
-                <div class="mb-3">
-                    <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
-                </div>
+            <div class="col-4">
+                <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
             </div>
-            <div class="row mb-3">
+
+            <div class="row mt-2 mb-3">
                 <div class="col-1">
                     <asp:CheckBox ID="ChkOrdenarPorFecha" runat="server" Text="↑↓ Fecha" AutoPostBack="true" OnCheckedChanged="ChkOrdenarPorFecha_CheckedChanged" />
                 </div>
@@ -32,7 +33,7 @@
 
 
     <asp:GridView ID="GvVentas" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover" Style="text-align: center" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="GvVentas_SelectedIndexChanged" OnPageIndexChanging="GvVentas_PageIndexChanging" EmptyDataText="Aún no hay datos disponibles"
+        OnSelectedIndexChanged="GvVentas_SelectedIndexChanged" OnPageIndexChanging="GvVentas_PageIndexChanging" EmptyDataText="No hay datos disponibles."
         AllowPaging="true" PageSize="10" OnRowDataBound="GvVentas_RowDataBound">
         <Columns>
             <asp:BoundField HeaderText="Venta" DataField="ID" />
@@ -50,7 +51,6 @@
         </Columns>
     </asp:GridView>
 
-    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaVenta.aspx" class="btn btn-success btn-success">Registrar una venta</a>

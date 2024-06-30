@@ -17,13 +17,12 @@ namespace TPC_Equipo26
             {
                 if (Request.QueryString["ID"] != null)
                 {
-
+                    lblTitulo.Text = "Detalles: ";
                     long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
-                    string nombreCliente = TraerNombreCliente(ventaID);
-                    decimal totalVenta = TraerTotalVenta(ventaID);
-                    lblCliente.Text = "Cliente: " + nombreCliente;
-                    lblVentaID.Text = "Venta n° 00" + ventaID;
-                    lblTotal.Text = "Total: $" + totalVenta;
+                    lblVentaID.Text = "venta n° 00" + ventaID;
+                    lblCliente.Text = "Cliente: " + TraerNombreCliente(ventaID);
+                    lblFecha.Text = "Fecha: " + TraerFechaVenta(ventaID).ToString("dd/MM/yyyy");
+                    lblTotal.Text = "Total: $ " + TraerTotalVenta(ventaID).ToString("N2");
                     CargarDetallesVenta(ventaID);
                 }
                 else
@@ -51,7 +50,7 @@ namespace TPC_Equipo26
         protected void gvDetalle_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = gvDetalle.SelectedDataKey.Value.ToString();
-            Response.Redirect("AltaVenta.aspx?ID=" + id);
+            Response.Redirect("DetallesVenta.aspx?ID=" + id);
 
         }
 
@@ -59,21 +58,25 @@ namespace TPC_Equipo26
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                long idArt = Convert.ToInt64(DataBinder.Eval(e.Row.DataItem, "IdArticulo"));
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                Articulo articulo = negocio.ObtenerArticuloPorID(idArt);
                 DatoArticuloNegocio datoArticuloNegocio = new DatoArticuloNegocio();
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                long idArt = Convert.ToInt64(DataBinder.Eval(e.Row.DataItem, "IdArticulo"));
+                Articulo articulo = negocio.ObtenerArticuloPorID(idArt);
                 string nombreArticulo = articulo.Descripcion;
-
+                long idVenta = long.Parse(Request.QueryString["ID"]);
+                DateTime fechaVenta = TraerFechaVenta(idVenta);
                 int cantidad = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "Cantidad"));
-                decimal precioUnitario = datoArticuloNegocio.ObtenerPrecioArticulo(Convert.ToInt64(DataBinder.Eval(e.Row.DataItem, "IdArticulo")));
-                decimal totalParcial = cantidad * precioUnitario;
+                decimal ganancia = articulo.Ganancia;
+
+                decimal precioUnitario = datoArticuloNegocio.ObtenerPrecioHistorico(idArt, fechaVenta);
+                decimal precioConGanancia = precioUnitario + (precioUnitario * ganancia / 100);
+                decimal totalParcial = cantidad * precioConGanancia;
 
                 e.Row.Cells[0].Text = nombreArticulo;
-                e.Row.Cells[2].Text = totalParcial.ToString("C");
+                e.Row.Cells[1].Text = precioConGanancia.ToString("C");
+                e.Row.Cells[3].Text = totalParcial.ToString("C");
             }
         }
-
 
         //F: Revisar optimización de este metodo: se repite tal cual en Venta y en DetallesVenta.
         private string TraerNombreCliente(long id)
@@ -104,10 +107,55 @@ namespace TPC_Equipo26
             }
         }
 
+        private DateTime TraerFechaVenta(long id)
+        {
+            try
+            {
+                VentaNegocio ventaNegocio = new VentaNegocio();
+                Venta venta = ventaNegocio.ObtenerVentaPorId(id);
+                DateTime fechaVenta;
+
+                if (venta != null)
+                {
+                    fechaVenta = venta.FechaVenta;
+                }
+                else
+                {
+                    fechaVenta = new DateTime(1900, 1, 1);
+                }
+
+                return fechaVenta;
+            }
+            catch (Exception)
+            {
+                return DateTime.MinValue;
+            }
+        }
+
         private decimal TraerTotalVenta(long id)
         {
-            decimal total = 0;
-            return total;
+            try
+            {
+                VentaNegocio ventaNegocio = new VentaNegocio();
+                Venta venta = ventaNegocio.ObtenerVentaPorId(id);
+                decimal totalVenta = 0;
+
+                if (venta != null)
+                {
+                    totalVenta = venta.Total;
+                }
+                else
+                {
+                    totalVenta = 0;
+                }
+
+                return totalVenta;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+
         }
 
     }

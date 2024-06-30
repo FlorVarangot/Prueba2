@@ -42,6 +42,33 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.DropDownList ddlCliente;
 
         /// <summary>
+        /// Control lblExists.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExists;
+
+        /// <summary>
+        /// Control lnkAltaCli.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkAltaCli;
+
+        /// <summary>
+        /// Control selectores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel selectores;
+
+        /// <summary>
         /// Control ddlArticulo.
         /// </summary>
         /// <remarks>
@@ -60,15 +87,6 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl numCantidad;
 
         /// <summary>
-        /// Control lblPrecio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrecio;
-
-        /// <summary>
         /// Control btnAgregar.
         /// </summary>
         /// <remarks>
@@ -76,24 +94,6 @@ namespace TPC_Equipo26
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAgregar;
-
-        /// <summary>
-        /// Control btnGuardarVenta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardarVenta;
-
-        /// <summary>
-        /// Control lblDetalles.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDetalles;
 
         /// <summary>
         /// Control panelDetallesVenta.
@@ -105,13 +105,22 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.Panel panelDetallesVenta;
 
         /// <summary>
-        /// Control rptArticulos.
+        /// Control lblDetalles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptArticulos;
+        protected global::System.Web.UI.WebControls.Label lblDetalles;
+
+        /// <summary>
+        /// Control gvAltaVenta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAltaVenta;
 
         /// <summary>
         /// Control lblTotalVenta.
@@ -121,5 +130,14 @@ namespace TPC_Equipo26
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalVenta;
+
+        /// <summary>
+        /// Control btnGuardarVenta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardarVenta;
     }
 }

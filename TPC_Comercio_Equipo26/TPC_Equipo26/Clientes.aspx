@@ -7,7 +7,7 @@
         <div class="text-center my-4">
             <h1>CLIENTES</h1>
         </div>
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-4">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" Placeholder="Buscar" />
             </div>
@@ -16,13 +16,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 mb-2">
+            <div class="col-12 mb-3">
                 <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
             </div>
         </div>
 
         <asp:GridView ID="gvClientes" runat="server" DataKeyNames="Id" CssClass="table table-success table-hover"
-            Style="text-align: center" AutoGenerateColumns="false"
+            Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles."
             OnSelectedIndexChanged="gvClientes_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
@@ -46,7 +46,6 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
         <hr />
         <div class="text-end">
             <a href="AltaCliente.aspx" class="btn btn-success">Agregar un Cliente</a>

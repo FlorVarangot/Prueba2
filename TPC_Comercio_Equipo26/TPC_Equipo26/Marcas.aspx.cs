@@ -31,11 +31,6 @@ namespace TPC_Equipo26
 
                 Session["listaMarcas"] = marcas;
                 FiltrarMarcas();
-                
-                if (marcas != null)
-                {
-                    lblVacio.Visible = false;
-                }
             }
             catch (Exception)
             {
@@ -76,15 +71,6 @@ namespace TPC_Equipo26
                     x.IdProveedor == proveedorSelec &&
                     x.Descripcion.ToUpper().Contains(filtro) &&
                     (x.Activo || incluirInactivos)).ToList();
-                }
-
-                if (listaFiltrada.Count > 0)
-                {
-                    lblVacio.Visible = false;
-                }
-                else
-                {
-                    lblVacio.Visible = true;
                 }
 
                 gvMarcas.DataSource = listaFiltrada;

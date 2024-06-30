@@ -116,11 +116,13 @@ img {
     border: 1px solid #ccc;
     background-color: #f9f9f9;
     margin: 0 auto;
+    color: darkslategrey;
 }
 
-.detalle tr:nth-child(even) {
-    background-color: #f0f0f0;
-}
+    .detalle tr:nth-child(even) {
+        background-color: #f0f0f0;
+        background-color: lightgray;
+    }
 
 
 

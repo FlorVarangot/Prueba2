@@ -77,7 +77,6 @@ namespace TPC_Equipo26
                 listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ToList();
             }
            
-            lblVacio.Visible = (listaCompras.Count == 0);
             Session["ListaFiltrada"] = listaCompras;
 
             gvCompras.DataSource = listaCompras;

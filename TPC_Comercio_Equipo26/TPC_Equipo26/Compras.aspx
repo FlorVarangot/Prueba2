@@ -7,17 +7,17 @@
         <div class="text-center my-4">
             <h1>COMPRAS</h1>
         </div>
-        <div class="row">
-            <div class="col-4 mb-3">
+        <div class="row mb-2">
+            <div class="col-4">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" Placeholder="Buscar por Fecha..." OnTextChanged="txtFiltro_TextChanged" />
             </div>
-            <div class="col-4 mb-3">
-                <div class="mb-3">
+            <div class="col-4">
+                <div>
                     <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mt-2 mb-3">
                 <div class="col-1">
                     <asp:CheckBox ID="ChkOrdenarPorFecha" runat="server" Text="↑↓ Fecha" AutoPostBack="true" OnCheckedChanged="ChkOrdenarPorFecha_CheckedChanged" />
                 </div>
@@ -31,7 +31,7 @@
         </div>
     </div>
     <asp:GridView ID="gvCompras" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-        Style="text-align: center" AutoGenerateColumns="false"
+        Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles."
         AllowPaging="true" PageSize="10"
         OnPageIndexChanging="gvCompras_PageIndexChanging" OnRowDataBound="gvCompras_RowDataBound">
         <Columns>
@@ -48,7 +48,6 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Label ID="lblVacio" runat="server" Text="No se encontraron registros." Visible="false" CssClass="text-danger" />
     <div class="text-end">
         <a href="AltaCompra.aspx" class="btn btn-success">Agregar una Compra</a>
     </div>

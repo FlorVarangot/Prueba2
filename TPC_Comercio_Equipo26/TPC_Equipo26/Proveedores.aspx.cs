@@ -28,11 +28,6 @@ namespace TPC_Equipo26
 
             Session["listaProveedores"] = proveedores;
             FiltrarProveedores();
-            
-            if (proveedores != null)
-            {
-                lblVacio.Visible = false;
-            }
         }
 
         private void FiltrarProveedores()
@@ -56,15 +51,6 @@ namespace TPC_Equipo26
             }
 
             Session["ProveedoresFiltrada"] = proveedores;
-
-            if (proveedores.Count > 0)
-            {
-                lblVacio.Visible = false;
-            }
-            else
-            {
-                lblVacio.Visible = true;
-            }
 
             GvProveedores.DataSource = proveedores;
             GvProveedores.DataBind();

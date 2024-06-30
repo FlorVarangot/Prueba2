@@ -26,7 +26,9 @@ namespace TPC_Equipo26
                 }
             }
             catch
-            { Response.Redirect("Error.aspx", false); }
+            { 
+                Response.Redirect("Error.aspx", false); 
+            }
         }
 
         private void CargarArticulos()
@@ -42,10 +44,6 @@ namespace TPC_Equipo26
                 if (chkAvanzado.Checked)
                 {
                     CargarMarcasYCategorias();
-                }
-                if (listaArticulos != null)
-                {
-                    lblVacio.Visible = false;
                 }
             }
             catch (Exception)
@@ -78,57 +76,57 @@ namespace TPC_Equipo26
             List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
             DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
 
-            if (!chkIncluirInactivos.Checked)
-            {
-                listaArticulos = listaArticulos.Where(x => x.Activo).ToList();
-            }
-            if (!string.IsNullOrEmpty(txtFiltro.Text.Trim()))
-            {
-                string filtro = txtFiltro.Text.Trim().ToUpper();
-                listaArticulos = listaArticulos
-                    .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
-                                x.Codigo.ToUpper().Contains(filtro) ||
-                                x.Descripcion.ToUpper().Contains(filtro) ||
-                                x.StockMin.ToString().Contains(filtro))
-                    .ToList();
-            }
-            if (ddlMarca.SelectedIndex > 0)
-            {
-                string marcaSeleccionada = ddlMarca.SelectedItem.Text;
-                listaArticulos = listaArticulos.Where(x => x.Marca.Descripcion.Equals(marcaSeleccionada)).ToList();
-            }
-            if (ddlCategoria.SelectedIndex > 0)
-            {
-                string CategoriaSeleccionada = ddlCategoria.SelectedItem.Text;
-                listaArticulos = listaArticulos.Where(x => x.Categoria.Descripcion.Equals(CategoriaSeleccionada)).ToList();
-            }
-            if (chkOrdenarAZ.Checked && chkOrdenarPorStock.Checked)
-            {
-                //listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ThenByDescending(x => x.StockMin).ToList();
-                listaArticulos = listaArticulos .OrderBy(x => x.Descripcion).ThenByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
-            }
-            else if (chkOrdenarAZ.Checked)
-            {
-                listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ToList();
-            }
-            else if (chkOrdenarPorStock.Checked)
-            {
-                //listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
-                listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
-            }
-            else if (chkOrdenarPorPrecio.Checked)
-            {
-                //listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
-                listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
-            }
-            else
-            {
-                //listaArticulos = listaArticulos.OrdeerBy(x => x.ID);
-                listaArticulos = listaArticulos.OrderBy(x => x.ID).ThenBy(x => datoNegocio.ObtenerStockArticulo(x.ID)).ThenBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
-            }
-            Session["ListaArticulosFiltrada"] = listaArticulos;
+            //if (!chkIncluirInactivos.Checked)
+            //{
+            //    listaArticulos = listaArticulos.Where(x => x.Activo).ToList();
+            //}
+            //if (!string.IsNullOrEmpty(txtFiltro.Text.Trim()))
+            //{
+            //    string filtro = txtFiltro.Text.Trim().ToUpper();
+            //    listaArticulos = listaArticulos
+            //        .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
+            //                    x.Codigo.ToUpper().Contains(filtro) ||
+            //                    x.Descripcion.ToUpper().Contains(filtro) ||
+            //                    x.StockMin.ToString().Contains(filtro))
+            //        .ToList();
+            //}
+            //if (ddlMarca.SelectedIndex > 0)
+            //{
+            //    string marcaSeleccionada = ddlMarca.SelectedItem.Text;
+            //    listaArticulos = listaArticulos.Where(x => x.Marca.Descripcion.Equals(marcaSeleccionada)).ToList();
+            //}
+            //if (ddlCategoria.SelectedIndex > 0)
+            //{
+            //    string CategoriaSeleccionada = ddlCategoria.SelectedItem.Text;
+            //    listaArticulos = listaArticulos.Where(x => x.Categoria.Descripcion.Equals(CategoriaSeleccionada)).ToList();
+            //}
+            //if (chkOrdenarAZ.Checked && chkOrdenarPorStock.Checked)
+            //{
+            //    //listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ThenByDescending(x => x.StockMin).ToList();
+            //    listaArticulos = listaArticulos .OrderBy(x => x.Descripcion).ThenByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
+            //}
+            //else if (chkOrdenarAZ.Checked)
+            //{
+            //    listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ToList();
+            //}
+            //else if (chkOrdenarPorStock.Checked)
+            //{
+            //    //listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
+            //    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
+            //}
+            //else if (chkOrdenarPorPrecio.Checked)
+            //{
+            //    listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
+            //    //listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
+            //}
+            //else
+            //{
+            //    listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
+            //    //listaArticulos = listaArticulos.OrderBy(x => x.ID).ThenBy(x => datoNegocio.ObtenerStockArticulo(x.ID)).ThenBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
+            //}
+            //Session["ListaArticulosFiltrada"] = listaArticulos;
 
-            lblVacio.Visible = (listaArticulos.Count == 0);
+            //lblVacio.Visible = (listaArticulos.Count == 0);
 
             gvArticulos.DataSource = listaArticulos;
             gvArticulos.DataBind();
@@ -198,7 +196,6 @@ namespace TPC_Equipo26
                 gvArticulos.PageIndex = e.NewPageIndex;
                 List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulosFiltrada"];
 
-                lblVacio.Visible = (listaArticulos.Count == 0);
                 gvArticulos.DataSource = listaArticulos;
                 gvArticulos.DataBind();
             }
@@ -232,19 +229,20 @@ namespace TPC_Equipo26
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 int id = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ID"));
-                decimal precio = TraerPrecio(id);
+                decimal precio = TraerPrecioConGanancia(id);
                 int stock = TraerStock(id);
                 e.Row.Cells[7].Text = precio.ToString("C");
                 e.Row.Cells[8].Text = stock.ToString();
             }
         }
 
-        private decimal TraerPrecio(long id)
+        //Revisar si hace falta este metodo:
+        private decimal TraerPrecio(long idArt)
         {
             try
             {
                 ArticuloNegocio negocio = new ArticuloNegocio();
-                Articulo articulo = negocio.ObtenerArticuloPorID(id);
+                Articulo articulo = negocio.ObtenerArticuloPorID(idArt);
 
                 if (articulo != null)
                 {
@@ -253,6 +251,32 @@ namespace TPC_Equipo26
                     decimal precio = datoNegocio.ObtenerPrecioArticulo(idArticulo);
 
                     return precio;
+                }
+                return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+
+        private decimal TraerPrecioConGanancia(long idArt)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                Articulo articulo = negocio.ObtenerArticuloPorID(idArt);
+
+                if (articulo != null)
+                {
+                    long idArticulo = articulo.ID;
+                    decimal ganancia = articulo.Ganancia;
+                    DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                    decimal precio = datoNegocio.ObtenerPrecioArticulo(idArticulo);
+                    decimal precioConGanancia = precio + (precio * ganancia / 100);
+
+                    return precioConGanancia;
                 }
                 return 0;
             }

@@ -8,7 +8,7 @@
         <div class="text-center my-4">
             <h1>MARCAS</h1>
         </div>
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-4">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar" />
             </div>
@@ -19,8 +19,8 @@
                 <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mb-2">
+        <div class="row mb-3">
+            <div class="col-12">
                 <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
             </div>
         </div>
@@ -28,7 +28,7 @@
 
 
     <asp:GridView ID="gvMarcas" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-        Style="text-align: center" AutoGenerateColumns="false"
+        Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles."
         OnSelectedIndexChanged="GvMarcas_SelectedIndexChanged" OnPageIndexChanging="GvMarcas_PageIndexChanging"
         AllowPaging="true" PageSize="10" OnRowDataBound="GvMarcas_RowDataBound">
         <Columns>
@@ -54,7 +54,6 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaMarca.aspx" class="btn btn-success btn-success">Agregar una marca</a>

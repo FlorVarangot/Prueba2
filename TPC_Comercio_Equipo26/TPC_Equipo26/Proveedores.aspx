@@ -7,25 +7,24 @@
         <div class="text-center my-4">
             <h1>PROVEEDORES</h1>
         </div>
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-4">
                 <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
             </div>
             <div class="col-1">
                 <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
-            <div class="row">
-                <div class="col-12 mb-2">
-                    <asp:CheckBox runat="server" ID="ChkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
-                </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <asp:CheckBox runat="server" ID="ChkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="FiltroInactivos_CheckedChanged" />
             </div>
         </div>
 
     </div>
 
-    <asp:GridView ID="GvProveedores" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-        Style="text-align: center" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="GvProveedores_SelectedIndexChanged">
+    <asp:GridView ID="GvProveedores" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover" Style="text-align: center" AutoGenerateColumns="false"
+        EmptyDataText="No hay datos disponibles." OnSelectedIndexChanged="GvProveedores_SelectedIndexChanged">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
@@ -47,7 +46,6 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaProveedor.aspx" class="btn btn-success">Agregar un Proveedor</a>

@@ -35,14 +35,6 @@ namespace TPC_Equipo26
                 List<Cliente> clientes = clienteNegocio.Listar();
                 Session["listaClientes"] = clientes;
                 FiltrarClientes();
-                if (clientes != null && clientes.Count > 0)
-                {
-                    lblVacio.Visible = false;
-                }
-                else
-                {
-                    lblVacio.Visible = true;
-                }
             }
             catch (Exception)
             {
@@ -79,15 +71,6 @@ namespace TPC_Equipo26
                 x.Email.ToUpper().Contains(filtro) ||
                 x.Direccion.ToUpper().Contains(filtro) ||              
                 (x.Activo && incluirInactivos)).ToList();
-                }
-
-                if (listaFiltrada.Count > 0)
-                {
-                    lblVacio.Visible = false;
-                }
-                else
-                {
-                    lblVacio.Visible = true;
                 }
 
                 gvClientes.DataSource = listaFiltrada;

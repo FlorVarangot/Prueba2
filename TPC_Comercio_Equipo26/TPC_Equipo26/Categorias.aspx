@@ -8,7 +8,7 @@
         <div class="text-center my-4">
             <h1>CATEGORÍAS</h1>
         </div>
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-4">
                 <%--<asp:Label Text="Buscar:" runat="server" CssClass="form-label" />--%>
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" Placeholder="Buscar" />
@@ -17,14 +17,14 @@
                 <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="btnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 mb-2">
+        <div class="row mb-3">
+            <div class="col-12">
                 <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
             </div>
         </div>
 
         <asp:GridView ID="gvCategorias" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-            Style="text-align: center" AutoGenerateColumns="false"
+            Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles."
             OnSelectedIndexChanged="gvCategorias_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
@@ -43,9 +43,9 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
-        <hr />
-        <div class="text-end">
-            <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoria</a>
-        </div>
+    </div>
+    <hr />
+    <div class="text-end">
+        <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoria</a>
+    </div>
 </asp:Content>

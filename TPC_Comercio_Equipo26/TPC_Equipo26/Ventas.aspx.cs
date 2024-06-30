@@ -38,11 +38,6 @@ namespace TPC_Equipo26
 
                 Session["listaVentas"] = ventas;
                 FiltrarVentas();
-
-                if (ventas != null)
-                {
-                    lblVacio.Visible = false;
-                }
             }
             catch (Exception)
             {
@@ -95,14 +90,6 @@ namespace TPC_Equipo26
                     ventasFiltrada = ventas;
                 }
 
-                if (ventasFiltrada.Count > 0)
-                {
-                    lblVacio.Visible = false;
-                }
-                else
-                {
-                    lblVacio.Visible = true;
-                }
                 GvVentas.DataSource = ventasFiltrada;
             }
             else
@@ -161,7 +148,6 @@ namespace TPC_Equipo26
                 GvVentas.PageIndex = e.NewPageIndex;
                 List<Venta> listaVentas = (List<Venta>)Session["listaFiltrada"];
 
-                lblVacio.Visible = (listaVentas.Count == 0);
                 GvVentas.DataSource = listaVentas;
                 GvVentas.DataBind();
             }

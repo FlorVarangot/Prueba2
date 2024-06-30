@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
 using TPC_Equipo26.Dominio;
 using TPC_Equipo26.Negocio;
 
@@ -19,9 +20,17 @@ namespace TPC_Equipo26
                 CargarClientes();
                 CargarArticulos();
                 txtFechaVenta.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                lblTotalVenta.Text = "$0.00";
+
+                decimal totalVenta = Calcular();
+                lblTotalVenta.Text = "Total Venta: $" + totalVenta;
+
                 detallesVenta = new List<DetalleVenta>();
                 Session["DetallesVenta"] = detallesVenta;
+
+                selectores.Visible = false;
+                lblTotalVenta.Visible = false;
+                btnGuardarVenta.Visible = false;
+
             }
             else
             {
@@ -81,7 +90,19 @@ namespace TPC_Equipo26
 
         protected void ddlCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            if (ddlCliente.SelectedIndex > 0)
+            {
+                selectores.Visible = true;
+                lblTotalVenta.Visible = true;
+                ddlCliente.Enabled = false;
+                lblExists.Visible = false;
+                lnkAltaCli.Visible = false;
+            }
+        }
+
+        protected void ddlArticulo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnGuardarVenta.Visible = true;
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -91,17 +112,21 @@ namespace TPC_Equipo26
                 VentaNegocio negocio = new VentaNegocio();
                 long idVenta = negocio.TraerUltimoId();
                 DetalleVenta detalle = new DetalleVenta();
+
                 detalle.IdVenta = idVenta;
                 detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                 detalle.Cantidad = int.Parse(numCantidad.Value);
                 detallesVenta.Add(detalle);
-                Session["DetallesVentaa"] = detallesVenta;
+
+                Session["DetallesVenta"] = detallesVenta;
+
                 ActualizarArticulos();
                 ActualizarVenta();
+
                 ddlArticulo.Items.Clear();
-                ddlArticulo.SelectedIndex= -1;
-                numCantidad.Value = "0";
-                lblPrecio.Text = "$0.00";
+                ddlArticulo.SelectedIndex = -1;
+                numCantidad.Value = "1";
+
                 CargarArticulos();
 
             }
@@ -113,45 +138,48 @@ namespace TPC_Equipo26
 
         private void ActualizarArticulos()
         {
-            rptArticulos.DataSource = detallesVenta;
-            rptArticulos.DataBind();
+            gvAltaVenta.DataSource = detallesVenta;
+            gvAltaVenta.DataBind();
         }
 
         private void ActualizarVenta()
         {
-            decimal total = Calcular();
-            lblTotalVenta.Text = total.ToString("C2");
-            Session["Total"] = total;
+            decimal totalVenta = Calcular();
+            lblTotalVenta.Text = "Total venta: " + totalVenta.ToString("C2");
+            Session["Total"] = totalVenta;
         }
 
-        private decimal Calcular()
+        protected decimal Calcular()
         {
-            decimal total = 0;
-            //foreach (DetalleCompra detalle in detallesVenta)
-            //{
-            //    total += Precio * detalle.Cantidad;
-            //}
-            return total;
+            decimal totalVenta = 0;
+            foreach (GridViewRow row in gvAltaVenta.Rows)
+            {
+                decimal totalParcial = Convert.ToDecimal(row.Cells[3].Text.Replace("$", ""));
+                totalVenta += totalParcial;
+            }
+            return totalVenta;
         }
 
         protected void btnConfirmarVenta_Click(object sender, EventArgs e)
         {
             try
             {
-                //Venta venta= new Venta();
-                //venta.FechaVenta = DateTime.ParseExact(txtFechaVenta.Text, "yyyy-MM-dd", null);
-                //venta.IdCliente= int.Parse(ddlCliente.SelectedValue);
-                //venta.Detalles = detallesVenta;
-                //venta.Total = Calcular();
+                Venta venta= new Venta();
+                venta.FechaVenta = DateTime.ParseExact(txtFechaVenta.Text, "yyyy-MM-dd", null);
+                venta.IdCliente= int.Parse(ddlCliente.SelectedValue);
+                venta.Detalles = detallesVenta;
+                venta.Total = Calcular();
 
-                //VentaNegocio negocio = new VentaNegocio();
-                //negocio.AgregarVenta(venta);
+                VentaNegocio negocio = new VentaNegocio();
+                negocio.AgregarVenta(venta);
 
+                DatoArticuloNegocio datoNegocio= new DatoArticuloNegocio();
+                datoNegocio.ActualizarStock(venta);
 
-                //Session["DetallesVenta"] = null;
-                //Session["Total"] = null;
-                //lblTotalVenta.Text = "$0.00";
-                //Response.Redirect("Ventas.aspx", false);
+                Session["DetallesVenta"] = null;
+                Session["Total"] = null;
+                lblTotalVenta.Text = "Total venta = $0.00";
+                Response.Redirect("Ventas.aspx", false);
             }
             catch (Exception)
             {
@@ -159,11 +187,37 @@ namespace TPC_Equipo26
             }
         }
 
+        protected void gvAltaVenta_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = gvAltaVenta.SelectedDataKey.Value.ToString();
+            Response.Redirect("DetallesVenta.aspx?ID=" + id);
+        }
 
+        protected void gvAltaVenta_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvAltaVenta.PageIndex = e.NewPageIndex;
+        }
 
+        protected void gvAltaVenta_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                long idArt = Convert.ToInt64(DataBinder.Eval(e.Row.DataItem, "IdArticulo"));
+                Articulo articulo = negocio.ObtenerArticuloPorID(idArt);
+                string descripcionArticulo = articulo.Descripcion;
+                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                DateTime fechaVenta = DateTime.Parse(txtFechaVenta.Text);
+                decimal precio = datoNegocio.ObtenerPrecioHistorico(idArt, fechaVenta);
 
+                int cantidad = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "Cantidad"));
+                decimal totalParcial = precio * cantidad;
 
-
+                e.Row.Cells[0].Text = descripcionArticulo;
+                e.Row.Cells[1].Text= "en construccion";
+                e.Row.Cells[3].Text = totalParcial.ToString("C2");
+            }
+        }
 
     }
 

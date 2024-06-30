@@ -53,24 +53,6 @@ namespace TPC_Equipo26.Negocio
                     venta.IdCliente = long.Parse(datos.Lector["IdCliente"].ToString());
                     venta.Total = decimal.Parse(datos.Lector["TotalVenta"].ToString());
 
-                    //PENDIENTE:
-                    //datos.Lector.Close();
-                    //datos.setearConsulta("SELECT * FROM DETALLE_VENTAS WHERE IdVenta = @id");
-                    //datos.setearParametro("@id", id);
-                    //datos.ejecutarLectura();
-
-                    //venta.Detalles = new List<DetalleVenta>();
-                    ////venta.Detalles = ObtenerDetalles(id); >>
-                    //while (datos.Lector.Read())
-                    //{
-                    //    DetalleVenta det = new DetalleVenta();
-
-                    //    det.Id = long.Parse(datos.Lector["Id"].ToString());
-                    //    det.IdVenta = id;
-                    //    det.IdArticulo = long.Parse(datos.Lector["IdArticulo"].ToString());
-                    //    det.Cantidad = int.Parse(datos.Lector["Cantidad"].ToString());
-                    //    venta.Detalles.Add(det);
-                    //}
                     return venta;
                 }
                 else
@@ -85,7 +67,6 @@ namespace TPC_Equipo26.Negocio
             finally { datos.cerrarConexion(); }
 
         }
-
 
         public void AgregarVenta(Venta venta)
         {
@@ -124,7 +105,6 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
-
 
         public long TraerUltimoId()
         {

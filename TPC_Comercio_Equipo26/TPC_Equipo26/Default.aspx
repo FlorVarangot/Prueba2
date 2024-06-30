@@ -54,7 +54,7 @@
     </div>
 
     <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-        Style="text-align: center" AutoGenerateColumns="false"
+        Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles"
         OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" OnPageIndexChanging="gvArticulos_PageIndexChanging"
         AllowPaging="true" PageSize="10" OnRowDataBound="gvArticulos_RowDataBound">
         <Columns>
@@ -90,7 +90,6 @@
         </Columns>
     </asp:GridView>
 
-    <asp:Label ID="lblVacio" Text="No se encontraron registros." runat="server" />
     <hr />
     <div class="text-end">
         <a href="AltaArticulo.aspx" class="btn btn-success">Agregar un artículo</a>
