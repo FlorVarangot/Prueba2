@@ -55,25 +55,12 @@ namespace TPC_Equipo26
         private void CargarMarcas()
         {
             ddlMarca.Items.Clear();
-            ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", ""));
+            ddlMarca.Items.Insert(0, new ListItem("Seleccione Proveedor primero", ""));
         }
         private void CargarArticulos()
         {
-            try
-            {
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                List<Articulo> articulos = negocio.Listar();
-
-                ddlArticulo.DataSource = articulos;
-                ddlArticulo.DataTextField = "Nombre";
-                ddlArticulo.DataValueField = "ID";
-                ddlArticulo.DataBind();
-                ddlArticulo.Items.Insert(0, new ListItem("Seleccione Artículo", ""));
-            }
-            catch (Exception)
-            {
-                Response.Redirect("Error.aspx", false);
-            }
+            ddlArticulo.Items.Clear();
+            ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
         }
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -135,14 +122,11 @@ namespace TPC_Equipo26
             {
                 try
                 {
-
                     DetalleCompra detalle = new DetalleCompra();
                     detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                     detalle.Cantidad = int.Parse(txtCantidad.Text);
-                    detalle.Precio = decimal.Parse(txtPrecio.Text);
-
-                    int idProveedor = int.Parse(ddlProveedor.SelectedValue);
-                    detalle.IdProveedor = idProveedor;
+                    detalle.Precio = decimal.Parse(txtPrecio.Text);   
+                    
                     detallesCompra.Add(detalle);
                     Session["DetallesCompra"] = detallesCompra;
 
@@ -245,6 +229,7 @@ namespace TPC_Equipo26
                     Session["DetallesCompra"] = null;
                     Session["Total"] = null;
                     lblTotalCompra.Text = "$0.00";
+                   
 
                     LimpiarCampos();
                     Response.Redirect("Compras.aspx", false);
@@ -254,7 +239,6 @@ namespace TPC_Equipo26
                     lblError.Visible = true;
                 }
             }
-
             else
             {
                 lblError.Text = error;

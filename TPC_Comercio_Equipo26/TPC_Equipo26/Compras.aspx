@@ -35,7 +35,7 @@
         AllowPaging="true" PageSize="10"
         OnPageIndexChanging="gvCompras_PageIndexChanging" OnRowDataBound="gvCompras_RowDataBound">
         <Columns>
-            <asp:BoundField HeaderText="ID Compra" DataField="ID" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField HeaderText="Compra" DataField="ID" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Fecha de Compra" DataField="FechaCompra" DataFormatString="{0:dd/MM/yyyy}" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Proveedor" DataField="IdProveedor" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Total de Compra" DataField="TotalCompra" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Center" />

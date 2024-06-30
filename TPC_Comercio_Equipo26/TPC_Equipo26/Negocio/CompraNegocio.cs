@@ -28,12 +28,12 @@ namespace TPC_Equipo26.Negocio
                     //limpia al salir del bloque y optimiza la memoria
                     using (AccesoDatos datosDetalle = new AccesoDatos())
                     {
-                        datosDetalle.setearConsulta("INSERT INTO DETALLE_COMPRAS (IdCompra, IdArticulo, Precio, Cantidad, IdProveedor) VALUES (@IdCompra, @IdArticulo, @Precio, @Cantidad, @IdProveedor)");
+                        datosDetalle.setearConsulta("INSERT INTO DETALLE_COMPRAS (IdCompra, IdArticulo, Precio, Cantidad) VALUES (@IdCompra, @IdArticulo, @Precio, @Cantidad)");
                         datosDetalle.setearParametro("@IdCompra", idCompra);
                         datosDetalle.setearParametro("@IdArticulo", detalle.IdArticulo);
                         datosDetalle.setearParametro("@Precio", detalle.Precio);
                         datosDetalle.setearParametro("@Cantidad", detalle.Cantidad);
-                        datosDetalle.setearParametro("@IdProveedor", detalle.IdProveedor);
+
                         datosDetalle.ejecutarAccion();
                     }
                 }
@@ -44,7 +44,7 @@ namespace TPC_Equipo26.Negocio
             }
             finally
             {
-                datosCompra.Dispose();
+                datosCompra.cerrarConexion();
             }
         }
 

@@ -43,36 +43,6 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx"); 
             }
         }
-        private string TraerNombreProveedor(int idProveedor)
-        {
-            try
-            {
-                ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
-                Proveedor proveedor = proveedorNegocio.ObtenerProveedorPorId(idProveedor);
-
-                if (proveedor != null)
-                {
-                    return proveedor.Nombre;
-                }
-                return "Proveedor no encontrado";
-            }
-            catch (Exception)
-            {
-                return "Error al obtener el nombre del proveedor";
-            }
-        }
-
-        
-
-        protected void gvDetalle_RowDataBound1(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                int idProveedor = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "IdProveedor"));
-                string nombreProveedor = TraerNombreProveedor(idProveedor);
-                e.Row.Cells[3].Text = nombreProveedor;
-                e.Row.Cells[3].Visible = false;
-            }
-        }
+      
     }
 }

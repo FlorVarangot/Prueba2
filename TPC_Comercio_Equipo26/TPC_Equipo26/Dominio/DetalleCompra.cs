@@ -9,10 +9,9 @@ namespace TPC_Equipo26.Dominio
     {
         public long Id { get; set; }
         public long IdCompra { get; set; }
-        public long IdArticulo { get; set; }
-        public int IdProveedor { get; set; }
+        public long IdArticulo { get; set; }     
         public decimal Precio { get; set; }
         public int Cantidad { get; set; }
-        public int Marca { get; set; }
+        
     }
 }
