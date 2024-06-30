@@ -109,6 +109,8 @@ namespace TPC_Equipo26
         {
             try
             {
+
+
                 VentaNegocio negocio = new VentaNegocio();
                 long idVenta = negocio.TraerUltimoId();
                 DetalleVenta detalle = new DetalleVenta();

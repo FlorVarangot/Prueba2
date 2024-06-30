@@ -12,7 +12,7 @@ namespace TPC_Equipo26
 {
     public partial class AltaCompra : System.Web.UI.Page
     {
-        private List<DetalleCompra> detallesCompra;      
+        private List<DetalleCompra> detallesCompra;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -22,7 +22,7 @@ namespace TPC_Equipo26
                 CargarMarcas();
                 CargarArticulos();
                 //esto muestra la fecha actual
-                txtFechaCompra.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                txtFechaCompra.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 lblTotalCompra.Text = "$0.00";
                 detallesCompra = new List<DetalleCompra>();
                 Session["DetallesCompra"] = detallesCompra;
@@ -30,10 +30,10 @@ namespace TPC_Equipo26
             else
             {
                 detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
-            }        
+            }
 
         }
-       
+
         private void CargarProveedores()
         {
             try
@@ -54,6 +54,7 @@ namespace TPC_Equipo26
         }
         private void CargarMarcas()
         {
+            ddlMarca.Items.Clear();
             ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", ""));
         }
         private void CargarArticulos()
@@ -88,7 +89,6 @@ namespace TPC_Equipo26
                 ddlMarca.DataValueField = "ID";
                 ddlMarca.DataBind();
                 ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", ""));
-                ddlProveedor.Enabled = false;
             }
             else
             {
@@ -120,33 +120,86 @@ namespace TPC_Equipo26
                 ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
             }
         }
+        protected void ddlArticulo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlArticulo.SelectedIndex > 0)
+            {
+                ddlProveedor.Enabled = false;
+            }
+        }
         protected void btnAgregar_Click1(object sender, EventArgs e)
         {
-            try
-            {
-                DetalleCompra detalle = new DetalleCompra();
-                detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
-                detalle.Cantidad = int.Parse(txtCantidad.Text);
-                detalle.Precio = decimal.Parse(txtPrecio.Text);
+            string error = ValidarCampos();
 
-                int idProveedor = int.Parse(ddlProveedor.SelectedValue);
-                detalle.IdProveedor = idProveedor;
-                detallesCompra.Add(detalle);
-                Session["DetallesCompra"] = detallesCompra;
-                //Actulizo dinamicamente arriba de los ddl
-                ActualizarArticulosAgregados();
-                ActualizarCompra();
-                //limpio los campos despues de de darle al boton +
-                ddlMarca.SelectedIndex = 0;
-                ddlArticulo.Items.Clear(); 
-                ddlArticulo.Items.Insert(0, new ListItem("Seleccione Artículo", ""));
-                txtCantidad.Text = "";
-                txtPrecio.Text = "";
-            }
-            catch (Exception)
+            if (string.IsNullOrEmpty(error))
             {
-                Response.Redirect("Error.aspx");
+                try
+                {
+
+                    DetalleCompra detalle = new DetalleCompra();
+                    detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
+                    detalle.Cantidad = int.Parse(txtCantidad.Text);
+                    detalle.Precio = decimal.Parse(txtPrecio.Text);
+
+                    int idProveedor = int.Parse(ddlProveedor.SelectedValue);
+                    detalle.IdProveedor = idProveedor;
+                    detallesCompra.Add(detalle);
+                    Session["DetallesCompra"] = detallesCompra;
+
+                    ActualizarArticulosAgregados();
+                    ActualizarCompra();
+
+                    LimpiarCampos();
+                }
+                catch (Exception)
+                {
+                    Response.Redirect("Error.aspx");
+                }
             }
+            else
+            {
+                lblError.Text = error;
+                lblError.Visible = true;
+            }
+        }
+
+        private string ValidarCampos()
+        {
+            int cantidad;
+            decimal precio;
+            bool cantidadValida = int.TryParse(txtCantidad.Text, out cantidad);
+            bool precioValido = decimal.TryParse(txtPrecio.Text, out precio);
+
+            if (!cantidadValida || !precioValido)
+            {
+                return "Debe Ingresar Cantidad de Articulos a comprar o su Precio";
+            }
+
+            if (cantidad <= 0 && precio <= 0)
+            {
+                return "Ingrese cantidad y precio validos.";
+            }
+
+            if (cantidad <= 0)
+            {
+                return "Ingrese una cantidad valida.";
+            }
+
+            if (precio <= 0)
+            {
+                return "Ingrese un precio valido";
+            }
+
+            return string.Empty;
+        }
+
+        private void LimpiarCampos()
+        {
+            ddlMarca.SelectedIndex = 0;
+            ddlArticulo.Items.Clear();
+            ddlArticulo.Items.Insert(0, new ListItem("Seleccione Artículo", ""));
+            txtCantidad.Text = "";
+            txtPrecio.Text = "";
         }
 
         private void ActualizarArticulosAgregados()
@@ -174,41 +227,97 @@ namespace TPC_Equipo26
 
         protected void btnGuardarCompra_Click(object sender, EventArgs e)
         {
-            try
-            {             
-                Compra compra = new Compra();
-                if (DateTime.TryParseExact(txtFechaCompra.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaCompra))
-                {
-                    compra.FechaCompra = fechaCompra;
-                }
-                else
-                {                   
-                    throw new Exception("La fecha de compra ingresada no es válida.");
-                }
-                compra.FechaCompra = DateTime.ParseExact(txtFechaCompra.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                compra.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
-                compra.Detalles = Session["DetallesCompra"] as List<DetalleCompra>;
-                compra.TotalCompra = Calcular();             
+            string error = ValidarCompra();
 
-                 CompraNegocio negocio = new CompraNegocio();
-                 negocio.AgregarCompra(compra);
-                
-                Session["DetallesCompra"] = null;
-                Session["Total"] = null;
-                lblTotalCompra.Text = "$0.00";
-                Response.Redirect("Compras.aspx", false);
-            }
-            catch (Exception)
+            if (string.IsNullOrEmpty(error))
             {
-                Response.Redirect("Error.aspx");
+                try
+                {
+                    Compra compra = new Compra();
+                    compra.FechaCompra = DateTime.ParseExact(txtFechaCompra.Text, "yyyy-MM-dd", null);
+                    compra.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
+                    compra.Detalles = Session["DetallesCompra"] as List<DetalleCompra>;
+                    compra.TotalCompra = Calcular();
+
+                    CompraNegocio negocio = new CompraNegocio();
+                    negocio.AgregarCompra(compra);
+
+                    Session["DetallesCompra"] = null;
+                    Session["Total"] = null;
+                    lblTotalCompra.Text = "$0.00";
+
+                    LimpiarCampos();
+                    Response.Redirect("Compras.aspx", false);
+                }
+                catch (Exception)
+                {
+                    lblError.Visible = true;
+                }
+            }
+
+            else
+            {
+                lblError.Text = error;
+                lblError.Visible = true;
             }
         }
 
-        protected void btnEditar_Click(object sender, EventArgs e)
+        private string ValidarCompra()
         {
-           
-        }
-       
+            if (ddlProveedor.SelectedIndex == 0)
+            {
+                return "Seleccione un proveedor";
+            }
 
+            if (detallesCompra == null || detallesCompra.Count == 0)
+            {
+                return "Agregue al menos un artículo a la compra";
+            }
+
+            return string.Empty;
+        }
+
+        protected void rptArticulosAgregados_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Editar")
+            {
+                string commandArgument = e.CommandArgument.ToString();
+                long idDetalleCompra;
+
+                if (long.TryParse(commandArgument.Split('_')[0], out idDetalleCompra))
+                {
+                    DetalleCompra detalle = detallesCompra.FirstOrDefault(d => d.Id == idDetalleCompra);
+                    if (detalle != null)
+                    {
+                        txtCantidad.Text = detalle.Cantidad.ToString();
+                        txtPrecio.Text = detalle.Precio.ToString();
+
+                        detallesCompra.Remove(detalle);
+                        Session["DetallesCompra"] = detallesCompra;
+
+                        ActualizarArticulosAgregados();
+                        ActualizarCompra();
+                    }
+                }
+            }
+            else if (e.CommandName == "Eliminar")
+            {
+                string commandArgument = e.CommandArgument.ToString();
+                long idDetalleCompra;
+
+                if (long.TryParse(commandArgument.Split('_')[0], out idDetalleCompra))
+                {
+                    DetalleCompra detalle = detallesCompra.FirstOrDefault(d => d.Id == idDetalleCompra);
+                    if (detalle != null)
+                    {
+                        detallesCompra.Remove(detalle);
+                        Session["DetallesCompra"] = detallesCompra;
+
+                        ActualizarArticulosAgregados();
+                        ActualizarCompra();
+                    }
+                }
+            }
+        }
     }
 }

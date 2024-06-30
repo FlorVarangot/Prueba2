@@ -10,7 +10,7 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <label for="txtFechaCompra" class="form-label">Fecha de Compra:</label>
-                <asp:TextBox runat="server" ID="txtFechaCompra" CssClass="form-control" placeholder="dd/MM/yyyy" />
+                <asp:TextBox runat="server" type="date" ID="txtFechaCompra" CssClass="form-control" placeholder="dd/MM/yyyy" />
             </div>
 
             <div class="col-md-4">
@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-3">
                 <label for="ddlArticulo" class="form-label">Artículo:</label>
-                <asp:DropDownList runat="server" ID="ddlArticulo" CssClass="form-control"></asp:DropDownList>
+                <asp:DropDownList runat="server" ID="ddlArticulo" CssClass="form-control" OnSelectedIndexChanged="ddlArticulo_SelectedIndexChanged"></asp:DropDownList>
             </div>
             <div class="col-md-2">
                 <label for="txtCantidad" class="form-label">Cantidad:</label>
@@ -45,42 +45,44 @@
             <div class="col-md-2 d-flex align-items-end">
                 <asp:Button runat="server" ID="btnAgregar" Text="+" CssClass="btn btn-primary btn-agregar" Autopostback="true" OnClick="btnAgregar_Click1" />
             </div>
-             <div class="col-md-2 d-flex align-items-end">
-        <a href="#" id="btnEditar" class="btn btn-editar" onclick='<%# $"return btnEditar_Click({Eval("ID")})" %>'>
-            Editar <i class="fas fa-pencil-alt"></i>
-        </a>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <asp:Button runat="server" ID="btnGuardarCompra" Text="Guardar Compra" CssClass="btn btn-success" OnClick="btnGuardarCompra_Click" />
+            </div>
+        </div>
     </div>
-            <div class="row mt-4">
-                <div class="col-md-12 text-center">
-                    <asp:Button runat="server" ID="btnGuardarCompra" Text="Guardar Compra" CssClass="btn btn-success" OnClick="btnGuardarCompra_Click" />
-                </div>
-            </div>
-        </div>
-        <h3 class="my-4">Detalles de la Compra</h3>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <asp:Panel ID="panelDetallesCompra" runat="server">
-                            <asp:Repeater ID="rptArticulosAgregados" runat="server">
-                                <ItemTemplate>
-                                    <div class="row mb-2">
-                                        <div class="col-md-4">
-                                            <strong>Artículo:</strong> <%# Eval("IdArticulo") %>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <strong>Cantidad:</strong> <%# Eval("Cantidad") %>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <strong>Precio:</strong> <%# Eval("Precio", "{0:C2}") %>
-                                        </div>
+    <h3 class="my-4">Detalles de la Compra</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <asp:Panel ID="panelDetallesCompra" runat="server">
+                        <asp:Repeater ID="rptArticulosAgregados" runat="server" OnItemCommand="rptArticulosAgregados_ItemCommand">
+                            <ItemTemplate>
+                                <div class="row mb-2">
+                                    <div class="col-md-4">
+                                        <strong>Artículo:</strong> <%# Eval("IdArticulo") %>
                                     </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </asp:Panel>
-                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Cantidad:</strong> <%# Eval("Cantidad") %>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Precio:</strong> <%# Eval("Precio", "{0:C2}") %>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <asp:Button runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") + "_Editar" %>'
+                                            Text="Editar" CssClass="btn btn-sm btn-primary" OnClientClick="return confirm('¿Está seguro que desea editar este artículo?');" />
+                                        <asp:Button runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") + "_Eliminar" %>'
+                                            Text="Eliminar" CssClass="btn btn-sm btn-danger ml-1" OnClientClick="return confirm('¿Está seguro que desea eliminar este artículo?');" />
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </asp:Panel>
                 </div>
             </div>
         </div>
-         <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+    </div>
+    <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 </asp:Content>
