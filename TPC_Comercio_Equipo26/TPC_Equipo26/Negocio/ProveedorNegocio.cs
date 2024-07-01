@@ -43,6 +43,66 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
+        public string VerificarProveedor(string nombre, string cuit, string email)
+        {
+            AccesoDatos datosNombre = new AccesoDatos();
+            AccesoDatos datosCuit = new AccesoDatos();
+            AccesoDatos datosEmail = new AccesoDatos();
+
+            try
+            {
+                datosNombre.setearConsulta("SELECT COUNT(*) FROM PROVEEDORES WHERE Nombre = @Nombre");
+                datosNombre.setearParametro("@Nombre", nombre);
+                datosNombre.ejecutarLectura();
+
+                if (datosNombre.Lector.Read())
+                {
+                    int countNombre = Convert.ToInt32(datosNombre.Lector[0]);
+                    if (countNombre > 0)
+                    {
+                        return "Ya existe un proveedor con ese nombre";
+                    }
+                }
+
+                datosCuit.setearConsulta("SELECT COUNT(*) FROM PROVEEDORES WHERE CUIT = @CUIT");
+                datosCuit.setearParametro("@CUIT", cuit);
+                datosCuit.ejecutarLectura();
+
+                if (datosCuit.Lector.Read())
+                {
+                    int countCuit = Convert.ToInt32(datosCuit.Lector[0]);
+                    if (countCuit > 0)
+                    {
+                        return "Ya existe un proveedor con ese Cuit";
+                    }
+                }
+              
+                datosEmail.setearConsulta("SELECT COUNT(*) FROM PROVEEDORES WHERE Email = @Email");
+                datosEmail.setearParametro("@Email", email);
+                datosEmail.ejecutarLectura();
+
+                if (datosEmail.Lector.Read())
+                {
+                    int countEmail = Convert.ToInt32(datosEmail.Lector[0]);
+                    if (countEmail > 0)
+                    {
+                        return "Ya existe un proveedor con ese Email";
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datosNombre.cerrarConexion();
+                datosCuit.cerrarConexion();
+                datosEmail.cerrarConexion();
+            }
+        }
         public void Agregar(Proveedor proveedor)
         {
             AccesoDatos datos = new AccesoDatos();

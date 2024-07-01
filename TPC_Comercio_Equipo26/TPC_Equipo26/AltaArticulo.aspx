@@ -68,7 +68,7 @@
             <asp:Button Text="Inactivar" ID="BtnInactivar" CssClass="btn btn-warning" OnClick="BtnInactivar_Click" runat="server" />
             <asp:Button Text="Reactivar" ID="btnReactivar" CssClass="btn btn-primary" OnClick="btnReactivar_Click" runat="server" />
         </div>
-
+        <asp:Label ID="lblError" runat="server" Text="" CssClass="text-danger" Visible="false"></asp:Label>
         <% if (ConfirmarInactivar)
             { %>
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">

@@ -162,6 +162,52 @@ namespace TPC_Equipo26.Negocio
             return listaArticulos;
         }
 
+        public string VerificarArticulo(string codigo, string nombre, int idMarca)
+        {
+            AccesoDatos datosCodigo = new AccesoDatos();
+            AccesoDatos datosNombre = new AccesoDatos();
+            try
+            {
+                datosCodigo.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Codigo = @Codigo AND IdMarca = @IdMarca");
+                datosCodigo.setearParametro("@Codigo", codigo);
+                datosCodigo.setearParametro("@IdMarca", idMarca);
+                datosCodigo.ejecutarLectura();
+
+                if (datosCodigo.Lector.Read())
+                {
+                    int count = (int)datosCodigo.Lector[0];
+                    if (count > 0)
+                    {
+                        return "Ya existe un artículo con ese código para esta marca";
+                    }
+                }
+
+                datosNombre.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Nombre = @Nombre AND IdMarca = @IdMarca");
+                datosNombre.setearParametro("@Nombre", nombre);
+                datosNombre.setearParametro("@IdMarca", idMarca);
+                datosNombre.ejecutarLectura();
+
+                if (datosNombre.Lector.Read())
+                {
+                    int count = (int)datosNombre.Lector[0];
+                    if (count > 0)
+                    {
+                        return "Ya existe un artículo con ese nombre para esta marca";
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datosCodigo.cerrarConexion();
+                datosNombre.cerrarConexion();
+            }
+        }
 
         public void Agregar(Articulo articulo)
         {

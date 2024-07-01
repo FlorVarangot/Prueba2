@@ -93,6 +93,14 @@ namespace TPC_Equipo26
                 proveedor.Telefono = TxtTel.Text;
                 proveedor.Direccion = TxtDirec.Text;
 
+                string verificarDuplicado = negocio.VerificarProveedor(proveedor.Nombre, proveedor.CUIT, proveedor.Email);
+                if (verificarDuplicado != null)
+                {
+                    lblError.Text = verificarDuplicado;
+                    lblError.Visible = true;
+                    return;
+                }
+
                 if (Request.QueryString["ID"] != null)
                 {
                     proveedor.ID = int.Parse(Request.QueryString["ID"]);
@@ -108,7 +116,7 @@ namespace TPC_Equipo26
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
         }
 

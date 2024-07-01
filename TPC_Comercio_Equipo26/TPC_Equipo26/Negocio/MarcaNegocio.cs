@@ -29,7 +29,7 @@ namespace TPC_Equipo26.Negocio
                     aux.IdProveedor = int.Parse(datos.Lector["IdProveedor"].ToString());
                     aux.ImagenUrl = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                     aux.Activo = (bool)datos.Lector["Activo"];
-                    
+
                     lista.Add(aux);
                 }
                 return lista;
@@ -44,8 +44,37 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        public void Agregar(Marca marca)
+        public string VerificarMarca(string descripcion, int idProveedor)
         {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Descripcion = @Descripcion AND IdProveedor = @IdProveedor");
+                datos.setearParametro("@Descripcion", descripcion);
+                datos.setearParametro("@IdProveedor", idProveedor);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = (int)datos.Lector[0];
+                    if (count > 0)
+                    {
+                        return "El proveedor ya tiene una marca con ese nombre";
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void Agregar(Marca marca)
+        {          
             AccesoDatos datos = new AccesoDatos();
             try
             {

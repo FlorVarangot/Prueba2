@@ -73,8 +73,36 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        public void Agregar(Categoria categoria)
+        public string VerificarCategoria(string descripcion)
         {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Descripcion = @Descripcion");
+                datos.setearParametro("@Descripcion", descripcion);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = (int)datos.Lector[0];
+                    if (count > 0)
+                    {
+                        return "Ya existe una categoria con ese nombre";
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void Agregar(Categoria categoria)
+        {          
             AccesoDatos datos = new AccesoDatos();
             try
             {

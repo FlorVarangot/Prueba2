@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -120,6 +121,13 @@ namespace TPC_Equipo26
                 marca.ImagenUrl = txtImagenUrl.Text;
                 marca.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
 
+                string verificarDuplicado = negocio.VerificarMarca(marca.Descripcion, marca.IdProveedor);
+                if (verificarDuplicado != null)
+                {
+                    lblError.Text = verificarDuplicado;
+                    lblError.Visible = true;
+                    return; 
+                }
                 if (Request.QueryString["ID"] != null)
                 {
                     marca.ID = int.Parse(Request.QueryString["ID"]);
@@ -133,9 +141,9 @@ namespace TPC_Equipo26
                 LimpiarCampos();
                 Response.Redirect("Marcas.aspx", false);
             }
-            catch
+            catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
         }
 

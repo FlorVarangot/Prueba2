@@ -45,6 +45,37 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
+        public string VerificarClientePorDNI(string dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM CLIENTES WHERE DNI = @DNI");
+                datos.setearParametro("@DNI", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = Convert.ToInt32(datos.Lector[0]);
+                    if (count > 0)
+                    {
+                        return "Ya existe un cliente con ese DNI";
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
         public void Agregar(Cliente cliente)
         {
             AccesoDatos datos = new AccesoDatos();

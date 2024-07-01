@@ -148,6 +148,14 @@ namespace TPC_Equipo26
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.Activo = true;
 
+                string verificarDuplicado = negocio.VerificarArticulo(nuevo.Codigo, nuevo.Nombre, nuevo.Marca.ID);
+                if (verificarDuplicado != null)
+                {
+                    lblError.Text = verificarDuplicado;
+                    lblError.Visible = true;
+                    return;
+                }
+
                 if (Request.QueryString["ID"] != null)
                 {
                     nuevo.ID = long.Parse(Request.QueryString["ID"]);

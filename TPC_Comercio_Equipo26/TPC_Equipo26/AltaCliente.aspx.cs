@@ -99,6 +99,14 @@ namespace TPC_Equipo26
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Activo = true;
 
+                string verificarDuplicado = negocio.VerificarClientePorDNI(cliente.Dni);
+                if (verificarDuplicado != null)
+                {
+                    lblError.Text = verificarDuplicado;
+                    lblError.Visible = true;
+                    return;
+                }
+
                 if (Request.QueryString["ID"] != null)
                 {
                     cliente.ID = long.Parse(Request.QueryString["ID"]);

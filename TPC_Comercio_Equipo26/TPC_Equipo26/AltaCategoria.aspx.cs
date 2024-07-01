@@ -82,6 +82,13 @@ namespace TPC_Equipo26
 
                 categoria.Descripcion = txtDescripcion.Text;
                 categoria.Activo = true;
+                string verificarDuplicado = negocio.VerificarCategoria(categoria.Descripcion);
+                if (verificarDuplicado != null)
+                {
+                    lblError.Text = verificarDuplicado;
+                    lblError.Visible = true;
+                    return;
+                }
                 if (Request.QueryString["ID"] != null)
                 {
                     categoria.ID = int.Parse(Request.QueryString["ID"]);
@@ -97,7 +104,7 @@ namespace TPC_Equipo26
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
