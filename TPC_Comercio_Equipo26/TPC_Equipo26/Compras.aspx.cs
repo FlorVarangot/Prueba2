@@ -68,15 +68,38 @@ namespace TPC_Equipo26
                 int proveedorSeleccionado = int.Parse(ddlProveedor.SelectedValue);
                 listaCompras = listaCompras.Where(x => x.IdProveedor == proveedorSeleccionado).ToList();
             }
-            if (ChkOrdenarPorPrecio.Checked)
-            {
-                listaCompras = listaCompras.OrderBy(x => x.TotalCompra).ToList();
-            }
-            else if (ChkOrdenarPorFecha.Checked)
+            if (chkOrdenarFechaAsc.Checked)
             {
                 listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ToList();
             }
-           
+            else if (chkOrdenarFechaDesc.Checked)
+            {
+                listaCompras = listaCompras.OrderByDescending(x => x.FechaCompra).ToList();
+            }
+
+            if (chkOrdenarPrecioAsc.Checked)
+            {
+                if (chkOrdenarFechaAsc.Checked || chkOrdenarFechaDesc.Checked)
+                {
+                    listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ThenByDescending(x => x.TotalCompra).ToList();
+                }
+                else
+                {
+                    listaCompras = listaCompras.OrderByDescending(x => x.TotalCompra).ToList();
+                }
+            }
+            else if (chkOrdenarPrecioDesc.Checked)
+            {
+                if (chkOrdenarFechaAsc.Checked || chkOrdenarFechaDesc.Checked)
+                {
+                    listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ThenBy(x => x.TotalCompra).ToList();
+                }
+                else
+                {
+                    listaCompras = listaCompras.OrderBy(x => x.TotalCompra).ToList();
+                }
+            }
+
             Session["ListaFiltrada"] = listaCompras;
 
             gvCompras.DataSource = listaCompras;
@@ -133,20 +156,14 @@ namespace TPC_Equipo26
             FiltrarCompras();
         }
 
-        protected void ChkOrdenarPorFecha_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarCompras();
-        }
-
-        protected void ChkOrdenarPorPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarCompras();
-        }
-
         protected void btnRestablecer_Click(object sender, EventArgs e)
         {
-            ChkOrdenarPorFecha.Checked = false;
-            ChkOrdenarPorPrecio.Checked = false;
+            chkOrdenarFechaAsc.Checked = false;
+            chkOrdenarFechaDesc.Checked = false;
+            chkOrdenarPrecioAsc.Checked = false;
+            chkOrdenarPrecioDesc.Checked = false;
+            chkAvanzado.Checked = false;
+            pnlFiltroAvanzado.Visible = false;
             ddlProveedor.SelectedIndex = 0;
             txtFiltro.Text = string.Empty;
             CargarCompras();
@@ -155,6 +172,31 @@ namespace TPC_Equipo26
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
+        }
+
+        protected void chkOrdenarFechaAsc_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarCompras();
+        }
+
+        protected void chkOrdenarFechaDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarCompras();
+        }
+
+        protected void chkOrdenarPrecioAsc_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarCompras();
+        }
+
+        protected void chkOrdenarPrecioDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarCompras();
+        }
+
+        protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlFiltroAvanzado.Visible = chkAvanzado.Checked;
         }
     }
 }

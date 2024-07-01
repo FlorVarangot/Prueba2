@@ -15,19 +15,30 @@
                 <div>
                     <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
                 </div>
+                <div class="col-4" style="display: flex; flex-direction: column">
+                    <asp:CheckBox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
+                </div>
             </div>
 
-            <div class="row mt-2 mb-3">
-                <div class="col-1">
-                    <asp:CheckBox ID="ChkOrdenarPorFecha" runat="server" Text="↑↓ Fecha" AutoPostBack="true" OnCheckedChanged="ChkOrdenarPorFecha_CheckedChanged" />
+            <asp:Panel ID="pnlFiltroAvanzado" runat="server" Visible="false">
+                <div class="row mb-3 d-flex align-items-center">
+                    <div class="col-2">
+                        <asp:CheckBox ID="chkOrdenarFechaAsc" runat="server" Text="Fecha ↑" AutoPostBack="true" OnCheckedChanged="chkOrdenarFechaAsc_CheckedChanged" />
+                    </div>
+                    <div class="col-2">
+                        <asp:CheckBox ID="chkOrdenarFechaDesc" runat="server" Text="Fecha ↓" AutoPostBack="true" OnCheckedChanged="chkOrdenarFechaDesc_CheckedChanged" />
+                    </div>
+                    <div class="col-2">
+                        <asp:CheckBox ID="chkOrdenarPrecioAsc" runat="server" Text="Precio ↑" AutoPostBack="true" OnCheckedChanged="chkOrdenarPrecioAsc_CheckedChanged" />
+                    </div>
+                    <div class="col-2">
+                        <asp:CheckBox ID="chkOrdenarPrecioDesc" runat="server" Text="Precio ↓" AutoPostBack="true" OnCheckedChanged="chkOrdenarPrecioDesc_CheckedChanged" />
+                    </div>
+                    <div class="col-4 text-end">
+                        <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer filtros" OnClick="btnRestablecer_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
+                    </div>
                 </div>
-                <div class="col-1">
-                    <asp:CheckBox ID="ChkOrdenarPorPrecio" runat="server" Text="↑↓ Precio" AutoPostBack="true" OnCheckedChanged="ChkOrdenarPorPrecio_CheckedChanged" />
-                </div>
-                <div class="col-10 text-end">
-                    <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer filtros" OnClick="btnRestablecer_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
-                </div>
-            </div>
+            </asp:Panel>
         </div>
     </div>
     <asp:GridView ID="gvCompras" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
