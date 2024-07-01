@@ -61,7 +61,7 @@ namespace TPC_Equipo26
             string filtroFecha = txtFiltro.Text.Trim();
             if (!string.IsNullOrEmpty(filtroFecha))
             {
-                listaCompras = listaCompras.Where(x => x.FechaCompra.ToString("dd/MM").Contains(filtroFecha)).ToList();
+                listaCompras = listaCompras.Where(x => x.FechaCompra.ToString("dd/MM/yyyy").Contains(filtroFecha)).ToList();
             }
             if (ddlProveedor.SelectedIndex > 0)
             {
@@ -70,7 +70,7 @@ namespace TPC_Equipo26
             }
             if (ChkOrdenarPorPrecio.Checked)
             {
-                listaCompras = listaCompras.OrderByDescending(x => x.TotalCompra).ToList();
+                listaCompras = listaCompras.OrderBy(x => x.TotalCompra).ToList();
             }
             else if (ChkOrdenarPorFecha.Checked)
             {
