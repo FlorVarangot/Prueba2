@@ -66,15 +66,15 @@ namespace TPC_Equipo26
                 long idVenta = long.Parse(Request.QueryString["ID"]);
                 DateTime fechaVenta = TraerFechaVenta(idVenta);
                 int cantidad = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "Cantidad"));
-                decimal ganancia = articulo.Ganancia;
 
+                decimal ganancia = articulo.Ganancia;
                 decimal precioUnitario = datoArticuloNegocio.ObtenerPrecioHistorico(idArt, fechaVenta);
                 decimal precioConGanancia = precioUnitario + (precioUnitario * ganancia / 100);
                 decimal totalParcial = cantidad * precioConGanancia;
 
                 e.Row.Cells[0].Text = nombreArticulo;
-                e.Row.Cells[1].Text = precioConGanancia.ToString("C");
-                e.Row.Cells[3].Text = totalParcial.ToString("C");
+                e.Row.Cells[1].Text = precioConGanancia.ToString("C2");
+                e.Row.Cells[3].Text = totalParcial.ToString("C2");
             }
         }
 

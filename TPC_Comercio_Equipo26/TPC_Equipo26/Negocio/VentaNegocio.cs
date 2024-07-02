@@ -14,7 +14,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT * FROM VENTAS");
+                datos.setearConsulta("SELECT * FROM VENTAS ORDER BY FechaVenta DESC");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())

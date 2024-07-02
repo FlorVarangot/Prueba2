@@ -16,31 +16,64 @@
             <div class="col-4">
                 <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
             </div>
+            <div class="col-10 text-end">
+                <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
+            </div>
 
-            <div class="row mt-2 mb-3">
+           <%-- <div class="row mt-2 mb-3">
                 <div class="col-1">
                     <asp:CheckBox ID="ChkOrdenarPorFecha" runat="server" Text="↑↓ Fecha" AutoPostBack="true" OnCheckedChanged="ChkOrdenarPorFecha_CheckedChanged" />
                 </div>
                 <div class="col-1">
                     <asp:CheckBox ID="ChkOrdenarPorTotal" runat="server" Text="↑↓ Total" AutoPostBack="true" OnCheckedChanged="ChkOrdenarPorTotal_CheckedChanged" />
                 </div>
-                <div class="col-10 text-end">
-                    <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
-                </div>
-            </div>
+            </div>--%>
         </div>
     </div>
 
 
-    <asp:GridView ID="GvVentas" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover" Style="text-align: center" AutoGenerateColumns="false"
-        OnSelectedIndexChanged="GvVentas_SelectedIndexChanged" OnPageIndexChanging="GvVentas_PageIndexChanging" EmptyDataText="No hay datos disponibles."
-        AllowPaging="true" PageSize="10" OnRowDataBound="GvVentas_RowDataBound">
+    <%--<asp:GridView ID="GvVentas" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover" Style="text-align: center" AutoGenerateColumns="false"
+        OnSelectedIndexChanged="GvVentas_SelectedIndexChanged" EmptyDataText="No hay datos disponibles." OnRowDataBound="GvVentas_RowDataBound" AllowSorting="true">
         <Columns>
             <asp:BoundField HeaderText="Venta" DataField="ID" />
             <asp:BoundField HeaderText="Fecha" DataField="FechaVenta" DataFormatString="{0:dd/MM/yyyy}" />
             <asp:BoundField HeaderText="Cliente" DataField="IdCliente" />
             <asp:BoundField HeaderText="Total" DataField="Total" DataFormatString="{0:C}" />
 
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <a href='<%# "DetallesVenta.aspx?ID=" + Eval("ID") %>' class="icono" title="Ver detalle">
+                        <i class="fa-solid fa-magnifying-glass" style="color: dimgrey; margin: 10px"></i>
+                    </a>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>--%>
+
+    <asp:GridView ID="GvVentas" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover" Style="text-align: center"
+        AutoGenerateColumns="false" OnSelectedIndexChanged="GvVentas_SelectedIndexChanged" EmptyDataText="No hay datos disponibles."
+        OnRowDataBound="GvVentas_RowDataBound" AllowSorting="true" OnSorting="GvVentas_Sorting" HeaderStyle-CssClass="grid-header">
+        <Columns>
+            <asp:TemplateField HeaderText="Venta ↑↓" SortExpression="ID">
+                <ItemTemplate>
+                    <%# Eval("ID") %>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Fecha ↑↓" SortExpression="FechaVenta">
+                <ItemTemplate>
+                    <%# Eval("FechaVenta", "{0:dd/MM/yyyy}") %>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Cliente ↑↓" SortExpression="IdCliente">
+                <ItemTemplate>
+                    <%# Eval("IdCliente") %>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Total ↑↓" SortExpression="Total">
+                <ItemTemplate>
+                    <%# Eval("Total", "{0:C}") %>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
                     <a href='<%# "DetallesVenta.aspx?ID=" + Eval("ID") %>' class="icono" title="Ver detalle">

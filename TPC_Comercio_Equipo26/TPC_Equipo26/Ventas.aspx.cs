@@ -124,8 +124,8 @@ namespace TPC_Equipo26
             try
             {
                 TxtFiltro.Text = string.Empty;
-                ChkOrdenarPorFecha.Checked = false;
-                ChkOrdenarPorTotal.Checked = false;
+                //ChkOrdenarPorFecha.Checked = false;
+                //ChkOrdenarPorTotal.Checked = false;
                 ddlCliente.SelectedIndex = -1;
 
                 CargarVentas();
@@ -141,21 +141,22 @@ namespace TPC_Equipo26
             string Id = GvVentas.SelectedDataKey.Value.ToString();
             Response.Redirect("AltaVenta.aspx?ID=" + Id);
         }
-        protected void GvVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
-                GvVentas.PageIndex = e.NewPageIndex;
-                List<Venta> listaVentas = (List<Venta>)Session["listaFiltrada"];
 
-                GvVentas.DataSource = listaVentas;
-                GvVentas.DataBind();
-            }
-            catch (Exception)
-            {
-                Response.Redirect("Error.aspx");
-            }
-        }
+        //protected void GvVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GvVentas.PageIndex = e.NewPageIndex;
+        //        List<Venta> listaVentas = (List<Venta>)Session["listaFiltrada"];
+
+        //        GvVentas.DataSource = listaVentas;
+        //        GvVentas.DataBind();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Response.Redirect("Error.aspx");
+        //    }
+        //}
 
         protected void GvVentas_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -195,7 +196,49 @@ namespace TPC_Equipo26
             }
         }
 
+        //CORREGIR segundo click:
+        protected void GvVentas_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            List<Venta> lista = (List<Venta>)Session["listaVentas"];
+            string columna = e.SortExpression;
+            List<Venta> listaFiltrada;
 
-
+            if (lista != null)
+            {
+                if (columna == "ID")
+                {
+                    listaFiltrada = e.SortDirection == SortDirection.Descending
+                        ? lista.OrderByDescending(x => x.ID).ToList()
+                        : lista.OrderBy(x => x.ID).ToList();
+                }
+                else if (columna == "FechaVenta")
+                {
+                    listaFiltrada = e.SortDirection == SortDirection.Descending
+                        ? lista.OrderByDescending(x => x.FechaVenta).ToList()
+                        : lista.OrderBy(x => x.FechaVenta).ToList();
+                }
+                else if (columna == "IdCliente")
+                {
+                    //pend ordenar x cliente >> A-Z apellido, nombre, no por id.asc/desc
+                    listaFiltrada = e.SortDirection == SortDirection.Descending
+                        ? lista.OrderByDescending(x => x.IdCliente).ToList()
+                        : lista.OrderBy(x => x.IdCliente).ToList();
+                }
+                else
+                {
+                    listaFiltrada = e.SortDirection == SortDirection.Descending
+                        ? lista.OrderByDescending(x => x.Total).ToList()
+                        : lista.OrderBy(x => x.Total).ToList();
+                }
+                Session["listaVentas"] = listaFiltrada;
+            }
+            else
+            {
+                Session["listaVentas"] = lista;
+            }
+            GvVentas.DataSource = Session["listaVentas"];
+            GvVentas.DataBind();
+        }
     }
+
 }

@@ -37,34 +37,21 @@
         <asp:Panel ID="panelDetallesVenta" runat="server">
             <asp:Label ID="lblDetalles" runat="server" Text="Detalles de la venta:" Visible="false" CssClass="titulo-label"></asp:Label>
             <asp:GridView ID="gvAltaVenta" runat="server" CssClass="detalle" AutoGenerateColumns="false" Style="text-align: center; align-content: center" AutoSizeMode="true"
-                OnSelectedIndexChanged="gvAltaVenta_SelectedIndexChanged" OnPageIndexChanging="gvAltaVenta_PageIndexChanging" OnRowDataBound="gvAltaVenta_RowDataBound">
+                OnPageIndexChanging="gvAltaVenta_PageIndexChanging" OnRowDataBound="gvAltaVenta_RowDataBound" OnRowCommand="gvAltaVenta_RowCommand">
                 <Columns>
                     <asp:BoundField HeaderText="Artículo" DataField="IdArticulo" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="40%" />
-                    
+
                     <%-- terminar: --%>
                     <asp:BoundField HeaderText="Precio unitario" DataField="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="20%" />
-                    
                     <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="5%" />
                     <asp:BoundField HeaderText="Total" DataField="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25%" />
-                    
+
                     <%-- seguir pensando para eliminar art ingresado y despues tambien para cambiar cantidades --%>
                     <asp:TemplateField ItemStyle-Width="10%">
                         <ItemTemplate>
-                            <%--<a href='<%# "AltaArticulo.aspx?ID=" + Eval("ID") %>' class="icono" title="Eliminar">--%>
-                                <i class="fa-solid fa-trashcan" style="color: dimgrey; margin: 10px"></i>
-                            </a>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:Repeater ID="rptArticulos" runat="server">
-                                <ItemTemplate>
-                                    <div>
-                                        <%# Eval("IdArticulo") %>, <%# Eval("Cantidad") %>, <%# Eval("TotalParcial", "{0:C}") %>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
+                            <asp:Button ID="btnEliminar" runat="server" Text="🗑️" Title="Eliminar" CssClass="fa-regular fa-trash-can" 
+                                CommandName="Editar" CommandArgument='<%# Eval("Id") + "_Editar" %>' OnRowCommand="gvAltaVenta_RowCommand"
+                                OnClientClick="return confirm('¿Seguro/a que desea eliminar?');" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -76,9 +63,8 @@
         </div>
         <div class="row my-4">
             <div class="col-md-12 text-center">
-                <asp:Button runat="server" ID="btnGuardarVenta" Text="Confirmar venta" CssClass="btn btn-success" OnClick="btnConfirmarVenta_Click" />
+                <asp:Button runat="server" ID="btnGuardarVenta" Text="Confirmar venta" CssClass="btn btn-success" OnClick="btnConfirmarVenta_Click" OnClientClick="alert('Venta registrada con éxito.'); return true;" />
             </div>
         </div>
-
     </div>
 </asp:Content>

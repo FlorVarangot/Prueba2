@@ -33,24 +33,6 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.DropDownList ddlCliente;
 
         /// <summary>
-        /// Control ChkOrdenarPorFecha.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkOrdenarPorFecha;
-
-        /// <summary>
-        /// Control ChkOrdenarPorTotal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkOrdenarPorTotal;
-
-        /// <summary>
         /// Control BtnLimpiarFiltros.
         /// </summary>
         /// <remarks>

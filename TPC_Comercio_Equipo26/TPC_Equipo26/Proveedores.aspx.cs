@@ -78,6 +78,7 @@ namespace TPC_Equipo26
         {
             FiltrarProveedores();
         }
+       
         protected void TxtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarProveedores();

@@ -2,6 +2,7 @@
     font-family: Arial, sans-serif;
     background-color: darkslategrey;
     color: lightgoldenrodyellow;
+    text-decoration: none;
     margin: 0;
     padding: 0;
 }
@@ -124,9 +125,12 @@ img {
         background-color: lightgray;
     }
 
-
-
-/*Media query para celulares*/
-@media (max-width:768px) {
-    /*Ajustes de estilos para pantallas pequeñas*/
+.grid-header {
+    text-decoration: none;
 }
+
+
+    /*Media query para celulares*/
+    @media (max-width:768px) {
+        /*Ajustes de estilos para pantallas pequeñas*/
+    }

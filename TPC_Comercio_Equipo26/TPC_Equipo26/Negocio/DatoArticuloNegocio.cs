@@ -117,7 +117,7 @@ namespace TPC_Equipo26.Negocio
                 if (datos.Lector.Read())
                 {
                     int ultimoStock = Convert.ToInt32(datos.Lector["Stock"]);
-                    decimal ultimoPrecio = Convert.ToDecimal(datos.Lector["Precio"]);
+                    decimal ultimoPrecio = decimal.Parse(datos.Lector["Precio"].ToString());
                     int stock = ultimoStock - cantidad;
 
                     datos.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");

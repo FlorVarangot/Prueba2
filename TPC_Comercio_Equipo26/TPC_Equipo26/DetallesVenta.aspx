@@ -20,7 +20,7 @@
         </div>
         <hr />
 
-        <asp:GridView ID="gvDetalle" runat="server" CssClass="detalle" AutoGenerateColumns="false" Style="text-align: center; align-content: center; margin: 10px 20px 15px 30px;" AutoSizeMode="true"
+        <asp:GridView ID="gvDetalle" runat="server" CssClass="detalle" AutoGenerateColumns="false" Style="text-align: center; align-content: center; margin: 10px 20px 15px 30px;" Width="1200px"
             OnSelectedIndexChanged="gvDetalle_SelectedIndexChanged" OnPageIndexChanging="gvDetalle_PageIndexChanging" OnRowDataBound="gvDetalle_RowDataBound" EmptyDataText="No hay datos disponibles.">
             <Columns>
                 <asp:BoundField HeaderText="Artículo" DataField="IdArticulo" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="45%" />
