@@ -64,20 +64,10 @@ namespace TPC_Equipo26
             if (marca != null)
             {
                 txtDescripcion.Text = marca.Descripcion;
-                txtImagenUrl.Text = marca.ImagenUrl.ToString();
+                txtImagenUrl.Text = marca.ImagenUrl ?? string.Empty; 
+                imgMarcas.ImageUrl = !string.IsNullOrEmpty(marca.ImagenUrl) ? marca.ImagenUrl : "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
 
-                ddlProveedor.SelectedValue = marca.IdProveedor.ToString();
-
-                if (marca.ImagenUrl != null)
-                {
-                    txtImagenUrl.Text = marca.ImagenUrl.ToString();
-                    imgMarcas.ImageUrl = marca.ImagenUrl.ToString();
-                }
-                else
-                {
-                    txtImagenUrl.Text = "";
-                    imgMarcas.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
-                }
+                ddlProveedor.SelectedValue = marca.IdProveedor.ToString();            
 
                 if (marca.Activo == true)
                 {

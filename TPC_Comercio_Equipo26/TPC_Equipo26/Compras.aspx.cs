@@ -17,7 +17,7 @@ namespace TPC_Equipo26
             if (!IsPostBack)
             {
                 CargarCompras();
-                CargarProveedores();                          
+                CargarProveedores();
             }
         }
 
@@ -68,36 +68,24 @@ namespace TPC_Equipo26
                 int proveedorSeleccionado = int.Parse(ddlProveedor.SelectedValue);
                 listaCompras = listaCompras.Where(x => x.IdProveedor == proveedorSeleccionado).ToList();
             }
-            if (chkOrdenarFechaAsc.Checked)
+            string ordenSeleccionado = ddlOrdenarPor.SelectedValue;
+            switch (ordenSeleccionado)
             {
-                listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ToList();
-            }
-            else if (chkOrdenarFechaDesc.Checked)
-            {
-                listaCompras = listaCompras.OrderByDescending(x => x.FechaCompra).ToList();
-            }
-
-            if (chkOrdenarPrecioAsc.Checked)
-            {
-                if (chkOrdenarFechaAsc.Checked || chkOrdenarFechaDesc.Checked)
-                {
-                    listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ThenByDescending(x => x.TotalCompra).ToList();
-                }
-                else
-                {
+                case "MayorPrecio":
                     listaCompras = listaCompras.OrderByDescending(x => x.TotalCompra).ToList();
-                }
-            }
-            else if (chkOrdenarPrecioDesc.Checked)
-            {
-                if (chkOrdenarFechaAsc.Checked || chkOrdenarFechaDesc.Checked)
-                {
-                    listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ThenBy(x => x.TotalCompra).ToList();
-                }
-                else
-                {
+                    break;
+                case "MenorPrecio":
                     listaCompras = listaCompras.OrderBy(x => x.TotalCompra).ToList();
-                }
+                    break;
+                case "FechaReciente":
+                    listaCompras = listaCompras.OrderByDescending(x => x.FechaCompra).ToList();
+                    break;
+                case "FechaAntigua":
+                    listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ToList();
+                    break;
+                default:
+                    listaCompras = listaCompras.OrderBy(x => x.ID).ToList();
+                    break;
             }
 
             Session["ListaFiltrada"] = listaCompras;
@@ -129,7 +117,7 @@ namespace TPC_Equipo26
                 Compra compra = (Compra)e.Row.DataItem;
                 int idProveedor = compra.IdProveedor;
                 string proveedor = TraerNombreProveedor(idProveedor);
-                e.Row.Cells[2].Text = proveedor; 
+                e.Row.Cells[2].Text = proveedor;
             }
         }
         private string TraerNombreProveedor(int idProveedor)
@@ -151,52 +139,47 @@ namespace TPC_Equipo26
             }
         }
 
+        protected void btnRestablecer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ddlProveedor.SelectedIndex = 0;
+                txtFiltro.Text = string.Empty;
+                CargarCompras();
+                MostrarBotonRestablecer();
+                ddlOrdenarPor.SelectedValue = "";
+                FiltrarCompras();
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+        private void MostrarBotonRestablecer()
+        {
+            bool filtroActivo = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) ||
+                                ddlProveedor.SelectedIndex > 0 ||
+                                !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue);
+
+            btnRestablecer.Visible = filtroActivo;
+        }
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
+            MostrarBotonRestablecer();
         }
-
-        protected void btnRestablecer_Click(object sender, EventArgs e)
-        {
-            chkOrdenarFechaAsc.Checked = false;
-            chkOrdenarFechaDesc.Checked = false;
-            chkOrdenarPrecioAsc.Checked = false;
-            chkOrdenarPrecioDesc.Checked = false;
-            chkAvanzado.Checked = false;
-            pnlFiltroAvanzado.Visible = false;
-            ddlProveedor.SelectedIndex = 0;
-            txtFiltro.Text = string.Empty;
-            CargarCompras();
-        }
-
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
+            MostrarBotonRestablecer();
         }
 
-        protected void chkOrdenarFechaAsc_CheckedChanged(object sender, EventArgs e)
+        protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
+            MostrarBotonRestablecer();
         }
 
-        protected void chkOrdenarFechaDesc_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarCompras();
-        }
 
-        protected void chkOrdenarPrecioAsc_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarCompras();
-        }
-
-        protected void chkOrdenarPrecioDesc_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarCompras();
-        }
-
-        protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
-        {
-            pnlFiltroAvanzado.Visible = chkAvanzado.Checked;
-        }
     }
 }
