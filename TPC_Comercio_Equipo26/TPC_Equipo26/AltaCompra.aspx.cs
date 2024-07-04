@@ -31,7 +31,6 @@ namespace TPC_Equipo26
             {
                 detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
             }
-
         }
 
         private void CargarProveedores()
@@ -125,8 +124,13 @@ namespace TPC_Equipo26
                     DetalleCompra detalle = new DetalleCompra();
                     detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                     detalle.Cantidad = int.Parse(txtCantidad.Text);
-                    detalle.Precio = decimal.Parse(txtPrecio.Text);   
-                    
+                    detalle.Precio = decimal.Parse(txtPrecio.Text);
+                    detalle.IdMarca = int.Parse(ddlMarca.SelectedValue);
+                    List<DetalleCompra> detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
+                    if (detallesCompra == null)
+                    {
+                        detallesCompra = new List<DetalleCompra>();
+                    }
                     detallesCompra.Add(detalle);
                     Session["DetallesCompra"] = detallesCompra;
 
@@ -229,7 +233,7 @@ namespace TPC_Equipo26
                     Session["DetallesCompra"] = null;
                     Session["Total"] = null;
                     lblTotalCompra.Text = "$0.00";
-                   
+
 
                     LimpiarCampos();
                     Response.Redirect("Compras.aspx", false);
@@ -275,6 +279,9 @@ namespace TPC_Equipo26
                     {
                         txtCantidad.Text = detalle.Cantidad.ToString();
                         txtPrecio.Text = detalle.Precio.ToString();
+                        ddlMarca.SelectedValue = detalle.IdMarca.ToString();
+                        ddlMarca_SelectedIndexChanged(null, EventArgs.Empty);
+                        ddlArticulo.SelectedValue = detalle.IdArticulo.ToString();
 
                         detallesCompra.Remove(detalle);
                         Session["DetallesCompra"] = detallesCompra;
@@ -303,5 +310,7 @@ namespace TPC_Equipo26
                 }
             }
         }
+
+
     }
 }

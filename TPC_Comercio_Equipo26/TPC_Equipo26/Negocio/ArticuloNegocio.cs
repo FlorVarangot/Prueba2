@@ -37,11 +37,11 @@ namespace TPC_Equipo26.Negocio
                         arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString() };
                         arti.Ganancia = (decimal)datos.Lector["Ganancia_Porcentaje"];
                         arti.StockMin = datos.Lector.GetInt32(7);
-                        arti.Imagen = datos.Lector["Imagen"].ToString();
+                        arti.Imagen = datos.Lector["Imagen"] != DBNull.Value ? datos.Lector["Imagen"].ToString() : null;
                         arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
                     };
 
-                    if (arti.Imagen == null)
+                    if (string.IsNullOrEmpty(arti.Imagen))
                     {
                         arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                     }
@@ -88,11 +88,11 @@ namespace TPC_Equipo26.Negocio
                         arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString() };
                         arti.Ganancia = (decimal)datos.Lector["Ganancia_Porcentaje"];
                         arti.StockMin = datos.Lector.GetInt32(7);
-                        arti.Imagen = datos.Lector["Imagen"].ToString();
+                        arti.Imagen = datos.Lector["Imagen"] != DBNull.Value ? datos.Lector["Imagen"].ToString() : null;
                         arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
                     };
 
-                    if (arti.Imagen == null)
+                    if (string.IsNullOrEmpty(arti.Imagen))
                     {
                         arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                     }
@@ -139,11 +139,11 @@ namespace TPC_Equipo26.Negocio
                         arti.Categoria = new Categoria { Descripcion = datos.Lector["Categoria"].ToString() };
                         arti.Ganancia = (decimal)datos.Lector["Ganancia_Porcentaje"];
                         arti.StockMin = datos.Lector.GetInt32(7);
-                        arti.Imagen = datos.Lector["Imagen"].ToString();
+                        arti.Imagen = datos.Lector["Imagen"] != DBNull.Value ? datos.Lector["Imagen"].ToString() : null;
                         arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
                     };
 
-                    if (arti.Imagen == null)
+                    if (string.IsNullOrEmpty(arti.Imagen))
                     {
                         arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                     }
@@ -224,7 +224,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@IdCategoria", articulo.Categoria.ID);
                 datos.setearParametro("@Stock_Minimo", articulo.StockMin);
                 datos.setearParametro("@Ganancia_Porcentaje", articulo.Ganancia);
-                datos.setearParametro("@Imagen", articulo.Imagen);
+                datos.setearParametro("@Imagen", !string.IsNullOrEmpty(articulo.Imagen) ? articulo.Imagen : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg");
                 datos.setearParametro("@Activo", articulo.Activo);
 
                 datos.ejecutarAccion();
@@ -326,7 +326,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@IdCategoria", nuevo.Categoria.ID);
                 datos.setearParametro("@Ganancia_Porcentaje", nuevo.Ganancia);
                 datos.setearParametro("@Stock_Minimo", nuevo.StockMin);
-                datos.setearParametro("@Imagen", nuevo.Imagen);
+                datos.setearParametro("@Imagen", !string.IsNullOrEmpty(nuevo.Imagen) ? nuevo.Imagen : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg");
                 datos.setearParametro("@Activo", nuevo.Activo);
                 datos.setearParametro("@Id", nuevo.ID);
 

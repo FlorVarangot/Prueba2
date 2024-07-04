@@ -12,6 +12,6 @@ namespace TPC_Equipo26.Dominio
         public long IdArticulo { get; set; }     
         public decimal Precio { get; set; }
         public int Cantidad { get; set; }
-        
+        public int IdMarca { get; set; }
     }
 }
