@@ -109,8 +109,6 @@ namespace TPC_Equipo26
         {
             try
             {
-
-
                 VentaNegocio negocio = new VentaNegocio();
                 long idVenta = negocio.TraerUltimoId();
                 DetalleVenta detalle = new DetalleVenta();
@@ -118,7 +116,16 @@ namespace TPC_Equipo26
                 detalle.IdVenta = idVenta;
                 detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                 detalle.Cantidad = int.Parse(numCantidad.Value);
-                detallesVenta.Add(detalle);
+                bool stock = validarStock(detalle);
+                if (stock)
+                {
+                    detallesVenta.Add(detalle);
+                }
+                else
+                {
+                    //REVISAR ESTE ELSE
+                    Console.WriteLine("No existe esa cantidad en stock para ese artículo");
+                }
 
                 Session["DetallesVenta"] = detallesVenta;
 
@@ -136,6 +143,28 @@ namespace TPC_Equipo26
             {
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        private bool validarStock(DetalleVenta detalle)
+        {
+            bool stock = false;
+            DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+            List<DetalleVenta> detalles = new List<DetalleVenta>();
+
+            long idArticulo = detalle.IdArticulo;
+            int cantidadSolicitada = detalle.Cantidad;
+            int cantidadEnStock = datoNegocio.ObtenerStockArticulo(idArticulo);
+
+            if (cantidadSolicitada <= cantidadEnStock)
+            {
+                stock = true;
+            }
+            else
+            {
+                stock = false;
+            }
+
+            return stock;
         }
 
         private void ActualizarArticulos()
@@ -175,9 +204,8 @@ namespace TPC_Equipo26
                 VentaNegocio negocio = new VentaNegocio();
                 negocio.AgregarVenta(venta);
 
-                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-                
                 //PENDIENTE
+                //DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
                 /*datoNegocio.ActualizarStock(venta)*/
 
                 Session["DetallesVenta"] = null;

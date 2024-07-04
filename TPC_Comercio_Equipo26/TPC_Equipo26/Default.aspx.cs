@@ -76,10 +76,10 @@ namespace TPC_Equipo26
             List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
             DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
 
-            //if (!chkIncluirInactivos.Checked)
-            //{
-            //    listaArticulos = listaArticulos.Where(x => x.Activo).ToList();
-            //}
+            if (!chkIncluirInactivos.Checked)
+            {
+                listaArticulos = listaArticulos.Where(x => x.Activo).ToList();
+            }
             //if (!string.IsNullOrEmpty(txtFiltro.Text.Trim()))
             //{
             //    string filtro = txtFiltro.Text.Trim().ToUpper();
@@ -124,9 +124,7 @@ namespace TPC_Equipo26
             //    listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
             //    //listaArticulos = listaArticulos.OrderBy(x => x.ID).ThenBy(x => datoNegocio.ObtenerStockArticulo(x.ID)).ThenBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
             //}
-            //Session["ListaArticulosFiltrada"] = listaArticulos;
-
-            //lblVacio.Visible = (listaArticulos.Count == 0);
+            Session["ListaArticulosFiltrada"] = listaArticulos;
 
             gvArticulos.DataSource = listaArticulos;
             gvArticulos.DataBind();
@@ -152,21 +150,6 @@ namespace TPC_Equipo26
             FiltrarArticulos();
         }
 
-        protected void chkOrdenarAZ_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
-
-        protected void chkOrdenarPorStock_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
-
-        protected void chkOrdenarPorPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
-
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             try
@@ -186,6 +169,18 @@ namespace TPC_Equipo26
             catch (Exception)
             {
                 Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                int id = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ID"));
+                decimal precio = TraerPrecioConGanancia(id);
+                int stock = TraerStock(id);
+                e.Row.Cells[7].Text = precio.ToString("C");
+                e.Row.Cells[8].Text = stock.ToString();
             }
         }
 
@@ -224,18 +219,6 @@ namespace TPC_Equipo26
             CargarArticulos();
         }
 
-        protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                int id = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ID"));
-                decimal precio = TraerPrecioConGanancia(id);
-                int stock = TraerStock(id);
-                e.Row.Cells[7].Text = precio.ToString("C");
-                e.Row.Cells[8].Text = stock.ToString();
-            }
-        }
-
         //Revisar si hace falta este metodo:
         private decimal TraerPrecio(long idArt)
         {
@@ -259,7 +242,6 @@ namespace TPC_Equipo26
                 return -1;
             }
         }
-
 
         private decimal TraerPrecioConGanancia(long idArt)
         {
@@ -307,6 +289,21 @@ namespace TPC_Equipo26
             {
                 return -1;
             }
+        }
+
+        protected void chkOrdenarAZ_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+
+        protected void chkOrdenarPorStock_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+        }
+
+        protected void chkOrdenarPorPrecio_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
         }
 
     }
