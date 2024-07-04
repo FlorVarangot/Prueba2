@@ -7,50 +7,46 @@
         <div class="text-center my-4">
             <h1>ARTÍCULOS</h1>
         </div>
+
         <div class="row mb-2">
             <div class="col-6">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar artículos, marcas y más..." />
             </div>
             <div class="col-6" style="display: flex; flex-direction: column">
-                <asp:CheckBox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
+                <asp:CheckBox Text="Filtro" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
             </div>
         </div>
-
         <div class="row mb-3">
-            <div class="col-2">
+            <div class="col-md-2">
                 <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
             </div>
-            <div class="col-2">
-                <asp:CheckBox ID="chkOrdenarAZ" runat="server" Text="↑↓ Descripción A-Z" AutoPostBack="true" OnCheckedChanged="chkOrdenarAZ_CheckedChanged" />
-            </div>
-            <div class="col-2">
-                <asp:CheckBox ID="chkOrdenarPorStock" runat="server" Text="↑↓ Stock disponible" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorStock_CheckedChanged" />
-            </div>
-            <div class="col-2">
-                <asp:CheckBox ID="chkOrdenarPorPrecio" runat="server" Text="↑↓ Precio unitario" AutoPostBack="true" OnCheckedChanged="chkOrdenarPorPrecio_CheckedChanged" />
-            </div>
-            <div class="col-4 text-end">
+            <div class="col-md-4 text-end">
                 <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>
-
         <asp:Panel ID="pnlFiltroAvanzado" runat="server" Visible="false">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <asp:Label Text="Marca" ID="lblMarca" runat="server" />
-                        <asp:DropDownList runat="server" CssClass="form-control" ID="ddlMarca" AutoPostBack="true" OnSelectedIndexChanged="ddlMarca_SelectedIndexChanged"></asp:DropDownList>
-                    </div>
+            <div class="row align-items-end">
+                <div class="col-md-3 mb-2">
+                    <asp:Label Text="Marca" ID="lblMarca" runat="server" />
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlMarca" AutoPostBack="true" OnSelectedIndexChanged="ddlMarca_SelectedIndexChanged"></asp:DropDownList>
                 </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <asp:Label Text="Categoría" ID="lblCategoria" runat="server" />
-                        <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged"></asp:DropDownList>
-                    </div>
+                <div class="col-md-3 mb-2">
+                    <asp:Label Text="Categoría" ID="lblCategoria" runat="server" />
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged"></asp:DropDownList>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
+                        <asp:ListItem Text="Ordenar por..." Value="" />
+                        <asp:ListItem Text="Descripcion A-Z" Value="DescripcionAZ" />
+                        <asp:ListItem Text="Descripcion Z-A" Value="DescripcionZA" />
+                        <asp:ListItem Text="Stock ↑" Value="StockDisponibleAsc" />
+                        <asp:ListItem Text="Stock ↓" Value="StockDisponibleDesc" />
+                        <asp:ListItem Text="Precio ↑" Value="PrecioUnitarioAsc" />
+                        <asp:ListItem Text="Precio ↓" Value="PrecioUnitarioDesc" />
+                    </asp:DropDownList>
                 </div>
             </div>
         </asp:Panel>
-
     </div>
 
     <asp:GridView ID="gvArticulos" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"

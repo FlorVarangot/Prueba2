@@ -23,6 +23,7 @@ namespace TPC_Equipo26
                 {
                     CargarArticulos();
                     CargarMarcasYCategorias();
+                    btnLimpiarFiltros.Visible = false;
                 }
             }
             catch
@@ -80,74 +81,95 @@ namespace TPC_Equipo26
             {
                 listaArticulos = listaArticulos.Where(x => x.Activo).ToList();
             }
-            //if (!string.IsNullOrEmpty(txtFiltro.Text.Trim()))
-            //{
-            //    string filtro = txtFiltro.Text.Trim().ToUpper();
-            //    listaArticulos = listaArticulos
-            //        .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
-            //                    x.Codigo.ToUpper().Contains(filtro) ||
-            //                    x.Descripcion.ToUpper().Contains(filtro) ||
-            //                    x.StockMin.ToString().Contains(filtro))
-            //        .ToList();
-            //}
-            //if (ddlMarca.SelectedIndex > 0)
-            //{
-            //    string marcaSeleccionada = ddlMarca.SelectedItem.Text;
-            //    listaArticulos = listaArticulos.Where(x => x.Marca.Descripcion.Equals(marcaSeleccionada)).ToList();
-            //}
-            //if (ddlCategoria.SelectedIndex > 0)
-            //{
-            //    string CategoriaSeleccionada = ddlCategoria.SelectedItem.Text;
-            //    listaArticulos = listaArticulos.Where(x => x.Categoria.Descripcion.Equals(CategoriaSeleccionada)).ToList();
-            //}
-            //if (chkOrdenarAZ.Checked && chkOrdenarPorStock.Checked)
-            //{
-            //    //listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ThenByDescending(x => x.StockMin).ToList();
-            //    listaArticulos = listaArticulos .OrderBy(x => x.Descripcion).ThenByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
-            //}
-            //else if (chkOrdenarAZ.Checked)
-            //{
-            //    listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ToList();
-            //}
-            //else if (chkOrdenarPorStock.Checked)
-            //{
-            //    //listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
-            //    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
-            //}
-            //else if (chkOrdenarPorPrecio.Checked)
-            //{
-            //    listaArticulos = listaArticulos.OrderByDescending(x => x.StockMin).ToList();
-            //    //listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
-            //}
-            //else
-            //{
-            //    listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
-            //    //listaArticulos = listaArticulos.OrderBy(x => x.ID).ThenBy(x => datoNegocio.ObtenerStockArticulo(x.ID)).ThenBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
-            //}
+            if (!string.IsNullOrEmpty(txtFiltro.Text.Trim()))
+            {
+               string filtro = txtFiltro.Text.Trim().ToUpper();
+               listaArticulos = listaArticulos
+                   .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
+                               x.Codigo.ToUpper().Contains(filtro) ||
+                              x.Descripcion.ToUpper().Contains(filtro) ||
+                              x.StockMin.ToString().Contains(filtro))
+                  .ToList();
+            }
+            if (ddlMarca.SelectedIndex > 0)
+            {
+                string marcaSeleccionada = ddlMarca.SelectedItem.Text;
+               listaArticulos = listaArticulos.Where(x => x.Marca.Descripcion.Equals(marcaSeleccionada)).ToList();
+            }
+            if (ddlCategoria.SelectedIndex > 0)
+            {
+                string CategoriaSeleccionada = ddlCategoria.SelectedItem.Text;
+                listaArticulos = listaArticulos.Where(x => x.Categoria.Descripcion.Equals(CategoriaSeleccionada)).ToList();
+            }
+            string ordenSeleccionado = ddlOrdenarPor.SelectedValue;
+            switch (ordenSeleccionado)
+            {
+                case "DescripcionAZ":
+                    listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ToList();
+                    break;
+                case "DescripcionZA":
+                    listaArticulos = listaArticulos.OrderByDescending(x => x.Descripcion).ToList();
+                    break;
+                case "StockDisponibleAsc":
+                    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
+                    break;
+                case "StockDisponibleDesc":
+                    listaArticulos = listaArticulos.OrderBy(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
+                    break;
+                case "PrecioUnitarioAsc":
+                    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
+                    break;
+                case "PrecioUnitarioDesc":
+                    listaArticulos = listaArticulos.OrderBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
+                    break;
+                default:
+                    listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
+                    break;
+            }
+
             Session["ListaArticulosFiltrada"] = listaArticulos;
 
             gvArticulos.DataSource = listaArticulos;
             gvArticulos.DataBind();
         }
 
+        private void MostrarBotonRestablecer()
+        {
+            bool filtroActivo = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) ||
+                                ddlMarca.SelectedIndex > 0 ||
+                                ddlCategoria.SelectedIndex > 0 ||
+                                !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue) ||
+                            chkIncluirInactivos.Checked;
+
+            btnLimpiarFiltros.Visible = filtroActivo;
+        }
         protected void Filtro_TextChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
+            MostrarBotonRestablecer();
         }
 
         protected void chkIncluirInactivos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
+            MostrarBotonRestablecer();
         }
 
         protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
+            MostrarBotonRestablecer();
         }
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
+            MostrarBotonRestablecer();
+        }
+        protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarArticulos();
+            MostrarBotonRestablecer();
         }
 
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
@@ -157,14 +179,14 @@ namespace TPC_Equipo26
                 txtFiltro.Text = string.Empty;
                 chkAvanzado.Checked = false;
                 pnlFiltroAvanzado.Visible = false;
-                chkIncluirInactivos.Checked = false;
-                chkOrdenarAZ.Checked = false;
-                chkOrdenarPorPrecio.Checked = false;
-                chkOrdenarPorStock.Checked = false;
+                chkIncluirInactivos.Checked = false;            
                 ddlMarca.SelectedIndex = 0;
                 ddlCategoria.SelectedIndex = 0;
-
+                ddlOrdenarPor.SelectedIndex = 0;
+                pnlFiltroAvanzado.Visible = false;
                 CargarArticulos();
+                MostrarBotonRestablecer();
+                btnLimpiarFiltros.Visible = false;
             }
             catch (Exception)
             {
@@ -214,9 +236,10 @@ namespace TPC_Equipo26
             {
                 ddlMarca.SelectedIndex = 0;
                 ddlCategoria.SelectedIndex = 0;
-
+                ddlOrdenarPor.SelectedIndex = 0;
             }
             CargarArticulos();
+            MostrarBotonRestablecer();
         }
 
         //Revisar si hace falta este metodo:
@@ -291,21 +314,7 @@ namespace TPC_Equipo26
             }
         }
 
-        protected void chkOrdenarAZ_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
-
-        protected void chkOrdenarPorStock_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
-
-        protected void chkOrdenarPorPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarArticulos();
-        }
-
+       
     }
 
 }

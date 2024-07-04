@@ -42,33 +42,6 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.CheckBox chkIncluirInactivos;
 
         /// <summary>
-        /// Control chkOrdenarAZ.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkOrdenarAZ;
-
-        /// <summary>
-        /// Control chkOrdenarPorStock.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkOrdenarPorStock;
-
-        /// <summary>
-        /// Control chkOrdenarPorPrecio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkOrdenarPorPrecio;
-
-        /// <summary>
         /// Control btnLimpiarFiltros.
         /// </summary>
         /// <remarks>
@@ -121,6 +94,15 @@ namespace TPC_Equipo26
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
+
+        /// <summary>
+        /// Control ddlOrdenarPor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrdenarPor;
 
         /// <summary>
         /// Control gvArticulos.

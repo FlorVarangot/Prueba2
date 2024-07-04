@@ -145,10 +145,12 @@ namespace TPC_Equipo26
             {
                 ddlProveedor.SelectedIndex = 0;
                 txtFiltro.Text = string.Empty;
+                ddlOrdenarPor.SelectedIndex = 0;
                 CargarCompras();
-                MostrarBotonRestablecer();
-                ddlOrdenarPor.SelectedValue = "";
+                btnRestablecer.Visible = false;
+
                 FiltrarCompras();
+                MostrarBotonRestablecer();                            
             }
             catch (Exception)
             {
