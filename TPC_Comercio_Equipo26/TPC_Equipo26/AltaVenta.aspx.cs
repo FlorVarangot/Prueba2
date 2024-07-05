@@ -116,15 +116,14 @@ namespace TPC_Equipo26
                 detalle.IdVenta = idVenta;
                 detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                 detalle.Cantidad = int.Parse(numCantidad.Value);
-                bool stock = validarStock(detalle);
-                if (stock)
+                
+                if (validarStock(detalle))
                 {
                     detallesVenta.Add(detalle);
                 }
                 else
                 {
-                    //REVISAR ESTE ELSE
-                    Console.WriteLine("No existe esa cantidad en stock para ese artículo");
+                    Response.Redirect("Error.aspx");
                 }
 
                 Session["DetallesVenta"] = detallesVenta;
@@ -147,9 +146,7 @@ namespace TPC_Equipo26
 
         private bool validarStock(DetalleVenta detalle)
         {
-            bool stock = false;
             DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-            List<DetalleVenta> detalles = new List<DetalleVenta>();
 
             long idArticulo = detalle.IdArticulo;
             int cantidadSolicitada = detalle.Cantidad;
@@ -157,14 +154,12 @@ namespace TPC_Equipo26
 
             if (cantidadSolicitada <= cantidadEnStock)
             {
-                stock = true;
+               return true;
             }
             else
             {
-                stock = false;
+                return false;
             }
-
-            return stock;
         }
 
         private void ActualizarArticulos()

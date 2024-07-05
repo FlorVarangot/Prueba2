@@ -1,7 +1,7 @@
 ﻿body {
     font-family: Arial, sans-serif;
     background-color: darkslategrey;
-    color: lightgoldenrodyellow;
+    color: lightgoldenrodyellow; 
     text-decoration: none;
     margin: 0;
     padding: 0;
@@ -127,10 +127,26 @@ img {
 
 .grid-header {
     text-decoration: none;
+    color: lightgoldenrodyellow;
+    font-size:20px;
+    font-weight:100;
+}
+.grid-header:hover::before {
+    content: attr(title);
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    z-index: 1;
+    top: 30px;
+    left: 0;
 }
 
 
     /*Media query para celulares*/
     @media (max-width:768px) {
-        /*Ajustes de estilos para pantallas pequeñas*/
+
     }

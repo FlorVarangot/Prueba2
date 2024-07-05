@@ -109,6 +109,33 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
+        public long TraerUltimoId()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                //Cambiar por SCOPEIDENTITY()
+                datos.setearConsulta("SELECT MAX(Id) AS 'UltimoId' FROM COMPRAS");
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return Convert.ToInt64(datos.Lector["UltimoId"]);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }

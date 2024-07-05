@@ -7,7 +7,7 @@
         <div class="row mt-3 mb-2">
             <asp:Label runat="server" ID="lblTitulo" CssClass="titulo-label"></asp:Label>
         </div>
-        <div class="row mt-4 mb-2">
+        <div class="row mt-4">
             <div class="col-4 text-center">
                 <asp:Label runat="server" ID="lblCliente" Text=""></asp:Label>
             </div>
@@ -18,9 +18,18 @@
                 <asp:Label runat="server" ID="lblVentaID" Text=""></asp:Label>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <asp:HyperLink ID="lnkVentaAnterior" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta anterior"> << </asp:HyperLink>
+            </div>
+            <div class="col text-end">
+                <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta siguiente"> >> </asp:HyperLink>
+            </div>
+        </div>
         <hr />
 
-        <asp:GridView ID="gvDetalle" runat="server" CssClass="detalle" AutoGenerateColumns="false" Style="text-align: center; align-content: center; margin: 10px 20px 15px 30px;" Width="1200px"
+        <asp:GridView ID="gvDetalle" runat="server" CssClass="detalle" AutoGenerateColumns="false" Style="text-align: center; align-content: center; margin: 5px 20px 15px 30px;" Width="1200px"
             OnSelectedIndexChanged="gvDetalle_SelectedIndexChanged" OnPageIndexChanging="gvDetalle_PageIndexChanging" OnRowDataBound="gvDetalle_RowDataBound" EmptyDataText="No hay datos disponibles.">
             <Columns>
                 <asp:BoundField HeaderText="Artículo" DataField="IdArticulo" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="45%" />

@@ -31,7 +31,6 @@ namespace TPC_Equipo26
         {
             try
             {
-
                 VentaNegocio negocio = new VentaNegocio();
                 List<Venta> ventas = negocio.Listar();
                 CargarClientes();

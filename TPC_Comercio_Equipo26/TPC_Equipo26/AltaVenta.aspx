@@ -40,18 +40,14 @@
                 OnPageIndexChanging="gvAltaVenta_PageIndexChanging" OnRowDataBound="gvAltaVenta_RowDataBound" OnRowCommand="gvAltaVenta_RowCommand">
                 <Columns>
                     <asp:BoundField HeaderText="Artículo" DataField="IdArticulo" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="40%" />
-
-                    <%-- terminar: --%>
                     <asp:BoundField HeaderText="Precio unitario" DataField="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="20%" />
                     <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="5%" />
                     <asp:BoundField HeaderText="Total" DataField="" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25%" />
-
                     <%-- seguir pensando para eliminar art ingresado y despues tambien para cambiar cantidades --%>
                     <asp:TemplateField ItemStyle-Width="10%">
                         <ItemTemplate>
                             <asp:Button ID="btnEliminar" runat="server" Text="🗑️" Title="Eliminar" CssClass="fa-regular fa-trash-can" 
-                                CommandName="Editar" CommandArgument='<%# Eval("Id") + "_Editar" %>' OnRowCommand="gvAltaVenta_RowCommand"
-                                OnClientClick="return confirm('¿Seguro/a que desea eliminar?');" />
+                                CommandName="Editar" CommandArgument='<%# Eval("Id") + "_Editar" %>' OnRowCommand="gvAltaVenta_RowCommand" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

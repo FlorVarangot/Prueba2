@@ -17,13 +17,22 @@ namespace TPC_Equipo26
             {
                 if (Request.QueryString["ID"] != null)
                 {
-                    lblTitulo.Text = "Detalles: ";
+                    lblTitulo.Text = "Detalles de Venta";
                     long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
                     lblVentaID.Text = "venta n° 00" + ventaID;
                     lblCliente.Text = "Cliente: " + TraerNombreCliente(ventaID);
                     lblFecha.Text = "Fecha: " + TraerFechaVenta(ventaID).ToString("dd/MM/yyyy");
                     lblTotal.Text = "Total: $ " + TraerTotalVenta(ventaID).ToString("N2");
                     CargarDetallesVenta(ventaID);
+
+                    //navegacion entre detalles:
+                    lnkVentaAnterior.NavigateUrl = ObtenerVentaAnterior();
+                    lnkVentaSiguiente.NavigateUrl = ObtenerVentaSiguiente();
+                    //si es la primera no puedo ir a anterior
+                    lnkVentaAnterior.Enabled = (ventaID > 1);
+                    long maxID = TraerUltimoId();
+                    //si es la ultima no puedo ir a siguiente
+                    lnkVentaSiguiente.Enabled = (ventaID < maxID);
                 }
                 else
                 {
@@ -156,6 +165,41 @@ namespace TPC_Equipo26
                 return 0;
             }
 
+        }
+
+        private long TraerUltimoId()
+        {
+            VentaNegocio ventaNegocio = new VentaNegocio();
+            return ventaNegocio.TraerUltimoId();
+
+        }
+
+        private string ObtenerVentaSiguiente()
+        {
+            long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
+            long nuevoID = ventaID + 1;
+
+            if (nuevoID <= TraerUltimoId())
+            {
+                return "DetallesVenta.aspx?ID=" + nuevoID;
+            }
+
+            //return "Ventas.aspx";
+            return "Error.aspx";
+        }
+
+        private string ObtenerVentaAnterior()
+        {
+            long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
+            long nuevoID = ventaID - 1;
+
+            if (nuevoID > 0)
+            {
+                return "DetallesVenta.aspx?ID=" + nuevoID;
+            }
+
+            //return "Ventas.aspx";
+            return "Error.aspx";
         }
 
     }

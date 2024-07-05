@@ -7,8 +7,16 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Detalles de Compra</h1>
+                <div class="row">
+                    <div class="col">
+                        <asp:HyperLink ID="lnkVentaAnterior" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta anterior"> << </asp:HyperLink>
+                    </div>
+                    <div class="col text-end">
+                        <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta siguiente"> >> </asp:HyperLink>
+                    </div>
+                </div>
                 <asp:GridView ID="gvDetalle" runat="server" CssClass="table table-success table-hover" EmptyDataText="No hay datos disponibles."
-                    Style="text-align: center" AutoGenerateColumns="false" >
+                    Style="text-align: center" AutoGenerateColumns="false">
                     <Columns>
                         <asp:BoundField HeaderText="ID Artículo" DataField="IdArticulo" ItemStyle-HorizontalAlign="Center" />
                         <asp:BoundField HeaderText="Precio" DataField="Precio" DataFormatString="{0:C}" ItemStyle-HorizontalAlign="Center" />
