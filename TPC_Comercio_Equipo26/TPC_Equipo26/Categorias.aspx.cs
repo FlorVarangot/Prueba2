@@ -63,7 +63,7 @@ namespace TPC_Equipo26
                         x.Descripcion.ToUpper().Contains(filtro) &&
                         (x.Activo || incluirInactivos)).ToList();
                 }
-
+                Session["listaFiltrada"] = listaFiltrada;
                 gvCategorias.DataSource = listaFiltrada;
             }
             else
@@ -88,6 +88,22 @@ namespace TPC_Equipo26
         protected void chkIncluirInactivos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarCategorias();
+        }
+
+        protected void gvCategorias_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvCategorias.PageIndex = e.NewPageIndex;
+                List<Categoria> categorias = (List<Categoria>)Session["listaFiltrada"];
+
+                gvCategorias.DataSource = categorias;
+                gvCategorias.DataBind();
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }

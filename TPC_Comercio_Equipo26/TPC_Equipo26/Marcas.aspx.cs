@@ -72,7 +72,7 @@ namespace TPC_Equipo26
                     x.Descripcion.ToUpper().Contains(filtro) &&
                     (x.Activo || incluirInactivos)).ToList();
                 }
-
+                Session["listaFiltrada"] = listaFiltrada;
                 gvMarcas.DataSource = listaFiltrada;
             }
             else
@@ -90,8 +90,18 @@ namespace TPC_Equipo26
 
         protected void GvMarcas_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvMarcas.PageIndex = e.NewPageIndex;
-            FiltrarMarcas();
+            try
+            {
+                gvMarcas.PageIndex = e.NewPageIndex;
+                List<Marca> categorias = (List<Marca>)Session["listaFiltrada"];
+
+                gvMarcas.DataSource = categorias;
+                gvMarcas.DataBind();
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void GvMarcas_SelectedIndexChanged(object sender, EventArgs e)

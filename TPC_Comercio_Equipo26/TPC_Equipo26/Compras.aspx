@@ -7,31 +7,33 @@
         <div class="text-center my-4">
             <h1>COMPRAS</h1>
         </div>
-        <div class="row mb-2">
-            <div class="col-4">
-                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" Placeholder="Buscar por Fecha..." OnTextChanged="txtFiltro_TextChanged" />
+        <div id="contenedorFiltros" runat="server" visible="false">
+            <div class="row mb-2">
+                <div class="col-4">
+                    <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" Placeholder="Buscar por Fecha..." OnTextChanged="txtFiltro_TextChanged" />
+                </div>
+                <div class="col-4">
+                    <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
+                </div>
             </div>
-            <div class="col-4">
-                <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
-            </div>
-        </div>
-        <div class="row mb-2">
-            <div class="col-2 text-center"> 
-                <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
-                    <asp:ListItem Text="Ordenar por..." Value="" />
-                    <asp:ListItem Text="Mayor Precio" Value="MayorPrecio" />
-                    <asp:ListItem Text="Menor Precio" Value="MenorPrecio" />
-                    <asp:ListItem Text="Fecha Más Reciente" Value="FechaReciente" />
-                    <asp:ListItem Text="Fecha Más Antigua" Value="FechaAntigua" />
-                </asp:DropDownList>
-            </div>
-            <div class="col-4">
-                <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer filtros" OnClick="btnRestablecer_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" Visible="false" />
+            <div class="row mb-2">
+                <div class="col-2 text-center">
+                    <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
+                        <asp:ListItem Text="Ordenar por..." Value="" />
+                        <asp:ListItem Text="Mayor Precio" Value="MayorPrecio" />
+                        <asp:ListItem Text="Menor Precio" Value="MenorPrecio" />
+                        <asp:ListItem Text="Fecha Más Reciente" Value="FechaReciente" />
+                        <asp:ListItem Text="Fecha Más Antigua" Value="FechaAntigua" />
+                    </asp:DropDownList>
+                </div>
+                <div class="col-4">
+                    <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer filtros" OnClick="btnRestablecer_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" Visible="false" />
+                </div>
             </div>
         </div>
     </div>
     <asp:GridView ID="gvCompras" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-        Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles."
+        Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay compras disponibles en este momento,Agregue una nueva compra!!!!"
         AllowPaging="true" PageSize="10"
         OnPageIndexChanging="gvCompras_PageIndexChanging" OnRowDataBound="gvCompras_RowDataBound">
         <Columns>

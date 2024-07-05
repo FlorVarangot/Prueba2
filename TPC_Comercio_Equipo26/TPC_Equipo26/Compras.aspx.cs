@@ -19,6 +19,7 @@ namespace TPC_Equipo26
                 CargarCompras();
                 CargarProveedores();
             }
+            VerificarMostrarFiltros();
         }
 
         private void CargarProveedores()
@@ -182,6 +183,10 @@ namespace TPC_Equipo26
             MostrarBotonRestablecer();
         }
 
-
+        private void VerificarMostrarFiltros()
+        {
+            bool mostrarFiltros = gvCompras.Rows.Count > 0;
+            contenedorFiltros.Visible = mostrarFiltros;
+        }
     }
 }

@@ -9,8 +9,7 @@
             <h1>CATEGORÍAS</h1>
         </div>
         <div class="row mb-2">
-            <div class="col-4">
-                <%--<asp:Label Text="Buscar:" runat="server" CssClass="form-label" />--%>
+            <div class="col-4">           
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" Placeholder="Buscar" />
             </div>
             <div class="col-1">
@@ -25,6 +24,7 @@
 
         <asp:GridView ID="gvCategorias" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
             Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles."
+            AllowPaging="true" PageSize="10" OnPageIndexChanging="gvCategorias_PageIndexChanging"
             OnSelectedIndexChanged="gvCategorias_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
