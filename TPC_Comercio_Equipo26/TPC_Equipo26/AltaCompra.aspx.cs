@@ -132,7 +132,25 @@ namespace TPC_Equipo26
                         detallesCompra = new List<DetalleCompra>();
                     }
                     detallesCompra.Add(detalle);
+
+                    ArticuloNegocio negocioArticulo = new ArticuloNegocio();
+                    foreach (var detalleCompra in detallesCompra)
+                    {
+                        Articulo articulo = negocioArticulo.ObtenerArticuloPorID(detalleCompra.IdArticulo);
+                        if (articulo != null)
+                        {
+                            detalleCompra.NombreArticulo = articulo.Descripcion;
+                        }
+                        else
+                        {
+                            detalleCompra.NombreArticulo = "Artículo no encontrado";
+                        }
+                    }
+
                     Session["DetallesCompra"] = detallesCompra;
+
+                    rptArticulosAgregados.DataSource = detallesCompra;
+                    rptArticulosAgregados.DataBind();
 
                     ActualizarArticulosAgregados();
                     ActualizarCompra();
@@ -310,7 +328,7 @@ namespace TPC_Equipo26
                 }
             }
         }
-
-
+     
+        
     }
 }

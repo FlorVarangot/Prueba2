@@ -43,7 +43,20 @@ namespace TPC_Equipo26
                 DetalleCompraNegocio negocio = new DetalleCompraNegocio();
                 List<DetalleCompra> detalles = negocio.ListarDetalleCompra(idCompra);
 
-               
+                ArticuloNegocio negocioArticulo = new ArticuloNegocio();
+                foreach (var detalle in detalles)
+                {
+                    Articulo articulo = negocioArticulo.ObtenerArticuloPorID(detalle.IdArticulo);
+                    if (articulo != null)
+                    {
+                        detalle.NombreArticulo = articulo.Descripcion;
+                    }
+                    else
+                    {
+                        detalle.NombreArticulo = "Artículo no encontrado";
+                    }
+                }
+
                 gvDetalle.DataSource = detalles;
                 gvDetalle.DataBind();
             }
