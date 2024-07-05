@@ -119,10 +119,31 @@ namespace TPC_Equipo26
             }
         }
 
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtCodigo.Text) ||
+                string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                string.IsNullOrWhiteSpace(txtDescripcion.Text) ||
+                string.IsNullOrWhiteSpace(txtImagenUrl.Text) ||
+                ddlMarca.SelectedValue == "-1" ||
+                ddlCategoria.SelectedValue == "-1" ||
+                string.IsNullOrWhiteSpace(numGanancia.Value) ||
+                string.IsNullOrWhiteSpace(numStockMinimo.Value))
+            {
+                lblError.Text = "Todos los campos deben ser completados.";
+                lblError.Visible = true;
+                return false;
+            }
+            return true;
+        }
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
+                if (!ValidarCampos())
+                {
+                    return;
+                }
                 Articulo nuevo = new Articulo();
                 ArticuloNegocio negocio = new ArticuloNegocio();
 

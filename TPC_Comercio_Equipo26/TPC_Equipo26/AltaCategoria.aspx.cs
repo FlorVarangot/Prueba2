@@ -73,10 +73,24 @@ namespace TPC_Equipo26
             txtDescripcion.Text = string.Empty;
         }
 
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                lblError.Text = "El campo de Descripcion no puede quedar Incompleto";
+                lblError.Visible = true;
+                return false;
+            }
+            return true;
+        }
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
+                if (!ValidarCampos())
+                {
+                    return; 
+                }
                 Categoria categoria = new Categoria();
                 CategoriaNegocio negocio = new CategoriaNegocio();
 

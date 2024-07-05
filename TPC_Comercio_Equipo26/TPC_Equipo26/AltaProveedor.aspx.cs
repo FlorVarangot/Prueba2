@@ -80,10 +80,28 @@ namespace TPC_Equipo26
             TxtDirec.Text = string.Empty;
         }
 
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(TxtNombre.Text) ||
+                string.IsNullOrWhiteSpace(TxtCuit.Text) ||
+                string.IsNullOrWhiteSpace(TxtEmail.Text) ||
+                string.IsNullOrWhiteSpace(TxtTel.Text) ||
+                string.IsNullOrWhiteSpace(TxtDirec.Text))
+            {
+                lblError.Text = "Todos los campos deben ser completados.";
+                lblError.Visible = true;
+                return false;
+            }
+            return true;
+        }
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
+                if (!ValidarCampos())
+                {
+                    return;
+                }
                 Proveedor proveedor = new Proveedor();
                 ProveedorNegocio negocio = new ProveedorNegocio();
 

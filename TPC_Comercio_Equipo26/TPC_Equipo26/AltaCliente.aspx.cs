@@ -84,10 +84,29 @@ namespace TPC_Equipo26
             }
         }
 
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                string.IsNullOrWhiteSpace(txtApellido.Text) ||
+                string.IsNullOrWhiteSpace(txtDNI.Text) ||
+                string.IsNullOrWhiteSpace(txtTelefono.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                string.IsNullOrWhiteSpace(txtDireccion.Text))
+            {
+                lblError.Text = "Todos los campos deben ser completados.";
+                lblError.Visible = true;
+                return false;
+            }
+            return true;
+        }
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
+                if (!ValidarCampos())
+                {
+                    return;
+                }
                 Cliente cliente = new Cliente();
                 ClienteNegocio negocio = new ClienteNegocio();
 

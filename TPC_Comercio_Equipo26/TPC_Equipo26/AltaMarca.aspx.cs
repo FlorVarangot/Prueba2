@@ -100,10 +100,25 @@ namespace TPC_Equipo26
             imgMarcas.ImageUrl = txtImagenUrl.Text;
         }
 
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text) || string.IsNullOrWhiteSpace(txtImagenUrl.Text) || ddlProveedor.SelectedValue == "-1")
+            {
+                lblError.Text = "Todos los campos deben ser completados.";
+                lblError.Visible = true;
+                return false;
+            }
+            return true;
+        }
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
+                if (!ValidarCampos())
+                {
+                    return;
+                }
+
                 Marca marca = new Marca();
                 MarcaNegocio negocio = new MarcaNegocio();
 

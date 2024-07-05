@@ -58,10 +58,10 @@ namespace TPC_Equipo26
         private void FiltrarCompras()
         {
             List<Compra> listaCompras = (List<Compra>)Session["ListaCompras"];
-            string filtroFecha = txtFiltro.Text.Trim();
-            if (!string.IsNullOrEmpty(filtroFecha))
+            string filtro = txtFiltro.Text.Trim();
+            if (!string.IsNullOrEmpty(filtro))
             {
-                listaCompras = listaCompras.Where(x => x.FechaCompra.ToString("dd/MM/yyyy").Contains(filtroFecha)).ToList();
+                listaCompras = listaCompras.Where(x => x.ID.ToString().Contains(filtro) || x.FechaCompra.ToString("dd/MM/yyyy").Contains(filtro)).ToList();
             }
             if (ddlProveedor.SelectedIndex > 0)
             {

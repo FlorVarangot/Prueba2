@@ -26,6 +26,7 @@ namespace TPC_Equipo26
                 lblTotalCompra.Text = "$0.00";
                 detallesCompra = new List<DetalleCompra>();
                 Session["DetallesCompra"] = detallesCompra;
+                btnGuardarCompra.Visible = false;
             }
             else
             {
@@ -151,7 +152,7 @@ namespace TPC_Equipo26
 
                     rptArticulosAgregados.DataSource = detallesCompra;
                     rptArticulosAgregados.DataBind();
-
+                    btnGuardarCompra.Visible = true;
                     ActualizarArticulosAgregados();
                     ActualizarCompra();
 
@@ -183,12 +184,12 @@ namespace TPC_Equipo26
 
             if (cantidad <= 0 && precio <= 0)
             {
-                return "Ingrese cantidad y precio validos.";
+                return "Ingrese cantidad y precio validos";
             }
 
             if (cantidad <= 0)
             {
-                return "Ingrese una cantidad valida.";
+                return "Ingrese una cantidad valida";
             }
 
             if (precio <= 0)

@@ -88,6 +88,26 @@ namespace TPC_Equipo26
                     ventasFiltrada = ventas;
                 }
 
+                string ordenSeleccionado = ddlOrdenarPor.SelectedValue;
+                switch (ordenSeleccionado)
+                {
+                    case "MayorPrecio":
+                        ventasFiltrada = ventasFiltrada.OrderByDescending(x => x.Total).ToList();
+                        break;
+                    case "MenorPrecio":
+                        ventasFiltrada = ventasFiltrada.OrderBy(x => x.Total).ToList();
+                        break;
+                    case "FechaReciente":
+                        ventasFiltrada = ventasFiltrada.OrderByDescending(x => x.FechaVenta).ToList();
+                        break;
+                    case "FechaAntigua":
+                        ventasFiltrada = ventasFiltrada.OrderBy(x => x.FechaVenta).ToList();
+                        break;
+                    default:
+                        ventasFiltrada = ventasFiltrada.OrderBy(x => x.ID).ToList();
+                        break;
+                }
+
                 Session["ListaVentasFiltrada"] = ventasFiltrada;
                 GvVentas.DataSource = ventasFiltrada;
             }
@@ -98,36 +118,40 @@ namespace TPC_Equipo26
             GvVentas.DataBind();
         }
 
+        private void MostrarBotonRestablecer()
+        {
+            bool filtroActivo = !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue) || !string.IsNullOrEmpty(ddlCliente.SelectedValue);
+            BtnLimpiarFiltros.Visible = filtroActivo;
+        }
+
         protected void TxtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarVentas();
+            MostrarBotonRestablecer();
         }
 
         protected void ddlCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarVentas();
+            MostrarBotonRestablecer();
         }
-
-        protected void ChkOrdenarPorFecha_CheckedChanged(object sender, EventArgs e)
+        protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarVentas();
-        }
-
-        protected void ChkOrdenarPorTotal_CheckedChanged(object sender, EventArgs e)
-        {
-            FiltrarVentas();
+            MostrarBotonRestablecer();
         }
 
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             try
             {
-                //TxtFiltro.Text = string.Empty;
-                //ChkOrdenarPorFecha.Checked = false;
-                //ChkOrdenarPorTotal.Checked = false;
+                //TxtFiltro.Text = string.Empty;              
                 ddlCliente.SelectedIndex = -1;
-
+                BtnLimpiarFiltros.Visible=false;
                 CargarVentas();
+
+                FiltrarVentas();
+                MostrarBotonRestablecer();
             }
             catch (Exception)
             {
@@ -195,6 +219,7 @@ namespace TPC_Equipo26
             }
         }
 
+        
     }
 
 }
