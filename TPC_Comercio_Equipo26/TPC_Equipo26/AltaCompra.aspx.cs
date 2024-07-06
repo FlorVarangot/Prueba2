@@ -52,16 +52,19 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+        
         private void CargarMarcas()
         {
             ddlMarca.Items.Clear();
             ddlMarca.Items.Insert(0, new ListItem("Seleccione Proveedor primero", ""));
         }
+        
         private void CargarArticulos()
         {
             ddlArticulo.Items.Clear();
             ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
         }
+
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idProveedor = int.Parse(ddlProveedor.SelectedValue);
@@ -86,6 +89,7 @@ namespace TPC_Equipo26
             ddlArticulo.Items.Clear();
             ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
         }
+        
         protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idMarca = int.Parse(ddlMarca.SelectedValue);
@@ -107,6 +111,7 @@ namespace TPC_Equipo26
                 ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
             }
         }
+        
         protected void ddlArticulo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlArticulo.SelectedIndex > 0)
@@ -114,6 +119,7 @@ namespace TPC_Equipo26
                 ddlProveedor.Enabled = false;
             }
         }
+        
         protected void btnAgregar_Click1(object sender, EventArgs e)
         {
             string error = ValidarCampos();
@@ -221,6 +227,7 @@ namespace TPC_Equipo26
             lblTotalCompra.Text = total.ToString("C2");
             Session["Total"] = total;
         }
+        
         private decimal Calcular()
         {
             decimal total = 0;
@@ -230,7 +237,6 @@ namespace TPC_Equipo26
             }
             return total;
         }
-
 
         protected void btnGuardarCompra_Click(object sender, EventArgs e)
         {
@@ -249,10 +255,12 @@ namespace TPC_Equipo26
                     CompraNegocio negocio = new CompraNegocio();
                     negocio.AgregarCompra(compra);
 
+                    DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                    datoNegocio.ActualizarStockPostCompra(compra);
+
                     Session["DetallesCompra"] = null;
                     Session["Total"] = null;
                     lblTotalCompra.Text = "$0.00";
-
 
                     LimpiarCampos();
                     Response.Redirect("Compras.aspx", false);
@@ -329,7 +337,6 @@ namespace TPC_Equipo26
                 }
             }
         }
-     
         
     }
 }

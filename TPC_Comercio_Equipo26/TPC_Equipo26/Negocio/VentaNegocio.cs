@@ -91,7 +91,6 @@ namespace TPC_Equipo26.Negocio
                         datosDetalle.setearParametro("@IdVenta", idVenta);
                         datosDetalle.setearParametro("@IdArticulo", detalle.IdArticulo);
                         datosDetalle.setearParametro("@Cantidad", detalle.Cantidad);
-
                         datosDetalle.ejecutarAccion();
                     }
                 }

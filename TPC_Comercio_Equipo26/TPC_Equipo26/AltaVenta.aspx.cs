@@ -116,7 +116,7 @@ namespace TPC_Equipo26
                 detalle.IdVenta = idVenta;
                 detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                 detalle.Cantidad = int.Parse(numCantidad.Value);
-                
+
                 if (validarStock(detalle))
                 {
                     detallesVenta.Add(detalle);
@@ -146,18 +146,24 @@ namespace TPC_Equipo26
 
         private bool validarStock(DetalleVenta detalle)
         {
-            DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-
-            long idArticulo = detalle.IdArticulo;
-            int cantidadSolicitada = detalle.Cantidad;
-            int cantidadEnStock = datoNegocio.ObtenerStockArticulo(idArticulo);
-
-            if (cantidadSolicitada <= cantidadEnStock)
+            try
             {
-               return true;
+                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+
+                long idArticulo = detalle.IdArticulo;
+                int cantidadSolicitada = detalle.Cantidad;
+                int cantidadEnStock = datoNegocio.ObtenerStockArticulo(idArticulo);
+
+                if (cantidadSolicitada <= cantidadEnStock)
+                {
+                    return true;
+                }
+
+                return false;
             }
-            else
+            catch
             {
+                Response.Redirect("Error.aspx");
                 return false;
             }
         }
@@ -199,9 +205,9 @@ namespace TPC_Equipo26
                 VentaNegocio negocio = new VentaNegocio();
                 negocio.AgregarVenta(venta);
 
-                //PENDIENTE
-                //DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-                /*datoNegocio.ActualizarStock(venta)*/
+                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                datoNegocio.ActualizarStockPostVenta(venta);
+
 
                 Session["DetallesVenta"] = null;
                 Session["Total"] = null;
