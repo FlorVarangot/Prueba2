@@ -128,16 +128,13 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, " +
-                                     "DNI = @DNI, Telefono = @Telefono, Email = @Email, " +
-                                     "Direccion = @Direccion, Activo = @Activo WHERE Id = @Id");
+                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Telefono = @Telefono, Email = @Email, Direccion = @Direccion WHERE Id = @Id");
                 datos.setearParametro("@Nombre", cliente.Nombre);
                 datos.setearParametro("@Apellido", cliente.Apellido);
                 datos.setearParametro("@DNI", cliente.Dni);
                 datos.setearParametro("@Telefono", cliente.Telefono);
                 datos.setearParametro("@Email", cliente.Email);
                 datos.setearParametro("@Direccion", cliente.Direccion);
-                datos.setearParametro("@Activo", cliente.Activo);
                 datos.setearParametro("@Id", cliente.ID);
                 datos.ejecutarAccion();
             }

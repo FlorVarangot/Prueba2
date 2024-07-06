@@ -129,10 +129,9 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion, Activo = @Activo WHERE Id = @Id");
+                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion WHERE Id = @Id");
 
                 datos.setearParametro("@Descripcion", categoria.Descripcion);
-                datos.setearParametro("@Activo", categoria.Activo);
                 datos.setearParametro("@Id", categoria.ID);
 
                 datos.ejecutarAccion();

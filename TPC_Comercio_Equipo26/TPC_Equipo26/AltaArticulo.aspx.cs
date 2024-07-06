@@ -145,10 +145,9 @@ namespace TPC_Equipo26
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
                 nuevo.Ganancia = decimal.Parse(numGanancia.Value);
-                nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Imagen = txtImagenUrl.Text;
+                nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;
-                
                 setearMarcaYCategoria(nuevo);
 
                 if (Request.QueryString["ID"] == null)
@@ -248,8 +247,8 @@ namespace TPC_Equipo26
                     nuevo.Nombre = txtNombre.Text;
                     nuevo.Descripcion = txtDescripcion.Text;
                     nuevo.Ganancia = decimal.Parse(numGanancia.Value);
-                    nuevo.StockMin = int.Parse(numStockMinimo.Value);
                     nuevo.Imagen = txtImagenUrl.Text;
+                    nuevo.StockMin = int.Parse(numStockMinimo.Value);
                     nuevo.Activo = true;
                     setearMarcaYCategoria(nuevo);
 

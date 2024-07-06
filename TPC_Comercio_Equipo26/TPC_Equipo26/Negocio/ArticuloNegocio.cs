@@ -315,18 +315,21 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, Ganancia_Porcentaje = @Ganancia_Porcentaje, Stock_Minimo = @Stock_Minimo, Imagen = @Imagen, Activo = @Activo WHERE Id = @Id");
+                datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, Ganancia_Porcentaje = @Ganancia_Porcentaje, Imagen = @Imagen, Stock_Minimo = @Stock_Minimo, Activo = @Activo WHERE Id = @Id");
                 datos.setearParametro("@Codigo", nuevo.Codigo);
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Descripcion", nuevo.Descripcion);
                 datos.setearParametro("@IdMarca", nuevo.Marca.ID);
                 datos.setearParametro("@IdCategoria", nuevo.Categoria.ID);
-                datos.setearParametro("@Ganancia_Porcentaje", nuevo.Ganancia);
+
+                //PROVISORIO: ARREGLAR
+                datos.setearParametro("@Ganancia_Porcentaje", 55);
+                //datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
+                
                 datos.setearParametro("@Stock_Minimo", nuevo.StockMin);
-                datos.setearParametro("@Imagen", !string.IsNullOrEmpty(nuevo.Imagen) ? nuevo.Imagen : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg");
+                datos.setearParametro("@Imagen", nuevo.Imagen);
                 datos.setearParametro("@Activo", nuevo.Activo);
                 datos.setearParametro("@Id", nuevo.ID);
-
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -369,7 +372,11 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Descripcion", arti.Descripcion);
                 datos.setearParametro("@IdMarca", arti.Marca.ID);
                 datos.setearParametro("@IdCategoria", arti.Categoria.ID);
-                datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
+
+                //PROVISORIO: ARREGLAR
+                datos.setearParametro("@Ganancia_Porcentaje", 55);
+                //datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
+                
                 datos.setearParametro("@Stock_Minimo", arti.StockMin);
                 datos.setearParametro("@Imagen", !string.IsNullOrEmpty(arti.Imagen) ? arti.Imagen : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg");
                 datos.setearParametro("@Activo", arti.Activo);

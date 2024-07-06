@@ -108,12 +108,11 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE MARCAS SET Descripcion = @Descripcion, IdProveedor = @IdProveedor, ImagenUrl = @ImagenUrl, Activo = @Activo WHERE Id = @Id");
+                datos.setearConsulta("UPDATE MARCAS SET Descripcion = @Descripcion, IdProveedor = @IdProveedor, ImagenUrl = @ImagenUrl WHERE Id = @Id");
 
                 datos.setearParametro("@Descripcion", marca.Descripcion);
                 datos.setearParametro("@IdProveedor", marca.IdProveedor);
                 datos.setearParametro("@ImagenUrl", marca.ImagenUrl);
-                datos.setearParametro("@Activo", marca.Activo);
                 datos.setearParametro("@Id", marca.ID);
 
                 datos.ejecutarAccion();
