@@ -162,15 +162,14 @@ namespace TPC_Equipo26.Negocio
             return listaArticulos;
         }
 
-        public string VerificarArticulo(string codigo, string nombre, int idMarca)
+        public string VerificarArticulo(string codigo, string nombre)
         {
             AccesoDatos datosCodigo = new AccesoDatos();
             AccesoDatos datosNombre = new AccesoDatos();
             try
             {
-                datosCodigo.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Codigo = @Codigo AND IdMarca = @IdMarca");
+                datosCodigo.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Codigo = @Codigo");
                 datosCodigo.setearParametro("@Codigo", codigo);
-                datosCodigo.setearParametro("@IdMarca", idMarca);
                 datosCodigo.ejecutarLectura();
 
                 if (datosCodigo.Lector.Read())
@@ -178,13 +177,12 @@ namespace TPC_Equipo26.Negocio
                     int count = (int)datosCodigo.Lector[0];
                     if (count > 0)
                     {
-                        return "Ya existe un artículo con ese código para esta marca";
+                        return "Ya existe un artículo con ese código";
                     }
                 }
 
-                datosNombre.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Nombre = @Nombre AND IdMarca = @IdMarca");
+                datosNombre.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Nombre = @Nombre");
                 datosNombre.setearParametro("@Nombre", nombre);
-                datosNombre.setearParametro("@IdMarca", idMarca);
                 datosNombre.ejecutarLectura();
 
                 if (datosNombre.Lector.Read())
@@ -192,7 +190,7 @@ namespace TPC_Equipo26.Negocio
                     int count = (int)datosNombre.Lector[0];
                     if (count > 0)
                     {
-                        return "Ya existe un artículo con ese nombre para esta marca";
+                        return "Ya existe un artículo con ese nombre";
                     }
                 }
 

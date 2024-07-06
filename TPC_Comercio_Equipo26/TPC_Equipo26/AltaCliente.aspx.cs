@@ -99,7 +99,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
-        
+
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -119,12 +119,15 @@ namespace TPC_Equipo26
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Activo = true;
 
-                string verificarDuplicado = negocio.VerificarClientePorDNI(cliente.Dni);
-                if (verificarDuplicado != null)
+                if (Request.QueryString["ID"] == null)
                 {
-                    lblError.Text = verificarDuplicado;
-                    lblError.Visible = true;
-                    return;
+                    string verificarDuplicado = negocio.VerificarClientePorDNI(cliente.Dni);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                 }
 
                 if (Request.QueryString["ID"] != null)
@@ -175,7 +178,7 @@ namespace TPC_Equipo26
             ConfirmarInactivar = false;
             ConfirmarReactivar = true;
         }
-      
+
         protected void btnConfirmaReactivar_Click(object sender, EventArgs e)
         {
             try

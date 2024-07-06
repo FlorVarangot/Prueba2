@@ -61,10 +61,10 @@ namespace TPC_Equipo26
             if (marca != null)
             {
                 txtDescripcion.Text = marca.Descripcion;
-                txtImagenUrl.Text = marca.ImagenUrl ?? string.Empty; 
+                txtImagenUrl.Text = marca.ImagenUrl ?? string.Empty;
                 imgMarcas.ImageUrl = !string.IsNullOrEmpty(marca.ImagenUrl) ? marca.ImagenUrl : "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
 
-                ddlProveedor.SelectedValue = marca.IdProveedor.ToString();            
+                ddlProveedor.SelectedValue = marca.IdProveedor.ToString();
 
                 if (marca.Activo == true)
                 {
@@ -107,7 +107,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
-        
+
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -124,12 +124,15 @@ namespace TPC_Equipo26
                 marca.ImagenUrl = txtImagenUrl.Text;
                 marca.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
 
-                string verificarDuplicado = negocio.VerificarMarca(marca.Descripcion, marca.IdProveedor);
-                if (verificarDuplicado != null)
+                if (Request.QueryString["ID"] == null)
                 {
-                    lblError.Text = verificarDuplicado;
-                    lblError.Visible = true;
-                    return; 
+                    string verificarDuplicado = negocio.VerificarMarca(marca.Descripcion, marca.IdProveedor);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                 }
                 if (Request.QueryString["ID"] != null)
                 {

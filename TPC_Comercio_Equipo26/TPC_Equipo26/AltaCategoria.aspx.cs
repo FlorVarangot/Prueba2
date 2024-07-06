@@ -68,7 +68,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-        
+
         private void LimpiarCampos()
         {
             txtDescripcion.Text = string.Empty;
@@ -84,26 +84,30 @@ namespace TPC_Equipo26
             }
             return true;
         }
-        
+
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
                 if (!ValidarCampos())
                 {
-                    return; 
+                    return;
                 }
                 Categoria categoria = new Categoria();
                 CategoriaNegocio negocio = new CategoriaNegocio();
 
                 categoria.Descripcion = txtDescripcion.Text;
                 categoria.Activo = true;
-                string verificarDuplicado = negocio.VerificarCategoria(categoria.Descripcion);
-                if (verificarDuplicado != null)
+
+                if (Request.QueryString["ID"] == null)
                 {
-                    lblError.Text = verificarDuplicado;
-                    lblError.Visible = true;
-                    return;
+                    string verificarDuplicado = negocio.VerificarCategoria(categoria.Descripcion);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                 }
                 if (Request.QueryString["ID"] != null)
                 {
@@ -147,7 +151,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
-        
+
         protected void btnReactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = false;

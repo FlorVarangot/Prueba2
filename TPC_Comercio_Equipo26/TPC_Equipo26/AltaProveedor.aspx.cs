@@ -94,7 +94,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
-        
+
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -112,12 +112,15 @@ namespace TPC_Equipo26
                 proveedor.Telefono = TxtTel.Text;
                 proveedor.Direccion = TxtDirec.Text;
 
-                string verificarDuplicado = negocio.VerificarProveedor(proveedor.Nombre, proveedor.CUIT, proveedor.Email);
-                if (verificarDuplicado != null)
+                if (Request.QueryString["ID"] == null)
                 {
-                    lblError.Text = verificarDuplicado;
-                    lblError.Visible = true;
-                    return;
+                    string verificarDuplicado = negocio.VerificarProveedor(proveedor.Nombre, proveedor.CUIT, proveedor.Email);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                 }
 
                 if (Request.QueryString["ID"] != null)
