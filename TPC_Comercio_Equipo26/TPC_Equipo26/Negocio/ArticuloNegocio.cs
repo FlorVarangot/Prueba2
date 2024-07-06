@@ -212,7 +212,6 @@ namespace TPC_Equipo26.Negocio
         public void Agregar(Articulo articulo)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Stock_Minimo, Imagen, Activo, Ganancia_Porcentaje) VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Stock_Minimo, @Imagen, @Activo, @Ganancia_Porcentaje)");
@@ -342,7 +341,7 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        public void EliminarLogico(long Id, bool activo)
+        public void EliminarLogico(long Id, bool estado)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -350,7 +349,7 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.setearConsulta("UPDATE ARTICULOS SET Activo = @activo WHERE Id = @Id");
                 datos.setearParametro("@Id", Id);
-                datos.setearParametro("@activo", activo);
+                datos.setearParametro("@activo", estado);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -360,12 +359,13 @@ namespace TPC_Equipo26.Negocio
             finally { datos.cerrarConexion(); }
         }
 
-        public void ReactivarModificar(Articulo arti, bool activo)
+        public void ReactivarModificar(Articulo arti)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, Ganancia_Porcentaje = @Ganancia_Porcentaje, Stock_Minimo = @Stock_Minimo, Imagen = @Imagen, Activo = @Activo WHERE Id = @Id");
+                
                 datos.setearParametro("@Codigo", arti.Codigo);
                 datos.setearParametro("@Nombre", arti.Nombre);
                 datos.setearParametro("@Descripcion", arti.Descripcion);
@@ -374,7 +374,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
                 datos.setearParametro("@Stock_Minimo", arti.StockMin);
                 datos.setearParametro("@Imagen", !string.IsNullOrEmpty(arti.Imagen) ? arti.Imagen : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg");
-                datos.setearParametro("@Activo", activo);
+                datos.setearParametro("@Activo", arti.Activo);
                 datos.setearParametro("@Id", arti.ID);
 
                 datos.ejecutarAccion();

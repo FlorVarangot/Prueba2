@@ -68,6 +68,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
+        
         private void LimpiarCampos()
         {
             txtDescripcion.Text = string.Empty;
@@ -83,6 +84,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
+        
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -145,6 +147,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+        
         protected void btnReactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = false;
@@ -157,9 +160,18 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
-                    int id = Convert.ToInt32(Request.QueryString["ID"]);
+                    if (!ValidarCampos())
+                    {
+                        return;
+                    }
+
+                    Categoria nueva = new Categoria();
                     CategoriaNegocio negocio = new CategoriaNegocio();
-                    negocio.EliminarLogico(id, true);
+
+                    nueva.ID = int.Parse(Request.QueryString["ID"]);
+                    nueva.Descripcion = txtDescripcion.Text;
+                    nueva.Activo = true;
+                    negocio.ReactivarModificar(nueva);
                     Response.Redirect("Categorias.aspx", false);
                 }
             }

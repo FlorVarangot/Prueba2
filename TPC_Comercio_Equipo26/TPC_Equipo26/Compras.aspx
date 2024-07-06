@@ -8,16 +8,14 @@
             <h1>COMPRAS</h1>
         </div>
         <div id="contenedorFiltros" runat="server" visible="false">
-            <div class="row mb-2">
-                <div class="col-4">
-                    <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" Placeholder="Buscar por Fecha..." OnTextChanged="txtFiltro_TextChanged" />
+            <div class="row mb-3">
+                <div class="col-3">
+                    <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" Placeholder="Buscar por Fecha o Compra..." OnTextChanged="txtFiltro_TextChanged" />
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
                 </div>
-            </div>
-            <div class="row mb-2">
-                <div class="col-2 text-center">
+                <div class="col-3 text-center">
                     <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
                         <asp:ListItem Text="Ordenar por..." Value="" />
                         <asp:ListItem Text="Mayor Precio" Value="MayorPrecio" />
@@ -26,7 +24,7 @@
                         <asp:ListItem Text="Fecha Más Antigua" Value="FechaAntigua" />
                     </asp:DropDownList>
                 </div>
-                <div class="col-4">
+                <div class="col-3 text-end">
                     <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer filtros" OnClick="btnRestablecer_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" Visible="false" />
                 </div>
             </div>

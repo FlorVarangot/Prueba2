@@ -101,6 +101,7 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
+        
         public void Agregar(Categoria categoria)
         {          
             AccesoDatos datos = new AccesoDatos();
@@ -146,7 +147,7 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        public void EliminarLogico(int Id, bool activo)
+        public void EliminarLogico(int Id, bool estado)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -154,7 +155,7 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.setearConsulta("UPDATE CATEGORIAS SET Activo = @activo WHERE Id = @Id");
                 datos.setearParametro("@Id", Id);
-                datos.setearParametro("@activo", activo);
+                datos.setearParametro("@activo", estado);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -165,6 +166,26 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void ReactivarModificar (Categoria categoria)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion, Activo = @Activo WHERE Id = @Id");
+
+                datos.setearParametro("@Descripcion", categoria.Descripcion);
+                datos.setearParametro("@Activo", categoria.Activo);
+                datos.setearParametro("@Id", categoria.ID);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion();}
         }
     }
 }

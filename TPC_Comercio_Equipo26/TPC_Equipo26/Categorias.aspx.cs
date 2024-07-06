@@ -39,43 +39,56 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarCategorias();
         }
+       
         private void FiltrarCategorias()
         {
             List<Categoria> lista = (List<Categoria>)Session["listaCategorias"];
             string filtro = txtFiltro.Text.Trim().ToUpper();
             bool incluirInactivos = chkIncluirInactivos.Checked;
 
-            List<Categoria> listaFiltrada;
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                lista = lista.Where(x => x.ID.ToString().Contains(filtro) || x.Descripcion.Contains(filtro)).ToList();
+            }
+            if (!incluirInactivos)
+            {
+                lista = lista.Where(x => x.Activo == true).ToList();
+            }
 
-            if (lista != null)
+            string orden = ddlOrdenarPor.SelectedValue;
+            switch (orden)
             {
-                if (string.IsNullOrEmpty(filtro))
-                {
-                    listaFiltrada = incluirInactivos ? lista : lista.Where(x => x.Activo).ToList();
-                }
-                else
-                {
-                    listaFiltrada = lista.Where(x =>
-                        x.Descripcion.ToUpper().Contains(filtro) &&
-                        (x.Activo || incluirInactivos)).ToList();
-                }
-                Session["listaFiltrada"] = listaFiltrada;
-                gvCategorias.DataSource = listaFiltrada;
+                case "DescripcionAZ":
+                    lista = lista.OrderByDescending(x => x.Descripcion).ToList();
+                    break;
+                case "DescripcionZA":
+                    lista = lista.OrderBy(x => x.Descripcion).ToList();
+                    break;
+                case "IdDesc":
+                    lista = lista.OrderByDescending(x => x.ID).ToList();
+                    break;
+                default:
+                    lista = lista.OrderBy(x => x.ID).ToList();
+                    break;
             }
-            else
-            {
-                gvCategorias.DataSource = lista;
-            }
+
+            MostrarBotonReestablecer();
+
+            Session["ListaFiltrada"] = lista;
+            gvCategorias.DataSource = lista;
             gvCategorias.DataBind();
         }
+        
         protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             txtFiltro.Text = string.Empty;
             chkIncluirInactivos.Checked = false;
+            ddlOrdenarPor.SelectedIndex = -1;
             CargarCategorias();
         }
 
@@ -104,6 +117,17 @@ namespace TPC_Equipo26
             {
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarCategorias();
+        }
+
+        private void MostrarBotonReestablecer()
+        {
+            btnLimpiarFiltros.Visible = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) ||
+                                        !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue);
         }
     }
 }

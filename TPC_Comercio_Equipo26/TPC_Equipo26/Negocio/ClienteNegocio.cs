@@ -75,7 +75,6 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-
         public void Agregar(Cliente cliente)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -127,7 +126,6 @@ namespace TPC_Equipo26.Negocio
         public void Modificar(Cliente cliente)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, " +
@@ -189,6 +187,32 @@ namespace TPC_Equipo26.Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public void ReactivarModificar(Cliente cliente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, " +
+                                     "DNI = @DNI, Telefono = @Telefono, Email = @Email, " +
+                                     "Direccion = @Direccion, Activo = @Activo WHERE Id = @Id");
+                datos.setearParametro("@Nombre", cliente.Nombre);
+                datos.setearParametro("@Apellido", cliente.Apellido);
+                datos.setearParametro("@DNI", cliente.Dni);
+                datos.setearParametro("@Telefono", cliente.Telefono);
+                datos.setearParametro("@Email", cliente.Email);
+                datos.setearParametro("@Direccion", cliente.Direccion);
+                datos.setearParametro("@Activo", cliente.Activo);
+                datos.setearParametro("@Id", cliente.ID);
+                datos.ejecutarAccion();
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion();}
         }
     }
 }

@@ -94,6 +94,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
+        
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -174,9 +175,23 @@ namespace TPC_Equipo26
             {
                 if (ChkConfirmaReactivacion.Checked)
                 {
-                    int id = Convert.ToInt32(Request.QueryString["ID"]);
+                    if (!ValidarCampos())
+                    {
+                        return;
+                    }
+
+                    Proveedor proveedor = new Proveedor();
                     ProveedorNegocio negocio = new ProveedorNegocio();
-                    negocio.ActivarLogico(id, true);
+
+                    proveedor.ID = int.Parse(Request.QueryString["ID"]);
+                    proveedor.Nombre = TxtNombre.Text;
+                    proveedor.CUIT = TxtCuit.Text;
+                    proveedor.Email = TxtEmail.Text;
+                    proveedor.Telefono = TxtTel.Text;
+                    proveedor.Direccion = TxtDirec.Text;
+                    proveedor.Activo = true;
+
+                    negocio.ReactivarModificar(proveedor);
                     Response.Redirect("Proveedores.aspx", false);
                 }
             }

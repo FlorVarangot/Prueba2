@@ -9,15 +9,10 @@
         </div>
 
         <div class="row mb-4">
-            <%-- <div class="col-4">
-                <asp:TextBox runat="server" ID="TxtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxtFiltro_TextChanged" Placeholder="Buscar" />
-            </div>--%>
             <div class="col-4">
                 <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
             </div>
-        </div>
-        <div class="row mb-2">
-            <div class="col-2 text-center">
+            <div class="col-2">
                 <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
                     <asp:ListItem Text="Ordenar por..." Value="" />
                     <asp:ListItem Text="Mayor Precio" Value="MayorPrecio" />
@@ -26,7 +21,7 @@
                     <asp:ListItem Text="Fecha Más Antigua" Value="FechaAntigua" />
                 </asp:DropDownList>
             </div>
-            <div class="col-8 text-end">
+            <div class="col-6 text-end">
                 <asp:Button runat="server" ID="BtnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" Visible="false" />
             </div>
         </div>

@@ -9,14 +9,22 @@
             <h1>MARCAS</h1>
         </div>
         <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-3">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar" />
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="FiltroProveedor_SelectedIndexChanged" />
             </div>
-            <div class="col-1">
-                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
+            <div class="col-3">
+                <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
+                    <asp:ListItem Text="Ordenar por..." Value="" />
+                    <asp:ListItem Text="Nombre A-Z" Value="DescripcionAZ" />
+                    <asp:ListItem Text="Nombre Z-A" Value="DescripcionZA" />
+                    <asp:ListItem Text="ID ↓" Value="IdDesc" />
+                </asp:DropDownList>
+            </div>
+            <div class="col-2">
+                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" Visible="false" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>
         <div class="row mb-3">
@@ -33,7 +41,7 @@
         AllowPaging="true" PageSize="10" OnRowDataBound="GvMarcas_RowDataBound">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />
-            <asp:BoundField HeaderText="Marca" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField HeaderText="Nombre" DataField="Descripcion" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField HeaderText="Proveedor" DataField="IdProveedor" ItemStyle-HorizontalAlign="Center" />
             <asp:TemplateField HeaderText="Imagen">
                 <ItemTemplate>

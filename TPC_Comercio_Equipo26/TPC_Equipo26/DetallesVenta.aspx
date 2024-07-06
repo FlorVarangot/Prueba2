@@ -21,7 +21,7 @@
                 <asp:Label runat="server" ID="lblVentaID" Text=""></asp:Label>
             </div>
             <div class="col-1 text-end">
-                <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta siguiente"> >> </asp:HyperLink>
+                <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow; font:bold" title="Ver venta siguiente"> >> </asp:HyperLink>
             </div>
         </div>
         <hr />

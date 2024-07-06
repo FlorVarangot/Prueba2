@@ -121,6 +121,7 @@ namespace TPC_Equipo26
                 e.Row.Cells[2].Text = proveedor;
             }
         }
+        
         private string TraerNombreProveedor(int idProveedor)
         {
             try
@@ -158,6 +159,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+        
         private void MostrarBotonRestablecer()
         {
             bool filtroActivo = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) ||
@@ -166,11 +168,13 @@ namespace TPC_Equipo26
 
             btnRestablecer.Visible = filtroActivo;
         }
+        
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
             MostrarBotonRestablecer();
         }
+        
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarCompras();

@@ -22,10 +22,7 @@ namespace TPC_Equipo26
                 if (!IsPostBack)
                 {
                     ProveedorNegocio negocio = new ProveedorNegocio();
-
-                    //F: Ahora si va a modificar sólo trae los proveedores activos
                     List<Proveedor> proveedores = negocio.Listar().Where(prov => prov.Activo).ToList();
-                    //List<Proveedor> proveedores = negocio.Listar();
 
                     ddlProveedor.DataSource = proveedores;
                     ddlProveedor.DataValueField = "ID";
@@ -110,6 +107,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
+        
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -189,9 +187,21 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
-                    int id = Convert.ToInt32(Request.QueryString["ID"]);
+                    if (!ValidarCampos())
+                    {
+                        return;
+                    }
+
+                    Marca marca = new Marca();
                     MarcaNegocio negocio = new MarcaNegocio();
-                    negocio.ActivarLogico(id, true);
+
+                    marca.ID = int.Parse(Request.QueryString["ID"]);
+                    marca.Descripcion = txtDescripcion.Text;
+                    marca.ImagenUrl = txtImagenUrl.Text;
+                    marca.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
+                    marca.Activo = true;
+
+                    negocio.ReactivarModificar(marca);
                     Response.Redirect("Marcas.aspx", false);
                 }
             }

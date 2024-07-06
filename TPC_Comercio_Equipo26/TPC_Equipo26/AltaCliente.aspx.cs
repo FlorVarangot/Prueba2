@@ -99,6 +99,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
+        
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -181,9 +182,24 @@ namespace TPC_Equipo26
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
-                    long id = Convert.ToInt64(Request.QueryString["ID"]);
+                    if (!ValidarCampos())
+                    {
+                        return;
+                    }
+
+                    Cliente cliente = new Cliente();
                     ClienteNegocio negocio = new ClienteNegocio();
-                    negocio.EliminarLogico(id, true);
+
+                    cliente.ID = long.Parse(Request.QueryString["ID"]);
+                    cliente.Nombre = txtNombre.Text;
+                    cliente.Apellido = txtApellido.Text;
+                    cliente.Dni = txtDNI.Text;
+                    cliente.Telefono = txtTelefono.Text;
+                    cliente.Email = txtEmail.Text;
+                    cliente.Direccion = txtDireccion.Text;
+                    cliente.Activo = true;
+
+                    negocio.ReactivarModificar(cliente);
                     Response.Redirect("Clientes.aspx", false);
                 }
             }

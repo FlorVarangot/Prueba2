@@ -45,41 +45,41 @@ namespace TPC_Equipo26
             bool incluirInactivos = chkIncluirInactivos.Checked;
             int proveedorSelec = int.Parse(ddlProveedor.SelectedValue);
 
-            List<Marca> listaFiltrada;
-
-            if (lista != null)
+            if (!string.IsNullOrEmpty(filtro))
             {
-                if (proveedorSelec == 0)
-                {
-                    if (string.IsNullOrEmpty(filtro))
-                    {
-                        listaFiltrada = incluirInactivos
-                            ? lista
-                            : lista.Where(x => x.Activo).ToList();
-                    }
-                    else
-                    {
-                        listaFiltrada = lista.Where(x =>
-                        //x.ID.ToString().Contains(filtro) ||
-                        x.Descripcion.ToUpper().Contains(filtro) &&
-                        (x.Activo || incluirInactivos)).ToList();
-                    }
-                }
-                else
-                {
-                    listaFiltrada = lista.Where(x =>
-                    x.IdProveedor == proveedorSelec &&
-                    x.Descripcion.ToUpper().Contains(filtro) &&
-                    (x.Activo || incluirInactivos)).ToList();
-                }
-                Session["listaFiltrada"] = listaFiltrada;
-                gvMarcas.DataSource = listaFiltrada;
+                lista = lista.Where(x => x.ID.ToString().Contains(filtro) || x.Descripcion.Contains(filtro)).ToList();
             }
-            else
+            if (ddlProveedor.SelectedIndex > 0)
             {
-                gvMarcas.DataSource = lista;
+                int proveedorSeleccionado = int.Parse(ddlProveedor.SelectedValue);
+                lista = lista.Where(x => x.IdProveedor == proveedorSeleccionado).ToList();
+            }
+            if (!incluirInactivos)
+            {
+                lista = lista.Where(x => x.Activo == true).ToList();
             }
 
+            string orden = ddlOrdenarPor.SelectedValue;
+            switch (orden)
+            {
+                case "DescripcionAZ":
+                    lista = lista.OrderByDescending(x => x.Descripcion).ToList();
+                    break;
+                case "DescripcionZA":
+                    lista = lista.OrderBy(x => x.Descripcion).ToList();
+                    break;
+                case "IdDesc":
+                    lista = lista.OrderByDescending(x => x.ID).ToList();
+                    break;
+                default:
+                    lista = lista.OrderBy(x => x.ID).ToList();
+                    break;
+            }
+
+            MostrarBotonReestablecer();
+
+            Session["ListaFiltrada"] = lista;
+            gvMarcas.DataSource = lista;
             gvMarcas.DataBind();
         }
 
@@ -128,6 +128,7 @@ namespace TPC_Equipo26
         {
             txtFiltro.Text = string.Empty;
             ddlProveedor.SelectedIndex = -1;
+            ddlOrdenarPor.SelectedIndex = -1;
             chkIncluirInactivos.Checked = false;
             CargarMarcas();
         }
@@ -157,14 +158,14 @@ namespace TPC_Equipo26
         {
             try
             {
-                MarcaNegocio marcaNegocio= new MarcaNegocio();
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
                 Marca marca = marcaNegocio.ObtenerMarcaPorId(id);
                 string proveedor = "";
 
                 if (marca != null)
                 {
                     int idProveedor = marca.IdProveedor;
-                    ProveedorNegocio proveedorNegocio= new ProveedorNegocio();
+                    ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
                     Proveedor prov = proveedorNegocio.ObtenerProveedorPorId(idProveedor);
 
                     if (prov != null)
@@ -181,6 +182,18 @@ namespace TPC_Equipo26
                 //    Response.Redirect("Error.aspx");
                 return "Error al obtener el nombre del proveedor";
             }
+        }
+
+        protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarMarcas();
+        }
+
+        private void MostrarBotonReestablecer()
+        {
+            btnLimpiarFiltros.Visible = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) ||
+                                        ddlProveedor.SelectedIndex > 0 ||
+                                        !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue);
         }
 
     }

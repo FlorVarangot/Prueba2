@@ -78,6 +78,7 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
+        
         public void Agregar(Marca marca)
         {          
             AccesoDatos datos = new AccesoDatos();
@@ -178,6 +179,31 @@ namespace TPC_Equipo26.Negocio
             }
             finally { datos.cerrarConexion(); }
 
+        }
+
+        public void ReactivarModificar(Marca marca)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE MARCAS SET Descripcion = @Descripcion, IdProveedor = @IdProveedor, ImagenUrl = @ImagenUrl, Activo = @Activo WHERE Id = @Id");
+
+                datos.setearParametro("@Descripcion", marca.Descripcion);
+                datos.setearParametro("@IdProveedor", marca.IdProveedor);
+                datos.setearParametro("@ImagenUrl", marca.ImagenUrl);
+                datos.setearParametro("@Activo", marca.Activo);
+                datos.setearParametro("@Id", marca.ID);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }

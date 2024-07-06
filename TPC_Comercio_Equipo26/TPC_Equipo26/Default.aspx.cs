@@ -143,6 +143,7 @@ namespace TPC_Equipo26
 
             btnLimpiarFiltros.Visible = filtroActivo;
         }
+        
         protected void Filtro_TextChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
@@ -166,6 +167,7 @@ namespace TPC_Equipo26
             FiltrarArticulos();
             MostrarBotonRestablecer();
         }
+        
         protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();

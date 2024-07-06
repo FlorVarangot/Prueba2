@@ -26,7 +26,6 @@ namespace TPC_Equipo26
                     ConfirmarInactivar = false;
                     ConfirmarReactivar = false;
 
-                    ///Cargo los desplegables para marcas
                     MarcaNegocio negocioMarca = new MarcaNegocio();
                     List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
 
@@ -35,7 +34,6 @@ namespace TPC_Equipo26
                     ddlMarca.DataTextField = "Descripcion";
                     ddlMarca.DataBind();
 
-                    ///lo mismo para categoria
                     CategoriaNegocio negocioCategoria = new CategoriaNegocio();
                     List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
 
@@ -150,7 +148,7 @@ namespace TPC_Equipo26
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.Activo = true;
-
+                
                 setearMarcaYCategoria(nuevo);
 
                 string verificarDuplicado = negocio.VerificarArticulo(nuevo.Codigo, nuevo.Nombre, nuevo.Marca.ID);
@@ -179,7 +177,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-
+        
         private void LimpiarCampos()
         {
             txtCodigo.Text = "";
@@ -242,6 +240,7 @@ namespace TPC_Equipo26
                     Articulo nuevo = new Articulo();
                     ArticuloNegocio negocio = new ArticuloNegocio();
 
+                    nuevo.ID = long.Parse(Request.QueryString["ID"]);
                     nuevo.Codigo = txtCodigo.Text;
                     nuevo.Nombre = txtNombre.Text;
                     nuevo.Descripcion = txtDescripcion.Text;
@@ -251,7 +250,7 @@ namespace TPC_Equipo26
                     nuevo.Activo = true;
                     setearMarcaYCategoria(nuevo);
 
-                    negocio.ReactivarModificar(nuevo, true);
+                    negocio.ReactivarModificar(nuevo);
                     Response.Redirect("Default.aspx", false);
                 }
             }
@@ -261,7 +260,7 @@ namespace TPC_Equipo26
             }
         }
 
-        private Articulo setearMarcaYCategoria(Articulo arti)
+        private void setearMarcaYCategoria(Articulo arti)
         {
             arti.Marca = new Marca();
             string marcaIDString = ddlMarca.SelectedValue;
@@ -275,8 +274,6 @@ namespace TPC_Equipo26
             {
                 arti.Categoria.ID = int.Parse(categoriaIDString);
             }
-
-            return arti;
         }
 
 
