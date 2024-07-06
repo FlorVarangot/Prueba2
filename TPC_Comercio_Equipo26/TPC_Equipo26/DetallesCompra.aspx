@@ -26,4 +26,5 @@
             </div>
         </div>
     </div>
+    <a href="Ventas.aspx" class="btn btn-danger">Salir</a>
 </asp:Content>

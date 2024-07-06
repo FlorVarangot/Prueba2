@@ -46,7 +46,7 @@
                     <%-- seguir pensando para eliminar art ingresado y despues tambien para cambiar cantidades --%>
                     <asp:TemplateField ItemStyle-Width="10%">
                         <ItemTemplate>
-                            <asp:Button ID="btnEliminar" runat="server" Text="🗑️" Title="Eliminar" CssClass="fa-regular fa-trash-can" 
+                            <asp:Button ID="btnEliminar" runat="server" Text="🗑️" Title="Eliminar" CssClass="fa-regular fa-trash-can"
                                 CommandName="Editar" CommandArgument='<%# Eval("Id") + "_Editar" %>' OnRowCommand="gvAltaVenta_RowCommand" />
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -62,5 +62,7 @@
                 <asp:Button runat="server" ID="btnGuardarVenta" Text="Confirmar venta" CssClass="btn btn-success" OnClick="btnConfirmarVenta_Click" OnClientClick="alert('Venta registrada con éxito.'); return true;" />
             </div>
         </div>
+        <a href="Ventas.aspx" class="btn btn-danger">Cancelar</a>
+
     </div>
 </asp:Content>

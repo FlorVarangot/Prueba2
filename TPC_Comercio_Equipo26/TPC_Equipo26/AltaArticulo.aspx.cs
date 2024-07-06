@@ -28,10 +28,7 @@ namespace TPC_Equipo26
 
                     ///Cargo los desplegables para marcas
                     MarcaNegocio negocioMarca = new MarcaNegocio();
-
-                    //F: Ahora si va a modificar sólo trae las marcas y categorias Activas.
                     List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
-                    //List<Marca> listaMarca = negocioMarca.Listar();
 
                     ddlMarca.DataSource = listaMarca;
                     ddlMarca.DataValueField = "ID";
@@ -41,8 +38,6 @@ namespace TPC_Equipo26
                     ///lo mismo para categoria
                     CategoriaNegocio negocioCategoria = new CategoriaNegocio();
                     List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
-                    //List<Categoria> listaCategoria = negocioCategoria.Listar();
-
 
                     ddlCategoria.DataSource = listaCategoria;
                     ddlCategoria.DataValueField = "ID";
@@ -62,7 +57,7 @@ namespace TPC_Equipo26
                         btnReactivar.Visible = false;
                         LimpiarCampos();
                     }
-                    
+
                 }
             }
             catch (Exception)
@@ -83,7 +78,7 @@ namespace TPC_Equipo26
                 txtDescripcion.Text = articulo.Descripcion;
                 txtImagenUrl.Text = articulo.Imagen;
 
-                numGanancia.Value = articulo.Ganancia.ToString("F4", CultureInfo.InvariantCulture);    
+                numGanancia.Value = articulo.Ganancia.ToString("F4", CultureInfo.InvariantCulture);
                 numStockMinimo.Value = articulo.StockMin.ToString();
 
                 ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
@@ -136,6 +131,7 @@ namespace TPC_Equipo26
             }
             return true;
         }
+
         protected void BtnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -150,24 +146,12 @@ namespace TPC_Equipo26
                 nuevo.Codigo = txtCodigo.Text;
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-
-                nuevo.Marca = new Marca();
-                string marcaIDString = ddlMarca.SelectedValue;
-                if (!string.IsNullOrEmpty(marcaIDString))
-                {
-                    nuevo.Marca.ID = int.Parse(marcaIDString);
-                }
-                nuevo.Categoria = new Categoria();
-                string categoriaIDString = ddlCategoria.SelectedValue;
-                if (!string.IsNullOrEmpty(categoriaIDString))
-                {
-                    nuevo.Categoria.ID = int.Parse(categoriaIDString);
-                }
-
                 nuevo.Ganancia = decimal.Parse(numGanancia.Value);
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.Activo = true;
+
+                setearMarcaYCategoria(nuevo);
 
                 string verificarDuplicado = negocio.VerificarArticulo(nuevo.Codigo, nuevo.Nombre, nuevo.Marca.ID);
                 if (verificarDuplicado != null)
@@ -211,15 +195,15 @@ namespace TPC_Equipo26
 
         protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
         {
-            //actualiza la URL de la imagen cada vez que cambia el texto
             imgArticulos.ImageUrl = txtImagenUrl.Text;
         }
-        //Inactivar
+
         protected void BtnInactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = true;
             ConfirmarReactivar = false;
         }
+
         protected void btnConfirmaInactivar_Click(object sender, EventArgs e)
         {
             try
@@ -238,21 +222,36 @@ namespace TPC_Equipo26
             }
         }
 
-        //Reactivar
         protected void btnReactivar_Click(object sender, EventArgs e)
         {
             ConfirmarInactivar = false;
             ConfirmarReactivar = true;
         }
+
         protected void btnConfirmaReactivar_Click(object sender, EventArgs e)
         {
             try
             {
                 if (chkConfirmaReactivacion.Checked)
                 {
-                    long id = Convert.ToInt64(Request.QueryString["ID"]);
+                    if (!ValidarCampos())
+                    {
+                        return;
+                    }
+
+                    Articulo nuevo = new Articulo();
                     ArticuloNegocio negocio = new ArticuloNegocio();
-                    negocio.EliminarLogico(id, true);
+
+                    nuevo.Codigo = txtCodigo.Text;
+                    nuevo.Nombre = txtNombre.Text;
+                    nuevo.Descripcion = txtDescripcion.Text;
+                    nuevo.Ganancia = decimal.Parse(numGanancia.Value);
+                    nuevo.StockMin = int.Parse(numStockMinimo.Value);
+                    nuevo.Imagen = txtImagenUrl.Text;
+                    nuevo.Activo = true;
+                    setearMarcaYCategoria(nuevo);
+
+                    negocio.ReactivarModificar(nuevo, true);
                     Response.Redirect("Default.aspx", false);
                 }
             }
@@ -262,6 +261,24 @@ namespace TPC_Equipo26
             }
         }
 
-       
+        private Articulo setearMarcaYCategoria(Articulo arti)
+        {
+            arti.Marca = new Marca();
+            string marcaIDString = ddlMarca.SelectedValue;
+            if (!string.IsNullOrEmpty(marcaIDString))
+            {
+                arti.Marca.ID = int.Parse(marcaIDString);
+            }
+            arti.Categoria = new Categoria();
+            string categoriaIDString = ddlCategoria.SelectedValue;
+            if (!string.IsNullOrEmpty(categoriaIDString))
+            {
+                arti.Categoria.ID = int.Parse(categoriaIDString);
+            }
+
+            return arti;
+        }
+
+
     }
 }

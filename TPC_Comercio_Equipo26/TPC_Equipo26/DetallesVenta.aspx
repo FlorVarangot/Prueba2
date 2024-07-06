@@ -8,22 +8,19 @@
             <asp:Label runat="server" ID="lblTitulo" CssClass="titulo-label"></asp:Label>
         </div>
         <div class="row mt-4">
+            <div class="col-1">
+                <asp:HyperLink ID="lnkVentaAnterior" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta anterior"> << </asp:HyperLink>
+            </div>
             <div class="col-4 text-center">
                 <asp:Label runat="server" ID="lblCliente" Text=""></asp:Label>
             </div>
-            <div class="col-4 text-center">
+            <div class="col-3 text-center">
                 <asp:Label runat="server" ID="lblFecha" Text=""></asp:Label>
             </div>
-            <div class="col-4 text-center">
+            <div class="col-3 text-center">
                 <asp:Label runat="server" ID="lblVentaID" Text=""></asp:Label>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <asp:HyperLink ID="lnkVentaAnterior" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta anterior"> << </asp:HyperLink>
-            </div>
-            <div class="col text-end">
+            <div class="col-1 text-end">
                 <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta siguiente"> >> </asp:HyperLink>
             </div>
         </div>
@@ -44,5 +41,6 @@
                 <asp:Label runat="server" ID="lblTotal" Text=""></asp:Label>
             </div>
         </div>
+        <a href="Ventas.aspx" class="btn btn-danger">Salir</a>
     </div>
 </asp:Content>

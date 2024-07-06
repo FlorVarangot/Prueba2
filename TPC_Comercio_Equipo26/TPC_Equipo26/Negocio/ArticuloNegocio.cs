@@ -359,5 +359,35 @@ namespace TPC_Equipo26.Negocio
             }
             finally { datos.cerrarConexion(); }
         }
+
+        public void ReactivarModificar(Articulo arti, bool activo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, Ganancia_Porcentaje = @Ganancia_Porcentaje, Stock_Minimo = @Stock_Minimo, Imagen = @Imagen, Activo = @Activo WHERE Id = @Id");
+                datos.setearParametro("@Codigo", arti.Codigo);
+                datos.setearParametro("@Nombre", arti.Nombre);
+                datos.setearParametro("@Descripcion", arti.Descripcion);
+                datos.setearParametro("@IdMarca", arti.Marca.ID);
+                datos.setearParametro("@IdCategoria", arti.Categoria.ID);
+                datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
+                datos.setearParametro("@Stock_Minimo", arti.StockMin);
+                datos.setearParametro("@Imagen", !string.IsNullOrEmpty(arti.Imagen) ? arti.Imagen : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg");
+                datos.setearParametro("@Activo", activo);
+                datos.setearParametro("@Id", arti.ID);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }
