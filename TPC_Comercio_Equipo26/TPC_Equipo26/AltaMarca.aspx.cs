@@ -21,25 +21,19 @@ namespace TPC_Equipo26
             {
                 if (!IsPostBack)
                 {
-                    ProveedorNegocio negocio = new ProveedorNegocio();
-                    List<Proveedor> proveedores = negocio.Listar().Where(prov => prov.Activo).ToList();
-
-                    ddlProveedor.DataSource = proveedores;
-                    ddlProveedor.DataValueField = "ID";
-                    ddlProveedor.DataTextField = "Nombre";
-                    ddlProveedor.DataBind();
-
                     ConfirmarInactivar = false;
                     ConfirmarReactivar = false;
 
                     if (Request.QueryString["ID"] != null)
                     {
+                        CargarProveedoresTodos();
                         lblTituloModificar.Visible = true;
                         int idMarca = int.Parse(Request.QueryString["ID"]);
                         PrecargarDatos(idMarca);
                     }
                     else
                     {
+                        CargarProveedoresActivos();
                         lblTituloAgregar.Visible = true;
                         BtnInactivar.Visible = false;
                         BtnReactivar.Visible = false;
@@ -212,6 +206,28 @@ namespace TPC_Equipo26
             {
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+        protected void CargarProveedoresActivos()
+        {
+            ProveedorNegocio negocio = new ProveedorNegocio();
+            List<Proveedor> proveedores = negocio.Listar().Where(prov => prov.Activo).ToList();
+
+            ddlProveedor.DataSource = proveedores;
+            ddlProveedor.DataValueField = "ID";
+            ddlProveedor.DataTextField = "Nombre";
+            ddlProveedor.DataBind();
+        }
+
+        protected void CargarProveedoresTodos()
+        {
+            ProveedorNegocio negocio = new ProveedorNegocio();
+            List<Proveedor> proveedores = negocio.Listar();
+
+            ddlProveedor.DataSource = proveedores;
+            ddlProveedor.DataValueField = "ID";
+            ddlProveedor.DataTextField = "Nombre";
+            ddlProveedor.DataBind();
         }
 
     }

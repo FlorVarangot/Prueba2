@@ -39,7 +39,7 @@ namespace TPC_Equipo26
             try
             {
                 ProveedorNegocio negocio = new ProveedorNegocio();
-                List<Proveedor> proveedores = negocio.Listar();
+                List<Proveedor> proveedores = negocio.Listar().Where(prov => prov.Activo == true).ToList();
 
                 ddlProveedor.DataSource = proveedores;
                 ddlProveedor.DataTextField = "Nombre";

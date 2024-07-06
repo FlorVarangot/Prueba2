@@ -15,10 +15,12 @@
             <div class="col-2">
                 <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
                     <asp:ListItem Text="Ordenar por..." Value="" />
-                    <asp:ListItem Text="Mayor Precio" Value="MayorPrecio" />
-                    <asp:ListItem Text="Menor Precio" Value="MenorPrecio" />
-                    <asp:ListItem Text="Fecha Más Reciente" Value="FechaReciente" />
-                    <asp:ListItem Text="Fecha Más Antigua" Value="FechaAntigua" />
+                    <asp:ListItem Text="Mayor precio" Value="MayorPrecio" />
+                    <asp:ListItem Text="Menor precio" Value="MenorPrecio" />
+                    <asp:ListItem Text="Fecha más reciente" Value="FechaReciente" />
+                    <asp:ListItem Text="Fecha más antigua" Value="FechaAntigua" />
+                    <asp:ListItem Text="Número de venta ↑" Value="VentaAsc" />
+                    <asp:ListItem Text="Número de venta ↓" Value="VentaDesc" />
                 </asp:DropDownList>
             </div>
             <div class="col-6 text-end">

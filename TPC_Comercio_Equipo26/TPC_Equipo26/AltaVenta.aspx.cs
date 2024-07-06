@@ -43,7 +43,7 @@ namespace TPC_Equipo26
             try
             {
                 ClienteNegocio negocio = new ClienteNegocio();
-                List<Cliente> clientes = negocio.Listar();
+                List<Cliente> clientes = negocio.Listar().Where(cli => cli.Activo == true).ToList();
 
                 var apellidoNombre = clientes.Select(cli => new
                 {

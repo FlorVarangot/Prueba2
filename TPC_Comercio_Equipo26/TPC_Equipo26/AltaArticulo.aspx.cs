@@ -26,30 +26,17 @@ namespace TPC_Equipo26
                     ConfirmarInactivar = false;
                     ConfirmarReactivar = false;
 
-                    MarcaNegocio negocioMarca = new MarcaNegocio();
-                    List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
-
-                    ddlMarca.DataSource = listaMarca;
-                    ddlMarca.DataValueField = "ID";
-                    ddlMarca.DataTextField = "Descripcion";
-                    ddlMarca.DataBind();
-
-                    CategoriaNegocio negocioCategoria = new CategoriaNegocio();
-                    List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
-
-                    ddlCategoria.DataSource = listaCategoria;
-                    ddlCategoria.DataValueField = "ID";
-                    ddlCategoria.DataTextField = "Descripcion";
-                    ddlCategoria.DataBind();
-
+                    
                     if (Request.QueryString["ID"] != null)
                     {
+                        CargarMarcasYCategoriasTodas();
                         lblTituloModificar.Visible = true;
                         long idArticulo = long.Parse(Request.QueryString["ID"]);
                         CargarDatosArticulo(idArticulo);
                     }
                     else
                     {
+                        CargarMarcasYCategoriasActivas();
                         lblTituloAgregar.Visible = true;
                         BtnInactivar.Visible = false;
                         btnReactivar.Visible = false;
@@ -278,6 +265,43 @@ namespace TPC_Equipo26
             }
         }
 
+        protected void CargarMarcasYCategoriasActivas()
+        {
+            MarcaNegocio negocioMarca = new MarcaNegocio();
+            List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
 
+            ddlMarca.DataSource = listaMarca;
+            ddlMarca.DataValueField = "ID";
+            ddlMarca.DataTextField = "Descripcion";
+            ddlMarca.DataBind();
+
+            CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+            List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
+
+            ddlCategoria.DataSource = listaCategoria;
+            ddlCategoria.DataValueField = "ID";
+            ddlCategoria.DataTextField = "Descripcion";
+            ddlCategoria.DataBind();
+
+        }
+
+        protected void CargarMarcasYCategoriasTodas()
+        {
+            MarcaNegocio negocioMarca = new MarcaNegocio();
+            List<Marca> listaMarca = negocioMarca.Listar();
+
+            ddlMarca.DataSource = listaMarca;
+            ddlMarca.DataValueField = "ID";
+            ddlMarca.DataTextField = "Descripcion";
+            ddlMarca.DataBind();
+
+            CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+            List<Categoria> listaCategoria = negocioCategoria.Listar();
+
+            ddlCategoria.DataSource = listaCategoria;
+            ddlCategoria.DataValueField = "ID";
+            ddlCategoria.DataTextField = "Descripcion";
+            ddlCategoria.DataBind();
+        }
     }
 }

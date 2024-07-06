@@ -103,8 +103,14 @@ namespace TPC_Equipo26
                     case "FechaAntigua":
                         ventasFiltrada = ventasFiltrada.OrderBy(x => x.FechaVenta).ToList();
                         break;
-                    default:
+                    case "VentaAsc":
                         ventasFiltrada = ventasFiltrada.OrderBy(x => x.ID).ToList();
+                        break;
+                    case "VentaDesc":
+                        ventasFiltrada = ventasFiltrada.OrderByDescending(x => x.ID).ToList();
+                        break;
+                    default:
+                        ventasFiltrada = ventasFiltrada.OrderByDescending(x => x.FechaVenta).ToList();
                         break;
                 }
 
@@ -135,6 +141,7 @@ namespace TPC_Equipo26
             FiltrarVentas();
             MostrarBotonRestablecer();
         }
+        
         protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarVentas();
@@ -145,7 +152,6 @@ namespace TPC_Equipo26
         {
             try
             {
-                //TxtFiltro.Text = string.Empty;              
                 ddlCliente.SelectedIndex = -1;
                 BtnLimpiarFiltros.Visible=false;
                 CargarVentas();

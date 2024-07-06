@@ -53,39 +53,49 @@ namespace TPC_Equipo26
             string filtro = txtFiltro.Text.Trim().ToUpper();
             bool incluirInactivos = chkIncluirInactivos.Checked;
 
-            List<Cliente> listaFiltrada;
-
-            if (lista != null)
+            if (!chkIncluirInactivos.Checked)
             {
-                if (string.IsNullOrEmpty(filtro))
-                {
-                    listaFiltrada = incluirInactivos ? lista : lista.Where(x => x.Activo).ToList();
-                }
-                else
-                {
-                    listaFiltrada = lista.Where(x =>
-                x.Nombre.ToUpper().Contains(filtro) ||
-                x.Apellido.ToUpper().Contains(filtro) ||
-                x.Dni.ToUpper().Contains(filtro) ||
-                x.Telefono.ToUpper().Contains(filtro) ||
-                x.Email.ToUpper().Contains(filtro) ||
-                x.Direccion.ToUpper().Contains(filtro) ||              
-                (x.Activo && incluirInactivos)).ToList();
-                }
+                lista = lista.Where(x => x.Activo).ToList();
+            }
 
-                gvClientes.DataSource = listaFiltrada;
+            if (string.IsNullOrEmpty(filtro))
+            { 
+                lista = lista.Where(x => x.ID.ToString().Contains(filtro) || x.Nombre.ToUpper().Contains(filtro) || x.Apellido.ToUpper().Contains(filtro) || x.Dni.ToString().Contains(filtro)
+                    || x.Telefono.ToUpper().Contains(filtro) || x.Direccion.ToUpper().Contains(filtro) || x.Email.ToUpper().Contains(filtro)).ToList();
             }
-            else
+
+            string ordenSeleccionado = ddlOrdenarPor.SelectedValue;
+            switch (ordenSeleccionado)
             {
-                gvClientes.DataSource = lista;
+                case "ApellidoAZ":
+                    lista = lista.OrderByDescending(x => x.Apellido).ToList();
+                    break;
+                case "ApellidoZA":
+                    lista = lista.OrderBy(x => x.Apellido).ToList();
+                    break;
+                case "DniAsc":
+                    lista = lista.OrderByDescending(x => x.Dni).ToList();
+                    break;
+                case "DniDesc":
+                    lista = lista.OrderBy(x => x.Dni).ToList();
+                    break;
+                default:
+                    lista = lista.OrderBy(x => x.ID).ToList();
+                    break;
             }
+
+            MostrarBotonLimpiar();
+            Session["ListaFiltrada"] = lista;
+            gvClientes.DataSource = lista;
             gvClientes.DataBind();
+
         }
 
         protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             txtFiltro.Text = string.Empty;
             chkIncluirInactivos.Checked = false;
+            ddlOrdenarPor.SelectedIndex = 0;
             CargarClientes();
         }
 
@@ -99,5 +109,16 @@ namespace TPC_Equipo26
         {
             FiltrarClientes();
         }
+
+        protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarClientes();
+        }
+        private void MostrarBotonLimpiar()
+        {
+            bool filtroActivo = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) || !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue) || chkIncluirInactivos.Checked;
+            btnLimpiarFiltros.Visible = filtroActivo;
+        }
+
     }
 }
