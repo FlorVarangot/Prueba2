@@ -14,23 +14,28 @@
             <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre</label>
                 <asp:TextBox runat="server" ID="TxtNombre" CssClass="form-control" />
+                 <asp:Label runat="server" ID="lblNombre" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtCUIT" class="form-label">CUIT</label>
                 <asp:TextBox runat="server" ID="TxtCuit" CssClass="form-control" />
+                 <asp:Label runat="server" ID="lblCuit" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
         </div>
         <div class="mb-3">
             <label for="txtEmail" class="form-label">E-Mail</label>
             <asp:TextBox runat="server" ID="TxtEmail" CssClass="form-control" />
+             <asp:Label runat="server" ID="lblEmail" Text="*" ForeColor="Red" Visible="false"></asp:Label>
         </div>
         <div class="mb-3">
             <label for="txtTelefono" class="form-label">Teléfono</label>
             <asp:TextBox runat="server" ID="TxtTel" CssClass="form-control" />
+            <asp:Label runat="server" ID="lblTel" Text="*" ForeColor="Red" Visible="false"></asp:Label>
         </div>
         <div class="mb-3">
             <label for="txtDireccion" class="form-label">Dirección</label>
             <asp:TextBox runat="server" ID="TxtDirec" CssClass="form-control" />
+            <asp:Label runat="server" ID="lblDirec" Text="*" ForeColor="Red" Visible="false"></asp:Label>
         </div>
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />

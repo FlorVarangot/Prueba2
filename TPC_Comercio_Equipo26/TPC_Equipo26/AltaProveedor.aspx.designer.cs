@@ -51,6 +51,15 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.TextBox TxtNombre;
 
         /// <summary>
+        /// Control lblNombre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNombre;
+
+        /// <summary>
         /// Control TxtCuit.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace TPC_Equipo26
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtCuit;
+
+        /// <summary>
+        /// Control lblCuit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCuit;
 
         /// <summary>
         /// Control TxtEmail.
@@ -69,6 +87,15 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.TextBox TxtEmail;
 
         /// <summary>
+        /// Control lblEmail.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmail;
+
+        /// <summary>
         /// Control TxtTel.
         /// </summary>
         /// <remarks>
@@ -78,6 +105,15 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.TextBox TxtTel;
 
         /// <summary>
+        /// Control lblTel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTel;
+
+        /// <summary>
         /// Control TxtDirec.
         /// </summary>
         /// <remarks>
@@ -85,6 +121,15 @@ namespace TPC_Equipo26
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtDirec;
+
+        /// <summary>
+        /// Control lblDirec.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDirec;
 
         /// <summary>
         /// Control BtnAceptar.

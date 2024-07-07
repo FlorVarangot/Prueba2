@@ -82,17 +82,59 @@ namespace TPC_Equipo26
 
         private bool ValidarCampos()
         {
-            if (string.IsNullOrWhiteSpace(TxtNombre.Text) ||
-                string.IsNullOrWhiteSpace(TxtCuit.Text) ||
-                string.IsNullOrWhiteSpace(TxtEmail.Text) ||
-                string.IsNullOrWhiteSpace(TxtTel.Text) ||
-                string.IsNullOrWhiteSpace(TxtDirec.Text))
+            bool camposValidos = true;
+
+            if (string.IsNullOrWhiteSpace(TxtNombre.Text))
             {
-                lblError.Text = "Todos los campos deben ser completados.";
-                lblError.Visible = true;
-                return false;
+                lblNombre.Visible = true;
+                camposValidos = false;
             }
-            return true;
+            else
+            {
+                lblNombre.Visible = false;
+            }
+            if (string.IsNullOrWhiteSpace(TxtCuit.Text))
+            {
+                lblCuit.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblCuit.Visible = false;
+            }
+            if (string.IsNullOrWhiteSpace(TxtEmail.Text))
+            {
+                lblEmail.Visible = false;               
+            }
+            else
+            {
+                lblEmail.Visible = false;
+            }
+            if (string.IsNullOrWhiteSpace(TxtTel.Text))
+            {
+                lblTel.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblTel.Visible = false;
+            }
+            if (string.IsNullOrWhiteSpace(TxtDirec.Text))
+            {
+                lblDirec.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblDirec.Visible = false;
+            }
+
+            if (!camposValidos)
+            {
+                lblError.Text = "Todos los campos obligatorios deben ser completados.";
+                lblError.Visible = true;
+            }
+            return camposValidos;
         }
 
         protected void BtnAceptar_Click(object sender, EventArgs e)
@@ -112,7 +154,12 @@ namespace TPC_Equipo26
                 proveedor.Telefono = TxtTel.Text;
                 proveedor.Direccion = TxtDirec.Text;
 
-                if (Request.QueryString["ID"] == null)
+                if (Request.QueryString["ID"] != null)
+                {
+                    proveedor.ID = int.Parse(Request.QueryString["ID"]);
+                    negocio.Modificar(proveedor);
+                }
+                else
                 {
                     string verificarDuplicado = negocio.VerificarProveedor(proveedor.Nombre, proveedor.CUIT, proveedor.Email);
                     if (verificarDuplicado != null)
@@ -121,15 +168,6 @@ namespace TPC_Equipo26
                         lblError.Visible = true;
                         return;
                     }
-                }
-
-                if (Request.QueryString["ID"] != null)
-                {
-                    proveedor.ID = int.Parse(Request.QueryString["ID"]);
-                    negocio.Modificar(proveedor);
-                }
-                else
-                {
                     negocio.Agregar(proveedor);
                 }
 

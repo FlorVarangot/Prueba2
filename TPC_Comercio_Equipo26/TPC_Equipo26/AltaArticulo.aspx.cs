@@ -101,20 +101,92 @@ namespace TPC_Equipo26
 
         private bool ValidarCampos()
         {
-            if (string.IsNullOrWhiteSpace(txtCodigo.Text) ||
-                string.IsNullOrWhiteSpace(txtNombre.Text) ||
-                string.IsNullOrWhiteSpace(txtDescripcion.Text) ||
-                string.IsNullOrWhiteSpace(txtImagenUrl.Text) ||
-                ddlMarca.SelectedValue == "-1" ||
-                ddlCategoria.SelectedValue == "-1" ||
-                string.IsNullOrWhiteSpace(numGanancia.Value) ||
-                string.IsNullOrWhiteSpace(numStockMinimo.Value))
+            bool camposValidos = true;
+           
+            if (string.IsNullOrWhiteSpace(txtCodigo.Text))
             {
-                lblError.Text = "Todos los campos deben ser completados.";
-                lblError.Visible = true;
-                return false;
+                lblCodigo.Visible = true;
+                camposValidos = false;
             }
-            return true;
+            else
+            {
+                lblCodigo.Visible = false;
+            }
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                lblNombre.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblNombre.Visible = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                lblDescripcion.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblDescripcion.Visible = false;
+            }
+
+            if (ddlMarca.SelectedValue == "-1")
+            {
+                lblMarca.Visible = false; 
+            }
+            else
+            {
+                lblMarca.Visible = false;
+            }
+
+            
+            if (ddlCategoria.SelectedValue == "-1")
+            {
+                lblCategoria.Visible = false; 
+            }
+            else
+            {
+                lblCategoria.Visible = false;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(numGanancia.Value))
+            {
+                lblGanancia.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblGanancia.Visible = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtImagenUrl.Text))
+            {
+                lblImagenUrl.Visible = false;           
+            }
+            else
+            {
+                lblImagenUrl.Visible = false;
+            }
+            if (string.IsNullOrWhiteSpace(numStockMinimo.Value))
+            {
+                lblStockMinimo.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblStockMinimo.Visible = false;
+            }
+
+            if(!camposValidos)
+            {
+                lblError.Text = "Todos los campos obligatorios deben ser completados";
+                lblError.Visible = true;
+            }           
+
+            return camposValidos;
         }
 
         protected void BtnAceptar_Click(object sender, EventArgs e)
@@ -140,17 +212,7 @@ namespace TPC_Equipo26
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;
                 setearMarcaYCategoria(nuevo);
-
-                if (Request.QueryString["ID"] == null)
-                {                   
-                    string verificarDuplicado = negocio.VerificarArticulo(nuevo.Codigo, nuevo.Nombre);
-                    if (verificarDuplicado != null)
-                    {
-                        lblError.Text = verificarDuplicado;
-                        lblError.Visible = true;
-                        return;
-                    }
-                }
+              
 
                 if (Request.QueryString["ID"] != null)
                 {
@@ -159,6 +221,13 @@ namespace TPC_Equipo26
                 }
                 else
                 {
+                    string verificarDuplicado = negocio.VerificarArticulo(nuevo.Codigo, nuevo.Nombre);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                     negocio.Agregar(nuevo);
                 }
 

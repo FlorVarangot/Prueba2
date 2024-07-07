@@ -13,26 +13,32 @@
             <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre:</label>
                 <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
+                <asp:Label ID="lblNombre" runat="server" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtApellido" class="form-label">Apellido:</label>
                 <asp:TextBox runat="server" ID="txtApellido" CssClass="form-control" />
+                <asp:Label ID="lblApellido" runat="server" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtDni" class="form-label">Dni:</label>
                 <asp:TextBox runat="server" ID="txtDNI" CssClass="form-control" />
+                 <asp:Label ID="lblDNI" runat="server" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtTelefono" class="form-label">Teléfono:</label>
                 <asp:TextBox runat="server" ID="txtTelefono" CssClass="form-control" />
+                <asp:Label ID="lblTelefono" runat="server" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtEmail" class="form-label">Email:</label>
                 <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" />
+                 <asp:Label ID="lblEmail" runat="server" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtDireccion" class="form-label">Dirección:</label>
                 <asp:TextBox runat="server" ID="txtDireccion" CssClass="form-control" />
+                <asp:Label ID="lblDireccion" runat="server" Text="*" ForeColor="Red" Visible="false"></asp:Label>
             </div>
         </div>
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">

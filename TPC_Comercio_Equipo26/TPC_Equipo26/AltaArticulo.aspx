@@ -13,26 +13,31 @@
             <div class="mb-3">
                 <label for="txtCodigo" class="form-label">Codigo: </label>
                 <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" />
+                <asp:Label ID="lblCodigo" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre: </label>
                 <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
+                <asp:Label ID="lblNombre" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="txtDescripcion" class="form-label">Descripcion: </label>
                 <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
+                 <asp:Label ID="lblDescripcion" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="ddlMarca" class="form-label">Marca:</label>
                 <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server" AutoPostBack="true" AppendDataBoundItems="true">
                     <asp:ListItem Text="Seleccionar..." Value="-1" />
                 </asp:DropDownList>
+                <asp:Label ID="lblMarca" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="ddlCategoria" class="form-label">Categoria: </label>
                 <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server" AutoPostBack="true" AppendDataBoundItems="true">
                     <asp:ListItem Text="Seleccionar..." Value="-1" />
                 </asp:DropDownList>
+                <asp:Label ID="lblCategoria" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
         </div>
 
@@ -42,12 +47,14 @@
                 <div>
                     <input type="number" id="numGanancia" value="10" cssClass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px" step=".01">
                 </div>
+                <asp:Label ID="lblGanancia" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
             <div class="mb-3">
                 <label for="numStockMinimo" class="form-label">Stock mínimo: </label>
                 <div>
                     <input type="number" id="numStockMinimo" value="1" min="1" cssClass="form-control" runat="server" style="border-radius: 5px; height:40px; width:635px">
                 </div>
+                <asp:Label ID="lblStockMinimo" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
 
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -56,6 +63,7 @@
                         <label for="txtImagenUrl" class="form-label">Url de imagen: </label>
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
                             AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged" />
+                          <asp:Label ID="lblImagenUrl" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
                     </div>
                     <asp:Image runat="server" ID="imgArticulos" Width="20%" Style="max-width: 100%; height: auto;"
                         ImageUrl="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png" />

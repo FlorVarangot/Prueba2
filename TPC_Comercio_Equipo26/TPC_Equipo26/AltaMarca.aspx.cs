@@ -93,13 +93,44 @@ namespace TPC_Equipo26
 
         private bool ValidarCampos()
         {
-            if (string.IsNullOrWhiteSpace(txtDescripcion.Text) || string.IsNullOrWhiteSpace(txtImagenUrl.Text) || ddlProveedor.SelectedValue == "-1")
+            bool camposValidos = true;
+
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
-                lblError.Text = "Todos los campos deben ser completados.";
-                lblError.Visible = true;
-                return false;
+                lblDescripcion.Visible = false;               
             }
-            return true;
+            else
+            {
+                lblDescripcion.Visible = false;
+            }
+
+            if (ddlProveedor.SelectedValue == "-1")
+            {
+                lblProveedor.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblProveedor.Visible = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtImagenUrl.Text))
+            {
+                lblImagenUrl.Visible = true;
+                camposValidos = false;
+            }
+            else
+            {
+                lblImagenUrl.Visible = false;
+            }
+
+            if (!camposValidos)
+            {
+                lblError.Text = "Todos los campos  deben ser completados";
+                lblError.Visible = true;
+            }
+
+            return camposValidos;
         }
 
         protected void BtnAceptar_Click(object sender, EventArgs e)
@@ -118,7 +149,12 @@ namespace TPC_Equipo26
                 marca.ImagenUrl = txtImagenUrl.Text;
                 marca.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
 
-                if (Request.QueryString["ID"] == null)
+                if (Request.QueryString["ID"] != null)
+                {
+                    marca.ID = int.Parse(Request.QueryString["ID"]);
+                    negocio.Modificar(marca);
+                }
+                else
                 {
                     string verificarDuplicado = negocio.VerificarMarca(marca.Descripcion, marca.IdProveedor);
                     if (verificarDuplicado != null)
@@ -127,14 +163,6 @@ namespace TPC_Equipo26
                         lblError.Visible = true;
                         return;
                     }
-                }
-                if (Request.QueryString["ID"] != null)
-                {
-                    marca.ID = int.Parse(Request.QueryString["ID"]);
-                    negocio.Modificar(marca);
-                }
-                else
-                {
                     negocio.Agregar(marca);
                 }
 

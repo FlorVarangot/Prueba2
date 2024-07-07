@@ -78,11 +78,17 @@ namespace TPC_Equipo26
         {
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
+                lblDescripcion.Visible = true;
                 lblError.Text = "El campo de Descripcion no puede quedar Incompleto";
                 lblError.Visible = true;
                 return false;
             }
-            return true;
+            else
+            {
+                lblDescripcion.Visible = false; 
+                lblError.Visible = false; 
+                return true;
+            }          
         }
 
         protected void BtnAceptar_Click(object sender, EventArgs e)
@@ -99,7 +105,12 @@ namespace TPC_Equipo26
                 categoria.Descripcion = txtDescripcion.Text;
                 categoria.Activo = true;
 
-                if (Request.QueryString["ID"] == null)
+                if (Request.QueryString["ID"] != null)
+                {
+                    categoria.ID = int.Parse(Request.QueryString["ID"]);
+                    negocio.Modificar(categoria);
+                }
+                else
                 {
                     string verificarDuplicado = negocio.VerificarCategoria(categoria.Descripcion);
                     if (verificarDuplicado != null)
@@ -108,14 +119,6 @@ namespace TPC_Equipo26
                         lblError.Visible = true;
                         return;
                     }
-                }
-                if (Request.QueryString["ID"] != null)
-                {
-                    categoria.ID = int.Parse(Request.QueryString["ID"]);
-                    negocio.Modificar(categoria);
-                }
-                else
-                {
                     negocio.Agregar(categoria);
                 }
 
