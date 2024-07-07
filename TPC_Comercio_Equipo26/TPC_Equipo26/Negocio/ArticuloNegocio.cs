@@ -39,12 +39,14 @@ namespace TPC_Equipo26.Negocio
                         arti.StockMin = datos.Lector.GetInt32(7);
                         arti.Imagen = datos.Lector["Imagen"] != DBNull.Value ? datos.Lector["Imagen"].ToString() : null;
                         arti.Activo = bool.Parse(datos.Lector["Activo"].ToString());
+
+                        if (string.IsNullOrEmpty(arti.Imagen))
+                        {
+                            arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
+                        }
                     };
 
-                    if (string.IsNullOrEmpty(arti.Imagen))
-                    {
-                        arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
-                    }
+                   
 
                     listaArticulos.Add(arti);
                 }

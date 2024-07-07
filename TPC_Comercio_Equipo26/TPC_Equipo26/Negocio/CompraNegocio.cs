@@ -114,7 +114,6 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                //Cambiar por SCOPEIDENTITY()
                 datos.setearConsulta("SELECT MAX(Id) AS 'UltimoId' FROM COMPRAS");
                 datos.ejecutarLectura();
 

@@ -255,13 +255,10 @@ namespace TPC_Equipo26
                     CompraNegocio negocio = new CompraNegocio();
                     negocio.AgregarCompra(compra);
 
-                    DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-                    datoNegocio.ActualizarStockPostCompra(compra);
-
-                    Session["DetallesCompra"] = null;
-                    Session["Total"] = null;
-                    lblTotalCompra.Text = "$0.00";
-
+             //   DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                  // datoNegocio.ActualizarStockPostCompra(compra);
+                  
+                    LimpiarSesion();
                     LimpiarCampos();
                     Response.Redirect("Compras.aspx", false);
                 }
@@ -276,7 +273,12 @@ namespace TPC_Equipo26
                 lblError.Visible = true;
             }
         }
-
+        private void LimpiarSesion()
+        {         
+            Session["DetallesCompra"] = null;
+            Session["Total"] = null;
+            lblTotalCompra.Text = "$0.00";
+        }
         private string ValidarCompra()
         {
             if (ddlProveedor.SelectedIndex == 0)
