@@ -11,8 +11,8 @@
             <div class="col-4">
                 <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged" Placeholder="Buscar" />
             </div>
-            <div class="col-3 text-center">
-                <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
+            <div class="col-3">
+                <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
                     <asp:ListItem Text="Ordenar por..." Value="" />
                     <asp:ListItem Text="Apellido A-Z" Value="ApellidoAZ" />
                     <asp:ListItem Text="Apellido Z-A" Value="ApellidoZA" />

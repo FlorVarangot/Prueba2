@@ -63,10 +63,13 @@ namespace TPC_Equipo26
             switch (orden)
             {
                 case "DescripcionAZ":
-                    lista = lista.OrderByDescending(x => x.Descripcion).ToList();
+                    lista = lista.OrderBy(x => x.Descripcion).ToList();
                     break;
                 case "DescripcionZA":
-                    lista = lista.OrderBy(x => x.Descripcion).ToList();
+                    lista = lista.OrderByDescending(x => x.Descripcion).ToList();
+                    break;
+                case "IdAsc":
+                    lista = lista.OrderBy(x => x.ID).ToList();
                     break;
                 case "IdDesc":
                     lista = lista.OrderByDescending(x => x.ID).ToList();
@@ -115,10 +118,12 @@ namespace TPC_Equipo26
         {
             FiltrarMarcas();
         }
+        
         protected void FiltroInactivos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarMarcas();
         }
+        
         protected void Filtro_TextChanged(object sender, EventArgs e)
         {
             FiltrarMarcas();

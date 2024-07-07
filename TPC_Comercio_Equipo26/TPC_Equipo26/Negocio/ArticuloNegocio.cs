@@ -323,9 +323,9 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@IdCategoria", nuevo.Categoria.ID);
 
                 //PROVISORIO: ARREGLAR
-                datos.setearParametro("@Ganancia_Porcentaje", 55);
-                //datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
-                
+                //datos.setearParametro("@Ganancia_Porcentaje", 55);
+                datos.setearParametro("@Ganancia_Porcentaje", nuevo.Ganancia);
+
                 datos.setearParametro("@Stock_Minimo", nuevo.StockMin);
                 datos.setearParametro("@Imagen", nuevo.Imagen);
                 datos.setearParametro("@Activo", nuevo.Activo);

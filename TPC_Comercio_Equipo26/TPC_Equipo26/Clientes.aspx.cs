@@ -68,16 +68,16 @@ namespace TPC_Equipo26
             switch (ordenSeleccionado)
             {
                 case "ApellidoAZ":
-                    lista = lista.OrderByDescending(x => x.Apellido).ToList();
-                    break;
-                case "ApellidoZA":
                     lista = lista.OrderBy(x => x.Apellido).ToList();
                     break;
+                case "ApellidoZA":
+                    lista = lista.OrderByDescending(x => x.Apellido).ToList();
+                    break;
                 case "DniAsc":
-                    lista = lista.OrderByDescending(x => x.Dni).ToList();
+                    lista = lista.OrderBy(x => x.Dni).ToList();
                     break;
                 case "DniDesc":
-                    lista = lista.OrderBy(x => x.Dni).ToList();
+                    lista = lista.OrderByDescending(x => x.Dni).ToList();
                     break;
                 default:
                     lista = lista.OrderBy(x => x.ID).ToList();
@@ -114,7 +114,8 @@ namespace TPC_Equipo26
         {
             FiltrarClientes();
         }
-        private void MostrarBotonLimpiar()
+        
+        protected void MostrarBotonLimpiar()
         {
             bool filtroActivo = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) || !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue) || chkIncluirInactivos.Checked;
             btnLimpiarFiltros.Visible = filtroActivo;

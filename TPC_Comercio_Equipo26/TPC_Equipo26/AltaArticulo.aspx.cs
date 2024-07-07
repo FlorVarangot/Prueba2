@@ -131,7 +131,11 @@ namespace TPC_Equipo26
                 nuevo.Codigo = txtCodigo.Text;
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-                nuevo.Ganancia = decimal.Parse(numGanancia.Value);
+
+                //PROVISORIO ARREGLAR
+                //nuevo.Ganancia = decimal.Parse(numGanancia.Value);
+                nuevo.Ganancia = decimal.Parse(numGanancia.Value) / 100;
+
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;

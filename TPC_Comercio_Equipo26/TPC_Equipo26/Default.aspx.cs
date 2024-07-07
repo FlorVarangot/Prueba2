@@ -111,16 +111,16 @@ namespace TPC_Equipo26
                     listaArticulos = listaArticulos.OrderByDescending(x => x.Descripcion).ToList();
                     break;
                 case "StockDisponibleAsc":
-                    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
-                    break;
-                case "StockDisponibleDesc":
                     listaArticulos = listaArticulos.OrderBy(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
                     break;
+                case "StockDisponibleDesc":
+                    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerStockArticulo(x.ID)).ToList();
+                    break;
                 case "PrecioUnitarioAsc":
-                    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
+                    listaArticulos = listaArticulos.OrderBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
                     break;
                 case "PrecioUnitarioDesc":
-                    listaArticulos = listaArticulos.OrderBy(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
+                    listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
                     break;
                 default:
                     listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();

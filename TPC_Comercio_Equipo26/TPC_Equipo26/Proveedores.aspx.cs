@@ -32,27 +32,41 @@ namespace TPC_Equipo26
 
         private void FiltrarProveedores()
         {
-            List<Proveedor> proveedores = (List<Proveedor>)Session["listaProveedores"];
+            List<Proveedor> lista = (List<Proveedor>)Session["listaProveedores"];
             if (!ChkIncluirInactivos.Checked)
             {
-                proveedores = proveedores.Where(x => x.Activo).ToList();
+                lista = lista.Where(x => x.Activo).ToList();
             }
-
             if (!string.IsNullOrEmpty(TxtFiltro.Text.Trim()))
             {
                 string filtro = TxtFiltro.Text.Trim().ToUpper();
-                proveedores = proveedores
-                    .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
-                    x.CUIT.ToUpper().Contains(filtro) ||
-                    x.Email.ToUpper().Contains(filtro) ||
-                    x.Telefono.ToString().Contains(filtro) ||
-                    x.Direccion.ToUpper().Contains(filtro))
-                    .ToList();
+                lista = lista.Where(x => x.Nombre.ToUpper().Contains(filtro) || x.CUIT.ToUpper().Contains(filtro) || x.Email.ToUpper().Contains(filtro) ||
+                    x.Telefono.ToString().Contains(filtro) || x.Direccion.ToUpper().Contains(filtro)).ToList();
             }
 
-            Session["ProveedoresFiltrada"] = proveedores;
+            string ordenSeleccionado = DdlOrdenarPor.SelectedValue;
+            switch (ordenSeleccionado)
+            {
+                case "NombreAZ":
+                    lista = lista.OrderBy(x => x.Nombre).ToList();
+                    break;
+                case "NombreZA":
+                    lista = lista.OrderByDescending(x => x.Nombre).ToList();
+                    break;
+                case "IdAsc":
+                    lista = lista.OrderByDescending(x => x.ID).ToList();
+                    break;
+                case "IdDesc":
+                    lista = lista.OrderBy(x => x.ID).ToList();
+                    break;
+                default:
+                    lista = lista.OrderBy(x => x.ID).ToList();
+                    break;
+            }
 
-            GvProveedores.DataSource = proveedores;
+            MostrarBotonLimpiar();
+            Session["ProveedoresFiltrada"] = lista;
+            GvProveedores.DataSource = lista;
             GvProveedores.DataBind();
         }
             
@@ -88,7 +102,18 @@ namespace TPC_Equipo26
         {
             TxtFiltro.Text = string.Empty;
             ChkIncluirInactivos.Checked = false;
+            DdlOrdenarPor.SelectedIndex = -1;
             CargarProveedores();
+        }
+
+        protected void MostrarBotonLimpiar()
+        {
+            BtnLimpiarFiltros.Visible = !string.IsNullOrEmpty(TxtFiltro.Text.Trim()) || !string.IsNullOrEmpty(DdlOrdenarPor.SelectedValue) || ChkIncluirInactivos.Checked;
+        }
+
+        protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiltrarProveedores();
         }
 
     }

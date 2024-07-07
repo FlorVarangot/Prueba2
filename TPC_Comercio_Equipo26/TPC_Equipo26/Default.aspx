@@ -16,34 +16,34 @@
                 <asp:CheckBox Text="Filtro" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-2">
+        <div class="row mb-2">
+            <div class="col-12">
                 <asp:CheckBox runat="server" ID="chkIncluirInactivos" Text="Incluir inactivos" AutoPostBack="true" OnCheckedChanged="chkIncluirInactivos_CheckedChanged" />
-            </div>
-            <div class="col-md-4 text-end">
-                <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
             </div>
         </div>
         <asp:Panel ID="pnlFiltroAvanzado" runat="server" Visible="false">
-            <div class="row align-items-end">
-                <div class="col-md-3 mb-2">
+            <div class="row">
+                <div class="col-3 mb-3">
                     <asp:Label Text="Marca" ID="lblMarca" runat="server" />
-                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlMarca" AutoPostBack="true" OnSelectedIndexChanged="ddlMarca_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList runat="server" CssClass="form-select" ID="ddlMarca" AutoPostBack="true" OnSelectedIndexChanged="ddlMarca_SelectedIndexChanged"></asp:DropDownList>
                 </div>
-                <div class="col-md-3 mb-2">
+                <div class="col-3 mb-3">
                     <asp:Label Text="Categoría" ID="lblCategoria" runat="server" />
-                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCategoria" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList runat="server" CssClass="form-select" ID="ddlCategoria" AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged"></asp:DropDownList>
                 </div>
-                <div class="col-md-3 mb-2">
-                    <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
+                <div class="col-3 mb-3 mt-4">
+                    <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
                         <asp:ListItem Text="Ordenar por..." Value="" />
                         <asp:ListItem Text="Descripcion A-Z" Value="DescripcionAZ" />
                         <asp:ListItem Text="Descripcion Z-A" Value="DescripcionZA" />
-                        <asp:ListItem Text="Stock ↑" Value="StockDisponibleAsc" />
                         <asp:ListItem Text="Stock ↓" Value="StockDisponibleDesc" />
-                        <asp:ListItem Text="Precio ↑" Value="PrecioUnitarioAsc" />
+                        <asp:ListItem Text="Stock ↑" Value="StockDisponibleAsc" />
                         <asp:ListItem Text="Precio ↓" Value="PrecioUnitarioDesc" />
+                        <asp:ListItem Text="Precio ↑" Value="PrecioUnitarioAsc" />
                     </asp:DropDownList>
+                </div>
+                <div class="col-3 mb-3 mt-4 text-end">
+                    <asp:Button runat="server" ID="btnLimpiarFiltros" Text="Reestablecer filtros" OnClick="BtnLimpiarFiltros_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" />
                 </div>
             </div>
         </asp:Panel>
