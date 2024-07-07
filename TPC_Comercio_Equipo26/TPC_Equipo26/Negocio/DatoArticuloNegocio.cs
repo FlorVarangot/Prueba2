@@ -147,38 +147,36 @@ namespace TPC_Equipo26.Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             DateTime fecha = compra.FechaCompra;
+
             try
             {
-                foreach (DetalleCompra detalle in compra.Detalles)
+                datos.setearConsulta("SELECT IdArticulo, Cantidad, Precio FROM Detalle_Compras WHERE IdCompra = @IdCompra");
+                datos.setearParametro("@IdCompra", compra.ID);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
                 {
-                    long idArticulo = detalle.IdArticulo;
-                    int cantidad = detalle.Cantidad;
-                    decimal precioCompra = detalle.Precio;
-                    
-                    datos.setearConsulta("SELECT TOP 1 Stock, Precio FROM DATOS_ARTICULOS WHERE IdArticulo = @IdArticulo ORDER BY Fecha DESC");
-                    datos.setearParametro("@IdArticulo", idArticulo);
-                    datos.ejecutarLectura();
+                    long idArticulo = Convert.ToInt64(datos.Lector["IdArticulo"]);
+                    int cantidad = Convert.ToInt32(datos.Lector["Cantidad"]);
+                    decimal precioCompra = Convert.ToDecimal(datos.Lector["Precio"]);
 
-                    if (datos.Lector.Read())
+                    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                    Articulo articulo = articuloNegocio.ObtenerArticuloPorID(idArticulo);
+                    decimal ganancia = articulo.Ganancia;
+                    decimal precioFinal = precioCompra + (precioCompra * ganancia / 100);
+                    int stockActual = ObtenerStockArticulo(idArticulo);
+
+                    int nuevoStock = stockActual + cantidad;
+
+                    using (AccesoDatos datosArticulo = new AccesoDatos())
                     {
-                        int ultimoStock = Convert.ToInt32(datos.Lector["Stock"]);
-                        decimal ultimoPrecio = Convert.ToDecimal(datos.Lector["Precio"]);
-                        int nuevoStock = ultimoStock + cantidad;
-
-                        ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-                        Articulo articulo = articuloNegocio.ObtenerArticuloPorID(idArticulo);
-                        decimal ganancia = articulo.Ganancia;
-                        decimal precioFinal = precioCompra + (precioCompra * ganancia / 100);
-
-                        using (AccesoDatos datosArticulo = new AccesoDatos())
-                        {
-                            datosArticulo.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");
-                            datosArticulo.setearParametro("@IdArticulo", idArticulo);
-                            datosArticulo.setearParametro("@Fecha", fecha);
-                            datosArticulo.setearParametro("@Stock", nuevoStock);
-                            datosArticulo.setearParametro("@Precio", precioFinal);
-                            datosArticulo.ejecutarAccion();
-                        }
+                        datosArticulo.setearConsulta("UPDATE DATOS_ARTICULOS SET Stock = @Stock, Precio = @Precio WHERE IdArticulo = @IdArticulo AND Fecha = @Fecha");
+                        datosArticulo.setearParametro("@IdArticulo", idArticulo);
+                        datosArticulo.setearParametro("@Stock", nuevoStock);
+                        datosArticulo.setearParametro("@Precio", precioFinal);
+                        datosArticulo.setearParametro("@Fecha", fecha);
+                        datosArticulo.ejecutarAccion();
                     }
                 }
             }

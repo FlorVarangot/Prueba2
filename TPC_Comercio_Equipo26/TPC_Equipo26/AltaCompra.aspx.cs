@@ -255,8 +255,8 @@ namespace TPC_Equipo26
                     CompraNegocio negocio = new CompraNegocio();
                     negocio.AgregarCompra(compra);
 
-             //   DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-                  // datoNegocio.ActualizarStockPostCompra(compra);
+                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                datoNegocio.ActualizarStockPostCompra(compra);
                   
                     LimpiarSesion();
                     LimpiarCampos();
