@@ -423,7 +423,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@IdCategoria", arti.Categoria.ID);
 
                 //PROVISORIO: ARREGLAR
-                datos.setearParametro("@Ganancia_Porcentaje", 55);
+                //datos.setearParametro("@Ganancia_Porcentaje", 55);
                 datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
 
                 datos.setearParametro("@Stock_Minimo", arti.StockMin);
