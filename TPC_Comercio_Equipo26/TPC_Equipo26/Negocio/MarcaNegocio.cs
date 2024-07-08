@@ -49,14 +49,13 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        public string VerificarMarca(string descripcion, int idProveedor)
+        public string VerificarMarca(string descripcion)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Descripcion = @Descripcion AND IdProveedor = @IdProveedor");
+                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Descripcion = @Descripcion");
                 datos.setearParametro("@Descripcion", descripcion);
-                datos.setearParametro("@IdProveedor", idProveedor);
                 datos.ejecutarLectura();
 
                 if (datos.Lector.Read())
@@ -64,7 +63,7 @@ namespace TPC_Equipo26.Negocio
                     int count = (int)datos.Lector[0];
                     if (count > 0)
                     {
-                        return "El proveedor ya tiene una marca con ese nombre";
+                        return "Ya existe una marca con ese nombre";
                     }
                 }
                 return null;
@@ -78,7 +77,37 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
-        
+
+        public string VerificarMarca(string descripcion, int idMarca)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Descripcion = @Descripcion AND ID != @IdMarca");
+                datos.setearParametro("@Descripcion", descripcion);
+                datos.setearParametro("@IdMarca", idMarca);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = (int)datos.Lector[0];
+                    if (count > 0)
+                    {
+                        return "Ya existe una marca con ese nombre";
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void Agregar(Marca marca)
         {          
             AccesoDatos datos = new AccesoDatos();

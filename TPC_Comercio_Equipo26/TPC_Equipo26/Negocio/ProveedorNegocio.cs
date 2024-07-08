@@ -60,7 +60,7 @@ namespace TPC_Equipo26.Negocio
                     int countNombre = Convert.ToInt32(datosNombre.Lector[0]);
                     if (countNombre > 0)
                     {
-                        return "Ya existe un proveedor con ese nombre";
+                        return "Ya existe un proveedor con ese Nombre";
                     }
                 }
 
@@ -103,7 +103,70 @@ namespace TPC_Equipo26.Negocio
                 datosEmail.cerrarConexion();
             }
         }
-        
+
+        public string VerificarProveedor(string nombre, string cuit, string email, int idProveedor)
+        {
+            AccesoDatos datosNombre = new AccesoDatos();
+            AccesoDatos datosCuit = new AccesoDatos();
+            AccesoDatos datosEmail = new AccesoDatos();
+
+            try
+            {
+                datosNombre.setearConsulta("SELECT COUNT(*) FROM PROVEEDORES WHERE Nombre = @Nombre AND ID != @IdProveedor");
+                datosNombre.setearParametro("@Nombre", nombre);
+                datosNombre.setearParametro("@IdProveedor", idProveedor);
+                datosNombre.ejecutarLectura();
+
+                if (datosNombre.Lector.Read())
+                {
+                    int countNombre = Convert.ToInt32(datosNombre.Lector[0]);
+                    if (countNombre > 0)
+                    {
+                        return "Ya existe un proveedor con ese Nombre";
+                    }
+                }
+
+                datosCuit.setearConsulta("SELECT COUNT(*) FROM PROVEEDORES WHERE CUIT = @CUIT AND ID != @IdProveedor");
+                datosCuit.setearParametro("@CUIT", cuit);
+                datosCuit.setearParametro("@IdProveedor", idProveedor);
+                datosCuit.ejecutarLectura();
+
+                if (datosCuit.Lector.Read())
+                {
+                    int countCuit = Convert.ToInt32(datosCuit.Lector[0]);
+                    if (countCuit > 0)
+                    {
+                        return "Ya existe un proveedor con ese CUIT";
+                    }
+                }
+
+                datosEmail.setearConsulta("SELECT COUNT(*) FROM PROVEEDORES WHERE Email = @Email AND ID != @IdProveedor");
+                datosEmail.setearParametro("@Email", email);
+                datosEmail.setearParametro("@IdProveedor", idProveedor);
+                datosEmail.ejecutarLectura();
+
+                if (datosEmail.Lector.Read())
+                {
+                    int countEmail = Convert.ToInt32(datosEmail.Lector[0]);
+                    if (countEmail > 0)
+                    {
+                        return "Ya existe un proveedor con ese Email";
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datosNombre.cerrarConexion();
+                datosCuit.cerrarConexion();
+                datosEmail.cerrarConexion();
+            }
+        }
         public void Agregar(Proveedor proveedor)
         {
             AccesoDatos datos = new AccesoDatos();

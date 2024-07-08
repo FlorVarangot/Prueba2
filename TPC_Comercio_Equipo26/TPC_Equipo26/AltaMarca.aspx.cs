@@ -160,11 +160,18 @@ namespace TPC_Equipo26
                 if (Request.QueryString["ID"] != null)
                 {
                     marca.ID = int.Parse(Request.QueryString["ID"]);
+                    string verificarDuplicado = negocio.VerificarMarca(marca.Descripcion, marca.ID);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                     negocio.Modificar(marca);
                 }
                 else
                 {
-                    string verificarDuplicado = negocio.VerificarMarca(marca.Descripcion, marca.IdProveedor);
+                    string verificarDuplicado = negocio.VerificarMarca(marca.Descripcion);
                     if (verificarDuplicado != null)
                     {
                         lblError.Text = verificarDuplicado;

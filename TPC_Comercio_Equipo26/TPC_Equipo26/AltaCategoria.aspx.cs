@@ -117,6 +117,13 @@ namespace TPC_Equipo26
                 if (Request.QueryString["ID"] != null)
                 {
                     categoria.ID = int.Parse(Request.QueryString["ID"]);
+                    string verificarDuplicado = negocio.VerificarCategoria(categoria.Descripcion, categoria.ID);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                     negocio.Modificar(categoria);
                 }
                 else

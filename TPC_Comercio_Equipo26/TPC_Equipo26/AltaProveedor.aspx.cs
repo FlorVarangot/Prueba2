@@ -165,6 +165,13 @@ namespace TPC_Equipo26
                 if (Request.QueryString["ID"] != null)
                 {
                     proveedor.ID = int.Parse(Request.QueryString["ID"]);
+                    string verificarDuplicado = negocio.VerificarProveedor(proveedor.Nombre, proveedor.CUIT, proveedor.Email, proveedor.ID);
+                    if (verificarDuplicado != null)
+                    {
+                        lblError.Text = verificarDuplicado;
+                        lblError.Visible = true;
+                        return;
+                    }
                     negocio.Modificar(proveedor);
                 }
                 else

@@ -87,7 +87,7 @@ namespace TPC_Equipo26.Negocio
                     int count = (int)datos.Lector[0];
                     if (count > 0)
                     {
-                        return "Ya existe una categoria con ese nombre";
+                        return "Ya existe una categoria con ese Nombre";
                     }
                 }
                 return null;
@@ -101,7 +101,38 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
         }
-        
+        public string VerificarCategoria(string descripcion, int idCategoria)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Descripcion = @Descripcion AND ID != @IdCategoria");
+                datos.setearParametro("@Descripcion", descripcion);
+                datos.setearParametro("@IdCategoria", idCategoria);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = Convert.ToInt32(datos.Lector[0]);
+                    if (count > 0)
+                    {
+                        return "Ya existe una categoría con ese Nombre";
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void Agregar(Categoria categoria)
         {          
             AccesoDatos datos = new AccesoDatos();

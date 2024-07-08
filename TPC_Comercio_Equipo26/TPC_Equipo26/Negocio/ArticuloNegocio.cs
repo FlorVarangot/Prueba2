@@ -179,7 +179,7 @@ namespace TPC_Equipo26.Negocio
                     int count = (int)datosCodigo.Lector[0];
                     if (count > 0)
                     {
-                        return "Ya existe un artículo con ese código";
+                        return "Ya existe un artículo con ese Código";
                     }
                 }
 
@@ -192,7 +192,54 @@ namespace TPC_Equipo26.Negocio
                     int count = (int)datosNombre.Lector[0];
                     if (count > 0)
                     {
-                        return "Ya existe un artículo con ese nombre";
+                        return "Ya existe un artículo con ese Nombre";
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datosCodigo.cerrarConexion();
+                datosNombre.cerrarConexion();
+            }
+        }
+        public string VerificarArticulo(string codigo, string nombre, long idArticulo)
+        {
+            AccesoDatos datosCodigo = new AccesoDatos();
+            AccesoDatos datosNombre = new AccesoDatos();
+
+            try
+            {             
+                datosCodigo.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Codigo = @Codigo AND ID <> @IdArticulo");
+                datosCodigo.setearParametro("@Codigo", codigo);
+                datosCodigo.setearParametro("@IdArticulo", idArticulo);
+                datosCodigo.ejecutarLectura();
+
+                if (datosCodigo.Lector.Read())
+                {
+                    int count = Convert.ToInt32(datosCodigo.Lector[0]);
+                    if (count > 0)
+                    {
+                        return "Ya existe un artículo con ese Código";
+                    }
+                }
+
+                datosNombre.setearConsulta("SELECT COUNT(*) FROM ARTICULOS WHERE Nombre = @Nombre AND ID <> @IdArticulo");
+                datosNombre.setearParametro("@Nombre", nombre);
+                datosNombre.setearParametro("@IdArticulo", idArticulo);
+                datosNombre.ejecutarLectura();
+
+                if (datosNombre.Lector.Read())
+                {
+                    int count = Convert.ToInt32(datosNombre.Lector[0]);
+                    if (count > 0)
+                    {
+                        return "Ya existe un artículo con ese Nombre";
                     }
                 }
 
