@@ -24,6 +24,42 @@ namespace TPC_Equipo26
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
 
         /// <summary>
+        /// Control opcionesMenu.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl opcionesMenu;
+
+        /// <summary>
+        /// Control btnLogIn.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnLogIn;
+
+        /// <summary>
+        /// Control btnLogOut.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnLogOut;
+
+        /// <summary>
+        /// Control btnPerfil.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnPerfil;
+
+        /// <summary>
         /// Control form1.
         /// </summary>
         /// <remarks>

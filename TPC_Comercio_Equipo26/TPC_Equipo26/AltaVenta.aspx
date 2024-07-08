@@ -14,22 +14,30 @@
             </div>
             <div class="col-4">
                 <label for="ddlCliente" class="form-label">Cliente:</label>
-                <asp:DropDownList runat="server" ID="ddlCliente" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
+                <asp:DropDownList runat="server" ID="ddlCliente" CssClass="form-select" AutoPostBack="True" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
                 <asp:Label runat="server" ID="lblExists" Text="¿No existe el cliente?"></asp:Label>
                 <asp:HyperLink runat="server" ID="lnkAltaCli" href="AltaCliente.aspx">Agregar cliente</asp:HyperLink>
             </div>
         </div>
 
         <asp:Panel ID="selectores" runat="server" Style="align-content: center">
+            <div class="row">
+                <div class="col-5">
+                    <label for="ddlArticulo" class="form-label">Artículo:</label>
+                </div>
+                <div class="col-2">
+                    <label for="numCantidad" class="form-label">Cantidad:</label>
+                </div>
+            </div>
             <div class="row mb-3">
                 <div class="col-5">
-                    <asp:DropDownList runat="server" ID="ddlArticulo" CssClass="form-control" OnSelectedIndexChanged="ddlArticulo_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="ddlArticulo" CssClass="form-select" OnSelectedIndexChanged="ddlArticulo_SelectedIndexChanged"></asp:DropDownList>
                 </div>
                 <div class="col-1">
-                    <input type="number" id="numCantidad" min="1" cssclass="form-control" runat="server" style="border-radius: 5px; height: 40px; width: 50px">
+                    <input type="number" id="numCantidad" min="1" cssclass="form-control" runat="server" style="border-radius: 5px; height: 38px; width: 70px">
                 </div>
-                <div class="col-1 d-flex align-items-center">
-                    <asp:Button runat="server" ID="btnAgregar" Text="+" Autopostback="true" OnClick="btnAgregar_Click" />
+                <div class="col-2">
+                    <asp:Button runat="server" ID="btnAgregar" Text="+" CssClass="btn btn-success" Autopostback="true" OnClick="btnAgregar_Click" />
                 </div>
             </div>
         </asp:Panel>

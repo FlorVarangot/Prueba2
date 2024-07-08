@@ -75,7 +75,6 @@
                     <%# Convert.ToBoolean(Eval("Activo")) ? "Disponible" : "No disponible" %>
                 </ItemTemplate>
             </asp:TemplateField>
-
             <asp:TemplateField>
                 <ItemTemplate>
                     <a href='<%# "AltaArticulo.aspx?ID=" + Eval("ID") %>' class="icono" title="Gestionar">
@@ -85,9 +84,11 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-
     <hr />
+    <% if (ValidarSesion())
+        {%>
     <div class="text-end">
         <a href="AltaArticulo.aspx" class="btn btn-success">Agregar un artículo</a>
     </div>
+    <% } %>
 </asp:Content>

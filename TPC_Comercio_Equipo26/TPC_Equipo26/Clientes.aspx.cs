@@ -121,5 +121,15 @@ namespace TPC_Equipo26
             btnLimpiarFiltros.Visible = filtroActivo;
         }
 
+        protected bool ValidarSesion()
+        {
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }

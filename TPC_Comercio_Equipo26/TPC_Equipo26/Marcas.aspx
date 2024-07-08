@@ -64,8 +64,11 @@
         </Columns>
     </asp:GridView>
     <hr />
+    <% if (ValidarSesion())
+        {%>
     <div class="text-end">
         <a href="AltaMarca.aspx" class="btn btn-success btn-success">Agregar una marca</a>
     </div>
+    <% } %>
 </asp:Content>
 

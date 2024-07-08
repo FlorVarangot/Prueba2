@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="my-4">
-        <h1>ERROR</h1>
+        <h1>Hubo un problema</h1>
+        <asp:Label Text="" ID="lblMensaje" runat="server" />
     </div>
-    Esta sería la página de ERROR
 </asp:Content>

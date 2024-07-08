@@ -201,6 +201,15 @@ namespace TPC_Equipo26
                                         !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue);
         }
 
+        protected bool ValidarSesion()
+        {
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 
 }

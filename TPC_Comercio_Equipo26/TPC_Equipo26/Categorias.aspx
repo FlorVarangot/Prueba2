@@ -54,7 +54,10 @@
         </asp:GridView>
     </div>
     <hr />
+    <% if (ValidarSesion())
+        {%>
     <div class="text-end">
         <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoria</a>
     </div>
+    <% } %>
 </asp:Content>

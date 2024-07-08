@@ -13,7 +13,7 @@
                 <asp:DropDownList ID="ddlCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCliente_SelectedIndexChanged"></asp:DropDownList>
             </div>
             <div class="col-2">
-                <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
+                <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
                     <asp:ListItem Text="Ordenar por..." Value="" />
                     <asp:ListItem Text="Mayor precio" Value="MayorPrecio" />
                     <asp:ListItem Text="Menor precio" Value="MenorPrecio" />

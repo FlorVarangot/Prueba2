@@ -13,10 +13,10 @@
                     <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" Placeholder="Buscar por Fecha o Compra..." OnTextChanged="txtFiltro_TextChanged" />
                 </div>
                 <div class="col-3">
-                    <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-select" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
                 </div>
                 <div class="col-3 text-center">
-                    <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlOrdenarPor" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlOrdenarPor_SelectedIndexChanged">
                         <asp:ListItem Text="Ordenar por..." Value="" />
                         <asp:ListItem Text="Mayor Precio" Value="MayorPrecio" />
                         <asp:ListItem Text="Menor Precio" Value="MenorPrecio" />

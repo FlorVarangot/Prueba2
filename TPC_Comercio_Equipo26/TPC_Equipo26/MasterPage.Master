@@ -20,12 +20,11 @@
 </head>
 <body style="background-color: darkslategrey; color: lightgoldenrodyellow">
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="container-fluid row">
+            <div class="col-1">
                 <a class="navbar-brand" href="/">LOGO / MARCA </a>
+            </div>
+            <div class="col-8" id="opcionesMenu" runat="server">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house"></i></a>
@@ -40,7 +39,6 @@
                         <a class="nav-link" href="Categorias.aspx">Categorías</a>
                     </li>
                     <li class="nav-item">
-                        <%-- Proveedores (tmbClientes) podria ser un desplegable con opciones: -ver proveedores, -ver compras" --%>
                         <a class="nav-link" href="Proveedores.aspx">Proveedores</a>
                     </li>
                     <li class="nav-item">
@@ -53,21 +51,20 @@
                         <a class="nav-link" href="Ventas.aspx">Ventas</a>
                     </li>
                 </ul>
-                <div class="btn-group me-2" role="group" aria-label="Botones de acción">
-                    <button type="button" class="btn btn-warning me-2">
-                        <a href="LogIn.aspx" style="text-decoration: none; color: black">
-                            <i class="fa-solid fa-user"></i>&nbsp; Ingresar
-                        </a>
-                    </button>
-                    <button type="button" class="btn btn-warning me-2">
-                        <a href="MiPerfil.aspx" style="text-decoration: none; color: black">
-                            <i class="fa-solid fa-user"></i>&nbsp; Mi Perfil
-                        </a>
-                    </button>
-                </div>
-                <%-- Aquí iría en realidad la img de perfil: --%>
-                <div class="rounded-circle" style="width: 50px; height: 50px; background-color: #ccc;"></div>
             </div>
+            <div class="col-2 text-end">
+                <a href="LogIn.aspx" id="btnLogIn" runat="server" visible="false" style="text-decoration: none; color: black" class="btn btn-warning me-2">
+                    <i class="fa-solid fa-user"></i>&nbsp; Ingresar                    
+                </a>
+                <a href="LogIn.aspx" id="btnLogOut" runat="server" visible="false" style="text-decoration: none; color: black" class="btn btn-danger me-2">
+                    <i class="fa-solid fa-user"></i>&nbsp; Salir
+                </a>
+                <a href="MiPerfil.aspx" id="btnPerfil" runat="server" visible="false" style="text-decoration: none; color: black" class="btn btn-warning me-2">
+                    <i class="fa-solid fa-user"></i>&nbsp; Mi Perfil
+                </a>
+            </div>
+            <%-- Aquí iría en realidad la img de perfil: --%>
+            <div class="rounded-circle col-1" style="width: 50px; height: 50px; background-color: #ccc;"></div>
         </div>
     </nav>
 

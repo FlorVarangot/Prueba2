@@ -19,35 +19,44 @@ namespace TPC_Equipo26
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (ValidarSesion())
             {
-                if (!IsPostBack)
+                try
                 {
-                    ConfirmarInactivar = false;
-                    ConfirmarReactivar = false;
-
-                    
-                    if (Request.QueryString["ID"] != null)
+                    if (!IsPostBack)
                     {
-                        CargarMarcasYCategoriasTodas();
-                        lblTituloModificar.Visible = true;
-                        long idArticulo = long.Parse(Request.QueryString["ID"]);
-                        CargarDatosArticulo(idArticulo);
-                    }
-                    else
-                    {
-                        CargarMarcasYCategoriasActivas();
-                        lblTituloAgregar.Visible = true;
-                        BtnInactivar.Visible = false;
-                        btnReactivar.Visible = false;
-                        LimpiarCampos();
-                    }
+                        ConfirmarInactivar = false;
+                        ConfirmarReactivar = false;
 
+
+                        if (Request.QueryString["ID"] != null)
+                        {
+                            CargarMarcasYCategoriasTodas();
+                            lblTituloModificar.Visible = true;
+                            long idArticulo = long.Parse(Request.QueryString["ID"]);
+                            CargarDatosArticulo(idArticulo);
+                        }
+                        else
+                        {
+                            CargarMarcasYCategoriasActivas();
+                            lblTituloAgregar.Visible = true;
+                            BtnInactivar.Visible = false;
+                            btnReactivar.Visible = false;
+                            LimpiarCampos();
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+                    Session.Add("Error", "Error en alta de artículo");
+                    Response.Redirect("Error.aspx");
                 }
             }
-            catch (Exception)
+            else
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -102,7 +111,7 @@ namespace TPC_Equipo26
         private bool ValidarCampos()
         {
             bool camposValidos = true;
-           
+
             if (string.IsNullOrWhiteSpace(txtCodigo.Text))
             {
                 lblCodigo.Visible = true;
@@ -134,17 +143,17 @@ namespace TPC_Equipo26
 
             if (ddlMarca.SelectedValue == "-1")
             {
-                lblMarca.Visible = false; 
+                lblMarca.Visible = false;
             }
             else
             {
                 lblMarca.Visible = false;
             }
 
-            
+
             if (ddlCategoria.SelectedValue == "-1")
             {
-                lblCategoria.Visible = false; 
+                lblCategoria.Visible = false;
             }
             else
             {
@@ -164,7 +173,7 @@ namespace TPC_Equipo26
 
             if (string.IsNullOrWhiteSpace(txtImagenUrl.Text))
             {
-                lblImagenUrl.Visible = false;           
+                lblImagenUrl.Visible = false;
             }
             else
             {
@@ -180,11 +189,11 @@ namespace TPC_Equipo26
                 lblStockMinimo.Visible = false;
             }
 
-            if(!camposValidos)
+            if (!camposValidos)
             {
                 lblError.Text = "Todos los campos obligatorios deben ser completados";
                 lblError.Visible = true;
-            }           
+            }
 
             return camposValidos;
         }
@@ -212,7 +221,7 @@ namespace TPC_Equipo26
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;
                 setearMarcaYCategoria(nuevo);
-              
+
 
                 if (Request.QueryString["ID"] != null)
                 {
@@ -239,7 +248,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx");
             }
         }
-        
+
         private void LimpiarCampos()
         {
             txtCodigo.Text = "";
@@ -376,5 +385,15 @@ namespace TPC_Equipo26
             ddlCategoria.DataTextField = "Descripcion";
             ddlCategoria.DataBind();
         }
+
+        protected bool ValidarSesion()
+        {
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

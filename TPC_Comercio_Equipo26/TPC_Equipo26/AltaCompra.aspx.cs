@@ -279,6 +279,7 @@ namespace TPC_Equipo26
             Session["Total"] = null;
             lblTotalCompra.Text = "$0.00";
         }
+        
         private string ValidarCompra()
         {
             if (ddlProveedor.SelectedIndex == 0)

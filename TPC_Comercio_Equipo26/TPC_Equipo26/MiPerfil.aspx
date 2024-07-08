@@ -8,5 +8,5 @@
     </div>
     Aquí irían los Datos Personales del Usuario ingresado, con ABM.
     <br />
-    Acceso a "mis compras", "mis ventas", "mi actividad"?
+    Acceso a "mi actividad"?
 </asp:Content>

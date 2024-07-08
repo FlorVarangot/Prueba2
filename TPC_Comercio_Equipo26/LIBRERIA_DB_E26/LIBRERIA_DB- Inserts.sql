@@ -188,3 +188,8 @@ VALUES	(1, '2022-01-15', 10, 899.99),
 		(18, '2022-06-1', 12, 1400.00),
 		(18, '2023-06-1', 12, 7800.50)
 GO
+
+INSERT INTO USUARIOS(Usuario, Contraseña, Tipo)
+VALUES	('Admin','admin',1),
+		('Vendedor','vendedor',2)
+GO

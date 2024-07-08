@@ -23,8 +23,8 @@ namespace TPC_Equipo26
                 }
             }
             catch
-            { 
-                Response.Redirect("Error.aspx", false); 
+            {
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -79,18 +79,18 @@ namespace TPC_Equipo26
             }
             if (!string.IsNullOrEmpty(txtFiltro.Text.Trim()))
             {
-               string filtro = txtFiltro.Text.Trim().ToUpper();
-               listaArticulos = listaArticulos
-                   .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
-                               x.Codigo.ToUpper().Contains(filtro) ||
-                              x.Descripcion.ToUpper().Contains(filtro) ||
-                              x.StockMin.ToString().Contains(filtro))
-                  .ToList();
+                string filtro = txtFiltro.Text.Trim().ToUpper();
+                listaArticulos = listaArticulos
+                    .Where(x => x.Nombre.ToUpper().Contains(filtro) ||
+                                x.Codigo.ToUpper().Contains(filtro) ||
+                               x.Descripcion.ToUpper().Contains(filtro) ||
+                               x.StockMin.ToString().Contains(filtro))
+                   .ToList();
             }
             if (ddlMarca.SelectedIndex > 0)
             {
                 string marcaSeleccionada = ddlMarca.SelectedItem.Text;
-               listaArticulos = listaArticulos.Where(x => x.Marca.Descripcion.Equals(marcaSeleccionada)).ToList();
+                listaArticulos = listaArticulos.Where(x => x.Marca.Descripcion.Equals(marcaSeleccionada)).ToList();
             }
             if (ddlCategoria.SelectedIndex > 0)
             {
@@ -139,7 +139,7 @@ namespace TPC_Equipo26
 
             btnLimpiarFiltros.Visible = filtroActivo;
         }
-        
+
         protected void Filtro_TextChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
@@ -163,7 +163,7 @@ namespace TPC_Equipo26
             FiltrarArticulos();
             MostrarBotonRestablecer();
         }
-        
+
         protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
@@ -177,7 +177,7 @@ namespace TPC_Equipo26
                 txtFiltro.Text = string.Empty;
                 chkAvanzado.Checked = false;
                 pnlFiltroAvanzado.Visible = false;
-                chkIncluirInactivos.Checked = false;            
+                chkIncluirInactivos.Checked = false;
                 ddlMarca.SelectedIndex = 0;
                 ddlCategoria.SelectedIndex = 0;
                 ddlOrdenarPor.SelectedIndex = 0;
@@ -312,9 +312,15 @@ namespace TPC_Equipo26
             }
         }
 
+        protected bool ValidarSesion()
+        {
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            {
+                return true;
+            }
+            return false;
+        }
 
-
-       
     }
 
 }
