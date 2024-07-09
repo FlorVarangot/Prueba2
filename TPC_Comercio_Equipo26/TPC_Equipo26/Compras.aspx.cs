@@ -14,18 +14,26 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (ValidarSesion())
             {
-                if (!IsPostBack)
+                try
                 {
-                    CargarCompras();
-                    CargarProveedores();
+                    if (!IsPostBack)
+                    {
+                        CargarCompras();
+                        CargarProveedores();
+                    }
+                    VerificarMostrarFiltros();
                 }
-                VerificarMostrarFiltros();
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -206,5 +214,15 @@ namespace TPC_Equipo26
             bool mostrarFiltros = gvCompras.Rows.Count > 0;
             contenedorFiltros.Visible = mostrarFiltros;
         }
+
+        protected bool ValidarSesion()
+        {
+            if (Session["Usuario"] != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

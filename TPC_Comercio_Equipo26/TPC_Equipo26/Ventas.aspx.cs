@@ -14,17 +14,25 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (ValidarSesion())
             {
-                if (!IsPostBack)
+                try
                 {
-                    CargarVentas();
+                    if (!IsPostBack)
+                    {
+                        CargarVentas();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -231,6 +239,16 @@ namespace TPC_Equipo26
                 return null;
             }
         }
+
+        protected bool ValidarSesion()
+        {
+            if (Session["Usuario"] != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
 
     }

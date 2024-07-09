@@ -13,16 +13,24 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (ValidarSesion())
             {
-                if (!IsPostBack)
+                try
                 {
-                    CargarCategorias();
+                    if (!IsPostBack)
+                    {
+                        CargarCategorias();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -48,7 +56,7 @@ namespace TPC_Equipo26
         {
             FiltrarCategorias();
         }
-       
+
         private void FiltrarCategorias()
         {
             List<Categoria> lista = (List<Categoria>)Session["listaCategorias"];
@@ -90,7 +98,7 @@ namespace TPC_Equipo26
             gvCategorias.DataSource = lista;
             gvCategorias.DataBind();
         }
-        
+
         protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             txtFiltro.Text = string.Empty;
@@ -140,7 +148,7 @@ namespace TPC_Equipo26
 
         protected bool ValidarSesion()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
             {
                 return true;
             }

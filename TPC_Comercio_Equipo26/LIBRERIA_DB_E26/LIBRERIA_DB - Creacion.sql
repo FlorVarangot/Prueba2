@@ -103,8 +103,24 @@ GO
 
 CREATE TABLE USUARIOS(
 	Id INT PRIMARY KEY IDENTITY (1,1),
-	Usuario VARCHAR(50) NOT NULL,
-	Contraseña VARCHAR(50) NOT NULL,
-	Tipo INT
+	Nombre VARCHAR(50) NULL,
+	Apellido VARCHAR(50) NULL,
+	Email NVARCHAR(50) NULL,
+	Usuario VARCHAR(30) NOT NULL,
+	Contraseña NVARCHAR(50) NOT NULL,
+	Imagen VARCHAR(30) NULL,
+	Tipo BIT NOT NULL DEFAULT(0)
+	--Tipo INT NOT NULL DEFAULT(2)
 )
 GO
+
+------------------- STORED PROCEDURES ----------------------------------------------------------
+
+USE LIBRERIA_DB
+GO
+
+CREATE PROCEDURE SP_NuevoUsuario
+@User VARCHAR(50),
+@Pass VARCHAR(50)
+AS
+INSERT INTO USUARIOS(Usuario, Contraseña, Tipo) OUTPUT inserted.Id VALUES (@User, @Pass, 0)

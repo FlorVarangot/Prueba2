@@ -12,8 +12,9 @@ Los artículos serán discriminados por categorías, y estarán asociados a una 
 En el registro de compras y ventas se podrá consultar el histórico de operaciones realizadas para cada proveedor y para cada cliente.
 
 PERFILES:
-- Un usuario con permisos de VENDEDOR/A podrá registrar y consultar las ventas realizadas, registrar nuevos clientes y ver los artículos.
+- Un usuario con permisos de VENDEDOR/A podrá registrar y consultar las compras y ventas realizadas, registrar nuevos clientes y ver los artículos.
 - El perfil ADMINISTRADOR/A contará con permisos totales. Sumará al perfil vendedor/a la posibilidad de: dar de alta nuevos artículos, marcas, categorías y proveedores, y realizar nuevas asociaciones o modificar las existentes.
 
 * Para cada registro se enviará un mail de confirmación/bienvenida; y para cada venta un mail al cliente con el detalle de la venta.
+
 

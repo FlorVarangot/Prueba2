@@ -126,3 +126,17 @@ AND IdArticulo IN (4,1,8) -- aca poner id de articulos para ese idventa
 ORDER BY Fecha DESC
 ---Esto trae los datos, luego hacer los c�lculos (+ %ganancia y *cantidad)
 
+-----------------------------------------SP NUEVO USUARIO
+
+EXEC SP_NuevoUsuario 'ALGO','123'
+SELECT * FROM USUARIOS
+--OK
+
+EXEC SP_NuevoUsuario 'Admin','admin'
+
+use LIBRERIA_DB
+SELECT * FROM USUARIOS
+
+UPDATE USUARIOS 
+SET Tipo = 1 
+WHERE Id=3

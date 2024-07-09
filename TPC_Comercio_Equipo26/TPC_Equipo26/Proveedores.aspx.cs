@@ -14,9 +14,25 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (ValidarSesion())
             {
-                CargarProveedores();
+                try
+                {
+                    if (!IsPostBack)
+                    {
+                        CargarProveedores();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
+            else
+            {
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -25,13 +41,14 @@ namespace TPC_Equipo26
             try
             {
 
-            ChkIncluirInactivos.Checked = false;
-            ProveedorNegocio negocio = new ProveedorNegocio();
-            List<Proveedor> proveedores = negocio.Listar();
+                ChkIncluirInactivos.Checked = false;
+                ProveedorNegocio negocio = new ProveedorNegocio();
+                List<Proveedor> proveedores = negocio.Listar();
 
-            Session["listaProveedores"] = proveedores;
-            FiltrarProveedores();
-            }catch(Exception ex)
+                Session["listaProveedores"] = proveedores;
+                FiltrarProveedores();
+            }
+            catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
@@ -77,7 +94,7 @@ namespace TPC_Equipo26
             GvProveedores.DataSource = lista;
             GvProveedores.DataBind();
         }
-            
+
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             LimpiarFiltros();
@@ -100,7 +117,7 @@ namespace TPC_Equipo26
         {
             FiltrarProveedores();
         }
-       
+
         protected void TxtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarProveedores();
@@ -126,7 +143,7 @@ namespace TPC_Equipo26
 
         protected bool ValidarSesion()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
             {
                 return true;
             }

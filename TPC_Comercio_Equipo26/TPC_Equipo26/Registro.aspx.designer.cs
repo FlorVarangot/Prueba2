@@ -15,22 +15,13 @@ namespace TPC_Equipo26
     {
 
         /// <summary>
-        /// Control txtMail.
+        /// Control txtUser.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMail;
-
-        /// <summary>
-        /// Control TextBox1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtUser;
 
         /// <summary>
         /// Control txtPassword.
@@ -48,7 +39,7 @@ namespace TPC_Equipo26
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnRegistro;
+        protected global::System.Web.UI.WebControls.Button btnRegistro;
 
         /// <summary>
         /// Control btnCancelar.
@@ -57,6 +48,6 @@ namespace TPC_Equipo26
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnCancelar;
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
     }
 }

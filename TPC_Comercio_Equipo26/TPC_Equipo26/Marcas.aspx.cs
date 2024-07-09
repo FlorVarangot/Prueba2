@@ -14,9 +14,26 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (ValidarSesion())
             {
-                CargarMarcas();
+                try
+                {
+
+                    if (!IsPostBack)
+                    {
+                        CargarMarcas();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
+            else
+            {
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -105,7 +122,7 @@ namespace TPC_Equipo26
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx",false);
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -120,12 +137,12 @@ namespace TPC_Equipo26
         {
             FiltrarMarcas();
         }
-        
+
         protected void FiltroInactivos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarMarcas();
         }
-        
+
         protected void Filtro_TextChanged(object sender, EventArgs e)
         {
             FiltrarMarcas();
@@ -187,7 +204,7 @@ namespace TPC_Equipo26
             catch (Exception)
             {
                 Session.Add("Error", "Error al obtener el nombre del proveedor");
-                Response.Redirect("Error.aspx",false);
+                Response.Redirect("Error.aspx", false);
                 return null;
             }
         }
@@ -206,7 +223,7 @@ namespace TPC_Equipo26
 
         protected bool ValidarSesion()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
             {
                 return true;
             }

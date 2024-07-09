@@ -13,32 +13,39 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (ValidarSesion())
             {
-                if (!IsPostBack)
+                try
                 {
-                    if (Request.QueryString["ID"] != null)
+                    if (!IsPostBack)
                     {
-                        long idCompra = Convert.ToInt64(Request.QueryString["ID"]);
-                        CargarDetallesCompra(idCompra);
-                        lnkVentaAnterior.NavigateUrl = ObtenerCompraAnterior();
-                        lnkVentaSiguiente.NavigateUrl = ObtenerCompraSiguiente();
-                        lnkVentaAnterior.Enabled = (idCompra > 1);
-                        long maxID = TraerUltimoId();
-                        lnkVentaSiguiente.Enabled = (idCompra < maxID);
-                    }
-                    else
-                    {
-                        Response.Redirect("Compras.aspx");
+                        if (Request.QueryString["ID"] != null)
+                        {
+                            long idCompra = Convert.ToInt64(Request.QueryString["ID"]);
+                            CargarDetallesCompra(idCompra);
+                            lnkVentaAnterior.NavigateUrl = ObtenerCompraAnterior();
+                            lnkVentaSiguiente.NavigateUrl = ObtenerCompraSiguiente();
+                            lnkVentaAnterior.Enabled = (idCompra > 1);
+                            long maxID = TraerUltimoId();
+                            lnkVentaSiguiente.Enabled = (idCompra < maxID);
+                        }
+                        else
+                        {
+                            Response.Redirect("Compras.aspx");
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
                 Response.Redirect("Error.aspx", false);
             }
-
         }
 
         private void CargarDetallesCompra(long idCompra)
@@ -108,6 +115,15 @@ namespace TPC_Equipo26
                 Response.Redirect("Compras.aspx");
                 return null;
             }
+        }
+
+        protected bool ValidarSesion()
+        {
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
+            {
+                return true;
+            }
+            return false;
         }
 
     }

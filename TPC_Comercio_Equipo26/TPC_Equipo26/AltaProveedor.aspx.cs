@@ -271,7 +271,7 @@ namespace TPC_Equipo26
 
         protected bool ValidarSesion()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
             {
                 return true;
             }

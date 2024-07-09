@@ -13,16 +13,24 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (ValidarSesion())
             {
-                if (!IsPostBack)
+                try
                 {
-                    CargarClientes();
+                    if (!IsPostBack)
+                    {
+                        CargarClientes();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -61,7 +69,7 @@ namespace TPC_Equipo26
             }
 
             if (string.IsNullOrEmpty(filtro))
-            { 
+            {
                 lista = lista.Where(x => x.ID.ToString().Contains(filtro) || x.Nombre.ToUpper().Contains(filtro) || x.Apellido.ToUpper().Contains(filtro) || x.Dni.ToString().Contains(filtro)
                     || x.Telefono.ToUpper().Contains(filtro) || x.Direccion.ToUpper().Contains(filtro) || x.Email.ToUpper().Contains(filtro)).ToList();
             }
@@ -116,7 +124,7 @@ namespace TPC_Equipo26
         {
             FiltrarClientes();
         }
-        
+
         protected void MostrarBotonLimpiar()
         {
             bool filtroActivo = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) || !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue) || chkIncluirInactivos.Checked;
@@ -125,7 +133,7 @@ namespace TPC_Equipo26
 
         protected bool ValidarSesion()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == TipoUsuario.ADMIN)
+            if (Session["Usuario"] != null)
             {
                 return true;
             }
