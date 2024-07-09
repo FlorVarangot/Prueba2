@@ -16,7 +16,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Telefono, Email, Direccion, Activo FROM CLIENTES");
+                datos.setearProcedimiento("sp_listarClientes");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -50,7 +50,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM CLIENTES WHERE DNI = @DNI");
+                datos.setearProcedimiento("sp_verificarClientePorDNI");
                 datos.setearParametro("@DNI", dni);
                 datos.ejecutarLectura();
 
@@ -80,7 +80,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM CLIENTES WHERE DNI = @DNI AND ID != @IdCliente");
+                datos.setearProcedimiento("sp_verificarClientePorDNIyID");
                 datos.setearParametro("@DNI", Dni);
                 datos.setearParametro("@IdCliente", idCliente);
                 datos.ejecutarLectura();
@@ -112,8 +112,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO CLIENTES (Nombre, Apellido, DNI, Telefono, Email, Direccion, Activo) " +
-                                     "VALUES (@Nombre, @Apellido, @DNI, @Telefono, @Email, @Direccion, @Activo)");
+                datos.setearProcedimiento("sp_agregarCliente");
                 datos.setearParametro("@Nombre", cliente.Nombre);
                 datos.setearParametro("@Apellido", cliente.Apellido);
                 datos.setearParametro("@DNI", cliente.Dni);
@@ -139,7 +138,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE CLIENTES SET Activo = @Activo WHERE Id = @Id");
+                datos.setearProcedimiento("sp_eliminarLogicoCliente");
                 datos.setearParametro("@Activo", activo);
                 datos.setearParametro("@Id", Id);
                 datos.ejecutarAccion();
@@ -159,7 +158,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, DNI = @DNI, Telefono = @Telefono, Email = @Email, Direccion = @Direccion WHERE Id = @Id");
+                datos.setearProcedimiento("sp_modificarCliente");
                 datos.setearParametro("@Nombre", cliente.Nombre);
                 datos.setearParametro("@Apellido", cliente.Apellido);
                 datos.setearParametro("@DNI", cliente.Dni);
@@ -184,7 +183,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, DNI, Telefono, Email, Direccion, Activo FROM CLIENTES WHERE Id = @id");
+                datos.setearProcedimiento("sp_obtenerClientePorId");
                 datos.setearParametro("@id", Id);
                 datos.ejecutarLectura();
 
@@ -222,9 +221,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, " +
-                                     "DNI = @DNI, Telefono = @Telefono, Email = @Email, " +
-                                     "Direccion = @Direccion, Activo = @Activo WHERE Id = @Id");
+                datos.setearProcedimiento("sp_reactivarModificarCliente");
                 datos.setearParametro("@Nombre", cliente.Nombre);
                 datos.setearParametro("@Apellido", cliente.Apellido);
                 datos.setearParametro("@DNI", cliente.Dni);

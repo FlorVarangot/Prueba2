@@ -18,7 +18,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT * FROM MARCAS");
+                datos.setearProcedimiento("sp_ListarMarcas");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -54,7 +54,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Descripcion = @Descripcion");
+                datos.setearProcedimiento("sp_verificarMarca");
                 datos.setearParametro("@Descripcion", descripcion);
                 datos.ejecutarLectura();
 
@@ -83,7 +83,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Descripcion = @Descripcion AND ID != @IdMarca");
+                datos.setearProcedimiento("sp_verificarMarcaConId");
                 datos.setearParametro("@Descripcion", descripcion);
                 datos.setearParametro("@IdMarca", idMarca);
                 datos.ejecutarLectura();
@@ -113,7 +113,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO MARCAS VALUES (@Descripcion, @IdProveedor, @ImagenUrl, @Activo)");
+                datos.setearProcedimiento("sp_AgregarMarca");
                 datos.setearParametro("@Descripcion", marca.Descripcion);
                 datos.setearParametro("@IdProveedor", marca.IdProveedor);
                 datos.setearParametro("@ImagenUrl", marca.ImagenUrl);
@@ -137,7 +137,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE MARCAS SET Descripcion = @Descripcion, IdProveedor = @IdProveedor, ImagenUrl = @ImagenUrl WHERE Id = @Id");
+                datos.setearProcedimiento("sp_modificarMarca");
 
                 datos.setearParametro("@Descripcion", marca.Descripcion);
                 datos.setearParametro("@IdProveedor", marca.IdProveedor);
@@ -163,7 +163,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE MARCAS SET Activo = @activo WHERE Id = @id");
+                datos.setearProcedimiento("sp_eliminarLogicoMarca");
                 datos.setearParametro("@id", id);
                 datos.setearParametro("@activo", activo);
                 datos.ejecutarAccion();
@@ -180,7 +180,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT * FROM MARCAS WHERE Id = @id");
+                datos.setearProcedimiento("sp_obtenerMarcaPorId");
                 datos.setearParametro("@id", id);
                 datos.ejecutarLectura();
 
@@ -214,7 +214,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE MARCAS SET Descripcion = @Descripcion, IdProveedor = @IdProveedor, ImagenUrl = @ImagenUrl, Activo = @Activo WHERE Id = @Id");
+                datos.setearProcedimiento("sp_reactivarModificarMarca");
 
                 datos.setearParametro("@Descripcion", marca.Descripcion);
                 datos.setearParametro("@IdProveedor", marca.IdProveedor);
