@@ -32,8 +32,9 @@ namespace TPC_Equipo26
                 Session["listaMarcas"] = marcas;
                 FiltrarMarcas();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -101,9 +102,10 @@ namespace TPC_Equipo26
                 gvMarcas.DataSource = categorias;
                 gvMarcas.DataBind();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx",false);
             }
         }
 
@@ -184,8 +186,9 @@ namespace TPC_Equipo26
             }
             catch (Exception)
             {
-                //    Response.Redirect("Error.aspx");
-                return "Error al obtener el nombre del proveedor";
+                Session.Add("Error", "Error al obtener el nombre del proveedor");
+                Response.Redirect("Error.aspx",false);
+                return null;
             }
         }
 

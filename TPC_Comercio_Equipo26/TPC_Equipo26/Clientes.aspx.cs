@@ -20,8 +20,9 @@ namespace TPC_Equipo26
                     CargarClientes();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -36,8 +37,9 @@ namespace TPC_Equipo26
                 Session["listaClientes"] = clientes;
                 FiltrarClientes();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }

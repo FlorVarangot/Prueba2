@@ -11,6 +11,15 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
 
         }
     }

@@ -22,12 +22,20 @@ namespace TPC_Equipo26
 
         private void CargarProveedores()
         {
+            try
+            {
+
             ChkIncluirInactivos.Checked = false;
             ProveedorNegocio negocio = new ProveedorNegocio();
             List<Proveedor> proveedores = negocio.Listar();
 
             Session["listaProveedores"] = proveedores;
             FiltrarProveedores();
+            }catch(Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         private void FiltrarProveedores()

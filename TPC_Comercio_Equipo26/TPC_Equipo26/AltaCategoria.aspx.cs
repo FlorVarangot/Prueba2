@@ -40,8 +40,9 @@ namespace TPC_Equipo26
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Session.Add("Error", ex.ToString());
                     Response.Redirect("Error.aspx", false);
                 }
             }
@@ -54,27 +55,36 @@ namespace TPC_Equipo26
 
         private void CargarDatosCategoria(int Id)
         {
-            CategoriaNegocio negocio = new CategoriaNegocio();
-            Categoria categoria = negocio.ObtenerCategoriaPorId(Id);
-
-            if (categoria != null)
+            try
             {
-                txtDescripcion.Text = categoria.Descripcion;
+                CategoriaNegocio negocio = new CategoriaNegocio();
+                Categoria categoria = negocio.ObtenerCategoriaPorId(Id);
 
-                if (categoria.Activo == true)
+                if (categoria != null)
                 {
-                    BtnInactivar.Visible = true;
-                    btnReactivar.Visible = false;
+                    txtDescripcion.Text = categoria.Descripcion;
+
+                    if (categoria.Activo == true)
+                    {
+                        BtnInactivar.Visible = true;
+                        btnReactivar.Visible = false;
+                    }
+                    else
+                    {
+                        BtnInactivar.Visible = false;
+                        btnReactivar.Visible = true;
+                    }
                 }
                 else
                 {
-                    BtnInactivar.Visible = false;
-                    btnReactivar.Visible = true;
+                    Session.Add("Error", "La categoría no se encontró.");
+                    Response.Redirect("Error.aspx");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -141,8 +151,9 @@ namespace TPC_Equipo26
                 LimpiarCampos();
                 Response.Redirect("Categorias.aspx", false);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -165,8 +176,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Categorias.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -198,8 +210,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Categorias.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }

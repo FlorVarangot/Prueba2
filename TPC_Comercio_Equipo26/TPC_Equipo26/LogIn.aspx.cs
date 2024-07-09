@@ -33,7 +33,6 @@ namespace TPC_Equipo26
                     Session.Add("Error", "User o pass incorrectos.");
                     Response.Redirect("Error.aspx", false);
                 }
-                
             }
             catch (Exception ex)
             {

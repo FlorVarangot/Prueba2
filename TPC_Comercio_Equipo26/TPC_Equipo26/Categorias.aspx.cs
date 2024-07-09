@@ -20,8 +20,11 @@ namespace TPC_Equipo26
                     CargarCategorias();
                 }
             }
-            catch
-            { Response.Redirect("Error.aspx", false); }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         private void CargarCategorias()
@@ -34,8 +37,9 @@ namespace TPC_Equipo26
                 Session["listaCategorias"] = categorias;
                 FiltrarCategorias();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -116,9 +120,10 @@ namespace TPC_Equipo26
                 gvCategorias.DataSource = categorias;
                 gvCategorias.DataBind();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 

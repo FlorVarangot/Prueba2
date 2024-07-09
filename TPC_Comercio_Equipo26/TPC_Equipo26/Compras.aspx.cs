@@ -14,12 +14,20 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                CargarCompras();
-                CargarProveedores();
+                if (!IsPostBack)
+                {
+                    CargarCompras();
+                    CargarProveedores();
+                }
+                VerificarMostrarFiltros();
             }
-            VerificarMostrarFiltros();
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         private void CargarProveedores()
@@ -35,8 +43,9 @@ namespace TPC_Equipo26
                 ddlProveedor.DataBind();
                 ddlProveedor.Items.Insert(0, new ListItem("Seleccione Proveedor", ""));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -50,8 +59,9 @@ namespace TPC_Equipo26
                 Session["ListaCompras"] = listaCompras;
                 FiltrarCompras();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -105,9 +115,10 @@ namespace TPC_Equipo26
                 gvCompras.DataSource = compras;
                 gvCompras.DataBind();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -121,7 +132,7 @@ namespace TPC_Equipo26
                 e.Row.Cells[2].Text = proveedor;
             }
         }
-        
+
         private string TraerNombreProveedor(int idProveedor)
         {
             try
@@ -137,7 +148,9 @@ namespace TPC_Equipo26
             }
             catch (Exception)
             {
-                return "Error al obtener el nombre del proveedor";
+                Session.Add("Error", "Error al obtener el nombre del proveedor");
+                Response.Redirect("Error.aspx", false);
+                return null;
             }
         }
 
@@ -152,14 +165,15 @@ namespace TPC_Equipo26
                 btnRestablecer.Visible = false;
 
                 FiltrarCompras();
-                MostrarBotonRestablecer();                            
+                MostrarBotonRestablecer();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
-        
+
         private void MostrarBotonRestablecer()
         {
             bool filtroActivo = !string.IsNullOrEmpty(txtFiltro.Text.Trim()) ||
@@ -168,13 +182,13 @@ namespace TPC_Equipo26
 
             btnRestablecer.Visible = filtroActivo;
         }
-        
+
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
             MostrarBotonRestablecer();
         }
-        
+
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarCompras();

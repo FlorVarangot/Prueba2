@@ -15,22 +15,28 @@ namespace TPC_Equipo26
         private List<DetalleCompra> detallesCompra;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                //cargo los ddl
-                CargarProveedores();
-                CargarMarcas();
-                CargarArticulos();
-                //esto muestra la fecha actual
-                txtFechaCompra.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                lblTotalCompra.Text = "$0.00";
-                detallesCompra = new List<DetalleCompra>();
-                Session["DetallesCompra"] = detallesCompra;
-                btnGuardarCompra.Visible = false;
+                if (!IsPostBack)
+                {
+                    CargarProveedores();
+                    CargarMarcas();
+                    CargarArticulos();
+                    txtFechaCompra.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    lblTotalCompra.Text = "$0.00";
+                    detallesCompra = new List<DetalleCompra>();
+                    Session["DetallesCompra"] = detallesCompra;
+                    btnGuardarCompra.Visible = false;
+                }
+                else
+                {
+                    detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -47,18 +53,19 @@ namespace TPC_Equipo26
                 ddlProveedor.DataBind();
                 ddlProveedor.Items.Insert(0, new ListItem("Seleccione Proveedor", ""));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
-        
+
         private void CargarMarcas()
         {
             ddlMarca.Items.Clear();
             ddlMarca.Items.Insert(0, new ListItem("Seleccione Proveedor primero", ""));
         }
-        
+
         private void CargarArticulos()
         {
             ddlArticulo.Items.Clear();
@@ -89,7 +96,7 @@ namespace TPC_Equipo26
             ddlArticulo.Items.Clear();
             ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
         }
-        
+
         protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idMarca = int.Parse(ddlMarca.SelectedValue);
@@ -111,7 +118,7 @@ namespace TPC_Equipo26
                 ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
             }
         }
-        
+
         protected void ddlArticulo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlArticulo.SelectedIndex > 0)
@@ -119,7 +126,7 @@ namespace TPC_Equipo26
                 ddlProveedor.Enabled = false;
             }
         }
-        
+
         protected void btnAgregar_Click1(object sender, EventArgs e)
         {
             string error = ValidarCampos();
@@ -164,8 +171,9 @@ namespace TPC_Equipo26
 
                     LimpiarCampos();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Session.Add("Error", ex.ToString());
                     Response.Redirect("Error.aspx");
                 }
             }
@@ -227,7 +235,7 @@ namespace TPC_Equipo26
             lblTotalCompra.Text = total.ToString("C2");
             Session["Total"] = total;
         }
-        
+
         private decimal Calcular()
         {
             decimal total = 0;
@@ -255,17 +263,19 @@ namespace TPC_Equipo26
                     CompraNegocio negocio = new CompraNegocio();
                     negocio.AgregarCompra(compra);
 
-                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-                datoNegocio.ActualizarStockPostCompra(compra);
-                  
+                    DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                    datoNegocio.ActualizarStockPostCompra(compra);
+
                     LimpiarSesion();
                     LimpiarCampos();
                     Response.Redirect("Compras.aspx", false);
                 }
                 catch (Exception)
                 {
-                    lblError.Visible = true;
+                    Session.Add("Error", lblError.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
+
             }
             else
             {
@@ -274,12 +284,12 @@ namespace TPC_Equipo26
             }
         }
         private void LimpiarSesion()
-        {         
+        {
             Session["DetallesCompra"] = null;
             Session["Total"] = null;
             lblTotalCompra.Text = "$0.00";
         }
-        
+
         private string ValidarCompra()
         {
             if (ddlProveedor.SelectedIndex == 0)
@@ -340,6 +350,6 @@ namespace TPC_Equipo26
                 }
             }
         }
-        
+
     }
 }

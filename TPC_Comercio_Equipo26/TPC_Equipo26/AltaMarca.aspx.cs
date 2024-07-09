@@ -43,9 +43,10 @@ namespace TPC_Equipo26
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Response.Redirect("Error.aspx");
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
             }
             else
@@ -57,33 +58,43 @@ namespace TPC_Equipo26
 
         private void PrecargarDatos(int Id)
         {
-            MarcaNegocio negocio = new MarcaNegocio();
-            Marca marca = negocio.ObtenerMarcaPorId(Id);
-
-            if (marca != null)
+            try
             {
-                txtDescripcion.Text = marca.Descripcion;
-                txtImagenUrl.Text = marca.ImagenUrl ?? string.Empty;
-                imgMarcas.ImageUrl = !string.IsNullOrEmpty(marca.ImagenUrl) ? marca.ImagenUrl : "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+                MarcaNegocio negocio = new MarcaNegocio();
+                Marca marca = negocio.ObtenerMarcaPorId(Id);
 
-                ddlProveedor.SelectedValue = marca.IdProveedor.ToString();
-
-                if (marca.Activo == true)
+                if (marca != null)
                 {
-                    BtnInactivar.Visible = true;
-                    BtnReactivar.Visible = false;
+                    txtDescripcion.Text = marca.Descripcion;
+                    txtImagenUrl.Text = marca.ImagenUrl ?? string.Empty;
+                    imgMarcas.ImageUrl = !string.IsNullOrEmpty(marca.ImagenUrl) ? marca.ImagenUrl : "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+
+                    ddlProveedor.SelectedValue = marca.IdProveedor.ToString();
+
+                    if (marca.Activo == true)
+                    {
+                        BtnInactivar.Visible = true;
+                        BtnReactivar.Visible = false;
+                    }
+                    else
+                    {
+                        BtnInactivar.Visible = false;
+                        BtnReactivar.Visible = true;
+                    }
+
                 }
                 else
                 {
-                    BtnInactivar.Visible = false;
-                    BtnReactivar.Visible = true;
+                    Session.Add("Error", "No se encontró la marca.");
+                    Response.Redirect("Error.aspx");
                 }
-
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
+
         }
 
         private void LimpiarCampos()
@@ -184,8 +195,9 @@ namespace TPC_Equipo26
                 LimpiarCampos();
                 Response.Redirect("Marcas.aspx", false);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -209,8 +221,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Marcas.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -245,8 +258,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Marcas.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }

@@ -22,8 +22,9 @@ namespace TPC_Equipo26
                     btnLimpiarFiltros.Visible = false;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -43,29 +44,38 @@ namespace TPC_Equipo26
                     CargarMarcasYCategorias();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
 
         private void CargarMarcasYCategorias()
         {
-            MarcaNegocio marcaNegocio = new MarcaNegocio();
-            List<Marca> marcas = marcaNegocio.Listar();
-            ddlMarca.DataSource = marcas;
-            ddlMarca.DataTextField = "Descripcion";
-            ddlMarca.DataValueField = "ID";
-            ddlMarca.DataBind();
-            ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", "0"));
+            try
+            {
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                List<Marca> marcas = marcaNegocio.Listar();
+                ddlMarca.DataSource = marcas;
+                ddlMarca.DataTextField = "Descripcion";
+                ddlMarca.DataValueField = "ID";
+                ddlMarca.DataBind();
+                ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", "0"));
 
-            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            List<Categoria> categorias = categoriaNegocio.Listar();
-            ddlCategoria.DataSource = categorias;
-            ddlCategoria.DataTextField = "Descripcion";
-            ddlCategoria.DataValueField = "ID";
-            ddlCategoria.DataBind();
-            ddlCategoria.Items.Insert(0, new ListItem("Seleccione Categoría", "0"));
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                List<Categoria> categorias = categoriaNegocio.Listar();
+                ddlCategoria.DataSource = categorias;
+                ddlCategoria.DataTextField = "Descripcion";
+                ddlCategoria.DataValueField = "ID";
+                ddlCategoria.DataBind();
+                ddlCategoria.Items.Insert(0, new ListItem("Seleccione Categoría", "0"));
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         private void FiltrarArticulos()
@@ -172,24 +182,17 @@ namespace TPC_Equipo26
 
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
         {
-            try
-            {
-                txtFiltro.Text = string.Empty;
-                chkAvanzado.Checked = false;
-                pnlFiltroAvanzado.Visible = false;
-                chkIncluirInactivos.Checked = false;
-                ddlMarca.SelectedIndex = 0;
-                ddlCategoria.SelectedIndex = 0;
-                ddlOrdenarPor.SelectedIndex = 0;
-                pnlFiltroAvanzado.Visible = false;
-                CargarArticulos();
-                MostrarBotonRestablecer();
-                btnLimpiarFiltros.Visible = false;
-            }
-            catch (Exception)
-            {
-                Response.Redirect("Error.aspx", false);
-            }
+            txtFiltro.Text = string.Empty;
+            chkAvanzado.Checked = false;
+            pnlFiltroAvanzado.Visible = false;
+            chkIncluirInactivos.Checked = false;
+            ddlMarca.SelectedIndex = 0;
+            ddlCategoria.SelectedIndex = 0;
+            ddlOrdenarPor.SelectedIndex = 0;
+            pnlFiltroAvanzado.Visible = false;
+            CargarArticulos();
+            MostrarBotonRestablecer();
+            btnLimpiarFiltros.Visible = false;
         }
 
         protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -214,9 +217,10 @@ namespace TPC_Equipo26
                 gvArticulos.DataSource = listaArticulos;
                 gvArticulos.DataBind();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -256,10 +260,16 @@ namespace TPC_Equipo26
 
                     return precio;
                 }
-                return 0;
+                else
+                {
+                    Session.Add("Error", "No se encontró el artículo.");
+                    return 0;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
                 return -1;
             }
         }
@@ -281,10 +291,16 @@ namespace TPC_Equipo26
 
                     return precioConGanancia;
                 }
-                return 0;
+                else
+                {
+                    Session.Add("Error", "No se encontró el artículo.");
+                    return 0;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
                 return -1;
             }
         }
@@ -304,12 +320,19 @@ namespace TPC_Equipo26
 
                     return stock;
                 }
-                return 0;
+                else
+                {
+                    Session.Add("Error", "No se encontró el artículo.");
+                    return 0;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
                 return -1;
             }
+
         }
 
         protected bool ValidarSesion()

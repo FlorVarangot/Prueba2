@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,32 +14,39 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                if (Request.QueryString["ID"] != null)
+                if (!IsPostBack)
                 {
-                    lblTitulo.Text = "Detalles de Venta";
-                    long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
-                    lblVentaID.Text = "venta n° 00" + ventaID;
-                    lblCliente.Text = "Cliente: " + TraerNombreCliente(ventaID);
-                    lblFecha.Text = "Fecha: " + TraerFechaVenta(ventaID).ToString("dd/MM/yyyy");
-                    lblTotal.Text = "Total: $ " + TraerTotalVenta(ventaID).ToString("N2");
-                    CargarDetallesVenta(ventaID);
+                    if (Request.QueryString["ID"] != null)
+                    {
+                        lblTitulo.Text = "Detalles de Venta";
+                        long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
+                        lblVentaID.Text = "venta n° 00" + ventaID;
+                        lblCliente.Text = "Cliente: " + TraerNombreCliente(ventaID);
+                        lblFecha.Text = "Fecha: " + TraerFechaVenta(ventaID).ToString("dd/MM/yyyy");
+                        lblTotal.Text = "Total: $ " + TraerTotalVenta(ventaID).ToString("N2");
+                        CargarDetallesVenta(ventaID);
 
-                    //navegacion entre detalles:
-                    lnkVentaAnterior.NavigateUrl = ObtenerVentaAnterior();
-                    lnkVentaSiguiente.NavigateUrl = ObtenerVentaSiguiente();
-                    //si es la primera no puedo ir a anterior
-                    lnkVentaAnterior.Enabled = (ventaID > 1);
-                    long maxID = TraerUltimoId();
-                    //si es la ultima no puedo ir a siguiente
-                    lnkVentaSiguiente.Enabled = (ventaID < maxID);
+                        //navegacion entre detalles:
+                        lnkVentaAnterior.NavigateUrl = ObtenerVentaAnterior();
+                        lnkVentaSiguiente.NavigateUrl = ObtenerVentaSiguiente();
+                        //si es la primera no puedo ir a anterior
+                        lnkVentaAnterior.Enabled = (ventaID > 1);
+                        long maxID = TraerUltimoId();
+                        //si es la ultima no puedo ir a siguiente
+                        lnkVentaSiguiente.Enabled = (ventaID < maxID);
+                    }
+                    else
+                    {
+                        Response.Redirect("Ventas.aspx");
+                    }
                 }
-                else
-                {
-                    Response.Redirect("Ventas.aspx");
-                }
-
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -112,7 +120,8 @@ namespace TPC_Equipo26
             }
             catch (Exception)
             {
-                return "Error al obtener el nombre del cliente";
+                Session.Add("Error", "Error al obtener el nombre del cliente");
+                return null;
             }
         }
 
@@ -135,10 +144,13 @@ namespace TPC_Equipo26
 
                 return fechaVenta;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
                 return DateTime.MinValue;
             }
+
         }
 
         private decimal TraerTotalVenta(long id)
@@ -160,10 +172,13 @@ namespace TPC_Equipo26
 
                 return totalVenta;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
                 return 0;
             }
+
 
         }
 
@@ -183,9 +198,11 @@ namespace TPC_Equipo26
             {
                 return "DetallesVenta.aspx?ID=" + nuevoID;
             }
-
-            //return "Ventas.aspx";
-            return "Error.aspx";
+            else
+            {
+                Response.Redirect("Ventas.aspx");
+                return null;
+            }
         }
 
         private string ObtenerVentaAnterior()
@@ -197,9 +214,11 @@ namespace TPC_Equipo26
             {
                 return "DetallesVenta.aspx?ID=" + nuevoID;
             }
-
-            //return "Ventas.aspx";
-            return "Error.aspx";
+            else
+            {
+                Response.Redirect("Ventas.aspx");
+                return null;
+            }
         }
 
     }

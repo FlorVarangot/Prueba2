@@ -21,8 +21,9 @@ namespace TPC_Equipo26
                     CargarVentas();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
         }
@@ -38,8 +39,9 @@ namespace TPC_Equipo26
                 Session["listaVentas"] = ventas;
                 FiltrarVentas();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
         }
@@ -63,8 +65,9 @@ namespace TPC_Equipo26
                 ddlCliente.DataBind();
                 ddlCliente.Items.Insert(0, new ListItem("Seleccionar cliente", ""));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
         }
@@ -141,7 +144,7 @@ namespace TPC_Equipo26
             FiltrarVentas();
             MostrarBotonRestablecer();
         }
-        
+
         protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarVentas();
@@ -153,14 +156,15 @@ namespace TPC_Equipo26
             try
             {
                 ddlCliente.SelectedIndex = -1;
-                BtnLimpiarFiltros.Visible=false;
+                BtnLimpiarFiltros.Visible = false;
                 CargarVentas();
 
                 FiltrarVentas();
                 MostrarBotonRestablecer();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
         }
@@ -181,8 +185,9 @@ namespace TPC_Equipo26
                 GvVentas.DataSource = listaVentas;
                 GvVentas.DataBind();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }
         }
@@ -221,11 +226,13 @@ namespace TPC_Equipo26
             }
             catch (Exception)
             {
-                return "Error al obtener el nombre del cliente";
+                Session.Add("Error", "Error al obtener el nombre del cliente");
+                Response.Redirect("Error.aspx");
+                return null;
             }
         }
 
-        
+
     }
 
 }

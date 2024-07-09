@@ -36,10 +36,10 @@ namespace TPC_Equipo26
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Session.Add("Error", "Error en Alta de Proveedor");
-                    Response.Redirect("Error.aspx",false);
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
             }
             else
@@ -51,31 +51,40 @@ namespace TPC_Equipo26
 
         private void PrecargarProveedores(int Id)
         {
-            ProveedorNegocio negocio = new ProveedorNegocio();
-            Proveedor proveedor = negocio.ObtenerProveedorPorId(Id);
-
-            if (proveedor != null)
+            try
             {
-                TxtNombre.Text = proveedor.Nombre;
-                TxtCuit.Text = proveedor.CUIT;
-                TxtEmail.Text = proveedor.Email;
-                TxtTel.Text = proveedor.Telefono;
-                TxtDirec.Text = proveedor.Direccion;
+                ProveedorNegocio negocio = new ProveedorNegocio();
+                Proveedor proveedor = negocio.ObtenerProveedorPorId(Id);
 
-                if (proveedor.Activo == true)
+                if (proveedor != null)
                 {
-                    BtnInactivar.Visible = true;
-                    BtnReactivar.Visible = false;
+                    TxtNombre.Text = proveedor.Nombre;
+                    TxtCuit.Text = proveedor.CUIT;
+                    TxtEmail.Text = proveedor.Email;
+                    TxtTel.Text = proveedor.Telefono;
+                    TxtDirec.Text = proveedor.Direccion;
+
+                    if (proveedor.Activo == true)
+                    {
+                        BtnInactivar.Visible = true;
+                        BtnReactivar.Visible = false;
+                    }
+                    else
+                    {
+                        BtnInactivar.Visible = false;
+                        BtnReactivar.Visible = true;
+                    }
                 }
                 else
                 {
-                    BtnInactivar.Visible = false;
-                    BtnReactivar.Visible = true;
+                    Session.Add("Error","No se encontró el proveedor.");
+                    Response.Redirect("Error.aspx");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -189,8 +198,9 @@ namespace TPC_Equipo26
                 LimpiarCampos();
                 Response.Redirect("Proveedores.aspx", false);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -213,8 +223,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Proveedores.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -251,8 +262,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Proveedores.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }

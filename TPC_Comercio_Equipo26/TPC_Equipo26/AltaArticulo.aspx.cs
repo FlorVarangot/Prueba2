@@ -47,10 +47,10 @@ namespace TPC_Equipo26
 
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Session.Add("Error", "Error en alta de artículo");
-                    Response.Redirect("Error.aspx");
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
             }
             else
@@ -62,49 +62,57 @@ namespace TPC_Equipo26
 
         private void CargarDatosArticulo(long idArticulo)
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
-            Articulo articulo = negocio.ObtenerArticuloPorID(idArticulo);
-
-            if (articulo != null)
+            try
             {
-                txtCodigo.Text = articulo.Codigo;
-                txtNombre.Text = articulo.Nombre;
-                txtDescripcion.Text = articulo.Descripcion;
-                txtImagenUrl.Text = articulo.Imagen;
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                Articulo articulo = negocio.ObtenerArticuloPorID(idArticulo);
 
-                numGanancia.Value = articulo.Ganancia.ToString("F4", CultureInfo.InvariantCulture);
-                numStockMinimo.Value = articulo.StockMin.ToString();
-
-                ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
-                ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
-
-
-                if (articulo.Imagen != null)
+                if (articulo != null)
                 {
+                    txtCodigo.Text = articulo.Codigo;
+                    txtNombre.Text = articulo.Nombre;
+                    txtDescripcion.Text = articulo.Descripcion;
                     txtImagenUrl.Text = articulo.Imagen;
-                    imgArticulos.ImageUrl = articulo.Imagen;
+
+                    numGanancia.Value = articulo.Ganancia.ToString("F4", CultureInfo.InvariantCulture);
+                    numStockMinimo.Value = articulo.StockMin.ToString();
+
+                    ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
+                    ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
+
+
+                    if (articulo.Imagen != null)
+                    {
+                        txtImagenUrl.Text = articulo.Imagen;
+                        imgArticulos.ImageUrl = articulo.Imagen;
+                    }
+                    else
+                    {
+                        txtImagenUrl.Text = "";
+                        imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+                    }
+
+                    if (articulo.Activo == true)
+                    {
+                        BtnInactivar.Visible = true;
+                        btnReactivar.Visible = false;
+                    }
+                    else
+                    {
+                        BtnInactivar.Visible = false;
+                        btnReactivar.Visible = true;
+                    }
                 }
                 else
                 {
-                    txtImagenUrl.Text = "";
-                    imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+                    Session.Add("Error", "El artículo no se encontró");
+                    Response.Redirect("Error.aspx", false);
                 }
-
-                if (articulo.Activo == true)
-                {
-                    BtnInactivar.Visible = true;
-                    btnReactivar.Visible = false;
-                }
-                else
-                {
-                    BtnInactivar.Visible = false;
-                    btnReactivar.Visible = true;
-                }
-
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex);
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -150,7 +158,6 @@ namespace TPC_Equipo26
                 lblMarca.Visible = false;
             }
 
-
             if (ddlCategoria.SelectedValue == "-1")
             {
                 lblCategoria.Visible = false;
@@ -159,7 +166,6 @@ namespace TPC_Equipo26
             {
                 lblCategoria.Visible = false;
             }
-
 
             if (string.IsNullOrWhiteSpace(numGanancia.Value))
             {
@@ -212,10 +218,6 @@ namespace TPC_Equipo26
                 nuevo.Codigo = txtCodigo.Text;
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-
-                //PROVISORIO ARREGLAR
-
-                //nuevo.Ganancia = decimal.Parse(numGanancia.Value) / 100;
                 nuevo.Ganancia = decimal.Parse(numGanancia.Value, CultureInfo.InvariantCulture) / 100;
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
@@ -250,9 +252,10 @@ namespace TPC_Equipo26
                 LimpiarCampos();
                 Response.Redirect("Default.aspx", false);
             }
-            catch
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex);
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -292,9 +295,10 @@ namespace TPC_Equipo26
                     Response.Redirect("Default.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -332,9 +336,10 @@ namespace TPC_Equipo26
                     Response.Redirect("Default.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -356,41 +361,59 @@ namespace TPC_Equipo26
 
         protected void CargarMarcasYCategoriasActivas()
         {
-            MarcaNegocio negocioMarca = new MarcaNegocio();
-            List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
+            try
+            {
+                MarcaNegocio negocioMarca = new MarcaNegocio();
+                List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
 
-            ddlMarca.DataSource = listaMarca;
-            ddlMarca.DataValueField = "ID";
-            ddlMarca.DataTextField = "Descripcion";
-            ddlMarca.DataBind();
+                ddlMarca.DataSource = listaMarca;
+                ddlMarca.DataValueField = "ID";
+                ddlMarca.DataTextField = "Descripcion";
+                ddlMarca.DataBind();
 
-            CategoriaNegocio negocioCategoria = new CategoriaNegocio();
-            List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
+                CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+                List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
 
-            ddlCategoria.DataSource = listaCategoria;
-            ddlCategoria.DataValueField = "ID";
-            ddlCategoria.DataTextField = "Descripcion";
-            ddlCategoria.DataBind();
+                ddlCategoria.DataSource = listaCategoria;
+                ddlCategoria.DataValueField = "ID";
+                ddlCategoria.DataTextField = "Descripcion";
+                ddlCategoria.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+
 
         }
 
         protected void CargarMarcasYCategoriasTodas()
         {
-            MarcaNegocio negocioMarca = new MarcaNegocio();
-            List<Marca> listaMarca = negocioMarca.Listar();
+            try
+            {
+                MarcaNegocio negocioMarca = new MarcaNegocio();
+                List<Marca> listaMarca = negocioMarca.Listar();
 
-            ddlMarca.DataSource = listaMarca;
-            ddlMarca.DataValueField = "ID";
-            ddlMarca.DataTextField = "Descripcion";
-            ddlMarca.DataBind();
+                ddlMarca.DataSource = listaMarca;
+                ddlMarca.DataValueField = "ID";
+                ddlMarca.DataTextField = "Descripcion";
+                ddlMarca.DataBind();
 
-            CategoriaNegocio negocioCategoria = new CategoriaNegocio();
-            List<Categoria> listaCategoria = negocioCategoria.Listar();
+                CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+                List<Categoria> listaCategoria = negocioCategoria.Listar();
 
-            ddlCategoria.DataSource = listaCategoria;
-            ddlCategoria.DataValueField = "ID";
-            ddlCategoria.DataTextField = "Descripcion";
-            ddlCategoria.DataBind();
+                ddlCategoria.DataSource = listaCategoria;
+                ddlCategoria.DataValueField = "ID";
+                ddlCategoria.DataTextField = "Descripcion";
+                ddlCategoria.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected bool ValidarSesion()

@@ -57,9 +57,10 @@ namespace TPC_Equipo26
                 ddlCliente.DataBind();
                 ddlCliente.Items.Insert(0, new ListItem("Seleccionar cliente", ""));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex);
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -82,9 +83,10 @@ namespace TPC_Equipo26
                 ddlArticulo.DataBind();
                 ddlArticulo.Items.Insert(0, new ListItem("Seleccionar Artículo", ""));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -123,6 +125,7 @@ namespace TPC_Equipo26
                 }
                 else
                 {
+                    Session.Add("Error", "No hay stock suficiente.");
                     Response.Redirect("Error.aspx");
                 }
 
@@ -138,34 +141,26 @@ namespace TPC_Equipo26
                 CargarArticulos();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
         private bool validarStock(DetalleVenta detalle)
         {
-            try
+            DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+
+            long idArticulo = detalle.IdArticulo;
+            int cantidadSolicitada = detalle.Cantidad;
+            int cantidadEnStock = datoNegocio.ObtenerStockArticulo(idArticulo);
+
+            if (cantidadSolicitada <= cantidadEnStock)
             {
-                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-
-                long idArticulo = detalle.IdArticulo;
-                int cantidadSolicitada = detalle.Cantidad;
-                int cantidadEnStock = datoNegocio.ObtenerStockArticulo(idArticulo);
-
-                if (cantidadSolicitada <= cantidadEnStock)
-                {
-                    return true;
-                }
-
-                return false;
+                return true;
             }
-            catch
-            {
-                Response.Redirect("Error.aspx");
-                return false;
-            }
+            return false;
         }
 
         private void ActualizarArticulos()
@@ -214,9 +209,10 @@ namespace TPC_Equipo26
                 lblTotalVenta.Text = "Total venta = $0.00";
                 Response.Redirect("Ventas.aspx", false);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -269,9 +265,13 @@ namespace TPC_Equipo26
                     }
                 }
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
-
     }
+
 
 }

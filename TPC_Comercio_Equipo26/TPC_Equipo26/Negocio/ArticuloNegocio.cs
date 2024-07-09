@@ -421,11 +421,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearParametro("@Descripcion", arti.Descripcion);
                 datos.setearParametro("@IdMarca", arti.Marca.ID);
                 datos.setearParametro("@IdCategoria", arti.Categoria.ID);
-
-                //PROVISORIO: ARREGLAR
-                //datos.setearParametro("@Ganancia_Porcentaje", 55);
                 datos.setearParametro("@Ganancia_Porcentaje", arti.Ganancia);
-
                 datos.setearParametro("@Stock_Minimo", arti.StockMin);
                 datos.setearParametro("@Imagen", !string.IsNullOrEmpty(arti.Imagen) ? arti.Imagen : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg");
                 datos.setearParametro("@Activo", arti.Activo);

@@ -13,27 +13,32 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                if (Request.QueryString["ID"] != null)
+                if (!IsPostBack)
                 {
-                    long idCompra = Convert.ToInt64(Request.QueryString["ID"]);
-                    CargarDetallesCompra(idCompra);
-
-                    //navegacion entre detalles:
-                    lnkVentaAnterior.NavigateUrl = ObtenerCompraAnterior();
-                    lnkVentaSiguiente.NavigateUrl = ObtenerCompraSiguiente();
-                    //si es la primera no puedo ir a anterior
-                    lnkVentaAnterior.Enabled = (idCompra > 1);
-                    long maxID = TraerUltimoId();
-                    //si es la ultima no puedo ir a siguiente
-                    lnkVentaSiguiente.Enabled = (idCompra < maxID);
-                }
-                else
-                {
-                    Response.Redirect("Compras.aspx");
+                    if (Request.QueryString["ID"] != null)
+                    {
+                        long idCompra = Convert.ToInt64(Request.QueryString["ID"]);
+                        CargarDetallesCompra(idCompra);
+                        lnkVentaAnterior.NavigateUrl = ObtenerCompraAnterior();
+                        lnkVentaSiguiente.NavigateUrl = ObtenerCompraSiguiente();
+                        lnkVentaAnterior.Enabled = (idCompra > 1);
+                        long maxID = TraerUltimoId();
+                        lnkVentaSiguiente.Enabled = (idCompra < maxID);
+                    }
+                    else
+                    {
+                        Response.Redirect("Compras.aspx");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+
         }
 
         private void CargarDetallesCompra(long idCompra)
@@ -56,13 +61,13 @@ namespace TPC_Equipo26
                         detalle.NombreArticulo = "Artículo no encontrado";
                     }
                 }
-
                 gvDetalle.DataSource = detalles;
                 gvDetalle.DataBind();
             }
-            catch (Exception)
-            {             
-                Response.Redirect("Error.aspx"); 
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -82,9 +87,11 @@ namespace TPC_Equipo26
             {
                 return "DetallesCompra.aspx?ID=" + nuevoID;
             }
-
-            //return "Compras.aspx";
-            return "Error.aspx";
+            else
+            {
+                Response.Redirect("Compras.aspx");
+                return null;
+            }
         }
 
         private string ObtenerCompraAnterior()
@@ -96,9 +103,11 @@ namespace TPC_Equipo26
             {
                 return "DetallesCompra.aspx?ID=" + nuevoID;
             }
-
-            //return "Compras.aspx";
-            return "Error.aspx";
+            else
+            {
+                Response.Redirect("Compras.aspx");
+                return null;
+            }
         }
 
     }

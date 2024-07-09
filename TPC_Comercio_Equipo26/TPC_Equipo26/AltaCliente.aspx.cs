@@ -39,8 +39,9 @@ namespace TPC_Equipo26
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Session.Add("Error", ex.ToString());
                     Response.Redirect("Error.aspx", false);
                 }
             }
@@ -63,32 +64,41 @@ namespace TPC_Equipo26
 
         private void CargarDatosCliente(long Id)
         {
-            ClienteNegocio negocio = new ClienteNegocio();
-            Cliente cliente = negocio.ObtenerClientePorId(Id);
-
-            if (cliente != null)
+            try
             {
-                txtNombre.Text = cliente.Nombre;
-                txtApellido.Text = cliente.Apellido;
-                txtDNI.Text = cliente.Dni.ToString();
-                txtTelefono.Text = cliente.Telefono;
-                txtEmail.Text = cliente.Email;
-                txtDireccion.Text = cliente.Direccion;
+                ClienteNegocio negocio = new ClienteNegocio();
+                Cliente cliente = negocio.ObtenerClientePorId(Id);
 
-                if (cliente.Activo)
+                if (cliente != null)
                 {
-                    BtnInactivar.Visible = true;
-                    btnReactivar.Visible = false;
+                    txtNombre.Text = cliente.Nombre;
+                    txtApellido.Text = cliente.Apellido;
+                    txtDNI.Text = cliente.Dni.ToString();
+                    txtTelefono.Text = cliente.Telefono;
+                    txtEmail.Text = cliente.Email;
+                    txtDireccion.Text = cliente.Direccion;
+
+                    if (cliente.Activo)
+                    {
+                        BtnInactivar.Visible = true;
+                        btnReactivar.Visible = false;
+                    }
+                    else
+                    {
+                        BtnInactivar.Visible = false;
+                        btnReactivar.Visible = true;
+                    }
                 }
                 else
                 {
-                    BtnInactivar.Visible = false;
-                    btnReactivar.Visible = true;
+                    Session.Add("Error", "No se encontró el cliente.");
+                    Response.Redirect("Error.aspx");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -205,8 +215,9 @@ namespace TPC_Equipo26
                 LimpiarCampos();
                 Response.Redirect("Clientes.aspx", false);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -229,8 +240,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Clientes.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -268,8 +280,9 @@ namespace TPC_Equipo26
                     Response.Redirect("Clientes.aspx", false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
