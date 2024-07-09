@@ -218,7 +218,14 @@ namespace TPC_Equipo26
                 nuevo.Codigo = txtCodigo.Text;
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-                nuevo.Ganancia = decimal.Parse(numGanancia.Value, CultureInfo.InvariantCulture) / 100;
+                decimal ganancia = decimal.Parse(numGanancia.Value, CultureInfo.InvariantCulture) / 100;
+                if (ganancia < 0 || ganancia > 99.99m)
+                {
+                    lblError.Text = "La ganancia debe estar entre 0 y 99.99";
+                    lblError.Visible = true;
+                    return;
+                }
+                nuevo.Ganancia = ganancia;
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;
@@ -326,7 +333,14 @@ namespace TPC_Equipo26
                     nuevo.Codigo = txtCodigo.Text;
                     nuevo.Nombre = txtNombre.Text;
                     nuevo.Descripcion = txtDescripcion.Text;
-                    nuevo.Ganancia = decimal.Parse(numGanancia.Value, CultureInfo.InvariantCulture);
+                    decimal ganancia = decimal.Parse(numGanancia.Value, CultureInfo.InvariantCulture);
+                    if (ganancia < 0 || ganancia > 99.99m)
+                    {
+                        lblError.Text = "La ganancia debe estar entre 0 y 99.99";
+                        lblError.Visible = true;
+                        return;
+                    }
+                    nuevo.Ganancia = ganancia;
                     nuevo.Imagen = txtImagenUrl.Text;
                     nuevo.StockMin = int.Parse(numStockMinimo.Value);
                     nuevo.Activo = true;

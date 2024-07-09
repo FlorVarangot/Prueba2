@@ -124,5 +124,5 @@ INNER JOIN ARTICULOS A ON DA.IdArticulo = A.Id
 WHERE DA.Fecha <= '2024-05-10' -- aca fecha de venta
 AND IdArticulo IN (4,1,8) -- aca poner id de articulos para ese idventa
 ORDER BY Fecha DESC
----Esto trae los datos, luego hacer los cálculos (+ %ganancia y *cantidad)
+---Esto trae los datos, luego hacer los cï¿½lculos (+ %ganancia y *cantidad)
 
