@@ -31,8 +31,9 @@ namespace TPC_Equipo26.Negocio
 
         public void setearProcedimiento(string sp)
         {
-            comando.CommandType = System.Data.CommandType.Text;
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
             comando.CommandText = sp;
+            comando.Connection = conexion;
         }
 
         public void ejecutarLectura()

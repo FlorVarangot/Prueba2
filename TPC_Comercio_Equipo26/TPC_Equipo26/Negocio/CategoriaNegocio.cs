@@ -15,7 +15,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Descripcion, Activo FROM CATEGORIAS");
+                datos.setearProcedimiento("sp_listarCategorias");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -44,7 +44,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT ID, Descripcion, Activo FROM CATEGORIAS WHERE ID = @id");
+                datos.setearProcedimiento("sp_obtenerCategoriaPorId");
                 datos.setearParametro("@id", Id);
                 datos.ejecutarLectura();
 
@@ -78,7 +78,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Descripcion = @Descripcion");
+                datos.setearProcedimiento("sp_verificarCategoria");
                 datos.setearParametro("@Descripcion", descripcion);
                 datos.ejecutarLectura();
 
@@ -107,7 +107,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Descripcion = @Descripcion AND ID != @IdCategoria");
+                datos.setearProcedimiento("sp_verificarCategoriaConID");
                 datos.setearParametro("@Descripcion", descripcion);
                 datos.setearParametro("@IdCategoria", idCategoria);
                 datos.ejecutarLectura();
@@ -138,7 +138,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion, Activo) VALUES (@Descripcion, @Activo)");
+                datos.setearProcedimiento("sp_agregarCategoria");
                 datos.setearParametro("@Descripcion", categoria.Descripcion);
                 datos.setearParametro("@Activo", categoria.Activo);
 
@@ -160,8 +160,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion WHERE Id = @Id");
-
+                datos.setearProcedimiento("sp_modificarCategoria");
                 datos.setearParametro("@Descripcion", categoria.Descripcion);
                 datos.setearParametro("@Id", categoria.ID);
 
@@ -183,7 +182,7 @@ namespace TPC_Equipo26.Negocio
 
             try
             {
-                datos.setearConsulta("UPDATE CATEGORIAS SET Activo = @activo WHERE Id = @Id");
+                datos.setearProcedimiento("sp_eliminarLogico");
                 datos.setearParametro("@Id", Id);
                 datos.setearParametro("@activo", estado);
                 datos.ejecutarAccion();
@@ -203,7 +202,7 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion, Activo = @Activo WHERE Id = @Id");
+                datos.setearProcedimiento("sp_reactivarModificar");
 
                 datos.setearParametro("@Descripcion", categoria.Descripcion);
                 datos.setearParametro("@Activo", categoria.Activo);
