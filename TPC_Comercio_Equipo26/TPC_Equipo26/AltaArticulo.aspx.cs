@@ -19,43 +19,37 @@ namespace TPC_Equipo26
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ValidarSesion())
+            ValidarAdmin();
+
+            try
             {
-                try
+                if (!IsPostBack)
                 {
-                    if (!IsPostBack)
+                    ConfirmarInactivar = false;
+                    ConfirmarReactivar = false;
+
+
+                    if (Request.QueryString["ID"] != null)
                     {
-                        ConfirmarInactivar = false;
-                        ConfirmarReactivar = false;
-
-
-                        if (Request.QueryString["ID"] != null)
-                        {
-                            CargarMarcasYCategoriasTodas();
-                            lblTituloModificar.Visible = true;
-                            long idArticulo = long.Parse(Request.QueryString["ID"]);
-                            CargarDatosArticulo(idArticulo);
-                        }
-                        else
-                        {
-                            CargarMarcasYCategoriasActivas();
-                            lblTituloAgregar.Visible = true;
-                            BtnInactivar.Visible = false;
-                            btnReactivar.Visible = false;
-                            LimpiarCampos();
-                        }
-
+                        CargarMarcasYCategoriasTodas();
+                        lblTituloModificar.Visible = true;
+                        long idArticulo = long.Parse(Request.QueryString["ID"]);
+                        CargarDatosArticulo(idArticulo);
                     }
-                }
-                catch (Exception ex)
-                {
-                    Session.Add("Error", ex.ToString());
-                    Response.Redirect("Error.aspx", false);
+                    else
+                    {
+                        CargarMarcasYCategoriasActivas();
+                        lblTituloAgregar.Visible = true;
+                        BtnInactivar.Visible = false;
+                        btnReactivar.Visible = false;
+                        LimpiarCampos();
+                    }
+
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -430,13 +424,13 @@ namespace TPC_Equipo26
             }
         }
 
-        protected bool ValidarSesion()
+        protected void ValidarAdmin()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
+            if (!Seguridad.esAdmin(Session["Usuario"]))
             {
-                return true;
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Response.Redirect("Error.aspx", false);
             }
-            return false;
         }
 
     }

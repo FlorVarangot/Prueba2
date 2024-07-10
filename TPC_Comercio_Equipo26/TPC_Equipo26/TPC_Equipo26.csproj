@@ -237,6 +237,7 @@
     <Compile Include="Negocio\DetalleVentaNegocio.cs" />
     <Compile Include="Negocio\MarcaNegocio.cs" />
     <Compile Include="Negocio\ProveedorNegocio.cs" />
+    <Compile Include="Negocio\Seguridad.cs" />
     <Compile Include="Negocio\UsuarioNegocio.cs" />
     <Compile Include="Negocio\VentaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -271,6 +272,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

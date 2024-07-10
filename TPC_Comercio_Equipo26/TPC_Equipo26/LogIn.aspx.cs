@@ -13,20 +13,23 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session.Add("Usuario",null);
+           
+            
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            Usuario usuario;
+            Usuario usuario = new Usuario();
             UsuarioNegocio negocio = new UsuarioNegocio();
             try
             {
-                usuario = new Usuario(txtUser.Text, txtPassword.Text, false);
-                if (negocio.Loguear(usuario))
+                usuario.User = txtUser.Text;
+                usuario.Pass = txtPassword.Text;
+
+                if (negocio.LogIn(usuario))
                 {
                     Session.Add("Usuario", usuario);
-                    Response.Redirect("Default.aspx", false);
+                    Response.Redirect("MiPerfil.aspx", false);
                 }
                 else
                 {

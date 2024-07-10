@@ -1,7 +1,9 @@
 USE LIBRERIA_DB
 GO
 
---SP Categorias    
+-------------------------------------------STORED PROCEDURES-------------------------------------------
+
+-----CATEGORIAS-----
 CREATE PROCEDURE sp_listarCategorias
 AS
 BEGIN
@@ -87,7 +89,7 @@ BEGIN
 END
 GO
 
---Marcas
+-----MARCAS-----
 CREATE PROCEDURE sp_ListarMarcas
 AS
 BEGIN
@@ -183,7 +185,7 @@ BEGIN
 END
 GO
 
---Clientes
+-----CLIENTES-----
 CREATE PROCEDURE sp_listarClientes
 AS
 BEGIN
@@ -294,3 +296,24 @@ BEGIN
     WHERE Id = @Id
 END
 GO
+
+-----USUARIOS-----
+CREATE PROCEDURE SP_NuevoUsuario
+@User VARCHAR(50),
+@Pass VARCHAR(50)
+AS
+BEGIN
+	INSERT INTO USUARIOS (Usuario, Contraseña, Tipo)
+	OUTPUT inserted.Id
+	VALUES (@User, @Pass, 0)
+END
+GO
+
+-----ARTICULOS-----
+
+-----PROVEEDORES-----
+
+-----COMPRAS-----
+
+-----VENTAS-----
+

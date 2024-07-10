@@ -15,28 +15,31 @@ namespace TPC_Equipo26
         private List<DetalleCompra> detallesCompra;
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (ValidarSesionActiva())
             {
-                if (!IsPostBack)
+                try
                 {
-                    CargarProveedores();
-                    CargarMarcas();
-                    CargarArticulos();
-                    txtFechaCompra.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                    lblTotalCompra.Text = "$0.00";
-                    detallesCompra = new List<DetalleCompra>();
-                    Session["DetallesCompra"] = detallesCompra;
-                    btnGuardarCompra.Visible = false;
+                    if (!IsPostBack)
+                    {
+                        CargarProveedores();
+                        CargarMarcas();
+                        CargarArticulos();
+                        txtFechaCompra.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                        lblTotalCompra.Text = "$0.00";
+                        detallesCompra = new List<DetalleCompra>();
+                        Session["DetallesCompra"] = detallesCompra;
+                        btnGuardarCompra.Visible = false;
+                    }
+                    else
+                    {
+                        detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -283,6 +286,7 @@ namespace TPC_Equipo26
                 lblError.Visible = true;
             }
         }
+
         private void LimpiarSesion()
         {
             Session["DetallesCompra"] = null;
@@ -349,6 +353,13 @@ namespace TPC_Equipo26
                     }
                 }
             }
+        }
+
+        protected bool ValidarSesionActiva()
+        {
+            if (Seguridad.sesionActiva(Session["Usuario"]))
+                return true;
+            return false;
         }
 
     }

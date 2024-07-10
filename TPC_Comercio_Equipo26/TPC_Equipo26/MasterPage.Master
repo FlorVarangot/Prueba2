@@ -19,13 +19,13 @@
 
 </head>
 <body style="background-color: darkslategrey; color: lightgoldenrodyellow">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-        <div class="container-fluid row">
-            <div class="col-1">
-                <a class="navbar-brand" href="/">LOGO / MARCA </a>
-            </div>
-            <div class="col-8" id="opcionesMenu" runat="server">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+            <div class="container-fluid row">
+                <div class="col-1">
+                    <a class="navbar-brand" href="/">LOGO </a>
+                </div>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 col-6">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house"></i></a>
                     </li>
@@ -52,23 +52,18 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-2 text-end">
-                <a href="LogIn.aspx" id="btnLogIn" runat="server" visible="false" style="text-decoration: none; color: black" class="btn btn-warning me-2">
-                    <i class="fa-solid fa-user"></i>&nbsp; Ingresar                    
-                </a>
-                <a href="LogIn.aspx" id="btnLogOut" runat="server" visible="false" style="text-decoration: none; color: black" class="btn btn-danger me-2">
-                    <i class="fa-solid fa-user"></i>&nbsp; Salir
-                </a>
-                <a href="MiPerfil.aspx" id="btnPerfil" runat="server" visible="false" style="text-decoration: none; color: black" class="btn btn-warning me-2">
-                    <i class="fa-solid fa-user"></i>&nbsp; Mi Perfil
-                </a>
+            <div class="col-3 text-end">
+                <asp:Button Text="Ingresar" ID="btnLogIn" runat="server" CssClass="btn btn-warning" OnClick="btnLogIn_Click" />
+                <asp:Button Text="Salir" ID="btnLogOut" runat="server" CssClass="btn btn-danger" Visible="false" OnClick="btnLogOut_Click" />
+                <asp:Button ID="btnRegistro" Text="Registrarme" runat="server" CssClass="btn btn-outline-warning" OnClick="btnRegistro_Click" />
+                <asp:LinkButton ID="btnPerfil" runat="server" CssClass="btn btn-warning" Visible="false" OnClick="btnPerfil_Click">
+                        <i class="fa-solid fa-user"></i> Mi Perfil
+                </asp:LinkButton>
             </div>
-            <%-- Aquí iría en realidad la img de perfil: --%>
-            <div class="rounded-circle col-1" style="width: 50px; height: 50px; background-color: #ccc;"></div>
-        </div>
-    </nav>
+            <%--<asp:Label ID="lblUser" runat="server" />--%>
+            <asp:Image  ID="imgAvatar" style="width: 50px; height: 50px; margin: 5px; border-radius:50%" runat="server" />
+        </nav>
 
-    <form id="form1" runat="server">
         <div class="container">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>

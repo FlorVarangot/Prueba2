@@ -56,7 +56,7 @@
         </Columns>
     </asp:GridView>
     <hr />
-     <% if (ValidarSesion())
+     <% if (ValidarSesionActiva())
      {%>
     <div class="text-end">
         <a href="AltaProveedor.aspx" class="btn btn-success">Agregar un Proveedor</a>

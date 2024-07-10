@@ -1,5 +1,5 @@
 USE MASTER
-GO					
+GO
 DROP DATABASE LIBRERIA_DB
 GO
 
@@ -113,14 +113,3 @@ CREATE TABLE USUARIOS(
 	--Tipo INT NOT NULL DEFAULT(2)
 )
 GO
-
-------------------- STORED PROCEDURES ----------------------------------------------------------
-
-USE LIBRERIA_DB
-GO
-
-CREATE PROCEDURE SP_NuevoUsuario
-@User VARCHAR(50),
-@Pass VARCHAR(50)
-AS
-INSERT INTO USUARIOS(Usuario, Contraseña, Tipo) OUTPUT inserted.Id VALUES (@User, @Pass, 0)

@@ -9,7 +9,7 @@ using TPC_Equipo26.Negocio;
 
 namespace TPC_Equipo26
 {
-    public partial class Refistro : System.Web.UI.Page
+    public partial class Registro : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,10 +32,14 @@ namespace TPC_Equipo26
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 user.User = txtUser.Text;
                 user.Pass = txtPassword.Text;
-                int id = negocio.InsertarNuevo(user);
+                user.ID = negocio.InsertarNuevo(user);
 
-                //Response.Redirect("MiPerfil.aspx?ID="+id);
-                Response.Redirect("MiPerfil.aspx");
+                Session.Add("Usuario", user);
+
+                //Response.Redirect("MiPerfil.aspx?ID="+id);?
+                //emailService.armarCorreo(...)
+                //emailService.enviarEmail();
+                Response.Redirect("Default.aspx",false);
             }
             catch (Exception ex)
             {
@@ -46,7 +50,7 @@ namespace TPC_Equipo26
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("LogIn.aspx");
+            Response.Redirect("LogIn.aspx", false);
         }
 
     }

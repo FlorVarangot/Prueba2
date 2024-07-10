@@ -11,7 +11,7 @@ namespace TPC_Equipo26
 {
 
 
-    public partial class Refistro
+    public partial class Registro
     {
 
         /// <summary>

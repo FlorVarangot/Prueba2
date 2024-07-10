@@ -13,7 +13,7 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ValidarSesion())
+            if (ValidarSesionActiva())
             {
                 try
                 {
@@ -117,12 +117,10 @@ namespace TPC_Equipo26
             }
         }
 
-        protected bool ValidarSesion()
+        protected bool ValidarSesionActiva()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
-            {
+            if (Seguridad.sesionActiva(Session["Usuario"]))
                 return true;
-            }
             return false;
         }
 

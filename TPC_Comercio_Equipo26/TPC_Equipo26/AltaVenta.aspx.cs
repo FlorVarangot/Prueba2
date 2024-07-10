@@ -15,26 +15,35 @@ namespace TPC_Equipo26
         private List<DetalleVenta> detallesVenta;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (ValidarSesionActiva())
             {
-                CargarClientes();
-                CargarArticulos();
-                txtFechaVenta.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                try
+                {
+                    if (!IsPostBack)
+                    {
+                        CargarClientes();
+                        CargarArticulos();
+                        txtFechaVenta.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
-                decimal totalVenta = Calcular();
-                lblTotalVenta.Text = "Total Venta: $" + totalVenta;
+                        decimal totalVenta = Calcular();
+                        lblTotalVenta.Text = "Total Venta: $" + totalVenta;
 
-                detallesVenta = new List<DetalleVenta>();
-                Session["DetallesVenta"] = detallesVenta;
+                        detallesVenta = new List<DetalleVenta>();
+                        Session["DetallesVenta"] = detallesVenta;
 
-                selectores.Visible = false;
-                lblTotalVenta.Visible = false;
-                btnGuardarVenta.Visible = false;
-
-            }
-            else
-            {
-                detallesVenta = Session["DetallesVenta"] as List<DetalleVenta>;
+                        selectores.Visible = false;
+                        lblTotalVenta.Visible = false;
+                        btnGuardarVenta.Visible = false;
+                    }
+                    else
+                    {
+                        detallesVenta = Session["DetallesVenta"] as List<DetalleVenta>;
+                    }
+                }catch(Exception ex)
+                {
+                    Session.Add("Error",ex.ToString());
+                    Response.Redirect("Error.aspx", false);
+                }
             }
         }
 
@@ -270,6 +279,13 @@ namespace TPC_Equipo26
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+        protected bool ValidarSesionActiva()
+        {
+            if (Seguridad.sesionActiva(Session["Usuario"]))
+                return true;
+            return false;
         }
     }
 

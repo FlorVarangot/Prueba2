@@ -15,36 +15,29 @@ namespace TPC_Equipo26
         public bool ConfirmarReactivar { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ValidarSesion())
+            ValidarAdmin();
+            try
             {
-                try
+                if (!IsPostBack)
                 {
-                    if (!IsPostBack)
+                    if (Request.QueryString["ID"] != null)
                     {
-                        if (Request.QueryString["ID"] != null)
-                        {
-                            int idProv = int.Parse(Request.QueryString["ID"]);
-                            lblTituloModificar.Visible = true;
-                            PrecargarProveedores(idProv);
-                        }
-                        else
-                        {
-                            lblTituloAgregar.Visible = true;
-                            BtnInactivar.Visible = false;
-                            BtnReactivar.Visible = false;
-                            LimpiarCampos();
-                        }
+                        int idProv = int.Parse(Request.QueryString["ID"]);
+                        lblTituloModificar.Visible = true;
+                        PrecargarProveedores(idProv);
+                    }
+                    else
+                    {
+                        lblTituloAgregar.Visible = true;
+                        BtnInactivar.Visible = false;
+                        BtnReactivar.Visible = false;
+                        LimpiarCampos();
                     }
                 }
-                catch (Exception ex)
-                {
-                    Session.Add("Error", ex.ToString());
-                    Response.Redirect("Error.aspx", false);
-                }
             }
-            else
+            catch (Exception ex)
             {
-                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -77,7 +70,7 @@ namespace TPC_Equipo26
                 }
                 else
                 {
-                    Session.Add("Error","No se encontró el proveedor.");
+                    Session.Add("Error", "No se encontró el proveedor.");
                     Response.Redirect("Error.aspx");
                 }
             }
@@ -269,13 +262,13 @@ namespace TPC_Equipo26
             }
         }
 
-        protected bool ValidarSesion()
+        protected void ValidarAdmin()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
+            if (!Seguridad.esAdmin(Session["Usuario"]))
             {
-                return true;
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Response.Redirect("Error.aspx", false);
             }
-            return false;
         }
 
     }

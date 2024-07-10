@@ -14,25 +14,17 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ValidarSesion())
+            ValidarAdmin();
+            try
             {
-                try
+                if (!IsPostBack)
                 {
-
-                    if (!IsPostBack)
-                    {
-                        CargarMarcas();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Session.Add("Error", ex.ToString());
-                    Response.Redirect("Error.aspx", false);
+                    CargarMarcas();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
         }
@@ -221,12 +213,19 @@ namespace TPC_Equipo26
                                         !string.IsNullOrEmpty(ddlOrdenarPor.SelectedValue);
         }
 
-        protected bool ValidarSesion()
+        protected void ValidarAdmin()
         {
-            if (Session["Usuario"] != null && ((Usuario)Session["Usuario"]).TipoUsuario == true)
+            if (!Seguridad.esAdmin(Session["Usuario"]))
             {
-                return true;
+                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Response.Redirect("Error.aspx", false);
             }
+        }
+
+        protected bool ValidarSesionActiva()
+        {
+            if (Seguridad.sesionActiva(Session["Usuario"]))
+                return true;
             return false;
         }
 

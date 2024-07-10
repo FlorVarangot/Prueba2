@@ -21,8 +21,8 @@
             </div>
             <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-primary" ID="btnIngresar" OnClick="btnIngresar_Click" />
             <div class="registro">
-                <p>¿No tenés cuenta? <a href="Registro.aspx">Registrate</a></p>
-                <p>O hacé <a href="Default.aspx">CLIC ACÁ</a> para seguir navegando sin iniciar sesión.</p>
+                <p>¿No tenés cuenta? <a href="Registro.aspx" style="color:darkslategrey; font-weight:bold; text-decoration:none;">Registrate</a></p>
+                <p>O hacé <a href="Default.aspx" style="color:darkslategrey; font-weight:bold; text-decoration:none;">CLIC ACÁ</a> para seguir navegando sin iniciar sesión.</p>
             </div>
         </div>
     </main>

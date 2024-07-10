@@ -13,7 +13,7 @@ namespace TPC_Equipo26
         {
             if (Session["Error"] != null)
             {
-                lblMensaje.Text = Session["Error"].ToString();
+                lblError.Text = Session["Error"].ToString();
             }
         }
     }
