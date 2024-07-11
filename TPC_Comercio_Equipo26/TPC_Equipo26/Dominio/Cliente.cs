@@ -22,7 +22,7 @@ namespace TPC_Equipo26.Dominio
                     dni = value;
                 else
                 {
-                    string mensajeError = "El DNI debe contener al menos 8 caracteres.";
+                    string mensajeError = "El DNI debe contener al menos 8 caracteres";
                     throw new Exception(mensajeError);
                 }
 

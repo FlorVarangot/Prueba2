@@ -96,8 +96,7 @@ namespace TPC_Equipo26
             }
             else
             {
-                Response.Redirect("Compras.aspx");
-                return null;
+                return "Compras.aspx";
             }
         }
 
@@ -112,8 +111,8 @@ namespace TPC_Equipo26
             }
             else
             {
-                Response.Redirect("Compras.aspx");
-                return null;
+                return "Compras.aspx";
+                
             }
         }
 
