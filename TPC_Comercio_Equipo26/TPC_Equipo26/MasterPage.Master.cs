@@ -20,10 +20,6 @@ namespace TPC_Equipo26
             {
                 if (!Seguridad.sesionActiva(Session["Usuario"]))
                 {
-                    btnLogIn.Visible = false;
-                    btnLogOut.Visible = true;
-                    btnPerfil.Visible = true;
-                    btnRegistro.Visible = false;
                     Response.Redirect("Login.aspx", false);
                 }
                 else
@@ -32,12 +28,22 @@ namespace TPC_Equipo26
                     //lblUser.Text = user.User;
                     if (!string.IsNullOrEmpty(user.ImagenPerfil))
                         imgAvatar.ImageUrl = "~/Images/" + user.ImagenPerfil;
-
-                    btnLogIn.Visible = true;
-                    btnLogOut.Visible = false;
-                    btnPerfil.Visible = false;
-                    btnRegistro.Visible = true;
                 }
+            }
+
+            if (!Seguridad.sesionActiva(Session["Usuario"]))
+            {
+                btnLogIn.Visible = true;
+                btnLogOut.Visible = false;
+                btnPerfil.Visible = false;
+                btnRegistro.Visible = true;
+            }
+            else
+            {
+                btnLogIn.Visible = false;
+                btnLogOut.Visible = true;
+                btnPerfil.Visible = true;
+                btnRegistro.Visible = false;
             }
 
         }
