@@ -13,7 +13,7 @@
         <div class="col">
             <div class="mb-3">
                 <label for="txtDescripcion" class="form-label">Nombre: </label>
-                <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" Required="true"/>
                   <asp:Label ID="lblDescripcion" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
             </div>
         </div>

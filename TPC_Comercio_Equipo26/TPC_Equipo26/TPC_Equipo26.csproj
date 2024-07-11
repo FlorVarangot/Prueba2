@@ -187,7 +187,6 @@
     <Compile Include="Dominio\DatoArticulo.cs" />
     <Compile Include="Dominio\DetalleCompra.cs" />
     <Compile Include="Dominio\DetalleVenta.cs" />
-    <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Marca.cs" />
     <Compile Include="Dominio\Proveedor.cs" />
     <Compile Include="Dominio\Usuario.cs" />

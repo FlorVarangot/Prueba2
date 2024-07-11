@@ -12,7 +12,7 @@
     <div class="col">
         <div class="mb-3">
             <label for="txtDescripcion" class="form-label">Nombre: </label>
-            <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" />
+            <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" Required="true"/>
              <asp:Label ID="lblDescripcion" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="col">
         <div class="mb-3">
             <label for="ddlProveedor" class="form-label">Proveedor</label>
-            <asp:DropDownList ID="ddlProveedor" CssClass="form-select" runat="server" AutoPostBack="true" AppendDataBoundItems="true">
+            <asp:DropDownList ID="ddlProveedor" CssClass="form-select" runat="server" Required="true" AutoPostBack="true" AppendDataBoundItems="true">
                 <asp:ListItem Text="Seleccionar..." Value="-1" />
             </asp:DropDownList>
             <asp:Label ID="lblProveedor" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>

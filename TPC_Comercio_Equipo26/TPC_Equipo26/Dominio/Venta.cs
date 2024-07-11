@@ -13,6 +13,5 @@ namespace TPC_Equipo26.Dominio
         public decimal Total { get; set; }
         public List<DetalleVenta> Detalles { get; set; }
         
-        //public bool Activo {get; set;}
     }
 }

@@ -189,7 +189,7 @@ VALUES	(1, '2022-01-15', 10, 899.99),
 		(18, '2023-06-1', 12, 7800.50)
 GO
 
-INSERT INTO USUARIOS(Usuario, Contraseña, Tipo)
-VALUES	('Admin','admin',1),
-		('Vendedor','vendedor',0)
+INSERT INTO USUARIOS(Usuario, Contraseña, Imagen, Tipo)
+VALUES	('Juan','Admin','admin@admin.com','Admin','admin','~/Images/perfil-1',1),
+		('Pedro','Perez','pperez@mail.com','Vendedor','vendedor',null,0)
 GO

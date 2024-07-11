@@ -46,11 +46,11 @@ namespace TPC_Equipo26
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 Usuario user = (Usuario)Session["Usuario"];
 
-                if (txtImagen.PostedFile.FileName != "")
+                if (txtImagen.PostedFile.FileName != null)
                 {
                     string ruta = Server.MapPath("./Images/");
-                    txtImagen.PostedFile.SaveAs(ruta + "perfil -" + user.ID + ".jpg");
-                    user.ImagenPerfil = "perfil -" + user.ID + ".jpg";
+                    txtImagen.PostedFile.SaveAs(ruta + "perfil-" + user.ID + ".jpg");
+                    user.ImagenPerfil = "perfil-" + user.ID + ".jpg";
                 }
 
                 user.Nombre = txtNombre.Text;

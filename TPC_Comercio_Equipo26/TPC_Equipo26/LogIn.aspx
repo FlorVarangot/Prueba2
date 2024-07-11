@@ -13,11 +13,11 @@
         <div class="formulario">
             <div class="mb-3">
                 <label for="txtUser" class="form-label">Usuario:</label>
-                <asp:TextBox runat="server" ID="txtUser" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtUser" CssClass="form-control" Required="true"/>
             </div>
             <div class="mb-3">
                 <label for="InputPassword" class="form-label">Contraseña:</label>
-                <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" TextMode="Password" />
+                <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" TextMode="Password" Required="true" />
             </div>
             <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-primary" ID="btnIngresar" OnClick="btnIngresar_Click" />
             <div class="registro">

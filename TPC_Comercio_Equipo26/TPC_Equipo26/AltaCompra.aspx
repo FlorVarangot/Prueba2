@@ -15,7 +15,7 @@
 
             <div class="col-md-4">
                 <label for="ddlProveedor" class="form-label">Proveedor:</label>
-                <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
+                <asp:DropDownList runat="server" ID="ddlProveedor" CssClass="form-control" AutoPostBack="True" Required="true" OnSelectedIndexChanged="ddlProveedor_SelectedIndexChanged"></asp:DropDownList>
                 ¿No existe el proveedor? <a href="AltaProveedor.aspx">Agregar proveedor</a>
             </div>
             <div class="col-md-2">

@@ -7,7 +7,7 @@
         <h1>MI PERFIL</h1>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-6">
             <div class="mb-3">
                 <label class="form-label">Nombre</label>
                 <asp:TextBox runat="server" CssClass="form-control" ID="txtNombre" />
@@ -18,20 +18,22 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" />
+                <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail"/>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-6">
             <div class="mb-3">
                 <label class="form-label">Imagen de perfil</label>
-                <input type="file" Id="txtImagen" runat="server" Class="form-control" />
+                <input type="file" id="txtImagen" runat="server" class="form-control" />
             </div>
-            <asp:Image ID="imgNuevoPerfil" ImageUrl="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" runat="server" CssClass="img-fluid mb-3"/>
+            <div>
+                <asp:Image ID="imgNuevoPerfil" ImageUrl="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" runat="server" CssClass="img-fluid mb-3" Style="width: auto; max-height: 150px; align-content: center" />
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />
+        <div>
+            <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" Style="margin-right: 5px" />
             <a href="/">Regresar</a>
         </div>
     </div>

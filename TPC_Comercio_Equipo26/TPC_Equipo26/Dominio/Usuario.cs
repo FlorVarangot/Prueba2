@@ -11,8 +11,43 @@ namespace TPC_Equipo26.Dominio
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
-        public string User { get; set; }
-        public string Pass { get; set; }
+
+        private string user;
+        public string User
+        {
+            get { return user; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && value.Length >= 4)
+                {
+                    user = value;
+                }
+                else
+                {
+                    string mensajeError = "El nombre de usuario debe contener al menos 4 caracteres.";
+                    throw new Exception(mensajeError);
+                }
+            }
+        }
+
+        private string pass;
+        public string Pass
+        {
+            get { return pass; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && value.Length >= 8)
+                {
+                    pass = value;
+                }
+                else
+                {
+                    string mensajeError = "La contraseña debe contener al menos 8 caracteres.";
+                    throw new Exception(mensajeError);
+                }
+
+            }
+        }
         public string ImagenPerfil { get; set; }
         public bool TipoUsuario { get; set; }
 
