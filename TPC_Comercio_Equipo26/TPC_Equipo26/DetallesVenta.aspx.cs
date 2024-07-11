@@ -54,7 +54,7 @@ namespace TPC_Equipo26
             else
             {
                 Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
-                Response.Redirect("Error.aspx", false);
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -208,8 +208,7 @@ namespace TPC_Equipo26
             }
             else
             {
-                Response.Redirect("Ventas.aspx");
-                return null;
+                return "Ventas.aspx";
             }
         }
 
@@ -224,8 +223,7 @@ namespace TPC_Equipo26
             }
             else
             {
-                Response.Redirect("Ventas.aspx");
-                return null;
+                return "Ventas.aspx";
             }
         }
 

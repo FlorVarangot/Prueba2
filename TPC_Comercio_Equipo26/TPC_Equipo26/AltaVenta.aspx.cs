@@ -212,6 +212,7 @@ namespace TPC_Equipo26
                 DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
                 datoNegocio.ActualizarStockPostVenta(venta);
 
+                EnviarCorreoPostVenta(venta);
 
                 Session["DetallesVenta"] = null;
                 Session["Total"] = null;
@@ -222,6 +223,42 @@ namespace TPC_Equipo26
             {
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void EnviarCorreoPostVenta(Venta venta)
+        {
+            try
+            {
+                EmailService emailService = new EmailService();
+
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+                Cliente cliente = clienteNegocio.ObtenerClientePorId(venta.IdCliente);
+
+                string emailDestino = cliente.Email; 
+                string asunto = "Confirmación de compra en nuestra tienda";
+                string cuerpo = $"¡Gracias por comprar en nuestra tienda!<br><br>" +
+                                $"Detalles de la compra:<br>" +
+                                $"Fecha: {venta.FechaVenta.ToString("dd/MM/yyyy")}<br>" +
+                                $"Total: {venta.Total.ToString("C2")}<br><br>" +
+                                $"Productos comprados:<br>";
+
+                foreach (var detalle in venta.Detalles)
+                {
+                    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                    Articulo articulo = articuloNegocio.ObtenerArticuloPorID(detalle.IdArticulo);
+
+                    cuerpo += $"{articulo.Nombre} - Cantidad: {detalle.Cantidad}<br>";
+                }
+
+                cuerpo += "<br>Esperamos que disfrutes de tus productos.";
+                emailService.ArmarCorreo(emailDestino, asunto, cuerpo);
+
+                emailService.enviarEmail();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al enviar el correo de confirmación de compra.", ex);
             }
         }
 

@@ -303,7 +303,7 @@ CREATE PROCEDURE SP_NuevoUsuario
 @Pass VARCHAR(50)
 AS
 BEGIN
-	INSERT INTO USUARIOS (Usuario, Contraseña, Tipo)
+	INSERT INTO USUARIOS (Usuario, Contraseï¿½a, Tipo)
 	OUTPUT inserted.Id
 	VALUES (@User, @Pass, 0)
 END

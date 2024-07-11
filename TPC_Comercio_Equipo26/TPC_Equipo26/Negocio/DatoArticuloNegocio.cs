@@ -102,7 +102,6 @@ namespace TPC_Equipo26.Negocio
 
         public void ActualizarStockPostVenta(Venta venta)
         {
-            AccesoDatos datos = new AccesoDatos();
             DateTime fecha = venta.FechaVenta;
             try
             {
@@ -110,19 +109,28 @@ namespace TPC_Equipo26.Negocio
                 {
                     long idArticulo = detalle.IdArticulo;
                     int cantidad = detalle.Cantidad;
+                    int ultimoStock = 0;
+                    decimal ultimoPrecio = 0;
 
-                    datos.setearConsulta("SELECT TOP 1 Stock FROM DATOS_ARTICULOS WHERE IdArticulo = @IdArticulo ORDER BY Fecha DESC");
-                    datos.setearParametro("@IdArticulo", idArticulo);
-                    datos.ejecutarLectura();
-
-                    if (datos.Lector.Read())
+                    using (AccesoDatos datos = new AccesoDatos())
                     {
-                        int ultimoStock = Convert.ToInt32(datos.Lector["Stock"]);
-                        decimal ultimoPrecio = decimal.Parse(datos.Lector["Precio"].ToString());
+                        datos.setearConsulta("SELECT TOP 1 Stock, Precio FROM DATOS_ARTICULOS WHERE IdArticulo = @IdArticulo ORDER BY Fecha DESC");
+                        datos.setearParametro("@IdArticulo", idArticulo);
+                        datos.ejecutarLectura();
+
+                        if (datos.Lector.Read())
+                        {
+                            ultimoStock = Convert.ToInt32(datos.Lector["Stock"]);
+                            ultimoPrecio = decimal.Parse(datos.Lector["Precio"].ToString());
+                        }
+                    }
+
+                    if (ultimoStock > 0)
+                    {
                         int stock = ultimoStock - cantidad;
 
                         using (AccesoDatos datosArticulo = new AccesoDatos())
-                        {
+                        {                         
                             datosArticulo.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");
                             datosArticulo.setearParametro("@IdArticulo", idArticulo);
                             datosArticulo.setearParametro("@Fecha", fecha);
@@ -137,11 +145,8 @@ namespace TPC_Equipo26.Negocio
             {
                 throw ex;
             }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
+
 
         public void ActualizarStockPostCompra(Compra compra)
         {

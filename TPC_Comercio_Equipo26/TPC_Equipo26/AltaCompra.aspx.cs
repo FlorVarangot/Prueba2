@@ -29,6 +29,8 @@ namespace TPC_Equipo26
                         detallesCompra = new List<DetalleCompra>();
                         Session["DetallesCompra"] = detallesCompra;
                         btnGuardarCompra.Visible = false;
+
+                        
                     }
                     else
                     {
@@ -361,6 +363,8 @@ namespace TPC_Equipo26
                 return true;
             return false;
         }
+
+       
 
     }
 }
