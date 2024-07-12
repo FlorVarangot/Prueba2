@@ -324,7 +324,6 @@ BEGIN
 END
 GO
 
-
 -----ARTICULOS-----
 
 -----PROVEEDORES-----

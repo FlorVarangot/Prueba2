@@ -1,7 +1,7 @@
 ﻿body {
     font-family: Arial, sans-serif;
     background-color: darkslategrey;
-    color: lightgoldenrodyellow; 
+    color: lightgoldenrodyellow;
     text-decoration: none;
     margin: 0;
     padding: 0;
@@ -16,49 +16,49 @@ header {
 
 
 a {
-    text-decoration:none;
+    text-decoration: none;
 }
 
 footer {
-    text-align:center;
-    padding:10px;
-    background-color:dimgrey;
-    color:antiquewhite;
-    font-size:14px;
+    text-align: center;
+    padding: 10px;
+    background-color: dimgrey;
+    color: antiquewhite;
+    font-size: 14px;
 }
 
 h1 {
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 h4 {
-    text-align:center;
-    margin:30px 0 60px 0;
+    text-align: center;
+    margin: 30px 0 60px 0;
 }
 
 p {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 img {
     width: 45px;
-    height:40px
+    height: 40px
 }
 
 .formulario {
     max-width: 400px;
-    margin: 0 auto;
-    background-color:lightslategray;
-    padding: 20px;
+    margin: auto;
+    background-color: lightslategray;
+    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.formulario label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
+    .formulario label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
 
     .formulario input[type="text"],
     .formulario input[type="password"] {
@@ -77,14 +77,15 @@ img {
     }
 
 .logo {
-    width:5px;
+    width: 5px;
 }
 
 .registro {
-    margin: 10px;
-    padding: 10px;
-    text-align:center;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
 }
+
 
 .ver-mas {
     font-size: 20px;
@@ -108,9 +109,9 @@ img {
     }
 
 
-.titulo-label{
-    font-size:35px;
-    margin-bottom:20px;
+.titulo-label {
+    font-size: 35px;
+    margin-bottom: 20px;
 }
 
 .detalle {
@@ -131,21 +132,21 @@ img {
     font-size: 20px;
     font: bold;
 }
-.grid-header:hover::before {
-    content: attr(title);
-    position: absolute;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 5px;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
-    z-index: 1;
-    top: 30px;
-    left: 0;
-}
 
-    /*Media query para celulares*/
-    @media (max-width:768px) {
-
+    .grid-header:hover::before {
+        content: attr(title);
+        position: absolute;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #333;
+        z-index: 1;
+        top: 30px;
+        left: 0;
     }
+
+/*Media query para celulares*/
+@media (max-width:768px) {
+}

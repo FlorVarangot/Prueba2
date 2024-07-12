@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,8 +14,8 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            
+
+
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
@@ -23,17 +24,20 @@ namespace TPC_Equipo26
             UsuarioNegocio negocio = new UsuarioNegocio();
             try
             {
-                usuario.User = txtUser.Text;
-                usuario.Pass = txtPassword.Text;
-
-                if (negocio.LogIn(usuario))
+                if (negocio.ValidarUsuario(txtUser.Text, txtPassword.Text))
                 {
-                    Session.Add("Usuario", usuario);
-                    Response.Redirect("MiPerfil.aspx", false);
+                    usuario.User = txtUser.Text;
+                    usuario.Pass = txtPassword.Text;
+
+                    if (negocio.LogIn(usuario))
+                    {
+                        Session.Add("Usuario", usuario);
+                        Response.Redirect("MiPerfil.aspx", false);
+                    }
                 }
                 else
                 {
-                    Session.Add("Error", "User o pass incorrectos.");
+                    Session.Add("Error", "Nombre de usuario y/o contraseña incorrectos.");
                     Response.Redirect("Error.aspx", false);
                 }
             }
