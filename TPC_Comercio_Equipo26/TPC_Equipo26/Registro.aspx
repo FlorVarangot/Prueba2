@@ -16,6 +16,10 @@
                 <asp:TextBox runat="server" ID="txtUser" CssClass="form-control" />
             </div>
             <div class="mb-2">
+                <label for="txtEmail" class="form-label">Correo electrónico:</label>
+                <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" TextMode="Email" />
+            </div>
+            <div class="mb-2">
                 <label for="InputPassword" class="form-label">Contraseña:</label>
                 <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" TextMode="Password" />
             </div>

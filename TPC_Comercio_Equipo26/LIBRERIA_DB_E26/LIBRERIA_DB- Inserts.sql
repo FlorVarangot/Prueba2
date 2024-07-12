@@ -5,10 +5,10 @@ GO
 INSERT INTO CATEGORIAS(Descripcion)
 VALUES	('ABROCHADORAS'),
 		('ABACOS'),
-		('BOLIGRAFOS'),
+		('BOLÍGRAFOS'),
 		('FIBRONES'),
-		('PAPELER�A'),
-		('JUGUETER�A'),
+		('PAPELERÍA'),
+		('JUGUETERÍA'),
 		('OFICINA'),
 		('ADHESIVOS'),
 		('ESCRITURA'),
@@ -46,11 +46,11 @@ GO
 INSERT INTO ARTICULOS(Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Ganancia_Porcentaje, Imagen, Stock_Minimo, Activo)
 VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',1,1,55,'https://th.bing.com/th/id/OIP.fTc2Wxi4JhGH_QQfPpQX9QHaHa?rs=1&pid=ImgDetMain',5,1),
 		('AAA002','HP-45 ','ABROCHADORA PINZA 26/6',2,1,55,'https://www.ramospapeleria.com.ar/img/p/23355/1.jpeg?width=600&mode=max&upscale=false&quality=90',5,1),
-		('AAA003','HP 10 ','ABROCHADORA PINZA P/BROCHE N�10',3,1,55,'https://th.bing.com/th/id/R.cb3f6cb6cd4cd392f9e0dea50b568580?rik=jVwT8Z%2bUcb%2b%2feA&pid=ImgRaw&r=0',5,1),
-		('AAA004','HP 12 ','ABROCHADORA PINZA P/BROCHE N�12',4,1,55,'https://th.bing.com/th/id/OIP.TVHr_-8Zbq0vgQ1PtKZxfAHaHa?rs=1&pid=ImgDetMain',5,1),
-		('AAA005','ABACO PL�STICO N� 3','ABACO PLASTICO 3 COLUMNAS',7,2,38,'https://th.bing.com/th/id/OIP.78D11ioXuGSLsz-dEB0GDwHaHa?w=1000&h=1000&rs=1&pid=ImgDetMain',10,1),
-		('AAA006','ABACO PL�STICO N� 4','ABACO PLASTICO 4 COLUMNAS',6,2,38,'https://padihey.com.br/wp-content/uploads/2022/03/7d50596fd15159ed9262419b4e552c88.png',10,1),
-		('AAA007','ABACO PL�STICO N� 5','ABACO PLASTICO 5 COLUMNAS',2,2,40,'https://th.bing.com/th/id/OIP.hf3sjOaKOk3_kx9o4ZpxSgHaHa?w=500&h=500&rs=1&pid=ImgDetMain',10,1),
+		('AAA003','HP 10 ','ABROCHADORA PINZA P/BROCHE N° 10',3,1,55,'https://th.bing.com/th/id/R.cb3f6cb6cd4cd392f9e0dea50b568580?rik=jVwT8Z%2bUcb%2b%2feA&pid=ImgRaw&r=0',5,1),
+		('AAA004','HP 12 ','ABROCHADORA PINZA P/BROCHE N° 12',4,1,55,'https://th.bing.com/th/id/OIP.TVHr_-8Zbq0vgQ1PtKZxfAHaHa?rs=1&pid=ImgDetMain',5,1),
+		('AAA005','ABACO PLÁSTICO N° 3','ABACO PLASTICO 3 COLUMNAS',7,2,38,'https://th.bing.com/th/id/OIP.78D11ioXuGSLsz-dEB0GDwHaHa?w=1000&h=1000&rs=1&pid=ImgDetMain',10,1),
+		('AAA006','ABACO PLÁSTICO N° 4','ABACO PLASTICO 4 COLUMNAS',6,2,38,'https://padihey.com.br/wp-content/uploads/2022/03/7d50596fd15159ed9262419b4e552c88.png',10,1),
+		('AAA007','ABACO PLÁSTICO N° 5','ABACO PLASTICO 5 COLUMNAS',2,2,40,'https://th.bing.com/th/id/OIP.hf3sjOaKOk3_kx9o4ZpxSgHaHa?w=500&h=500&rs=1&pid=ImgDetMain',10,1),
 		('AAA008','HS-10 A','ABROCHADORA KANGARO',3,1,40,null,10,1),
 		('AAA009','POCKET 10','ABROCHADORA KANGARO POCKET 10',4,1,40,null,10,1),
 		('AAA010','STAPLER 10','ABROCHADORA KANGARO STAPLER 10',5,1,40,'https://http2.mlstatic.com/D_NQ_NP_682857-MLA42884052846_072020-O.webp',10,1),
@@ -59,14 +59,14 @@ VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',1,1,55,'https://th.bing.com/t
 		('AAA013','BOL. ROJO 1MM X36','BOLIGRAFO FILGO FASTRACK ROJO 1MM RETRACTIL',1,4,35,'https://th.bing.com/th/id/OIP.wDyxHYaByxp7QhV-XV6LrQHaGH?rs=1&pid=ImgDetMain',10,0),
 		('AAA014','BOL. AZUL 1MM X36 F','BOLIGRAFO FILGO GINZA AZUL 1MM RETRACTIL',2,4,35,null,10,0),
 		('LIB001', 'CUADERNO N3', 'CUADERNO DE TAPA DURA CON HOJAS RAYADAS',4,6,30,'https://example.com/cuaderno_rayado.jpg', 30,1),
-		('LIB002', 'L�PIZ HB', 'L�PIZ DE GRAFITO PARA ESCRIBIR Y DIBUJAR',7,7,15, 'https://example.com/lapiz_hb.jpg', 40,1),
+		('LIB002', 'L�PIZ HB', 'LÓPIZ DE GRAFITO PARA ESCRIBIR Y DIBUJAR',7,7,15, 'https://example.com/lapiz_hb.jpg', 40,1),
 		('LIB003', 'MCD-223', 'SET DE 12 MARCADORES DE COLORES VARIADOS',5,5,25, 'https://example.com/marcadores_colores.jpg', 40,0),
 		('LIB004', 'ASEM 36-2', 'AGENDA CON VISTA SEMANAL Y ESPACIO PARA NOTAS',1,6,30.5, 'https://example.com/agenda_semanal.jpg', 10,1),
 		('AAA015','BOREAL A4-70','RESMA PAPEL A4 70GR 21x29,7',8,6,40,'https://resmasboreal.com.ar/assets/uploads/product/8_1449676166.jpg',10,1),
 		('AAA016','SKU# 015540105','REGLA FLEXIBLE DE 20CM',11,3,40,null,10,1),
 		('AAA017','CO-C 56','CORRECTOR CINTA 5MM 6MTS',10,11,40,null,10,1),
 		('AAA018','GNFT-116114','BLISTER GOMA DE BORRAR NIGHTFALL TEENS S/ FTALATOS 21,8 X 12 X 61MM',9,3,40,'https://ar.maped.com/wp-content/uploads/sites/34/2022/11/116114_r01.png',10,1),
-		('AAA019','SKU-0211','MARCADORES JOURNAL COLOR PASTEL PUNTA C�NICA - LETTERING',12,4,40,'https://simball.com.ar/wp-content/uploads/2022/05/Pastel-copy.png',10,1),
+		('AAA019','SKU-0211','MARCADORES JOURNAL COLOR PASTEL PUNTA CÓNICA - LETTERING',12,4,40,'https://simball.com.ar/wp-content/uploads/2022/05/Pastel-copy.png',10,1),
 		('AAA020','IM-GT','LAPICERA PLUMA IM NUEVA LINEA LACA NEGRO GT',13,7,40,'https://casalalapicera.com/wp-content/uploads/2023/03/lapicera-de-pluma-parker-im-laca-negra-gt.png',10,1),
 		('AAA020','VB-40','VOLIBARRA BARRA ADHESIVA 40GR',13,8,40,'https://voligoma.com.ar/wp-content/themes/voligoma/images/our-products-volibarra.png',10,1)
 GO
@@ -87,15 +87,15 @@ VALUES
 GO
 
 INSERT INTO CLIENTES (Nombre, Apellido, DNI, Telefono, Email, Direccion)
-VALUES ('Juan', 'P�rez', '12345678', '011-555-1234', 'juan@email.com', 'Av. Rivadavia 123'),
-       ('Marta', 'Gonz�lez', '23456789', '011-555-5678', 'maria@email.com', 'Calle Corrientes 456'),
-       ('Carlos', 'Rodr�guez', '34567890', '011-555-9876', 'carlos@email.com', 'Av. Santa Fe 789'),
-       ('Laura', 'Fern�ndez', '45678901', '011-555-4321', 'laura@email.com', 'Calle Florida 987'),
-       ('Pedro', 'L�pez', '56789012', '011-555-2468', 'pedro@email.com', 'Av. 9 de Julio 654'),
-	   ('Ana', 'Garc�a', '12345678', '555-1111', 'ana@example.com', 'Calle de los Libros 456'),
+VALUES ('Juan', 'Pérez', '12345678', '011-555-1234', 'juan@email.com', 'Av. Rivadavia 123'),
+       ('Marta', 'González', '23456789', '011-555-5678', 'maria@email.com', 'Calle Corrientes 456'),
+       ('Carlos', 'Rodríguez', '34567890', '011-555-9876', 'carlos@email.com', 'Av. Santa Fe 789'),
+       ('Laura', 'Fernández', '45678901', '011-555-4321', 'laura@email.com', 'Calle Florida 987'),
+       ('Pedro', 'López', '56789012', '011-555-2468', 'pedro@email.com', 'Av. 9 de Julio 654'),
+	   ('Ana', 'García', '12345678', '555-1111', 'ana@example.com', 'Calle de los Libros 456'),
 	   ('Patricio', 'Malman', '98765432', '555-2222', 'carlos@example.com', 'Avenida de las Letras 789'),
 	   ('Fernanda', 'Menotti', '54321098', '555-3333', 'laura@example.com', 'Plaza de la Cultura 101'),
-	   ('Pablo', 'Bielsa', '87654321', '555-4444', 'pedro@example.com', 'Rinc�n de los Escritores 23'),
+	   ('Pablo', 'Bielsa', '87654321', '555-4444', 'pedro@example.com', 'Rincón de los Escritores 23'),
 	   ('Susana', 'Donamara', '13579246', '555-5555', 'maria@example.com', 'Esquina de los Libros 7');
 GO
 
@@ -111,7 +111,6 @@ VALUES ('2023-10-03', 1, 18740.18),
 	   ('2024-04-09', 10, 4704),
 	   ('2024-05-10', 3, 70062.68)
 GO
-
 
 INSERT INTO DETALLE_VENTAS (IdVenta, IdArticulo, Cantidad)
 VALUES	(1,12,1),
@@ -177,6 +176,6 @@ GO
 
 INSERT INTO USUARIOS (Nombre, Apellido, Email, Usuario, Contraseña, Imagen, Tipo)
 VALUES 
-    ('Juan', NULL, 'admin@admin.com', 'Admin', 'Admin', '~/Images/perfil-1', 1),
-    ('Pedro', 'Perez', 'pperez@mail.com', 'Vendedor', 'Vendedor', NULL, 0);
+    ('Juan', NULL, 'admin@admin.com', 'Admin', 'admin1', '~/Images/perfil-1', 1),
+    ('Pedro', 'Perez', 'pperez@mail.com', 'Vendedor', 'vendedor2', NULL, 0);
 	GO

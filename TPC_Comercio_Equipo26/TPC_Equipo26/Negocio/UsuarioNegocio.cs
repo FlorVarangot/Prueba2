@@ -59,6 +59,7 @@ namespace TPC_Equipo26.Negocio
                 datos.setearProcedimiento("SP_NuevoUsuario");
                 datos.setearParametro("@User", nuevo.User);
                 datos.setearParametro("@Pass", nuevo.Pass);
+                datos.setearParametro("@Email", nuevo.Email);
                 return datos.ejecutarAccionScalar();
             }
             catch (Exception ex)
@@ -73,15 +74,13 @@ namespace TPC_Equipo26.Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE USUARIOS SET Nombre = @nombre, Apellido = @apellido, Email = @email, Imagen = @imagen WHERE Id = @id");
-                datos.setearParametro("@nombre",user.Nombre);
-                datos.setearParametro("@apellido", user.Apellido);
-                datos.setearParametro("@email", user.Email);
-
-                //datos.setearParametro("@imagen", user.ImagenPerfil != null ? user.ImagenPerfil : (object)DBNull.Value);
-                datos.setearParametro("@imagen", (object)DBNull.Value ?? DBNull.Value);
-
-                datos.setearParametro("@id", user.ID);
+                datos.setearProcedimiento("SP_ModificarUsuario");
+                datos.setearParametro("@Nombre", user.Nombre);
+                datos.setearParametro("@Apellido", user.Apellido);
+                datos.setearParametro("@Email", user.Email);
+                datos.setearParametro("@Imagen", user.ImagenPerfil != null ? user.ImagenPerfil : (object)DBNull.Value);
+                //datos.setearParametro("@img", (object)DBNull.Value ?? DBNull.Value);
+                datos.setearParametro("@Id", user.ID);
                 datos.ejecutarAccion();
 
             }

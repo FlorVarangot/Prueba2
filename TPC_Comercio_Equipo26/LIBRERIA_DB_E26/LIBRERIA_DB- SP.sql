@@ -298,16 +298,32 @@ END
 GO
 
 -----USUARIOS-----
-CREATE PROCEDURE SP_NuevoUsuario
+ALTER PROCEDURE SP_NuevoUsuario
 @User VARCHAR(50),
-@Pass VARCHAR(50)
+@Pass VARCHAR(50),
+@Email NVARCHAR(50)
 AS
 BEGIN
-	INSERT INTO USUARIOS (Usuario, Contrase�a, Tipo)
+	INSERT INTO USUARIOS (Usuario, Contraseña, Email, Tipo)
 	OUTPUT inserted.Id
-	VALUES (@User, @Pass, 0)
+	VALUES (@User, @Pass, @Email, 0)
 END
 GO
+
+CREATE PROCEDURE SP_ModificarUsuario
+   @Nombre VARCHAR(50),
+   @Apellido VARCHAR(50),
+   @Email NVARCHAR(50),
+   @Imagen VARCHAR(30),
+   @Id INT
+AS
+BEGIN
+    UPDATE USUARIOS
+    SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Imagen = @Imagen
+    WHERE Id = @Id
+END
+GO
+
 
 -----ARTICULOS-----
 
@@ -316,4 +332,5 @@ GO
 -----COMPRAS-----
 
 -----VENTAS-----
+
 

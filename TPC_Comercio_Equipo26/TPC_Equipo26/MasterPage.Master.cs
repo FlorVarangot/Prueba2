@@ -15,38 +15,35 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             imgAvatar.ImageUrl = "https://th.bing.com/th/id/OIP.fqSvfYQB0rQ-6EG_oqvonQHaHa?rs=1&pid=ImgDetMain";
-            if (!(Page is LogIn || Page is Registro || Page is Default || Page is Error))
-            {
-                if (!Seguridad.sesionActiva(Session["Usuario"]))
-                {
-                    Response.Redirect("Login.aspx", false);
-                }
-                else
-                {
-                    Usuario user = (Usuario)Session["Usuario"];
-                    //lblUser.Text = user.User;
-                    if (!string.IsNullOrEmpty(user.ImagenPerfil))
-                        imgAvatar.ImageUrl = "~/Images/" + user.ImagenPerfil;
-                }
-            }
+            bool sesionActiva = Seguridad.sesionActiva(Session["Usuario"]);
 
-            if (!Seguridad.sesionActiva(Session["Usuario"]))
+            if (sesionActiva)
             {
-                btnLogIn.Visible = true;
-                btnLogOut.Visible = false;
-                btnPerfil.Visible = false;
-                btnRegistro.Visible = true;
+                Usuario user = (Usuario)Session["Usuario"];
+                if (!string.IsNullOrEmpty(user.ImagenPerfil))
+                {
+                    imgAvatar.ImageUrl = "~/Images/" + user.ImagenPerfil;
+                }
+                lblUser.Text = user.User;
             }
             else
             {
-                btnLogIn.Visible = false;
-                btnLogOut.Visible = true;
-                btnPerfil.Visible = true;
-                btnRegistro.Visible = false;
+                if (!(Page is LogIn || Page is Registro || Page is Default || Page is Error))
+                {
+                    Response.Redirect("Login.aspx", false);
+                    return;
+                }
             }
 
+            btnLogIn.Visible = !sesionActiva;
+            btnLogOut.Visible = sesionActiva;
+            btnPerfil.Visible = sesionActiva;
+            btnRegistro.Visible = !sesionActiva;
+            lblUser.Visible = sesionActiva;
         }
+
 
         protected void btnLogOut_Click(object sender, EventArgs e)
         {

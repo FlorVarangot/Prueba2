@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="text-center my-4">
         <h1>MI PERFIL</h1>
+        <asp:Label ID="lblUser" runat="server" CssClass="form-label" Visible="false" Style="font-size:large"></asp:Label>
     </div>
     <div class="row">
         <div class="col-6">

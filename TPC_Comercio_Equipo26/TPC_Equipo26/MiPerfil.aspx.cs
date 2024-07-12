@@ -28,6 +28,8 @@ namespace TPC_Equipo26
                         {
                             imgNuevoPerfil.ImageUrl = "~/Images/" + user.ImagenPerfil;
                         }
+                        lblUser.Text = "***  " + user.User + "  ***";
+                        lblUser.Visible = true;
                     }
                 }
             }
@@ -46,6 +48,10 @@ namespace TPC_Equipo26
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 Usuario user = (Usuario)Session["Usuario"];
 
+                user.Nombre = txtNombre.Text;
+                user.Apellido = txtApellido.Text;
+                user.Email = txtEmail.Text;
+
                 if (txtImagen.PostedFile.FileName != null)
                 {
                     string ruta = Server.MapPath("./Images/");
@@ -53,9 +59,6 @@ namespace TPC_Equipo26
                     user.ImagenPerfil = "perfil-" + user.ID + ".jpg";
                 }
 
-                user.Nombre = txtNombre.Text;
-                user.Apellido = txtApellido.Text;
-                user.Email = txtEmail.Text;
                 negocio.Actualizar(user);
 
                 Image img = (Image)Master.FindControl("imgAvatar");

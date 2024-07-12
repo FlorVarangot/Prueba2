@@ -36,13 +36,13 @@ namespace TPC_Equipo26.Dominio
             get { return pass; }
             set
             {
-                if (!string.IsNullOrEmpty(value) && value.Length >= 8)
+                if (value.Length >= 4 && System.Text.RegularExpressions.Regex.IsMatch(value, @"\d"))
                 {
                     pass = value;
                 }
                 else
                 {
-                    string mensajeError = "La contraseña debe contener al menos 8 caracteres.";
+                    string mensajeError = "La contraseña debe contener al menos 4 caracteres y al menos 1 caracter numérico.";
                     throw new Exception(mensajeError);
                 }
 

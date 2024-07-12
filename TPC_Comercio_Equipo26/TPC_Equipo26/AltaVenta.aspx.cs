@@ -135,7 +135,7 @@ namespace TPC_Equipo26
                 else
                 {
                     Session.Add("Error", "No hay stock suficiente.");
-                    Response.Redirect("Error.aspx");
+                    Response.Redirect("Error.aspx", false);
                 }
 
                 Session["DetallesVenta"] = detallesVenta;
