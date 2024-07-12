@@ -30,7 +30,7 @@ namespace TPC_Equipo26
                         Session["DetallesCompra"] = detallesCompra;
                         btnGuardarCompra.Visible = false;
 
-                        
+
                     }
                     else
                     {
@@ -85,21 +85,30 @@ namespace TPC_Equipo26
             {
                 MarcaNegocio negocioMarca = new MarcaNegocio();
                 List<Marca> marcas = negocioMarca.Listar().Where(x => x.IdProveedor == idProveedor).ToList();
-
-                ddlMarca.DataSource = marcas;
-                ddlMarca.DataTextField = "Descripcion";
-                ddlMarca.DataValueField = "ID";
-                ddlMarca.DataBind();
-                ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", ""));
+                if (marcas.Count > 0)
+                {
+                    ddlMarca.DataSource = marcas;
+                    ddlMarca.DataTextField = "Descripcion";
+                    ddlMarca.DataValueField = "ID";
+                    ddlMarca.DataBind();
+                    ddlMarca.Items.Insert(0, new ListItem("Seleccione Marca", ""));
+                    CargarArticulos();
+                }
+                else
+                {
+                    ddlMarca.Items.Clear();
+                    ddlMarca.Items.Insert(0, new ListItem("Sin marcas asociadas", ""));
+                    ddlArticulo.Items.Clear();
+                    ddlArticulo.Items.Insert(0, new ListItem("Sin artículos asociados", ""));
+                }
             }
             else
             {
                 ddlMarca.Items.Clear();
                 ddlMarca.Items.Insert(0, new ListItem("Seleccione Proveedor primero", ""));
-            }
-
-            ddlArticulo.Items.Clear();
-            ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
+                ddlArticulo.Items.Clear();
+                ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
+            }           
         }
 
         protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,12 +119,19 @@ namespace TPC_Equipo26
             {
                 ArticuloNegocio negocioArticulo = new ArticuloNegocio();
                 List<Articulo> articulos = negocioArticulo.ListarPorMarca(idMarca);
-
-                ddlArticulo.DataSource = articulos;
-                ddlArticulo.DataTextField = "Nombre";
-                ddlArticulo.DataValueField = "ID";
-                ddlArticulo.DataBind();
-                ddlArticulo.Items.Insert(0, new ListItem("Seleccione Artículo", ""));
+                if (articulos.Count > 0)
+                {
+                    ddlArticulo.DataSource = articulos;
+                    ddlArticulo.DataTextField = "Nombre";
+                    ddlArticulo.DataValueField = "ID";
+                    ddlArticulo.DataBind();
+                    ddlArticulo.Items.Insert(0, new ListItem("Seleccione Artículo", ""));
+                }
+                else
+                {
+                    ddlArticulo.Items.Clear();
+                    ddlArticulo.Items.Insert(0, new ListItem("Sin artículos asociados", ""));
+                }
             }
             else
             {
@@ -134,12 +150,16 @@ namespace TPC_Equipo26
 
         protected void btnAgregar_Click1(object sender, EventArgs e)
         {
+            Page.Validate();
+            if (!Page.IsValid)
+                return;
             string error = ValidarCampos();
 
             if (string.IsNullOrEmpty(error))
             {
                 try
                 {
+
                     DetalleCompra detalle = new DetalleCompra();
                     detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                     detalle.Cantidad = int.Parse(txtCantidad.Text);
@@ -253,6 +273,9 @@ namespace TPC_Equipo26
 
         protected void btnGuardarCompra_Click(object sender, EventArgs e)
         {
+            Page.Validate();
+            if (!Page.IsValid)
+                return;
             string error = ValidarCompra();
 
             if (string.IsNullOrEmpty(error))
@@ -364,7 +387,7 @@ namespace TPC_Equipo26
             return false;
         }
 
-       
+
 
     }
 }

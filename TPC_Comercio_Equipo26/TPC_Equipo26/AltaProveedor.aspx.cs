@@ -155,6 +155,11 @@ namespace TPC_Equipo26
                 {
                     return;
                 }
+                Page.Validate();
+                if (!Page.IsValid)
+                {
+                    return;
+                }
                 Proveedor proveedor = new Proveedor();
                 ProveedorNegocio negocio = new ProveedorNegocio();
 

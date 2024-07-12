@@ -162,7 +162,7 @@ namespace TPC_Equipo26
 
             if (!camposValidos)
             {
-                lblError.Text = "Todos los campos obligatorios deben ser completados.";
+                lblError.Text = "Todos los campos obligatorios deben ser completados";
                 lblError.Visible = true;
             }
 
@@ -260,6 +260,11 @@ namespace TPC_Equipo26
                 if (chkConfirmaReactivacion.Checked)
                 {
                     if (!ValidarCampos())
+                    {
+                        return;
+                    }
+                    Page.Validate();
+                    if (!Page.IsValid)
                     {
                         return;
                     }

@@ -111,6 +111,11 @@ namespace TPC_Equipo26
                 {
                     return;
                 }
+                Page.Validate();
+                if (!Page.IsValid)
+                {
+                    return;
+                }
                 Categoria categoria = new Categoria();
                 CategoriaNegocio negocio = new CategoriaNegocio();
 
