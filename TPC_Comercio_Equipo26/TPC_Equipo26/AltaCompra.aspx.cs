@@ -312,6 +312,9 @@ namespace TPC_Equipo26
             }
         }
 
+      
+
+
         private void LimpiarSesion()
         {
             Session["DetallesCompra"] = null;

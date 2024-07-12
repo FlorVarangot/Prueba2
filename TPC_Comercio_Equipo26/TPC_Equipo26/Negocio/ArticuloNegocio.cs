@@ -44,10 +44,9 @@ namespace TPC_Equipo26.Negocio
                         {
                             arti.Imagen = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                         }
-                    };
 
-                   
 
+                    };                 
                     listaArticulos.Add(arti);
                 }
             }
