@@ -72,4 +72,5 @@
         <a href="Ventas.aspx" class="btn btn-danger">Cancelar</a>
 
     </div>
+    <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 </asp:Content>

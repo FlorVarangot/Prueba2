@@ -39,9 +39,10 @@ namespace TPC_Equipo26
                     {
                         detallesVenta = Session["DetallesVenta"] as List<DetalleVenta>;
                     }
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
-                    Session.Add("Error",ex.ToString());
+                    Session.Add("Error", ex.ToString());
                     Response.Redirect("Error.aspx", false);
                 }
             }
@@ -80,13 +81,13 @@ namespace TPC_Equipo26
                 ArticuloNegocio negocio = new ArticuloNegocio();
                 List<Articulo> articulos = negocio.Listar();
 
-                var articulo = articulos.Select(art => new
+                var articulosConStock = articulos.Select(art => new
                 {
                     ID = art.ID,
-                    ArticuloCompleto = $"{art.Codigo}, {art.Nombre}, {art.Descripcion}"
-                }).ToList();
+                    ArticuloCompleto = $"{art.Codigo}, {art.Nombre}, {art.Descripcion} - Stock disponible: {ObtenerStockDisponible(art.ID)}"
+                }).Where(a => ObtenerStockDisponible(a.ID) > 0).ToList();
 
-                ddlArticulo.DataSource = articulo;
+                ddlArticulo.DataSource = articulosConStock;
                 ddlArticulo.DataTextField = "ArticuloCompleto";
                 ddlArticulo.DataValueField = "ID";
                 ddlArticulo.DataBind();
@@ -99,6 +100,11 @@ namespace TPC_Equipo26
             }
         }
 
+        private int ObtenerStockDisponible(long idArticulo)
+        {
+            DatoArticuloNegocio dato = new DatoArticuloNegocio();
+            return dato.ObtenerStockArticulo(idArticulo);
+        }
         protected void ddlCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlCliente.SelectedIndex > 0)
@@ -115,11 +121,22 @@ namespace TPC_Equipo26
         {
             btnGuardarVenta.Visible = true;
         }
-
+        protected void VerificarStock()
+        {
+            if (ddlArticulo.SelectedIndex > 0)
+            {
+                btnGuardarVenta.Visible = true;
+            }
+            else
+            {
+                btnGuardarVenta.Visible = false;
+            }
+        }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
             {
+                OcultarError();
                 VentaNegocio negocio = new VentaNegocio();
                 long idVenta = negocio.TraerUltimoId();
                 DetalleVenta detalle = new DetalleVenta();
@@ -134,8 +151,8 @@ namespace TPC_Equipo26
                 }
                 else
                 {
-                    Session.Add("Error", "No hay stock suficiente.");
-                    Response.Redirect("Error.aspx", false);
+                    MostrarError("No hay stock suficiente");
+                    return;
                 }
 
                 Session["DetallesVenta"] = detallesVenta;
@@ -156,20 +173,38 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
-
+        private void MostrarError(string mensaje)
+        {
+            lblError.Text = mensaje;
+            lblError.Visible = true;
+        }
+        private void OcultarError()
+        {
+            lblError.Text = "";
+            lblError.Visible = false;
+        }
         private bool validarStock(DetalleVenta detalle)
         {
-            DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-
-            long idArticulo = detalle.IdArticulo;
-            int cantidadSolicitada = detalle.Cantidad;
-            int cantidadEnStock = datoNegocio.ObtenerStockArticulo(idArticulo);
-
-            if (cantidadSolicitada <= cantidadEnStock)
+            try
             {
+                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+
+                long idArticulo = detalle.IdArticulo;
+                int cantidadSolicitada = detalle.Cantidad;
+                int cantidadEnStock = datoNegocio.ObtenerStockArticulo(idArticulo);
+
+                if (cantidadSolicitada > cantidadEnStock)
+                {
+                    return false;
+                }
+
                 return true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                return false;
+            }
         }
 
         private void ActualizarArticulos()
@@ -235,7 +270,7 @@ namespace TPC_Equipo26
                 ClienteNegocio clienteNegocio = new ClienteNegocio();
                 Cliente cliente = clienteNegocio.ObtenerClientePorId(venta.IdCliente);
 
-                string emailDestino = cliente.Email; 
+                string emailDestino = cliente.Email;
                 string asunto = "Confirmación de compra en nuestra tienda";
                 string cuerpo = $"¡Gracias por comprar en nuestra tienda!<br><br>" +
                                 $"Detalles de la compra:<br>" +
@@ -248,7 +283,7 @@ namespace TPC_Equipo26
                     ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                     Articulo articulo = articuloNegocio.ObtenerArticuloPorID(detalle.IdArticulo);
 
-                    cuerpo += $"{articulo.Nombre} - Cantidad: {detalle.Cantidad}<br>";
+                    cuerpo += $"{articulo.Nombre} - {articulo.Descripcion} - Cantidad: {detalle.Cantidad}<br>";
                 }
 
                 cuerpo += "<br>Esperamos que disfrutes de tus productos.";
