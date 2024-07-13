@@ -76,6 +76,11 @@ namespace TPC_Equipo26
             ddlArticulo.Items.Clear();
             ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
         }
+        private int ObtenerStockDisponible(long idArticulo)
+        {
+            DatoArticuloNegocio negocio = new DatoArticuloNegocio();
+            return negocio.ObtenerStockArticulo(idArticulo);
+        }
 
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -121,9 +126,19 @@ namespace TPC_Equipo26
                 List<Articulo> articulos = negocioArticulo.ListarPorMarca(idMarca);
                 if (articulos.Count > 0)
                 {
-                    ddlArticulo.DataSource = articulos;
-                    ddlArticulo.DataTextField = "Nombre";
-                    ddlArticulo.DataValueField = "ID";
+                    List<ListItem> items = new List<ListItem>();
+                    foreach (var articulo in articulos)
+                    {
+                        int stockDisponible = ObtenerStockDisponible(articulo.ID);
+                        string articuloDisp = $"{articulo.Codigo} - {articulo.Nombre} - Stock: {stockDisponible}";
+
+                        items.Add(new ListItem(articuloDisp, articulo.ID.ToString()));
+                    }
+
+                    
+                    ddlArticulo.DataSource = items;
+                    ddlArticulo.DataTextField = "Text";
+                    ddlArticulo.DataValueField = "Value";
                     ddlArticulo.DataBind();
                     ddlArticulo.Items.Insert(0, new ListItem("Seleccione Artículo", ""));
                 }
