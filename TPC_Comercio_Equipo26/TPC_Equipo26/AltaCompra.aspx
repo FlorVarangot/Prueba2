@@ -42,7 +42,7 @@
             <div class="col-md-2">
                 <label for="txtPrecio" class="form-label">Precio Unitario:</label>
                 <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
-                    <asp:RegularExpressionValidator runat="server" ControlToValidate="txtPrecio" ErrorMessage="Ingrese un precio valido" ValidationExpression="^\d+$" ForeColor="Red" />         
+                    <asp:RegularExpressionValidator runat="server" ControlToValidate="txtPrecio" ErrorMessage="Ingrese un precio valido" ValidationExpression="^\d+([.,]\d+)?$" ForeColor="Red" />         
             </div>
             <div class="col-md-2 d-flex align-items-end">
                 <asp:Button runat="server" ID="btnAgregar" Text="+" CssClass="btn btn-primary btn-agregar" Autopostback="true" OnClick="btnAgregar_Click1" />

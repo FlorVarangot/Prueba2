@@ -37,37 +37,7 @@ namespace TPC_Equipo26.Negocio
                 datos.cerrarConexion();
             }
 
-        }
-
-        public int ObtenerStockArticulo(long idArticulo, DateTime fecha)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearConsulta("SELECT SUM(Stock) AS StockTotal FROM DATOS_ARTICULOS WHERE IdArticulo = @idArticulo AND Fecha <= @fecha");
-                datos.setearParametro("@idArticulo", idArticulo);
-                datos.setearParametro("@fecha", fecha);
-                datos.ejecutarLectura();
-
-                if (datos.Lector.Read())
-                {
-                    int stockTotal = Convert.ToInt32(datos.Lector["StockTotal"]);
-                    return stockTotal;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
+        }     
 
 
         //Trae ultimo precio
@@ -158,15 +128,40 @@ namespace TPC_Equipo26.Negocio
 
                     if (ultimoStock > 0)
                     {
-                        int stock = ultimoStock - cantidad;
+                        int nuevoStock = ultimoStock - cantidad;
 
+                        int count = 0;
                         using (AccesoDatos datosArticulo = new AccesoDatos())
                         {
-                            datosArticulo.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");
+                            datosArticulo.setearConsulta("SELECT COUNT(*) FROM DATOS_ARTICULOS WHERE IdArticulo = @IdArticulo AND Fecha = @Fecha");
                             datosArticulo.setearParametro("@IdArticulo", idArticulo);
                             datosArticulo.setearParametro("@Fecha", fecha);
-                            datosArticulo.setearParametro("@Stock", stock);
-                            datosArticulo.setearParametro("@Precio", ultimoPrecio);
+                            datosArticulo.ejecutarLectura();
+
+                            if (datosArticulo.Lector.Read())
+                            {
+                                count = Convert.ToInt32(datosArticulo.Lector[0]);
+                            }
+                        }
+
+                       
+                        using (AccesoDatos datosArticulo = new AccesoDatos())
+                        {
+                            if (count > 0)
+                            {
+                                
+                                datosArticulo.setearConsulta("UPDATE DATOS_ARTICULOS SET Stock = @Stock WHERE IdArticulo = @IdArticulo AND Fecha = @Fecha");
+                            }
+                            else
+                            {
+                                 
+                                datosArticulo.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");
+                                datosArticulo.setearParametro("@Precio", ultimoPrecio); 
+                            }
+
+                            datosArticulo.setearParametro("@IdArticulo", idArticulo);
+                            datosArticulo.setearParametro("@Fecha", fecha);
+                            datosArticulo.setearParametro("@Stock", nuevoStock);
                             datosArticulo.ejecutarAccion();
                         }
                     }
@@ -176,6 +171,7 @@ namespace TPC_Equipo26.Negocio
             {
                 throw ex;
             }
+
         }
 
 
@@ -193,41 +189,41 @@ namespace TPC_Equipo26.Negocio
                     decimal precioCompra = detalle.Precio;
 
                     int ultimoStock = 0;
-                    decimal ultimoPrecio = 0;
+
+                    using (AccesoDatos datosArticulo = new AccesoDatos())
+                    {
+                        datosArticulo.setearConsulta("SELECT TOP 1 Stock FROM DATOS_ARTICULOS WHERE IdArticulo = @IdArticulo ORDER BY Fecha DESC");
+                        datosArticulo.setearParametro("@IdArticulo", idArticulo);
+                        datosArticulo.ejecutarLectura();
+
+                        if (datosArticulo.Lector.Read())
+                        {
+                            ultimoStock = Convert.ToInt32(datosArticulo.Lector["Stock"]);                     
+                        }
+                    }
 
                     ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                     Articulo articulo = articuloNegocio.ObtenerArticuloPorID(idArticulo);
                     decimal ganancia = articulo.Ganancia;
                     decimal precioFinal = precioCompra + (precioCompra * ganancia / 100);
 
-                    int stockActual = ObtenerStockArticulo(idArticulo, fecha);
+                    int nuevoStock = ultimoStock + cantidad;
 
-                    if (stockActual == 0)
+                    using (AccesoDatos datosArticulo = new AccesoDatos())
                     {
-
-                        using (AccesoDatos datosArticulo = new AccesoDatos())
+                        if (ultimoStock == 0)
                         {
                             datosArticulo.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");
-                            datosArticulo.setearParametro("@IdArticulo", idArticulo);
-                            datosArticulo.setearParametro("@Fecha", fecha);
-                            datosArticulo.setearParametro("@Stock", cantidad);
-                            datosArticulo.setearParametro("@Precio", precioFinal);
-                            datosArticulo.ejecutarAccion();
                         }
-                    }
-                    else
-                    {
-                        int nuevoStock = stockActual + cantidad;
-
-                        using (AccesoDatos datosArticulo = new AccesoDatos())
+                        else
                         {
                             datosArticulo.setearConsulta("UPDATE DATOS_ARTICULOS SET Stock = @Stock, Precio = @Precio WHERE IdArticulo = @IdArticulo AND Fecha = @Fecha");
-                            datosArticulo.setearParametro("@IdArticulo", idArticulo);
-                            datosArticulo.setearParametro("@Stock", nuevoStock);
-                            datosArticulo.setearParametro("@Precio", precioFinal);
-                            datosArticulo.setearParametro("@Fecha", fecha);
-                            datosArticulo.ejecutarAccion();
                         }
+                        datosArticulo.setearParametro("@IdArticulo", idArticulo);
+                        datosArticulo.setearParametro("@Fecha", fecha);
+                        datosArticulo.setearParametro("@Stock", nuevoStock);
+                        datosArticulo.setearParametro("@Precio", precioFinal);
+                        datosArticulo.ejecutarAccion();
                     }
                 }
             }

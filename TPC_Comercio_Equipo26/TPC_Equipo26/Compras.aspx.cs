@@ -102,8 +102,14 @@ namespace TPC_Equipo26
                 case "FechaAntigua":
                     listaCompras = listaCompras.OrderBy(x => x.FechaCompra).ToList();
                     break;
-                default:
+                case "CompraAsc":
                     listaCompras = listaCompras.OrderBy(x => x.ID).ToList();
+                    break;
+                case "CompraDesc":
+                    listaCompras = listaCompras.OrderByDescending(x => x.ID).ToList();
+                    break;
+                default:
+                    listaCompras = listaCompras.OrderByDescending(x => x.FechaCompra).ToList();
                     break;
             }
 

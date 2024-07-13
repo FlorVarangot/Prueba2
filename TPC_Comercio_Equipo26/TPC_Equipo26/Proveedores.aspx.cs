@@ -72,10 +72,10 @@ namespace TPC_Equipo26
                     lista = lista.OrderByDescending(x => x.Nombre).ToList();
                     break;
                 case "IdAsc":
-                    lista = lista.OrderByDescending(x => x.ID).ToList();
+                    lista = lista.OrderBy(x => x.ID).ToList();
                     break;
                 case "IdDesc":
-                    lista = lista.OrderBy(x => x.ID).ToList();
+                    lista = lista.OrderByDescending(x => x.ID).ToList();
                     break;
                 default:
                     lista = lista.OrderBy(x => x.ID).ToList();

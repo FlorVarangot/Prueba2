@@ -22,6 +22,8 @@
                         <asp:ListItem Text="Menor Precio" Value="MenorPrecio" />
                         <asp:ListItem Text="Fecha Más Reciente" Value="FechaReciente" />
                         <asp:ListItem Text="Fecha Más Antigua" Value="FechaAntigua" />
+                        <asp:ListItem Text="Número de Compra ↑" Value="CompraAsc" />
+                        <asp:ListItem Text="Número de Compra ↓" Value="CompraDesc" />
                     </asp:DropDownList>
                 </div>
                 <div class="col-3 text-end">
