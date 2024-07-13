@@ -5,7 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <div class="row mt-3 mb-2">
-            <asp:Label runat="server" ID="lblTitulo" CssClass="titulo-label"></asp:Label>
+            <%--<asp:Label runat="server" ID="lblTitulo" CssClass="titulo-label"></asp:Label>--%>
+            <h1>Detalles de Venta</h1>
         </div>
         <div class="row mt-4">
             <div class="col-1">
@@ -21,7 +22,7 @@
                 <asp:Label runat="server" ID="lblVentaID" Text=""></asp:Label>
             </div>
             <div class="col-1 text-end">
-                <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow; font:bold" title="Ver venta siguiente"> >> </asp:HyperLink>
+                <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow; font: bold" title="Ver venta siguiente"> >> </asp:HyperLink>
             </div>
         </div>
         <hr />
@@ -37,7 +38,7 @@
         </asp:GridView>
 
         <div class="row mt-3">
-            <div class="col-10 text-end">
+            <div class="col-11 text-end">
                 <asp:Label runat="server" ID="lblTotal" Text=""></asp:Label>
             </div>
         </div>

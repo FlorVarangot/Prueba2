@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using TPC_Equipo26.Dominio;
 
@@ -25,7 +26,6 @@ namespace TPC_Equipo26.Negocio
 
                 foreach (var detalle in compra.Detalles)
                 {
-                    //limpia al salir del bloque y optimiza la memoria
                     using (AccesoDatos datosDetalle = new AccesoDatos())
                     {
                         datosDetalle.setearConsulta("INSERT INTO DETALLE_COMPRAS (IdCompra, IdArticulo, Precio, Cantidad) VALUES (@IdCompra, @IdArticulo, @Precio, @Cantidad)");
@@ -136,5 +136,35 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
+        public Compra ObtenerCompraPorId(long idCompra)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT * FROM COMPRAS WHERE Id = @id");
+                datos.setearParametro("@id", idCompra);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Compra compra = new Compra();
+
+                    compra.FechaCompra = DateTime.Parse(datos.Lector["FechaCompra"].ToString());
+                    compra.IdProveedor = int.Parse(datos.Lector["IdProveedor"].ToString());
+                    compra.TotalCompra = decimal.Parse(datos.Lector["TotalCompra"].ToString());
+
+                    return compra;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { datos.cerrarConexion();}
+        }
     }
 }

@@ -121,7 +121,7 @@ namespace TPC_Equipo26
                         ventasFiltrada = ventasFiltrada.OrderByDescending(x => x.ID).ToList();
                         break;
                     default:
-                        ventasFiltrada = ventasFiltrada.OrderByDescending(x => x.FechaVenta).ToList();
+                        ventasFiltrada = ventasFiltrada.OrderByDescending(x => x.ID).ToList();
                         break;
                 }
 

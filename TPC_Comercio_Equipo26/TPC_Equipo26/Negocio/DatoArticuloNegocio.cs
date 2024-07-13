@@ -39,7 +39,6 @@ namespace TPC_Equipo26.Negocio
 
         }     
 
-
         //Trae ultimo precio
         public decimal ObtenerPrecioArticulo(long idArticulo)
         {
@@ -173,7 +172,6 @@ namespace TPC_Equipo26.Negocio
             }
 
         }
-
 
         public void ActualizarStockPostCompra(Compra compra)
         {

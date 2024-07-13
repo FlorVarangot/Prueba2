@@ -42,7 +42,7 @@ namespace TPC_Equipo26
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("Error", ex.Message);
                 Response.Redirect("Error.aspx", false);
             }
         }

@@ -200,7 +200,7 @@ namespace TPC_Equipo26
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 int id = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "ID"));
-                decimal precio = TraerPrecioConGanancia(id);
+                decimal precio = TraerPrecio(id);
                 int stock = TraerStock(id);
                 e.Row.Cells[7].Text = precio.ToString("C");
                 e.Row.Cells[8].Text = stock.ToString();
@@ -244,7 +244,6 @@ namespace TPC_Equipo26
             MostrarBotonRestablecer();
         }
 
-        //Revisar si hace falta este metodo:
         private decimal TraerPrecio(long idArt)
         {
             try
@@ -259,37 +258,6 @@ namespace TPC_Equipo26
                     decimal precio = datoNegocio.ObtenerPrecioArticulo(idArticulo);
 
                     return precio;
-                }
-                else
-                {
-                    Session.Add("Error", "No se encontró el artículo.");
-                    return 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-                return -1;
-            }
-        }
-
-        private decimal TraerPrecioConGanancia(long idArt)
-        {
-            try
-            {
-                ArticuloNegocio negocio = new ArticuloNegocio();
-                Articulo articulo = negocio.ObtenerArticuloPorID(idArt);
-
-                if (articulo != null)
-                {
-                    long idArticulo = articulo.ID;
-                    decimal ganancia = articulo.Ganancia;
-                    DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
-                    decimal precio = datoNegocio.ObtenerPrecioArticulo(idArticulo);
-                    decimal precioConGanancia = precio + (precio * ganancia / 100);
-
-                    return precioConGanancia;
                 }
                 else
                 {

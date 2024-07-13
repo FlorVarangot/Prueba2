@@ -181,7 +181,7 @@ namespace TPC_Equipo26
         private void ActualizarVenta()
         {
             decimal totalVenta = Calcular();
-            lblTotalVenta.Text = "Total venta: " + totalVenta.ToString("C2");
+            lblTotalVenta.Text = "Total venta !: " + totalVenta.ToString("C2");
             Session["Total"] = totalVenta;
         }
 
@@ -280,14 +280,12 @@ namespace TPC_Equipo26
                 DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
                 DateTime fechaVenta = DateTime.Parse(txtFechaVenta.Text);
 
-                decimal ganancia = articulo.Ganancia;
                 decimal precio = datoNegocio.ObtenerPrecioHistorico(idArt, fechaVenta);
                 int cantidad = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "Cantidad"));
-                decimal precioConGanancia = precio + (precio * ganancia / 100);
                 decimal totalParcial = precio * cantidad;
 
                 e.Row.Cells[0].Text = descripcionArticulo;
-                e.Row.Cells[1].Text = precioConGanancia.ToString("C2");
+                e.Row.Cells[1].Text = precio.ToString("C2");
                 e.Row.Cells[3].Text = totalParcial.ToString("C2");
             }
         }

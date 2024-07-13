@@ -6,10 +6,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Detalles de Compra</h1>
-                <div class="row">
+                <div class="row mt-3 mb-2">
+                    <h1>Detalles de Compra</h1>
+                </div>
+                <div class="row mt-4">
                     <div class="col">
                         <asp:HyperLink ID="lnkVentaAnterior" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta anterior"> << </asp:HyperLink>
+                    </div>
+                    <div class="col-4 text-center">
+                        <asp:Label runat="server" ID="lblProveedor" Text=""></asp:Label>
+                    </div>
+                    <div class="col-3 text-center">
+                        <asp:Label runat="server" ID="lblFecha" Text=""></asp:Label>
+                    </div>
+                    <div class="col-3 text-center">
+                        <asp:Label runat="server" ID="lblCompraID" Text=""></asp:Label>
                     </div>
                     <div class="col text-end">
                         <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow" title="Ver venta siguiente"> >> </asp:HyperLink>

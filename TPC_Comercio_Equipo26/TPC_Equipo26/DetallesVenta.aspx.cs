@@ -22,49 +22,54 @@ namespace TPC_Equipo26
                     {
                         if (Request.QueryString["ID"] != null)
                         {
-                            lblTitulo.Text = "Detalles de Venta";
+                            //lblTitulo.Text = "Detalles de Venta";
                             long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
-                            lblVentaID.Text = "venta n° 00" + ventaID;
+                            lblVentaID.Text = "Venta n° 00" + ventaID;
                             lblCliente.Text = "Cliente: " + TraerNombreCliente(ventaID);
                             lblFecha.Text = "Fecha: " + TraerFechaVenta(ventaID).ToString("dd/MM/yyyy");
-                            lblTotal.Text = "Total: $ " + TraerTotalVenta(ventaID).ToString("N2");
+                            lblTotal.Text = "Total: $" + TraerTotalVenta(ventaID).ToString("N2");
                             CargarDetallesVenta(ventaID);
 
-                            //navegacion entre detalles:
                             lnkVentaAnterior.NavigateUrl = ObtenerVentaAnterior();
                             lnkVentaSiguiente.NavigateUrl = ObtenerVentaSiguiente();
-                            //si es la primera no puedo ir a anterior
                             lnkVentaAnterior.Enabled = (ventaID > 1);
                             long maxID = TraerUltimoId();
-                            //si es la ultima no puedo ir a siguiente
                             lnkVentaSiguiente.Enabled = (ventaID < maxID);
                         }
                         else
                         {
-                            Response.Redirect("Ventas.aspx");
+                            Response.Redirect("Ventas.aspx", false);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     Session.Add("Error", ex.ToString());
-                    Response.Redirect("Error.aspx");
+                    Response.Redirect("Error.aspx", false);
                 }
             }
             else
             {
                 Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
         }
 
         private void CargarDetallesVenta(long id)
         {
-            DetalleVentaNegocio negocio = new DetalleVentaNegocio();
-            List<DetalleVenta> detalles = negocio.Listar(id);
+            try
+            {
+                DetalleVentaNegocio negocio = new DetalleVentaNegocio();
+                List<DetalleVenta> detalles = negocio.Listar(id);
 
-            gvDetalle.DataSource = detalles;
-            gvDetalle.DataBind();
+                gvDetalle.DataSource = detalles;
+                gvDetalle.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void gvDetalle_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -92,13 +97,11 @@ namespace TPC_Equipo26
                 DateTime fechaVenta = TraerFechaVenta(idVenta);
                 int cantidad = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "Cantidad"));
 
-                decimal ganancia = articulo.Ganancia;
                 decimal precioUnitario = datoArticuloNegocio.ObtenerPrecioHistorico(idArt, fechaVenta);
-                decimal precioConGanancia = precioUnitario + (precioUnitario * ganancia / 100);
-                decimal totalParcial = cantidad * precioConGanancia;
+                decimal totalParcial = cantidad * precioUnitario;
 
                 e.Row.Cells[0].Text = nombreArticulo;
-                e.Row.Cells[1].Text = precioConGanancia.ToString("C2");
+                e.Row.Cells[1].Text = precioUnitario.ToString("C2");
                 e.Row.Cells[3].Text = totalParcial.ToString("C2");
             }
         }
@@ -142,19 +145,15 @@ namespace TPC_Equipo26
                 DateTime fechaVenta;
 
                 if (venta != null)
-                {
                     fechaVenta = venta.FechaVenta;
-                }
                 else
-                {
                     fechaVenta = new DateTime(1900, 1, 1);
-                }
 
                 return fechaVenta;
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("Error", ex.Message);
                 Response.Redirect("Error.aspx", false);
                 return DateTime.MinValue;
             }
@@ -167,22 +166,18 @@ namespace TPC_Equipo26
             {
                 VentaNegocio ventaNegocio = new VentaNegocio();
                 Venta venta = ventaNegocio.ObtenerVentaPorId(id);
-                decimal totalVenta = 0;
+                decimal totalVenta;
 
                 if (venta != null)
-                {
                     totalVenta = venta.Total;
-                }
                 else
-                {
                     totalVenta = 0;
-                }
 
                 return totalVenta;
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
+                Session.Add("Error", ex.Message);
                 Response.Redirect("Error.aspx", false);
                 return 0;
             }

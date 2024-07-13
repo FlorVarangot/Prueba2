@@ -109,7 +109,7 @@ namespace TPC_Equipo26
                     listaCompras = listaCompras.OrderByDescending(x => x.ID).ToList();
                     break;
                 default:
-                    listaCompras = listaCompras.OrderByDescending(x => x.FechaCompra).ToList();
+                    listaCompras = listaCompras.OrderByDescending(x => x.ID).ToList();
                     break;
             }
 

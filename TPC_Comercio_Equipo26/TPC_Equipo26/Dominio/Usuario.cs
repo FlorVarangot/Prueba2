@@ -19,14 +19,9 @@ namespace TPC_Equipo26.Dominio
             set
             {
                 if (!string.IsNullOrEmpty(value) && value.Length >= 4)
-                {
                     user = value;
-                }
                 else
-                {
-                    string mensajeError = "El nombre de usuario debe contener al menos 4 caracteres.";
-                    throw new Exception(mensajeError);
-                }
+                    throw new Exception("El nombre de usuario debe contener al menos 4 caracteres.");
             }
         }
 
@@ -37,15 +32,9 @@ namespace TPC_Equipo26.Dominio
             set
             {
                 if (value.Length >= 4 && System.Text.RegularExpressions.Regex.IsMatch(value, @"\d"))
-                {
                     pass = value;
-                }
                 else
-                {
-                    string mensajeError = "La contraseña debe contener al menos 4 caracteres y al menos 1 caracter numérico.";
-                    throw new Exception(mensajeError);
-                }
-
+                    throw new Exception("La contraseña debe contener al menos 4 caracteres y al menos 1 caracter numérico.");
             }
         }
         public string ImagenPerfil { get; set; }
