@@ -41,7 +41,7 @@
                 </div>
             </div>
         </asp:Panel>
-
+        <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
         <asp:Panel ID="panelDetallesVenta" runat="server">
             <asp:Label ID="lblDetalles" runat="server" Text="Detalles de la venta:" Visible="false" CssClass="titulo-label"></asp:Label>
             <asp:GridView ID="gvAltaVenta" runat="server" CssClass="detalle" AutoGenerateColumns="false" Style="text-align: center; align-content: center" AutoSizeMode="true"
@@ -72,5 +72,5 @@
         <a href="Ventas.aspx" class="btn btn-danger">Cancelar</a>
 
     </div>
-    <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+    
 </asp:Content>

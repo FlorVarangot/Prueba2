@@ -52,6 +52,7 @@
             </div>
         </div>
     </div>
+     <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
     <h3 class="my-4">Detalles de la Compra</h3>
     <div class="row">
         <div class="col-md-12">
@@ -85,5 +86,5 @@
         </div>
     </div>
     <a href="Compras.aspx" class="btn btn-danger">Cancelar</a>
-    <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+   
 </asp:Content>

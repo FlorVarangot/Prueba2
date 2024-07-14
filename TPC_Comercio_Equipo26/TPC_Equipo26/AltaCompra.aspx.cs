@@ -111,7 +111,7 @@ namespace TPC_Equipo26
                 ddlMarca.Items.Insert(0, new ListItem("Seleccione Proveedor primero", ""));
                 ddlArticulo.Items.Clear();
                 ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
-            }           
+            }
         }
 
         protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace TPC_Equipo26
                         items.Add(new ListItem(articuloDisp, articulo.ID.ToString()));
                     }
 
-                    
+
                     ddlArticulo.DataSource = items;
                     ddlArticulo.DataTextField = "Text";
                     ddlArticulo.DataValueField = "Value";
@@ -163,9 +163,12 @@ namespace TPC_Equipo26
 
         protected void btnAgregar_Click1(object sender, EventArgs e)
         {
+            OcultarError();
+
             Page.Validate();
             if (!Page.IsValid)
                 return;
+
             string error = ValidarCampos();
 
             if (string.IsNullOrEmpty(error))
@@ -216,13 +219,18 @@ namespace TPC_Equipo26
             }
             else
             {
-                lblError.Text = error;
-                lblError.Visible = true;
+                MostrarError(error);
             }
         }
 
         private string ValidarCampos()
         {
+            if (ddlArticulo.SelectedIndex == 0 || ddlArticulo.SelectedIndex == 0)
+            {
+                return "Debe seleccionar una marca y articulo antes de avanzar";
+            }
+            
+
             int cantidad;
             decimal precio;
             bool cantidadValida = int.TryParse(txtCantidad.Text, out cantidad);
@@ -251,6 +259,17 @@ namespace TPC_Equipo26
             return string.Empty;
         }
 
+        private void MostrarError(string mensaje)
+        {
+            lblError.Text = mensaje;
+            lblError.Visible = true;
+        }
+
+        private void OcultarError()
+        {
+            lblError.Text = "";
+            lblError.Visible = false;
+        }
         private void LimpiarCampos()
         {
             ddlMarca.SelectedIndex = 0;
@@ -324,7 +343,7 @@ namespace TPC_Equipo26
             }
         }
 
-      
+
 
 
         private void LimpiarSesion()

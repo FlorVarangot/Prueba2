@@ -105,7 +105,7 @@ namespace TPC_Equipo26
             DatoArticuloNegocio dato = new DatoArticuloNegocio();
             return dato.ObtenerStockArticulo(idArticulo);
         }
-        
+
         protected void ddlCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlCliente.SelectedIndex > 0)
@@ -122,7 +122,7 @@ namespace TPC_Equipo26
         {
             btnGuardarVenta.Visible = true;
         }
-        
+
         protected void VerificarStock()
         {
             if (ddlArticulo.SelectedIndex > 0)
@@ -134,49 +134,80 @@ namespace TPC_Equipo26
                 btnGuardarVenta.Visible = false;
             }
         }
-        
+
+        private string ValidarCampos()
+        {
+            if (ddlArticulo.SelectedIndex == 0)
+            {
+                return "Debe seleccionar un artículo primero y cantidad primero";
+            }
+
+            int cantidad;
+            bool cantidadValida = int.TryParse(numCantidad.Value, out cantidad);
+
+            if (!cantidadValida)
+            {
+                return "Debe ingresar una cantidad valida";
+            }
+
+            if (cantidad <= 0)
+            {
+                return "La cantidad debe ser mayor a cero";
+            }
+
+            return string.Empty;
+        }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            try
+            OcultarError();
+            string error = ValidarCampos();
+            if (string.IsNullOrEmpty(error))
             {
-                OcultarError();
-                VentaNegocio negocio = new VentaNegocio();
-                long idVenta = negocio.TraerUltimoId();
-                DetalleVenta detalle = new DetalleVenta();
-
-                detalle.IdVenta = idVenta;
-                detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
-                detalle.Cantidad = int.Parse(numCantidad.Value);
-
-                if (validarStock(detalle))
+                try
                 {
-                    detallesVenta.Add(detalle);
+                    
+                    VentaNegocio negocio = new VentaNegocio();
+                    long idVenta = negocio.TraerUltimoId();
+                    DetalleVenta detalle = new DetalleVenta();
+
+                    detalle.IdVenta = idVenta;
+                    detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
+                    detalle.Cantidad = int.Parse(numCantidad.Value);
+
+                    if (validarStock(detalle))
+                    {
+                        detallesVenta.Add(detalle);
+                    }
+                    else
+                    {
+                        MostrarError("No hay stock suficiente");
+                        return;
+                    }
+
+                    Session["DetallesVenta"] = detallesVenta;
+
+                    ActualizarArticulos();
+                    ActualizarVenta();
+
+                    ddlArticulo.Items.Clear();
+                    ddlArticulo.SelectedIndex = -1;
+                    numCantidad.Value = "1";
+
+                    CargarArticulos();
+
                 }
-                else
+                catch (Exception ex)
                 {
-                    MostrarError("No hay stock suficiente");
-                    return;
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("Error.aspx", false);
                 }
-
-                Session["DetallesVenta"] = detallesVenta;
-
-                ActualizarArticulos();
-                ActualizarVenta();
-
-                ddlArticulo.Items.Clear();
-                ddlArticulo.SelectedIndex = -1;
-                numCantidad.Value = "1";
-
-                CargarArticulos();
-
             }
-            catch (Exception ex)
+            else
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
+                MostrarError(error);
             }
         }
-        
+
         private void MostrarError(string mensaje)
         {
             lblError.Text = mensaje;
