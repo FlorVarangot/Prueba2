@@ -298,7 +298,7 @@ END
 GO
 
 -----USUARIOS-----
-ALTER PROCEDURE SP_NuevoUsuario
+CREATE PROCEDURE SP_NuevoUsuario
 @User VARCHAR(50),
 @Pass VARCHAR(50),
 @Email NVARCHAR(50)
