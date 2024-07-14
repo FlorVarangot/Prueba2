@@ -139,7 +139,7 @@ namespace TPC_Equipo26
         {
             if (ddlArticulo.SelectedIndex == 0)
             {
-                return "Debe seleccionar un artículo primero y cantidad primero";
+                return "Debe seleccionar un artículo primero y cantidad";
             }
 
             int cantidad;
