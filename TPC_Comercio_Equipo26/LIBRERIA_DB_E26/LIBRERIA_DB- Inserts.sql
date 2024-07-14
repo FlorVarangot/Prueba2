@@ -51,7 +51,7 @@ VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',9,1,55,'https://th.bing.com/t
 		('AAA003','HP 10 ','ABROCHADORA PINZA P/BROCHE N° 10',9,1,55,'https://th.bing.com/th/id/R.cb3f6cb6cd4cd392f9e0dea50b568580?rik=jVwT8Z%2bUcb%2b%2feA&pid=ImgRaw&r=0',5,1),
 		('AAA004','HP 12 ','ABROCHADORA PINZA P/BROCHE N° 12',9,1,55,'https://th.bing.com/th/id/OIP.TVHr_-8Zbq0vgQ1PtKZxfAHaHa?rs=1&pid=ImgDetMain',5,1),
 		('AAA005','ABACO PLÁSTICO N° 3','ABACO PLASTICO 3 COLUMNAS',14,2,38,'https://th.bing.com/th/id/OIP.78D11ioXuGSLsz-dEB0GDwHaHa?w=1000&h=1000&rs=1&pid=ImgDetMain',10,1),
-		('AAA006','ABACO PLÁSTICO N° 4','ABACO PLASTICO 4 COLUMNAS',14,2,38,'https://padihey.com.br/wp-content/uploads/2022/03/7d50596fd15159ed9262419b4e552c88.png',10,1),
+		('AAA006','ABACO PLÁSTICO N° 4','ABACO PLASTICO 4 COLUMNAS',14,2,38,'https://http2.mlstatic.com/D_NQ_NP_762471-MLB48316881887_112021-O.jpg',10,1),
 		('AAA007','ABACO PLÁSTICO N° 5','ABACO PLASTICO 5 COLUMNAS',14,2,40,'https://th.bing.com/th/id/OIP.hf3sjOaKOk3_kx9o4ZpxSgHaHa?w=500&h=500&rs=1&pid=ImgDetMain',10,1),
 		('AAA008','HS-10 A','ABROCHADORA KANGARO 10',15,1,40,'https://th.bing.com/th/id/OIP.XbjP9o4a_TbHV52zTs2nxQHaHa?rs=1&pid=ImgDetMain',10,1),
 		('AAA009','POCKET 10','ABROCHADORA POCKET 10',9,1,40,'https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png',10,1),
@@ -60,10 +60,10 @@ VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',9,1,55,'https://th.bing.com/t
 		('AAA012','BOL. NEGRO 1MM X36','BOLIGRAFO FILGO FASTRACK NEGRO 1MM RETRACTIL',4,7,35,'https://http2.mlstatic.com/D_NQ_NP_2X_634662-MLA31351168191_072019-F.jpg',10,1),
 		('AAA013','BOL. ROJO 1MM X36','BOLIGRAFO FILGO FASTRACK ROJO 1MM RETRACTIL',4,7,35,'https://th.bing.com/th/id/OIP.wDyxHYaByxp7QhV-XV6LrQHaGH?rs=1&pid=ImgDetMain',10,0),
 		('AAA014','BOL. AZUL 1MM X36 F','BOLIGRAFO FILGO GINZA AZUL 1MM RETRACTIL',4,7,35,'https://th.bing.com/th/id/OIP.zruOwX-CinBzr7XNSIc8LgHaHa?rs=1&pid=ImgDetMain',10,0),
-		('LIB001', 'CUADERNO N3', 'CUADERNO DE TAPA DURA CON HOJAS RAYADAS',2,5,30,'https://example.com/cuaderno_rayado.jpg', 30,1),
-		('LIB002', 'LÁPIZ HB', 'LÁPIZ DE GRAFITO PARA ESCRIBIR Y DIBUJAR',1,10,15, 'https://example.com/lapiz_hb.jpg', 40,1),
+		('LIB001', 'CUADERNO N3', 'CUADERNO DE TAPA DURA CON HOJAS RAYADAS',2,5,30,'https://th.bing.com/th/id/OIP.wX4ntH06UQV4yyzg2gVC6gHaFj?rs=1&pid=ImgDetMain', 30,1),
+		('LIB002', 'LÁPIZ HB', 'LÁPIZ DE GRAFITO PARA ESCRIBIR Y DIBUJAR',1,10,15, 'https://papeleriademexico.com/4158-thickbox_default/lapiz-bic-de-grafito-conte-hb-no-2-8pzas.jpg', 40,1),
 		('LIB003', 'MCD-223', 'SET DE 12 MARCADORES DE COLORES VARIADOS',4,10,25, 'https://example.com/marcadores_colores.jpg', 40,0),
-		('LIB004', 'ASEM 36-2', 'AGENDA CON VISTA SEMANAL Y ESPACIO PARA NOTAS',5,7,30.5, 'https://example.com/agenda_semanal.jpg', 10,1),
+		('LIB004', 'ASEM 36-2', 'AGENDA CON VISTA SEMANAL Y ESPACIO PARA NOTAS',5,7,30.5, 'https://i.pinimg.com/originals/86/bf/99/86bf99b83d315d01decb01a87d125364.jpg', 10,1),
 		('AAA015','BOREAL A4-70','RESMA PAPEL A4 70GR 21x29,7',8,5,40,'https://resmasboreal.com.ar/assets/uploads/product/8_1449676166.jpg',10,1),
 		('AAA016','SKU# 015540105','REGLA FLEXIBLE DE 20CM',9,12,40,'https://th.bing.com/th/id/R.6a0d43e6f01f6e55e8da5bb954ef411a?rik=eZ4Jv7DVKdQCqw&pid=ImgRaw&r=0',10,1),
 		('AAA017','CO-C 56','CORRECTOR CINTA 5MM 6MTS',10,11,40,'https://th.bing.com/th/id/OIP.tUG7AuXz8-w2yjYyfqtqKwAAAA?rs=1&pid=ImgDetMain',10,1),
@@ -269,6 +269,6 @@ GO
 
 INSERT INTO USUARIOS (Nombre, Apellido, Email, Usuario, Contraseña, Imagen, Tipo)
 VALUES 
-    ('Juan', NULL, 'admin@admin.com', 'Admin', 'admin1', '~/Images/perfil-1', 1),
-    ('Pedro', 'Perez', 'pperez@mail.com', 'Vendedor', 'vendedor2', '~/Images/perfil-2', 0);
+    ('Juan', NULL, 'admin@admin.com', 'Admin', 'admin1', 'perfil-1.jpg', 1),
+    ('Pedro', 'Perez', 'pperez@mail.com', 'Vendedor', 'vendedor2', 'perfil-2.jpg', 0);
 	GO

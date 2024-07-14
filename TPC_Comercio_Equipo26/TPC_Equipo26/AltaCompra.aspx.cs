@@ -29,8 +29,6 @@ namespace TPC_Equipo26
                         detallesCompra = new List<DetalleCompra>();
                         Session["DetallesCompra"] = detallesCompra;
                         btnGuardarCompra.Visible = false;
-
-
                     }
                     else
                     {
@@ -174,7 +172,6 @@ namespace TPC_Equipo26
             {
                 try
                 {
-
                     DetalleCompra detalle = new DetalleCompra();
                     detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                     detalle.Cantidad = int.Parse(txtCantidad.Text);

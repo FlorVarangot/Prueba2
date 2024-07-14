@@ -105,6 +105,7 @@ namespace TPC_Equipo26
             DatoArticuloNegocio dato = new DatoArticuloNegocio();
             return dato.ObtenerStockArticulo(idArticulo);
         }
+        
         protected void ddlCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlCliente.SelectedIndex > 0)
@@ -121,6 +122,7 @@ namespace TPC_Equipo26
         {
             btnGuardarVenta.Visible = true;
         }
+        
         protected void VerificarStock()
         {
             if (ddlArticulo.SelectedIndex > 0)
@@ -132,6 +134,7 @@ namespace TPC_Equipo26
                 btnGuardarVenta.Visible = false;
             }
         }
+        
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             try
@@ -173,16 +176,19 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+        
         private void MostrarError(string mensaje)
         {
             lblError.Text = mensaje;
             lblError.Visible = true;
         }
+
         private void OcultarError()
         {
             lblError.Text = "";
             lblError.Visible = false;
         }
+
         private bool validarStock(DetalleVenta detalle)
         {
             try
