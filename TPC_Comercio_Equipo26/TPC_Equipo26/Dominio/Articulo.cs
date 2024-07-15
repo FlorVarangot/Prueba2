@@ -31,6 +31,7 @@ namespace TPC_Equipo26.Dominio
                 }
             }
         }
+        
         private int stockMin;
         public int StockMin
         {

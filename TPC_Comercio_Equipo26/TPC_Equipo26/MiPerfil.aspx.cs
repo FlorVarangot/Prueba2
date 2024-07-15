@@ -51,7 +51,7 @@ namespace TPC_Equipo26
                 user.Apellido = txtApellido.Text;
                 user.Email = txtEmail.Text;
 
-                if (txtImagen.PostedFile.FileName != null)
+                if (txtImagen.PostedFile != null && txtImagen.PostedFile.ContentLength > 0)
                 {
                     string ruta = Server.MapPath("./Images/");
                     txtImagen.PostedFile.SaveAs(ruta + "perfil-" + user.ID + ".jpg");

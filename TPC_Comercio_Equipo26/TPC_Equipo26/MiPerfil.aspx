@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="text-center my-4">
         <h1>MI PERFIL</h1>
-        <asp:Label ID="lblUser" runat="server" CssClass="form-label" Visible="false" Style="font-size:large"></asp:Label>
+        <asp:Label ID="lblUser" runat="server" CssClass="form-label" Visible="false" Style="font-size: large"></asp:Label>
     </div>
     <div class="row">
         <div class="col-6">
@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail"/>
+                <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" />
             </div>
         </div>
         <div class="col-6">
@@ -32,11 +32,17 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div>
-            <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" Style="margin-right: 5px" />
-            <a href="/">Regresar</a>
-        </div>
-    </div>
+
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div class="row">
+                <div>
+                    <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="Button1" OnClientClick="return mostrarConfirmacion()" OnClick="btnGuardar_Click" runat="server" Style="margin-right: 5px" />
+                    <a href="/">Regresar</a>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <br />
 </asp:Content>

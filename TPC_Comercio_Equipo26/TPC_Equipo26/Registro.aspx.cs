@@ -28,6 +28,9 @@ namespace TPC_Equipo26
         {
             try
             {
+                if (!ValidarCampos())
+                    return;
+
                 Usuario user = new Usuario();
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 user.User = txtUser.Text;
@@ -75,6 +78,64 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected bool ValidarCampos()
+        {
+            LimpiarLabels();
+            bool camposValidos = true;
+
+            if (string.IsNullOrWhiteSpace(txtUser.Text))
+            {
+                lblUser.Text = "El nombre de usuario no puede estar vacío.";
+                lblUser.Visible = true;
+                camposValidos = false;
+            }
+            
+            if (txtUser.Text.Length < 4) {
+                lblUser.Text = "El nombre de usuario debe contener al menos 4 caracteres.";
+                lblUser.Visible = true;
+                camposValidos = false;
+            }
+
+            
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                lblEmail.Text = "El mail no puede estar vacío.";
+                lblEmail.Visible = true;
+                camposValidos = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                lblPassword.Text = "La contraseña no puede estar vacío.";
+                lblPassword.Visible = true;
+                camposValidos = false;
+            }
+            
+            if(!System.Text.RegularExpressions.Regex.IsMatch(txtPassword.Text, @"\d"))
+            {
+                lblPassword.Text = "La contraseña debe contener al menos 1 caracter numérico.";
+                lblPassword.Visible = true;
+                camposValidos = false;
+            }
+
+            if (txtPassword.Text.Length < 4)
+            {
+                lblPassword.Text = "La contraseña debe contener al menos 4 caracteres";
+                lblPassword.Visible = true;
+                camposValidos = false;
+            }
+
+            return camposValidos;
+        }
+
+        protected void LimpiarLabels()
+        {
+            lblUser.Text= "";
+            lblEmail.Visible = false;
+            lblPassword.Visible= false;
+        }
+
 
     }
 }

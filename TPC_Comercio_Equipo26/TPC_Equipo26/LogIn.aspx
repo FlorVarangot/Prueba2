@@ -12,15 +12,19 @@
     <main>
         <asp:Panel ID="pnlLogIn" runat="server" DefaultButton="btnIngresar">
             <div class="formulario">
+                <div id="errorDiv" class="alert alert-danger" style="display:none;"></div>
                 <div class="mb-3">
                     <label for="txtUser" class="form-label">Usuario:</label>
-                    <asp:TextBox runat="server" ID="txtUser" CssClass="form-control" TextMode="Search" />
+                    <asp:TextBox runat="server" ID="txtUser" ClientIDMode="Static" CssClass="form-control" TextMode="Search" />
+                    <span id="userError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label for="txtPassword" class="form-label">Contraseña:</label>
-                    <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" TextMode="Password" Style="border-radius: 5px; height: 40px;" />
+                    <asp:TextBox runat="server" ID="txtPassword"  ClientIDMode="Static" CssClass="form-control" TextMode="Password" Style="border-radius: 5px; height: 40px;" />
+                    <span id="passwordError" class="text-danger"></span>
                 </div>
-                <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-primary" ID="btnIngresar" OnClick="btnIngresar_Click" Style="border-radius: 5px; margin: 3px;" />
+                <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-primary" ID="btnIngresar" OnClientClick="return Validar();"
+                    OnClick="btnIngresar_Click" Style="border-radius: 5px; margin: 3px;" />                
                 <div class="registro">
                     <p>¿No tenés cuenta? <a href="Registro.aspx" style="color: darkslategrey; font-weight: bold; text-decoration: none;">Registrate</a></p>
                     <p>O hacé <a href="Default.aspx" style="color: darkslategrey; font-weight: bold; text-decoration: none;">CLIC ACÁ</a> para seguir navegando sin iniciar sesión.</p>

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Policy;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TPC_Equipo26.Dominio;
@@ -26,7 +28,6 @@ namespace TPC_Equipo26
                 {
                     ConfirmarInactivar = false;
                     ConfirmarReactivar = false;
-
 
                     if (Request.QueryString["ID"] != null)
                     {
@@ -67,7 +68,8 @@ namespace TPC_Equipo26
                     txtDescripcion.Text = articulo.Descripcion;
                     txtImagenUrl.Text = articulo.Imagen;
 
-                    numGanancia.Value = articulo.Ganancia.ToString("F4", CultureInfo.InvariantCulture);
+                    numGanancia.Value = (articulo.Ganancia * 100).ToString(CultureInfo.InvariantCulture);
+
                     numStockMinimo.Value = articulo.StockMin.ToString();
 
                     ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
@@ -115,36 +117,63 @@ namespace TPC_Equipo26
 
             if (string.IsNullOrWhiteSpace(txtCodigo.Text))
             {
+                lblCodigo.Text = "El código no puede estar vacío.";
                 lblCodigo.Visible = true;
                 camposValidos = false;
             }
-            else
+            else if (!ValidarCodigo())
             {
-                lblCodigo.Visible = false;
+                camposValidos = false;
             }
+
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
+                lblNombre.Text = "El nombre no puede estar vacío.";
                 lblNombre.Visible = true;
                 camposValidos = false;
             }
-            else
+            else if (!ValidarNombre())
             {
-                lblNombre.Visible = false;
+                camposValidos = false;
             }
 
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
+                lblDescripcion.Text = "La descripción no puede estar vacía.";
                 lblDescripcion.Visible = true;
                 camposValidos = false;
             }
-            else
+            else if (!ValidarDescripcion())
             {
-                lblDescripcion.Visible = false;
+                camposValidos = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(numGanancia.Value))
+            {
+                lblGanancia.Text = "El porcentaje de ganancia no puede estar vacío.";
+                lblGanancia.Visible = true;
+                camposValidos = false;
+            }
+            else if (!ValidarGanancia())
+            {
+                camposValidos = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(numStockMinimo.Value))
+            {
+                lblStockMinimo.Text = "El stock mínimo no puede estar vacío.";
+                lblStockMinimo.Visible = true;
+                camposValidos = false;
+            }
+            else if (!ValidarStockMin())
+            {
+                camposValidos = false;
             }
 
             if (ddlMarca.SelectedValue == "-1")
             {
-                lblMarca.Visible = false;
+                lblMarca.Text = "Debe seleccionar una marca.";
+                lblMarca.Visible = true;
             }
             else
             {
@@ -153,45 +182,12 @@ namespace TPC_Equipo26
 
             if (ddlCategoria.SelectedValue == "-1")
             {
-                lblCategoria.Visible = false;
+                lblCategoria.Text = "Debe seleccionar una categoría.";
+                lblCategoria.Visible = true;
             }
             else
             {
                 lblCategoria.Visible = false;
-            }
-
-            if (string.IsNullOrWhiteSpace(numGanancia.Value))
-            {
-                lblGanancia.Visible = true;
-                camposValidos = false;
-            }
-            else
-            {
-                lblGanancia.Visible = false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtImagenUrl.Text))
-            {
-                lblImagenUrl.Visible = false;
-            }
-            else
-            {
-                lblImagenUrl.Visible = false;
-            }
-            if (string.IsNullOrWhiteSpace(numStockMinimo.Value))
-            {
-                lblStockMinimo.Visible = true;
-                camposValidos = false;
-            }
-            else
-            {
-                lblStockMinimo.Visible = false;
-            }
-
-            if (!camposValidos)
-            {
-                lblError.Text = "Todos los campos obligatorios deben ser completados";
-                lblError.Visible = true;
             }
 
             return camposValidos;
@@ -201,6 +197,7 @@ namespace TPC_Equipo26
         {
             try
             {
+                LimpiarLabels();
                 if (!ValidarCampos())
                 {
                     return;
@@ -219,12 +216,13 @@ namespace TPC_Equipo26
                     return;
                 }
                 nuevo.Ganancia = ganancia;
+
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;
                 setearMarcaYCategoria(nuevo);
 
-
+                string mensaje;
                 if (Request.QueryString["ID"] != null)
                 {
                     nuevo.ID = long.Parse(Request.QueryString["ID"]);
@@ -236,6 +234,7 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Modificar(nuevo);
+                    mensaje = "Artículo agregado con éxito";
                 }
                 else
                 {
@@ -247,10 +246,12 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Agregar(nuevo);
+                    mensaje = "Artículo agregado con éxito";
                 }
 
                 LimpiarCampos();
-                Response.Redirect("Default.aspx", false);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessMessage", "mostrarMensajeExitoArticulo('{mensaje}');", true);
+                //Response.Redirect("Default.aspx", false);
             }
             catch (Exception ex)
             {
@@ -270,6 +271,17 @@ namespace TPC_Equipo26
             ddlMarca.SelectedIndex = -1;
             ddlCategoria.SelectedIndex = -1;
             imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+        }
+
+        private void LimpiarLabels()
+        {
+            lblCodigo.Text = "";
+            lblNombre.Text = "";
+            lblDescripcion.Text = "";
+            lblMarca.Text = "";
+            lblCategoria.Text = "";
+            lblGanancia.Text = "";
+            lblStockMinimo.Text = "";
         }
 
         protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
@@ -430,6 +442,73 @@ namespace TPC_Equipo26
                 Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+        private bool ValidarCodigo()
+        {
+            bool isValid = true;
+
+            if ((txtCodigo.Text.Length) > 6 || !System.Text.RegularExpressions.Regex.IsMatch(txtCodigo.Text, "^[A-Za-z0-9]{6}$"))
+            {
+                lblCodigo.Text = "El código puede contener hasta 6 caracteres, letras y/o números";
+                lblCodigo.Visible = true;
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool ValidarNombre()
+        {
+            bool isValid = true;
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombre.Text, "^[A-Za-z]+$"))
+            {
+                lblNombre.Text = "El nombre no puede contener números o caracteres especiales";
+                lblNombre.Visible = true;
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool ValidarDescripcion()
+        {
+            bool isValid = true;
+
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtNombre.Text, "^[A-Za-z0-9]$"))
+            {
+                lblDescripcion.Text = "La descripción no puede contener caracteres especiales";
+                lblDescripcion.Visible = true;
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool ValidarGanancia()
+        {
+            decimal ganancia;
+            if (!decimal.TryParse(numGanancia.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out ganancia) || ganancia < 0 || ganancia > 99.99m)
+            {
+                lblGanancia.Text = "La ganancia debe estar entre 0 y 99.99";
+                lblGanancia.Visible = true;
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidarStockMin()
+        {
+            bool isValid = true;
+
+            if ((int.Parse(numStockMinimo.Value) <= 0 || !System.Text.RegularExpressions.Regex.IsMatch(numStockMinimo.Value.ToString(), "^[0-9]+$")))
+            {
+                lblStockMinimo.Text = "El stock mínimo no puede contener letras o ser menor o igual 0";
+                lblStockMinimo.Visible = true;
+                isValid = false;
+            }
+            return isValid;
         }
 
     }

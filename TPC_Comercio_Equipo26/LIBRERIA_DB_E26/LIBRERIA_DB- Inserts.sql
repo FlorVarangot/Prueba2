@@ -70,7 +70,7 @@ VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',9,1,55,'https://th.bing.com/t
 		('AAA018','GNFT-116114','BLISTER GOMA DE BORRAR NIGHTFALL TEENS S/ FTALATOS 21,8 X 12 X 61MM',9,12,40,'https://ar.maped.com/wp-content/uploads/sites/34/2022/11/116114_r01.png',10,1),
 		('AAA019','SKU-0211','MARCADORES JOURNAL COLOR PASTEL PUNTA CÓNICA - LETTERING',12,4,40,'https://simball.com.ar/wp-content/uploads/2022/05/Pastel-copy.png',10,1),
 		('AAA020','IM-GT','LAPICERA PLUMA IM NUEVA LINEA LACA NEGRO GT',13,7,40,'https://casalalapicera.com/wp-content/uploads/2023/03/lapicera-de-pluma-parker-im-laca-negra-gt.png',5,1),
-		('AAA020','VB-40','BARRA ADHESIVA 40GR',11,8,40,'https://voligoma.com.ar/wp-content/themes/voligoma/images/our-products-volibarra.png',10,1)
+		('AAA021','VB-40','BARRA ADHESIVA 40GR',11,8,40,'https://voligoma.com.ar/wp-content/themes/voligoma/images/our-products-volibarra.png',10,1)
 GO
 
 INSERT INTO COMPRAS (FechaCompra, IdProveedor, TotalCompra)

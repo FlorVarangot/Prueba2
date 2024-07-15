@@ -27,13 +27,14 @@
                     </asp:DropDownList>
                 </div>
                 <div class="col-3 text-end">
-                    <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer filtros" OnClick="btnRestablecer_Click" CssClass="btn btn-light" Style="background-color: lightgray; color: dimgray" Visible="false" />
+                    <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer filtros" OnClick="btnRestablecer_Click" CssClass="btn btn-light" 
+                        Style="background-color: lightgray; color: dimgray" Visible="false" />
                 </div>
             </div>
         </div>
     </div>
     <asp:GridView ID="gvCompras" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
-        Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay compras disponibles en este momento,Agregue una nueva compra!!!!"
+        Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles"
         AllowPaging="true" PageSize="10"
         OnPageIndexChanging="gvCompras_PageIndexChanging" OnRowDataBound="gvCompras_RowDataBound">
         <Columns>

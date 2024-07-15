@@ -79,6 +79,7 @@
     <Content Include="DetallesCompra.aspx" />
     <Content Include="DetallesVenta.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="JavaScript.js" />
     <Content Include="LogIn.aspx" />
     <Content Include="Marcas.aspx" />
     <Content Include="MiPerfil.aspx" />

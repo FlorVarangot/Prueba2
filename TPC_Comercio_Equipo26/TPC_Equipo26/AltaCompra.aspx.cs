@@ -74,6 +74,7 @@ namespace TPC_Equipo26
             ddlArticulo.Items.Clear();
             ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
         }
+        
         private int ObtenerStockDisponible(long idArticulo)
         {
             DatoArticuloNegocio negocio = new DatoArticuloNegocio();
@@ -229,7 +230,6 @@ namespace TPC_Equipo26
             {
                 return "Debe seleccionar una marca y articulo antes de avanzar";
             }
-            
 
             int cantidad;
             decimal precio;
@@ -270,6 +270,7 @@ namespace TPC_Equipo26
             lblError.Text = "";
             lblError.Visible = false;
         }
+        
         private void LimpiarCampos()
         {
             ddlMarca.SelectedIndex = 0;
@@ -342,9 +343,6 @@ namespace TPC_Equipo26
                 lblError.Visible = true;
             }
         }
-
-
-
 
         private void LimpiarSesion()
         {

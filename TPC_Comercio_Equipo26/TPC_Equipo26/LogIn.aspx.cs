@@ -32,12 +32,14 @@ namespace TPC_Equipo26
                     if (negocio.LogIn(usuario))
                     {
                         Session.Add("Usuario", usuario);
+                        System.Threading.Thread.Sleep(1000);
                         Response.Redirect("MiPerfil.aspx", false);
                     }
                 }
                 else
                 {
                     Session.Add("Error", "Nombre de usuario y/o contraseña incorrectos.");
+                    System.Threading.Thread.Sleep(1000);
                     Response.Redirect("Error.aspx", false);
                 }
             }
