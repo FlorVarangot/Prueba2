@@ -68,8 +68,14 @@ namespace TPC_Equipo26
                     txtDescripcion.Text = articulo.Descripcion;
                     txtImagenUrl.Text = articulo.Imagen;
 
-                    numGanancia.Value = (articulo.Ganancia * 100).ToString(CultureInfo.InvariantCulture);
-
+                    if (articulo.Ganancia > 1)
+                    {                      
+                        numGanancia.Value = articulo.Ganancia.ToString(CultureInfo.InvariantCulture);
+                    }
+                    else
+                    {                      
+                        numGanancia.Value = (articulo.Ganancia * 100).ToString(CultureInfo.InvariantCulture);
+                    }
                     numStockMinimo.Value = articulo.StockMin.ToString();
 
                     ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
@@ -117,7 +123,7 @@ namespace TPC_Equipo26
 
             if (string.IsNullOrWhiteSpace(txtCodigo.Text))
             {
-                lblCodigo.Text = "El código no puede estar vacío.";
+                lblCodigo.Text = "El código no puede estar vacío";
                 lblCodigo.Visible = true;
                 camposValidos = false;
             }
@@ -128,7 +134,7 @@ namespace TPC_Equipo26
 
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                lblNombre.Text = "El nombre no puede estar vacío.";
+                lblNombre.Text = "El nombre no puede estar vacío";
                 lblNombre.Visible = true;
                 camposValidos = false;
             }
@@ -139,7 +145,7 @@ namespace TPC_Equipo26
 
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
-                lblDescripcion.Text = "La descripción no puede estar vacía.";
+                lblDescripcion.Text = "La descripción no puede estar vacía";
                 lblDescripcion.Visible = true;
                 camposValidos = false;
             }
@@ -150,7 +156,7 @@ namespace TPC_Equipo26
 
             if (string.IsNullOrWhiteSpace(numGanancia.Value))
             {
-                lblGanancia.Text = "El porcentaje de ganancia no puede estar vacío.";
+                lblGanancia.Text = "El porcentaje de ganancia no puede estar vacío";
                 lblGanancia.Visible = true;
                 camposValidos = false;
             }
@@ -161,7 +167,7 @@ namespace TPC_Equipo26
 
             if (string.IsNullOrWhiteSpace(numStockMinimo.Value))
             {
-                lblStockMinimo.Text = "El stock mínimo no puede estar vacío.";
+                lblStockMinimo.Text = "El stock mínimo no puede estar vacío";
                 lblStockMinimo.Visible = true;
                 camposValidos = false;
             }
@@ -172,7 +178,7 @@ namespace TPC_Equipo26
 
             if (ddlMarca.SelectedValue == "-1")
             {
-                lblMarca.Text = "Debe seleccionar una marca.";
+                lblMarca.Text = "Debe seleccionar una marca";
                 lblMarca.Visible = true;
             }
             else
@@ -182,7 +188,7 @@ namespace TPC_Equipo26
 
             if (ddlCategoria.SelectedValue == "-1")
             {
-                lblCategoria.Text = "Debe seleccionar una categoría.";
+                lblCategoria.Text = "Debe seleccionar una categoría";
                 lblCategoria.Visible = true;
             }
             else
@@ -208,14 +214,21 @@ namespace TPC_Equipo26
                 nuevo.Codigo = txtCodigo.Text;
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-                decimal ganancia = decimal.Parse(numGanancia.Value, CultureInfo.InvariantCulture) / 100;
-                if (ganancia < 0 || ganancia > 99.99m)
+                decimal ganancia;
+                if (decimal.TryParse(numGanancia.Value, NumberStyles.Number, CultureInfo.InvariantCulture, out ganancia))
                 {
-                    lblError.Text = "La ganancia debe estar entre 0 y 99.99";
+                    if (ganancia < 1)
+                    {
+                        ganancia *= 100;
+                    }
+                    nuevo.Ganancia = ganancia;
+                }
+                else
+                {
+                    lblError.Text = "Formato de ganancia inválido";
                     lblError.Visible = true;
                     return;
                 }
-                nuevo.Ganancia = ganancia;
 
                 nuevo.Imagen = txtImagenUrl.Text;
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
@@ -234,7 +247,7 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Modificar(nuevo);
-                    mensaje = "Artículo agregado con éxito";
+                    mensaje = "Artículo modificado con éxito";
                 }
                 else
                 {
@@ -338,14 +351,21 @@ namespace TPC_Equipo26
                     nuevo.Codigo = txtCodigo.Text;
                     nuevo.Nombre = txtNombre.Text;
                     nuevo.Descripcion = txtDescripcion.Text;
-                    decimal ganancia = decimal.Parse(numGanancia.Value, CultureInfo.InvariantCulture);
-                    if (ganancia < 0 || ganancia > 99.99m)
+                    decimal ganancia;
+                    if (decimal.TryParse(numGanancia.Value, NumberStyles.Number, CultureInfo.InvariantCulture, out ganancia))
                     {
-                        lblError.Text = "La ganancia debe estar entre 0 y 99.99";
+                        if (ganancia < 1)
+                        {
+                            ganancia *= 100;
+                        }
+                        nuevo.Ganancia = ganancia;
+                    }
+                    else
+                    {
+                        lblError.Text = "Formato de ganancia inválido";
                         lblError.Visible = true;
                         return;
                     }
-                    nuevo.Ganancia = ganancia;
                     nuevo.Imagen = txtImagenUrl.Text;
                     nuevo.StockMin = int.Parse(numStockMinimo.Value);
                     nuevo.Activo = true;
@@ -448,7 +468,7 @@ namespace TPC_Equipo26
         {
             bool isValid = true;
 
-            if ((txtCodigo.Text.Length) > 6 || !System.Text.RegularExpressions.Regex.IsMatch(txtCodigo.Text, "^[A-Za-z0-9]{6}$"))
+            if ((txtCodigo.Text.Length) > 6 || !System.Text.RegularExpressions.Regex.IsMatch(txtCodigo.Text, "^[a-zA-Z0-9-]+$"))
             {
                 lblCodigo.Text = "El código puede contener hasta 6 caracteres, letras y/o números";
                 lblCodigo.Visible = true;
@@ -462,7 +482,7 @@ namespace TPC_Equipo26
         {
             bool isValid = true;
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombre.Text, "^[A-Za-z]+$"))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombre.Text, "^[a-zA-Z0-9\\s-]+$"))
             {
                 lblNombre.Text = "El nombre no puede contener números o caracteres especiales";
                 lblNombre.Visible = true;
