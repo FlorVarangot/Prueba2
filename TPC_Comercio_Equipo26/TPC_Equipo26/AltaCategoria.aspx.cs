@@ -122,6 +122,7 @@ namespace TPC_Equipo26
                 categoria.Descripcion = txtDescripcion.Text;
                 categoria.Activo = true;
 
+                string mensaje;
                 if (Request.QueryString["ID"] != null)
                 {
                     categoria.ID = int.Parse(Request.QueryString["ID"]);
@@ -133,6 +134,7 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Modificar(categoria);
+                    mensaje = "Categoria modificada con éxito";
                 }
                 else
                 {
@@ -144,10 +146,13 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Agregar(categoria);
+                    mensaje = "Categoria agregada con éxito";
                 }
 
                 LimpiarCampos();
-                Response.Redirect("Categorias.aspx", false);
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExitoArticulo", $"alert('{mensaje}'); window.location.href = 'Categorias.aspx';", true);
+
+                
             }
             catch (Exception ex)
             {

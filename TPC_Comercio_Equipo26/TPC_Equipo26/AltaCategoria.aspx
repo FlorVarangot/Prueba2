@@ -13,10 +13,10 @@
         <div class="col">
             <div class="mb-3">
                 <label for="txtDescripcion" class="form-label">Nombre: </label>
-                <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" Required="true"/>
-                  <asp:Label ID="lblDescripcion" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
-           <asp:RegularExpressionValidator runat="server" ControlToValidate="txtDescripcion" ErrorMessage="El nombre no puede contener numeros" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" ForeColor="Red" />
-                </div>
+                <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" Required="true" />
+                <asp:Label ID="lblDescripcion" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="txtDescripcion" ErrorMessage="El nombre no puede contener numeros" ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" ForeColor="Red" />
+            </div>
         </div>
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:Button Text="Aceptar" ID="BtnAceptar" CssClass="btn btn-success" OnClick="BtnAceptar_Click" runat="server" />
@@ -30,7 +30,7 @@
         <div class="mb-3" style="align-content: center; text-align: center; margin: 20px">
             <asp:CheckBox Text="Confirmar Inactivación" ID="chkConfirmaInactivacion" runat="server" />
             <asp:Button Text="Inactivar" ID="btnConfirmaInactivar" OnClick="btnConfirmaInactivar_Click" CssClass="btn btn-outline-danger" runat="server" />
-        </div>        
+        </div>
         <% } %>
         <% if (ConfirmarReactivar)
             { %>
@@ -40,4 +40,9 @@
         </div>
         <% } %>
     </div>
+    <script type="text/javascript">
+        function mostrarMensajeExitoArticulo(mensaje) {
+            alert(mensaje);
+        }
+</script>
 </asp:Content>

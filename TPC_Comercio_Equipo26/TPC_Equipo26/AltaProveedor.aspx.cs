@@ -169,6 +169,7 @@ namespace TPC_Equipo26
                 proveedor.Telefono = TxtTel.Text;
                 proveedor.Direccion = TxtDirec.Text;
 
+                string mensaje;
                 if (Request.QueryString["ID"] != null)
                 {
                     proveedor.ID = int.Parse(Request.QueryString["ID"]);
@@ -180,6 +181,7 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Modificar(proveedor);
+                    mensaje = "Proveedor modificado con éxito";
                 }
                 else
                 {
@@ -191,10 +193,12 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Agregar(proveedor);
+                    mensaje = "Proveedor agregado con éxito";
                 }
 
                 LimpiarCampos();
-                Response.Redirect("Proveedores.aspx", false);
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExitoArticulo", $"alert('{mensaje}'); window.location.href = 'Proveedores.aspx';", true);
+
             }
             catch (Exception ex)
             {

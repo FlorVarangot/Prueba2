@@ -161,6 +161,7 @@ namespace TPC_Equipo26
                 marca.ImagenUrl = txtImagenUrl.Text;
                 marca.IdProveedor = int.Parse(ddlProveedor.SelectedValue);
 
+                string mensaje;
                 if (Request.QueryString["ID"] != null)
                 {
                     marca.ID = int.Parse(Request.QueryString["ID"]);
@@ -172,6 +173,7 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Modificar(marca);
+                    mensaje = "Marca modificada con éxito";
                 }
                 else
                 {
@@ -183,10 +185,12 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Agregar(marca);
+                    mensaje = "Marca agregada con éxito";
                 }
 
                 LimpiarCampos();
-                Response.Redirect("Marcas.aspx", false);
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExitoArticulo", $"alert('{mensaje}'); window.location.href = 'Marcas.aspx';", true);
+              
             }
             catch (Exception ex)
             {

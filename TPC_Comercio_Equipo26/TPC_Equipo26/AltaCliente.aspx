@@ -33,7 +33,7 @@
                 <label for="txtTelefono" class="form-label">Teléfono:</label>
                 <asp:TextBox runat="server" ID="txtTelefono" CssClass="form-control" Required="true" />
                 <asp:Label ID="lblTelefono" runat="server" Text="*" ForeColor="Red" Visible="false"></asp:Label>
-                <asp:RegularExpressionValidator runat="server" ControlToValidate="txtTelefono" ErrorMessage="El Teléfono debe contener únicamente números" ValidationExpression="^\d+$" ForeColor="Red" />
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="txtTelefono" ErrorMessage="El Teléfono debe contener únicamente números" ValidationExpression="^\d{2}[-\d ]+\d{1}$" ForeColor="Red" />
             </div>
             <div class="mb-3">
                 <label for="txtEmail" class="form-label">Email:</label>
@@ -69,4 +69,9 @@
         </div>
         <% } %>
     </div>
+            <script type="text/javascript">
+        function mostrarMensajeExitoArticulo(mensaje) {
+            alert(mensaje);
+        }
+</script>
 </asp:Content>

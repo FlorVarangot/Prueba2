@@ -188,6 +188,7 @@ namespace TPC_Equipo26
                 cliente.Direccion = txtDireccion.Text;
                 cliente.Activo = true;
 
+                string mensaje;
                 if (Request.QueryString["ID"] != null)
                 {
                     cliente.ID = long.Parse(Request.QueryString["ID"]);
@@ -199,6 +200,7 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Modificar(cliente);
+                    mensaje = "Cliente modificado con éxito";
                 }
                 else
                 {
@@ -210,10 +212,12 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Agregar(cliente);
+                    mensaje = "Cliente agregado con éxito";
                 }
 
                 LimpiarCampos();
-                Response.Redirect("Clientes.aspx", false);
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExitoArticulo", $"alert('{mensaje}'); window.location.href = 'Clientes.aspx';", true);
+
             }
             catch (Exception ex)
             {

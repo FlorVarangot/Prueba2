@@ -22,14 +22,14 @@
             <label for="txtCUIT" class="form-label">CUIT</label>
             <asp:TextBox runat="server" ID="TxtCuit" CssClass="form-control" Required="true" />
             <asp:Label runat="server" ID="lblCuit" Text="*" ForeColor="Red" Visible="false"></asp:Label>
-            <asp:RegularExpressionValidator runat="server" ControlToValidate="TxtCuit" ErrorMessage="El Cuit debe contener únicamente números y - " ValidationExpression="^\d{2}-\d{7,8}-\d{1}$"  ForeColor="Red" />
+            <asp:RegularExpressionValidator runat="server" ControlToValidate="TxtCuit" ErrorMessage="El Cuit debe contener únicamente números y - " ValidationExpression="^\d{2}-\d{7,8}-\d{1}$" ForeColor="Red" />
         </div>
     </div>
     <div class="mb-3">
         <label for="txtEmail" class="form-label">E-Mail</label>
         <asp:TextBox runat="server" ID="TxtEmail" CssClass="form-control" Required="true" />
         <asp:Label runat="server" ID="lblEmail" Text="*" ForeColor="Red" Visible="false"></asp:Label>
-         <asp:RegularExpressionValidator runat="server" ControlToValidate="TxtEmail" ErrorMessage="Ingrese un email válido" ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ForeColor="Red"></asp:RegularExpressionValidator>
+        <asp:RegularExpressionValidator runat="server" ControlToValidate="TxtEmail" ErrorMessage="Ingrese un email válido" ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" ForeColor="Red"></asp:RegularExpressionValidator>
     </div>
     <div class="mb-3">
         <label for="txtTelefono" class="form-label">Teléfono</label>
@@ -64,4 +64,9 @@
     </div>
     <% } %>
     </div>
+            <script type="text/javascript">
+                function mostrarMensajeExitoArticulo(mensaje) {
+                    alert(mensaje);
+                }
+</script>
 </asp:Content>
