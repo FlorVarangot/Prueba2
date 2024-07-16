@@ -60,7 +60,7 @@
 
         <div class="row mt-4">
             <div class="col-md-12 text-center">
-                <asp:Button runat="server" ID="btnGuardarCompra" Text="Guardar Compra" CssClass="btn btn-success" OnClick="btnGuardarCompra_Click" Visible="false" />
+                <asp:Button runat="server" ID="btnGuardarCompra" Text="Guardar Compra" CssClass="btn btn-success" OnClick="btnGuardarCompra_Click" OnClientClick="alert('Compra a proveedor registrada con éxito.'); return true;" Visible="false" />
             </div>
         </div>
     </div>

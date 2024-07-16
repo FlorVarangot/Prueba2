@@ -234,8 +234,7 @@ namespace TPC_Equipo26
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;
                 setearMarcaYCategoria(nuevo);
-
-                #pragma warning disable CS0219 // La variable está asignada pero nunca se usa su valor
+             
                 string mensaje;
                 if (Request.QueryString["ID"] != null)
                 {
@@ -264,8 +263,8 @@ namespace TPC_Equipo26
                 }
 
                 LimpiarCampos();
-                ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessMessage", $"mostrarMensajeExitoArticulo('{mensaje}');", true);
-                //Response.Redirect("Default.aspx", false);
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExitoArticulo", $"alert('{mensaje}'); window.location.href = 'Default.aspx';", true);              
+
             }
             catch (Exception ex)
             {
