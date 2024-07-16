@@ -33,7 +33,9 @@
     </div>
 
     <asp:GridView ID="GvProveedores" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover" Style="text-align: center" AutoGenerateColumns="false"
-        EmptyDataText="No hay datos disponibles." OnSelectedIndexChanged="GvProveedores_SelectedIndexChanged">
+        EmptyDataText="No hay datos disponibles"
+        AllowPaging="true" PageSize="10" OnPageIndexChanging="GvProveedores_PageIndexChanging1"
+        OnSelectedIndexChanged="GvProveedores_SelectedIndexChanged">
         <Columns>
             <asp:BoundField HeaderText="Id" DataField="ID" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />

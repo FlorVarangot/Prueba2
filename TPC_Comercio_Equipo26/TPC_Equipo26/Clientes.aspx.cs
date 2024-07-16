@@ -106,6 +106,7 @@ namespace TPC_Equipo26
             txtFiltro.Text = string.Empty;
             chkIncluirInactivos.Checked = false;
             ddlOrdenarPor.SelectedIndex = 0;
+            gvClientes.PageIndex = 0; 
             CargarClientes();
         }
 
@@ -139,7 +140,23 @@ namespace TPC_Equipo26
             }
             return false;
         }
+     
 
+        protected void gvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvClientes.PageIndex = e.NewPageIndex;
+                List<Cliente> clientes = (List<Cliente>)Session["ListaFiltrada"];
 
+                gvClientes.DataSource = clientes;
+                gvClientes.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }

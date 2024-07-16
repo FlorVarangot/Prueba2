@@ -175,6 +175,7 @@ namespace TPC_Equipo26
                 ddlProveedor.SelectedIndex = 0;
                 txtFiltro.Text = string.Empty;
                 ddlOrdenarPor.SelectedIndex = 0;
+               gvCompras.PageIndex = 0;
                 CargarCompras();
                 btnRestablecer.Visible = false;
 

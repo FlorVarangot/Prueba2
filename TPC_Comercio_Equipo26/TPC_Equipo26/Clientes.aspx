@@ -32,6 +32,7 @@
 
         <asp:GridView ID="gvClientes" runat="server" DataKeyNames="Id" CssClass="table table-success table-hover"
             Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles."
+            AllowPaging="true" PageSize="10" OnPageIndexChanging="gvClientes_PageIndexChanging"
             OnSelectedIndexChanged="gvClientes_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField HeaderText="Id" DataField="ID" ItemStyle-HorizontalAlign="Center" />

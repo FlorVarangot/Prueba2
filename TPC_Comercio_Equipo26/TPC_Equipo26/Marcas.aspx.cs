@@ -146,6 +146,7 @@ namespace TPC_Equipo26
             ddlProveedor.SelectedIndex = -1;
             ddlOrdenarPor.SelectedIndex = -1;
             chkIncluirInactivos.Checked = false;
+            gvMarcas.PageIndex = 0;
             CargarMarcas();
         }
 

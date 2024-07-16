@@ -93,12 +93,7 @@ namespace TPC_Equipo26
             LimpiarFiltros();
         }
 
-        protected void GvProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GvProveedores.PageIndex = e.NewPageIndex;
-            GvProveedores.DataSource = Session["ListaProveedores"];
-            GvProveedores.DataBind();
-        }
+        
 
         protected void GvProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -121,6 +116,7 @@ namespace TPC_Equipo26
             TxtFiltro.Text = string.Empty;
             ChkIncluirInactivos.Checked = false;
             DdlOrdenarPor.SelectedIndex = -1;
+            GvProveedores.PageIndex = 0;
             CargarProveedores();
         }
 
@@ -148,7 +144,23 @@ namespace TPC_Equipo26
                 return true;
             return false;
         }
+   
 
+        protected void GvProveedores_PageIndexChanging1(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                GvProveedores.PageIndex = e.NewPageIndex;
+                List<Proveedor> proveedor = (List<Proveedor>)Session["ProveedoresFiltrada"];
 
+                GvProveedores.DataSource = proveedor;
+                GvProveedores.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }

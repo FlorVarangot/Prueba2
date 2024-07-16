@@ -165,6 +165,7 @@ namespace TPC_Equipo26
             {
                 ddlCliente.SelectedIndex = -1;
                 BtnLimpiarFiltros.Visible = false;
+                GvVentas.PageIndex = 0;
                 CargarVentas();
 
                 FiltrarVentas();

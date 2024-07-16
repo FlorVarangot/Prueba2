@@ -97,6 +97,7 @@ namespace TPC_Equipo26
             txtFiltro.Text = string.Empty;
             chkIncluirInactivos.Checked = false;
             ddlOrdenarPor.SelectedIndex = -1;
+            gvCategorias.PageIndex = 0;
             CargarCategorias();
         }
 

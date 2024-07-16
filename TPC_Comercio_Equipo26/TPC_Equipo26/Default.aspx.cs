@@ -190,8 +190,9 @@ namespace TPC_Equipo26
             ddlCategoria.SelectedIndex = 0;
             ddlOrdenarPor.SelectedIndex = 0;
             pnlFiltroAvanzado.Visible = false;
+            gvArticulos.PageIndex = 0;
             CargarArticulos();
-            MostrarBotonRestablecer();
+            MostrarBotonRestablecer();          
             btnLimpiarFiltros.Visible = false;
         }
 
