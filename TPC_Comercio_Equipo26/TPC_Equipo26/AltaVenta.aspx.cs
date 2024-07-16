@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
@@ -13,6 +15,7 @@ namespace TPC_Equipo26
     public partial class AltaVenta : System.Web.UI.Page
     {
         private List<DetalleVenta> detallesVenta;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (ValidarSesionActiva())
@@ -139,7 +142,7 @@ namespace TPC_Equipo26
         {
             if (ddlArticulo.SelectedIndex == 0)
             {
-                return "Debe seleccionar un artículo primero y cantidad";
+                return "Debe seleccionar un artículo y su cantidad";
             }
 
             int cantidad;
@@ -147,7 +150,7 @@ namespace TPC_Equipo26
 
             if (!cantidadValida)
             {
-                return "Debe ingresar una cantidad valida";
+                return "Debe ingresar una cantidad válida";
             }
 
             if (cantidad <= 0)
@@ -157,6 +160,7 @@ namespace TPC_Equipo26
 
             return string.Empty;
         }
+
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             OcultarError();
@@ -165,7 +169,6 @@ namespace TPC_Equipo26
             {
                 try
                 {
-                    
                     VentaNegocio negocio = new VentaNegocio();
                     long idVenta = negocio.TraerUltimoId();
                     DetalleVenta detalle = new DetalleVenta();
@@ -253,7 +256,7 @@ namespace TPC_Equipo26
         private void ActualizarVenta()
         {
             decimal totalVenta = Calcular();
-            lblTotalVenta.Text = "Total venta !: " + totalVenta.ToString("C2");
+            lblTotalVenta.Text = "Total venta: " + totalVenta.ToString("C2");
             Session["Total"] = totalVenta;
         }
 
@@ -284,7 +287,44 @@ namespace TPC_Equipo26
                 DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
                 datoNegocio.ActualizarStockPostVenta(venta);
 
+                ArticuloNegocio artiNegocio = new ArticuloNegocio();
+                Articulo aux = new Articulo();
+
+                Usuario user = (Usuario)Session["Usuario"];
+
+                int stockMinimoAlcanzado = 0;
+                string mensaje;
+
+                foreach (var detalle in venta.Detalles)
+                {
+                    long idArticulo = detalle.IdArticulo;
+                    aux = artiNegocio.ObtenerArticuloPorID(idArticulo);
+                    int stockActual = datoNegocio.ObtenerStockArticulo(idArticulo);
+                    int stockMinimo = aux.StockMin;
+
+                    if (stockActual <= stockMinimo)
+                    {
+                        stockMinimoAlcanzado += 1;
+                    }
+
+                    if (stockActual <= 1)
+                    {
+                        //Chequear si anda ok.
+                        EnviarCorreoRecordatorio(user, idArticulo);
+                    }
+                }
+
+                if (stockMinimoAlcanzado > 0)
+                {
+                    mensaje = "Uno o más artículos de la lista han alcanzado el stock mínimo establecido. Por favor reabastezca.";
+                }
+                else
+                {
+                    mensaje = "Venta registrada con éxito";
+                }
+
                 EnviarCorreoPostVenta(venta);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessMessage", $"mostrarMensajeStock('{mensaje}');", true);
 
                 Session["DetallesVenta"] = null;
                 Session["Total"] = null;
@@ -331,6 +371,48 @@ namespace TPC_Equipo26
             catch (Exception ex)
             {
                 throw new Exception("Error al enviar el correo de confirmación de compra.", ex);
+            }
+        }
+
+        private void EnviarCorreoRecordatorio(Usuario user, long idArticulo)
+        {
+            try
+            {
+                EmailService emailService = new EmailService();
+
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                Articulo articulo = articuloNegocio.ObtenerArticuloPorID(idArticulo);
+
+                Marca marca = articulo.Marca;
+                
+                ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
+                Proveedor proveedor = proveedorNegocio.ObtenerProveedorPorId(marca.IdProveedor);
+
+                DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
+                int stock = datoNegocio.ObtenerStockArticulo(idArticulo);
+
+                string emailDestino = user.Email;
+                string asunto = "Recordatorio de compra: Stock bajo";
+                string cuerpo = $"Estimado/a {user.Nombre + user.Apellido},<br><br>" +
+                        $"Le informamos que el artículo <strong>{articulo.Nombre}</strong> (ID: {idArticulo}) está por agotarse.<br>" +
+                        $"Descripción: {articulo.Descripcion}<br>" +
+                        $"Marca: {marca.Descripcion}<br>" +
+                        $"Proveedor: {proveedor.Nombre}<br>" +
+                        $"Stock actual: {stock}<br><br>" +
+                        $"Para reabastecer este artículo, puede contactar al proveedor:<br>" +
+                        $"Nombre: {proveedor.Nombre}<br>" +
+                        $"Email: {proveedor.Email}<br>" +
+                        $"Teléfono: {proveedor.Telefono}<br><br>" +
+                        $"Le recomendamos realizar un nuevo pedido para evitar quedarse sin stock.<br><br>" +
+                        $"Saludos cordiales,<br>" +
+                        $"Su tienda de confianza";
+
+                emailService.ArmarCorreo(emailDestino, asunto, cuerpo);
+                emailService.enviarEmail();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al enviar el correo de recordatorio de compra.", ex);
             }
         }
 

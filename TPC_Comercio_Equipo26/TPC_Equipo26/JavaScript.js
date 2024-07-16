@@ -2,7 +2,7 @@
 
 function mostrarConfirmacion() {
     Swal.fire({
-        title: 'Éxito',
+        title: 'Mi Perfil',
         text: 'Los cambios se han guardado correctamente.',
         icon: 'success',
         confirmButtonText: 'OK'
@@ -11,8 +11,8 @@ function mostrarConfirmacion() {
 }
 
 //Validación front para LogIn: Si está todo vacio muestra divError, si hay un campo vacio, lblError
-//Si estan mal las credenciales sigue mandando a error.aspx con "user o pass incorrectos"
-//Si estan ok las credenciales se ve el doble check verde porque redirecciona pero antes hace una pausa de 2 segundos
+//Si estan mal las credenciales sigue mandando a error.aspx con "user o pass incorrectos" > antes hace una pausa de 1.5 segundos
+//Si estan ok las credenciales se ve el doble check verde y redirecciona > antes hace una pausa de 1.5 segundos
 function Validar() {
     const txtUser = document.getElementById("txtUser");
     const txtPassword = document.getElementById("txtPassword");
@@ -57,11 +57,19 @@ function Validar() {
 }
 
 function mostrarMensajeExitoArticulo() {
-    alert("mensaje");
+    alert(mensaje);
     setTimeout(function () {
         window.location.href = 'Default.aspx';
-    }, 1000);
+    }/*, 1000*/);
 }
+
+function mostrarMensajeStock() {
+    alert(mensaje);
+    setTimeOut(function () {
+        window.location.href = 'Ventas.aspx';
+    });
+}
+
 
 //Reemplaza la funcion de arriba, muestra el cuadro como cuando guardas datos nuevos en MiPerfil.
 
@@ -135,6 +143,38 @@ function ValidarRegistro() {
     }
 
     return isValid;
+
+
+    //function showModalStock() {
+    //    var modal = document.getElementById("myModal");
+    //    var span = document.getElementsByClassName("close")[0];
+    //    modal.style.display = "block";
+    //    span.onclick = function () {
+    //        modal.style.display = "none";
+    //    }
+    //    window.onclick = function (event) {
+    //        if (event.target == modal) {
+    //            modal.style.display = "none";
+    //        }
+    //    }
+    //    return false;
+    //}
+
+    //function showModalStock() {
+    //    console.log("showModalStock called");
+    //    var modal = document.getElementById("myModal");
+    //    var span = document.getElementsByClassName("close")[0];
+    //    modal.style.display = "block";
+    //    span.onclick = function () {
+    //        modal.style.display = "none";
+    //    }
+    //    window.onclick = function (event) {
+    //        if (event.target == modal) {
+    //            modal.style.display = "none";
+    //        }
+    //    }
+    //}
+
 }
 
 

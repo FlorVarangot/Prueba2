@@ -28,7 +28,8 @@
                 <input type="file" id="txtImagen" runat="server" class="form-control" />
             </div>
             <div>
-                <asp:Image ID="imgNuevoPerfil" ImageUrl="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" runat="server" CssClass="img-fluid mb-3" Style="width: auto; max-height: 150px; align-content: center" />
+                <asp:Image ID="imgNuevoPerfil" ImageUrl="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png" runat="server" 
+                    CssClass="img-fluid mb-3" Style="width: auto; max-height: 150px; align-content: center" />
             </div>
         </div>
     </div>

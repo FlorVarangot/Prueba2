@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager runat="server" ID="ScriptManager1" />
     <div class="text-center my-4">
         <h1>FORMULARIO COMPRA</h1>
     </div>
@@ -71,6 +72,13 @@
         </div>
         <a href="Ventas.aspx" class="btn btn-danger">Cancelar</a>
 
+        <%--<div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Uno o más artículos han alcanzado su stock mínimo. Por favor reabastezca.</p>
+            </div>
+        </div>--%>
+
     </div>
-    
+
 </asp:Content>
