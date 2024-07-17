@@ -26,6 +26,7 @@
                         <asp:HyperLink ID="lnkVentaSiguiente" runat="server" CssClass="grid-header" Style="color: lightgoldenrodyellow; font-weight:300" title="Ver venta siguiente"> >> </asp:HyperLink>
                     </div>
                 </div>
+                <hr />
                 <asp:GridView ID="gvDetalle" runat="server" CssClass="table table-success table-hover" EmptyDataText="No hay datos disponibles"
                     Style="text-align: center" AutoGenerateColumns="false">
                     <Columns>

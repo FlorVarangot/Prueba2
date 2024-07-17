@@ -183,9 +183,15 @@ namespace TPC_Equipo26
                     detalle.Precio = decimal.Parse(txtPrecio.Text);
                     detalle.IdMarca = int.Parse(ddlMarca.SelectedValue);
                     List<DetalleCompra> detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
+
                     if (detallesCompra == null)
                     {
                         detallesCompra = new List<DetalleCompra>();
+                    }
+                    if (detallesCompra.Any(d => d.IdArticulo == detalle.IdArticulo))
+                    {
+                        MostrarError("El artículo ya se encuentra agregado. Seleccione otro artículo");
+                        return;
                     }
                     detallesCompra.Add(detalle);
 
