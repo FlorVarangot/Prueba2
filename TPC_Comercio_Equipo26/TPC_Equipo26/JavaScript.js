@@ -55,12 +55,11 @@ function Validar() {
 
     return isValid;
 }
-
-function mostrarMensajeExitoArticulo() {
+function mostrarMensajeExito() {
     alert(mensaje);
-    setTimeout(function () {
-        window.location.href = 'Default.aspx';
-    }/*, 1000*/);
+    //setTimeout(function () {
+    //    window.location.href = 'Default.aspx';
+    //}/*, 1000*/);
 }
 
 function mostrarMensajeStock() {

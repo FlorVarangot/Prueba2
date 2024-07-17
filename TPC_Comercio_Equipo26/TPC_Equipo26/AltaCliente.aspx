@@ -69,9 +69,4 @@
         </div>
         <% } %>
     </div>
-            <script type="text/javascript">
-        function mostrarMensajeExitoArticulo(mensaje) {
-            alert(mensaje);
-        }
-</script>
 </asp:Content>

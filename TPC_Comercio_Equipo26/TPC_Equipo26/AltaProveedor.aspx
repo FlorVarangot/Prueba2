@@ -63,10 +63,4 @@
         <asp:Button Text="Reactivar" ID="BtnConfirmaReactivar" OnClick="BtnConfirmaReactivar_Click" CssClass="btn btn-outline-primary" runat="server" />
     </div>
     <% } %>
-    </div>
-            <script type="text/javascript">
-                function mostrarMensajeExitoArticulo(mensaje) {
-                    alert(mensaje);
-                }
-</script>
 </asp:Content>

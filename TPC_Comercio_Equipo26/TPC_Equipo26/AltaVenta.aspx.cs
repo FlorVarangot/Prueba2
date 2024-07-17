@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Services.Description;
 using System.Web.UI;
@@ -289,17 +290,16 @@ namespace TPC_Equipo26
 
                 ArticuloNegocio artiNegocio = new ArticuloNegocio();
                 Articulo aux = new Articulo();
-
                 Usuario user = (Usuario)Session["Usuario"];
 
-                int stockMinimoAlcanzado = 0;
-                string mensaje;
+                EnviarCorreoPostVenta(venta, user);
 
+                int stockMinimoAlcanzado = 0;
                 foreach (var detalle in venta.Detalles)
                 {
                     long idArticulo = detalle.IdArticulo;
+                    int stockActual = ObtenerStockDisponible(idArticulo);
                     aux = artiNegocio.ObtenerArticuloPorID(idArticulo);
-                    int stockActual = datoNegocio.ObtenerStockArticulo(idArticulo);
                     int stockMinimo = aux.StockMin;
 
                     if (stockActual <= stockMinimo)
@@ -309,26 +309,21 @@ namespace TPC_Equipo26
 
                     if (stockActual <= 1)
                     {
-                        //Chequear si anda ok.
+                        //Se envia a usuario en sesion (quien carga la venta) y al admin.
                         EnviarCorreoRecordatorio(user, idArticulo);
                     }
                 }
 
-                if (stockMinimoAlcanzado > 0)
-                {
-                    mensaje = "Uno o más artículos de la lista han alcanzado el stock mínimo establecido. Por favor reabastezca.";
-                }
-                else
-                {
-                    mensaje = "Venta registrada con éxito";
-                }
-
-                EnviarCorreoPostVenta(venta);
-                ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessMessage", $"mostrarMensajeStock('{mensaje}');", true);
+                //string mensaje = "Venta registrada con éxito.";
+                //if (stockMinimoAlcanzado > 0)
+                //{
+                //    mensaje += " ATENCIÓN: Uno o más productos han alcanzado el stock mínimo establecido. Por favor reabastezca.";
+                //}
 
                 Session["DetallesVenta"] = null;
                 Session["Total"] = null;
                 lblTotalVenta.Text = "Total venta = $0.00";
+
                 Response.Redirect("Ventas.aspx", false);
             }
             catch (Exception ex)
@@ -338,7 +333,7 @@ namespace TPC_Equipo26
             }
         }
 
-        protected void EnviarCorreoPostVenta(Venta venta)
+        protected void EnviarCorreoPostVenta(Venta venta, Usuario user)
         {
             try
             {
@@ -348,11 +343,13 @@ namespace TPC_Equipo26
                 Cliente cliente = clienteNegocio.ObtenerClientePorId(venta.IdCliente);
 
                 string emailDestino = cliente.Email;
-                string asunto = "Confirmación de compra en nuestra tienda";
-                string cuerpo = $"¡Gracias por comprar en nuestra tienda!<br><br>" +
+                string asunto = "Confirmación de compra";
+                string cuerpo = $"Hola {cliente.Nombre} {cliente.Apellido}!<br>" +
+                                $"Tenemos una comora registrada a tu nombre.<br><br>" +
                                 $"Detalles de la compra:<br>" +
                                 $"Fecha: {venta.FechaVenta.ToString("dd/MM/yyyy")}<br>" +
-                                $"Total: {venta.Total.ToString("C2")}<br><br>" +
+                                $"Total: {venta.Total.ToString("C2")}<br>" +
+                                $"Id Vendedor: {user.ID.ToString()}<br><br>" +
                                 $"Productos comprados:<br>";
 
                 foreach (var detalle in venta.Detalles)
@@ -363,7 +360,8 @@ namespace TPC_Equipo26
                     cuerpo += $"{articulo.Nombre} - {articulo.Descripcion} - Cantidad: {detalle.Cantidad}<br>";
                 }
 
-                cuerpo += "<br>Esperamos que disfrutes de tus productos.";
+                cuerpo += "<br>Esperamos que disfrutes de tus productos.<br>" +
+                            $"¡Gracias por elegirnos!";
                 emailService.ArmarCorreo(emailDestino, asunto, cuerpo);
 
                 emailService.enviarEmail();
@@ -383,18 +381,19 @@ namespace TPC_Equipo26
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                 Articulo articulo = articuloNegocio.ObtenerArticuloPorID(idArticulo);
 
-                Marca marca = articulo.Marca;
-                
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                Marca marca = marcaNegocio.ObtenerMarcaPorId(articulo.Marca.ID);
+
                 ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
                 Proveedor proveedor = proveedorNegocio.ObtenerProveedorPorId(marca.IdProveedor);
 
                 DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
                 int stock = datoNegocio.ObtenerStockArticulo(idArticulo);
 
-                string emailDestino = user.Email;
+                string emailDestino = user.Email + ",admin@admin.com";
                 string asunto = "Recordatorio de compra: Stock bajo";
-                string cuerpo = $"Estimado/a {user.Nombre + user.Apellido},<br><br>" +
-                        $"Le informamos que el artículo <strong>{articulo.Nombre}</strong> (ID: {idArticulo}) está por agotarse.<br>" +
+                string cuerpo = $"Hola {user.Nombre + user.Apellido},<br><br>" +
+                        $"Le informamos que el artículo <strong>{articulo.Nombre}</strong> (ID: {idArticulo.ToString()}) está por agotarse.<br>" +
                         $"Descripción: {articulo.Descripcion}<br>" +
                         $"Marca: {marca.Descripcion}<br>" +
                         $"Proveedor: {proveedor.Nombre}<br>" +
@@ -410,9 +409,10 @@ namespace TPC_Equipo26
                 emailService.ArmarCorreo(emailDestino, asunto, cuerpo);
                 emailService.enviarEmail();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception("Error al enviar el correo de recordatorio de compra.", ex);
+                Session.Add("Error", "Error al enviar el correo de recordatorio de compra.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 

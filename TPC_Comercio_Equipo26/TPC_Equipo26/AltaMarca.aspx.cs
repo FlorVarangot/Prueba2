@@ -189,7 +189,7 @@ namespace TPC_Equipo26
                 }
 
                 LimpiarCampos();
-                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExitoArticulo", $"alert('{mensaje}'); window.location.href = 'Marcas.aspx';", true);
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExito", $"alert('{mensaje}'); window.location.href = 'Marcas.aspx';", true);
               
             }
             catch (Exception ex)

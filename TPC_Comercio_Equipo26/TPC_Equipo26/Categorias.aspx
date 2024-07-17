@@ -57,7 +57,7 @@
     <% if (ValidarSesionActiva())
         {%>
     <div class="text-end">
-        <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoria</a>
+        <a href="AltaCategoria.aspx" class="btn btn-success">Agregar una Categoría</a>
     </div>
     <% } %>
 </asp:Content>

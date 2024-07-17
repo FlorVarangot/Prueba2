@@ -134,7 +134,7 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Modificar(categoria);
-                    mensaje = "Categoria modificada con éxito";
+                    mensaje = "Categoría modificada con éxito";
                 }
                 else
                 {
@@ -146,11 +146,11 @@ namespace TPC_Equipo26
                         return;
                     }
                     negocio.Agregar(categoria);
-                    mensaje = "Categoria agregada con éxito";
+                    mensaje = "Categoría agregada con éxito";
                 }
 
                 LimpiarCampos();
-                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExitoArticulo", $"alert('{mensaje}'); window.location.href = 'Categorias.aspx';", true);
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExito", $"alert('{mensaje}'); window.location.href = 'Categorias.aspx';", true);
 
                 
             }
