@@ -13,15 +13,7 @@ namespace TPC_Equipo26
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //try
-            //{
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    Session.Add("Error", ex.ToString());
-            //    Response.Redirect("Error.aspx", false);
-            //}
         }
 
         protected void btnRegistro_Click(object sender, EventArgs e)
@@ -38,10 +30,10 @@ namespace TPC_Equipo26
                 user.Email = txtEmail.Text;
                 user.ID = negocio.InsertarNuevo(user);
 
-                ConfirmarRegistroCorreo(user.Email);
+                ConfirmarRegistroCorreo(user);
 
                 Session.Add("Usuario", user);
-                Response.Redirect("Default.aspx",false);
+                Response.Redirect("Default.aspx", false);
             }
             catch (Exception ex)
             {
@@ -55,19 +47,20 @@ namespace TPC_Equipo26
             Response.Redirect("LogIn.aspx", false);
         }
 
-        protected void ConfirmarRegistroCorreo(string mail)
+        protected void ConfirmarRegistroCorreo(Usuario user)
         {
             try
             {
-                EmailService emailService = new EmailService(); 
-                string emailDestino = mail;
+                EmailService emailService = new EmailService();
+                string emailDestino = user.Email;
                 string asunto = "Confirmación de registro";
-                string cuerpo = $"¡Bienvenido/a al gestor de artículos de Librería!<br><br>" +
+                string cuerpo = $"¡Hola! ¡Bienvenido/a al sistema de gestión de nuestra tienda Librería!<br><br>" +
                                 $"Detalles del registro:<br>" +
-                                $"Nombre de usuario: {txtUser.Text}<br>" +
-                                $"Contraseña: {txtPassword.Text}<br><br>" +
-                                $"<br><br>La información detallada en este correo es sensible." +
-                                $"No compartas esta información.";
+                                $"<strong>Nombre de usuario:</strong> {user.User}<br>" +
+                                $"<strong>Contraseña:</strong> {user.Pass}<br><br>" +
+                                $"Recuerda ingresar a MiPerfil para completar tus datos de registro." +
+                                $"<br><br><em>La información detallada en este correo es sensible." +
+                                $"No compartas esta información.</em>";
 
                 emailService.ArmarCorreo(emailDestino, asunto, cuerpo);
                 emailService.enviarEmail();
@@ -84,20 +77,14 @@ namespace TPC_Equipo26
             LimpiarLabels();
             bool camposValidos = true;
 
+
             if (string.IsNullOrWhiteSpace(txtUser.Text))
             {
                 lblUser.Text = "El nombre de usuario no puede estar vacío.";
                 lblUser.Visible = true;
                 camposValidos = false;
             }
-            
-            if (txtUser.Text.Length < 4) {
-                lblUser.Text = "El nombre de usuario debe contener al menos 4 caracteres.";
-                lblUser.Visible = true;
-                camposValidos = false;
-            }
 
-            
             if (string.IsNullOrWhiteSpace(txtEmail.Text))
             {
                 lblEmail.Text = "El mail no puede estar vacío.";
@@ -111,15 +98,23 @@ namespace TPC_Equipo26
                 lblPassword.Visible = true;
                 camposValidos = false;
             }
-            
-            if(!System.Text.RegularExpressions.Regex.IsMatch(txtPassword.Text, @"\d"))
+
+
+            if (txtUser.Text.Length > 0 && txtUser.Text.Length < 4)
+            {
+                lblUser.Text = "El nombre de usuario debe contener al menos 4 caracteres.";
+                lblUser.Visible = true;
+                camposValidos = false;
+            }
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtPassword.Text, @"\d") && !string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 lblPassword.Text = "La contraseña debe contener al menos 1 caracter numérico.";
                 lblPassword.Visible = true;
                 camposValidos = false;
             }
 
-            if (txtPassword.Text.Length < 4)
+            if (txtPassword.Text.Length > 0 && txtPassword.Text.Length < 4)
             {
                 lblPassword.Text = "La contraseña debe contener al menos 4 caracteres";
                 lblPassword.Visible = true;
@@ -131,9 +126,9 @@ namespace TPC_Equipo26
 
         protected void LimpiarLabels()
         {
-            lblUser.Text= "";
+            lblUser.Text = "";
             lblEmail.Visible = false;
-            lblPassword.Visible= false;
+            lblPassword.Visible = false;
         }
 
 

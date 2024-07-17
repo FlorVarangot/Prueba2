@@ -50,6 +50,7 @@ namespace TPC_Equipo26
                 ProveedorNegocio negocio = new ProveedorNegocio();
                 List<Proveedor> proveedores = negocio.Listar().Where(prov => prov.Activo == true).ToList();
 
+                proveedores = proveedores.OrderBy(p => p.Nombre).ToList();
                 ddlProveedor.DataSource = proveedores;
                 ddlProveedor.DataTextField = "Nombre";
                 ddlProveedor.DataValueField = "ID";
@@ -74,7 +75,7 @@ namespace TPC_Equipo26
             ddlArticulo.Items.Clear();
             ddlArticulo.Items.Insert(0, new ListItem("Seleccione Marca primero", ""));
         }
-        
+
         private int ObtenerStockDisponible(long idArticulo)
         {
             DatoArticuloNegocio negocio = new DatoArticuloNegocio();
@@ -270,7 +271,7 @@ namespace TPC_Equipo26
             lblError.Text = "";
             lblError.Visible = false;
         }
-        
+
         private void LimpiarCampos()
         {
             ddlMarca.SelectedIndex = 0;

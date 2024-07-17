@@ -267,6 +267,8 @@ namespace TPC_Equipo26
             ProveedorNegocio negocio = new ProveedorNegocio();
             List<Proveedor> proveedores = negocio.Listar().Where(prov => prov.Activo).ToList();
 
+            proveedores = proveedores.OrderBy(p => p.Nombre).ToList();
+            
             ddlProveedor.DataSource = proveedores;
             ddlProveedor.DataValueField = "ID";
             ddlProveedor.DataTextField = "Nombre";
@@ -277,7 +279,8 @@ namespace TPC_Equipo26
         {
             ProveedorNegocio negocio = new ProveedorNegocio();
             List<Proveedor> proveedores = negocio.Listar();
-
+            
+            proveedores = proveedores.OrderBy(p => p.Nombre).ToList();
             ddlProveedor.DataSource = proveedores;
             ddlProveedor.DataValueField = "ID";
             ddlProveedor.DataTextField = "Nombre";

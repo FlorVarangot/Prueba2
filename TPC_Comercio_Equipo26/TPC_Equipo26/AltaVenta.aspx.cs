@@ -59,12 +59,14 @@ namespace TPC_Equipo26
                 ClienteNegocio negocio = new ClienteNegocio();
                 List<Cliente> clientes = negocio.Listar().Where(cli => cli.Activo == true).ToList();
 
+                clientes = clientes.OrderBy(cli => cli.Apellido).ToList();
+
                 var apellidoNombre = clientes.Select(cli => new
                 {
                     ID = cli.ID,
                     NombreCompleto = $"{cli.Apellido}, {cli.Nombre}"
                 }).ToList();
-
+                
                 ddlCliente.DataSource = apellidoNombre;
                 ddlCliente.DataTextField = "NombreCompleto";
                 ddlCliente.DataValueField = "ID";
@@ -84,6 +86,8 @@ namespace TPC_Equipo26
             {
                 ArticuloNegocio negocio = new ArticuloNegocio();
                 List<Articulo> articulos = negocio.Listar();
+
+                articulos = articulos.OrderBy(art=>art.Descripcion).ToList();
 
                 var articulosConStock = articulos.Select(art => new
                 {

@@ -69,11 +69,11 @@ namespace TPC_Equipo26
                     txtImagenUrl.Text = articulo.Imagen;
 
                     if (articulo.Ganancia > 1)
-                    {                      
+                    {
                         numGanancia.Value = articulo.Ganancia.ToString(CultureInfo.InvariantCulture);
                     }
                     else
-                    {                      
+                    {
                         numGanancia.Value = (articulo.Ganancia * 100).ToString(CultureInfo.InvariantCulture);
                     }
                     numStockMinimo.Value = articulo.StockMin.ToString();
@@ -234,7 +234,7 @@ namespace TPC_Equipo26
                 nuevo.StockMin = int.Parse(numStockMinimo.Value);
                 nuevo.Activo = true;
                 setearMarcaYCategoria(nuevo);
-             
+
                 string mensaje;
                 if (Request.QueryString["ID"] != null)
                 {
@@ -263,7 +263,7 @@ namespace TPC_Equipo26
                 }
 
                 LimpiarCampos();
-                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExito", $"alert('{mensaje}'); window.location.href = 'Default.aspx';", true);              
+                ClientScript.RegisterStartupScript(GetType(), "mostrarMensajeExito", $"alert('{mensaje}'); window.location.href = 'Default.aspx';", true);
 
             }
             catch (Exception ex)
@@ -405,6 +405,8 @@ namespace TPC_Equipo26
                 MarcaNegocio negocioMarca = new MarcaNegocio();
                 List<Marca> listaMarca = negocioMarca.Listar().Where(mar => mar.Activo).ToList();
 
+                listaMarca = listaMarca.OrderBy(m => m.Descripcion).ToList();
+
                 ddlMarca.DataSource = listaMarca;
                 ddlMarca.DataValueField = "ID";
                 ddlMarca.DataTextField = "Descripcion";
@@ -412,6 +414,8 @@ namespace TPC_Equipo26
 
                 CategoriaNegocio negocioCategoria = new CategoriaNegocio();
                 List<Categoria> listaCategoria = negocioCategoria.Listar().Where(cat => cat.Activo).ToList();
+
+                listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();
 
                 ddlCategoria.DataSource = listaCategoria;
                 ddlCategoria.DataValueField = "ID";

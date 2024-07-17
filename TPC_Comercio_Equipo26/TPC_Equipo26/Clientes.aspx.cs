@@ -140,7 +140,6 @@ namespace TPC_Equipo26
             }
             return false;
         }
-     
 
         protected void gvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

@@ -1,5 +1,4 @@
 ﻿
-
 function mostrarConfirmacion() {
     Swal.fire({
         title: 'Mi Perfil',
@@ -10,10 +9,10 @@ function mostrarConfirmacion() {
     return true;
 }
 
-//Validación front para LogIn: Si está todo vacio muestra divError, si hay un campo vacio, lblError
+//Validación front para LogIn: Si está todo vacío muestra divError, si hay un campo vacio, lblError
 //Si estan mal las credenciales sigue mandando a error.aspx con "user o pass incorrectos" > antes hace una pausa de 1.5 segundos
 //Si estan ok las credenciales se ve el doble check verde y redirecciona > antes hace una pausa de 1.5 segundos
-function Validar() {
+function ValidarLogIn() {
     const txtUser = document.getElementById("txtUser");
     const txtPassword = document.getElementById("txtPassword");
     const errorDiv = document.getElementById("errorDiv");
@@ -55,6 +54,7 @@ function Validar() {
 
     return isValid;
 }
+
 function mostrarMensajeExito() {
     alert(mensaje);
     //setTimeout(function () {
@@ -68,7 +68,6 @@ function mostrarMensajeStock() {
         window.location.href = 'Ventas.aspx';
     });
 }
-
 
 //Reemplaza la funcion de arriba, muestra el cuadro como cuando guardas datos nuevos en MiPerfil.
 
@@ -85,96 +84,159 @@ function mostrarMensajeStock() {
 //    return true;
 //}
 
+//function ValidarRegistro() {
+//    const txtUser = document.getElementById("txtUser");
+//    const txtEmail = document.getElementById("txtEmail");
+//    const txtPassword = document.getElementById("txtPassword");
+
+//    const lblUser = document.getElementById("lblUser");
+//    const lblEmail = document.getElementById("lblEmail");
+//    const lblPassword = document.getElementById("lblPassword");
+
+//    let isValid = true;
+//    let errorMessage = "";
+
+//    if (txtUser.value.trim() === "" && txtEmail.value.trim() === "" && txtPassword.value.trim() === "") {
+//        errorMessage = "Por favor, complete todos los campos.";
+//        isValid = false;
+//    } else if (txtUser.value.trim() === "" && txtEmail.value.trim() !== "" && txtPassword.value.trim() !== "") {
+//        lblUser.innerText = "Por favor, ingrese un nombre de usuario.";
+//        isValid = false;
+//    } else if (txtEmail.value.trim() === "" && txtUser.value.trim() !== "" && txtPassword.value.trim() !== "") {
+//        lblEmail.innerText = "Por favor, ingrese un correo de electrónico.";
+//        isValid = false;
+//    } else {
+//        lblPassword.innerText = "Por favor, ingrese una contraseña.";
+//        isValid = false;
+//    }
+
+//    if (txtUser.value.length < 4) {
+//        lblUser.innerText = "El nombre de usuario debe contener al menos 4 caracteres.";
+//        txtUser.classList.add("is-invalid");
+//        txtUser.classList.remove("is-valid");
+//        isValid = false;
+//    }
+
+//    if (txtPassword.value.length < 4 || !/\d/.test(txtPassword.value)) {
+//        lblPassword.innerText = "La contraseña debe contener al menos 4 caracteres y al menos 1 caracter numérico.";
+//        txtPassword.classList.add("is-invalid");
+//        txtPassword.classList.remove("is-valid");
+//        isValid = false;
+//    }
+
+//    if (!isValid) {
+//        errorDiv.innerHTML = errorMessage;
+//        errorDiv.style.display = "block";
+//    } else {
+//        errorDiv.style.display = "none";
+//    }
+
+//    return isValid;
+//}
 
 
 //Validación front para Registro > Se pierde porque pasa antes por las validaciones de las clases
-function ValidarRegistro() {
-    const txtUser = document.getElementById("txtUser");
-    const txtEmail = document.getElementById("txtEmail");
-    const txtPassword = document.getElementById("txtPassword");
-    const lblUser = document.getElementById("lblUser");
-    const lblEmail = document.getElementById("lblEmail");
-    const lblPassword = document.getElementById("lblPassword");
+//function ValidarRegistro() {
+//    const txtUser = document.getElementById("txtUser");
+//    const txtEmail = document.getElementById("txtEmail");
+//    const txtPassword = document.getElementById("txtPassword");
 
-    let isValid = true;
+//    const lblUser = document.getElementById("lblUser");
+//    const lblEmail = document.getElementById("lblEmail");
+//    const lblPassword = document.getElementById("lblPassword");
 
-    if (txtUser.value.trim() === "") {
-        lblUser.innerText = "El nombre de usuario no puede estar vacío.";
-        txtUser.classList.add("is-invalid");
-        txtUser.classList.remove("is-valid");
-        isValid = false;
-    } else if (txtUser.value.length < 4) {
-        lblUser.innerText = "El nombre de usuario debe contener al menos 4 caracteres.";
-        txtUser.classList.add("is-invalid");
-        txtUser.classList.remove("is-valid");
-        isValid = false;
-    } else {
-        lblUser.innerText = "";
-        txtUser.classList.add("is-valid");
-        txtUser.classList.remove("is-invalid");
-    }
+//    let isValid = true;
+//    let errorMessage = "";
 
-    if (txtEmail.value.trim() === "") {
-        lblEmail.innerText = "El correo electrónico no puede estar vacío.";
-        txtEmail.classList.add("is-invalid");
-        txtEmail.classList.remove("is-valid");
-        isValid = false;
-    } else {
-        lblEmail.innerText = "";
-        txtEmail.classList.add("is-valid");
-        txtEmail.classList.remove("is-invalid");
-    }
+//    if (txtUser.value.trim() === "" && txtEmail.value.trim() === "" && txtPassword.value.trim() === "") {
+//        errorMessage = "Por favor, complete todos los campos.";
+//        isValid = false;
 
-    if (txtPassword.value.trim() === "") {
-        lblPassword.innerText = "La contraseña no puede estar vacía.";
-        txtPassword.classList.add("is-invalid");
-        txtPassword.classList.remove("is-valid");
-        isValid = false;
-    } else if (txtPassword.value.length < 4 || !/\d/.test(txtPassword.value)) {
-        lblPassword.innerText = "La contraseña debe contener al menos 4 caracteres y al menos 1 caracter numérico.";
-        txtPassword.classList.add("is-invalid");
-        txtPassword.classList.remove("is-valid");
-        isValid = false;
-    } else {
-        lblPassword.innerText = "";
-        txtPassword.classList.add("is-valid");
-        txtPassword.classList.remove("is-invalid");
-    }
+//        if (txtUser.value.trim() === "") {
+//            txtUser.classList.add("is-invalid");
+//            txtUser.classList.remove("is-valid");
+//            errorMessage = "Por favor, ingrese un nombre de usuario.";
+//            isValid = false;
+//        } else if (txtUser.value.length < 4) {
+//            lblUser.innerText = "El nombre de usuario debe contener al menos 4 caracteres.";
+//            txtUser.classList.add("is-invalid");
+//            txtUser.classList.remove("is-valid");
+//            isValid = false;
+//        } else {
+//            lblUser.innerText = "";
+//            txtUser.classList.add("is-valid");
+//            txtUser.classList.remove("is-invalid");
+//        }
 
-    return isValid;
+//        if (txtEmail.value.trim() === "") {
+//            txtEmail.classList.add("is-invalid");
+//            txtEmail.classList.remove("is-valid");
+//            errorMessage = "Por favor, ingrese un correo de electrónico.";
+//            isValid = false;
+//        } else {
+//            lblEmail.innerText = "";
+//            txtEmail.classList.add("is-valid");
+//            txtEmail.classList.remove("is-invalid");
+//        }
+
+//        if (txtPassword.value.trim() === "") {
+//            txtPassword.classList.add("is-invalid");
+//            txtPassword.classList.remove("is-valid");
+//            errorMessage = "Por favor, ingrese una contraseña.";
+//            isValid = false;
+//        } else if (txtPassword.value.length < 4 || !/\d/.test(txtPassword.value)) {
+//            lblPassword.innerText = "La contraseña debe contener al menos 4 caracteres y al menos 1 caracter numérico.";
+//            txtPassword.classList.add("is-invalid");
+//            txtPassword.classList.remove("is-valid");
+//            isValid = false;
+//        } else {
+//            lblPassword.innerText = "";
+//            txtPassword.classList.add("is-valid");
+//            txtPassword.classList.remove("is-invalid");
+//        }
+//    }
+
+//    if (!isValid) {
+//        errorDiv.innerHTML = errorMessage;
+//        errorDiv.style.display = "block";
+//    } else {
+//        errorDiv.style.display = "none";
+//    }
+
+//    return isValid;
+//}
 
 
-    //function showModalStock() {
-    //    var modal = document.getElementById("myModal");
-    //    var span = document.getElementsByClassName("close")[0];
-    //    modal.style.display = "block";
-    //    span.onclick = function () {
-    //        modal.style.display = "none";
-    //    }
-    //    window.onclick = function (event) {
-    //        if (event.target == modal) {
-    //            modal.style.display = "none";
-    //        }
-    //    }
-    //    return false;
-    //}
+//function showModalStock() {
+//    var modal = document.getElementById("myModal");
+//    var span = document.getElementsByClassName("close")[0];
+//    modal.style.display = "block";
+//    span.onclick = function () {
+//        modal.style.display = "none";
+//    }
+//    window.onclick = function (event) {
+//        if (event.target == modal) {
+//            modal.style.display = "none";
+//        }
+//    }
+//    return false;
+//}
 
-    //function showModalStock() {
-    //    console.log("showModalStock called");
-    //    var modal = document.getElementById("myModal");
-    //    var span = document.getElementsByClassName("close")[0];
-    //    modal.style.display = "block";
-    //    span.onclick = function () {
-    //        modal.style.display = "none";
-    //    }
-    //    window.onclick = function (event) {
-    //        if (event.target == modal) {
-    //            modal.style.display = "none";
-    //        }
-    //    }
-    //}
+//function showModalStock() {
+//    console.log("showModalStock called");
+//    var modal = document.getElementById("myModal");
+//    var span = document.getElementsByClassName("close")[0];
+//    modal.style.display = "block";
+//    span.onclick = function () {
+//        modal.style.display = "none";
+//    }
+//    window.onclick = function (event) {
+//        if (event.target == modal) {
+//            modal.style.display = "none";
+//        }
+//    }
+//}
 
-}
 
 
 

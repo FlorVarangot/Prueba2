@@ -23,7 +23,7 @@
                     <asp:TextBox runat="server" ID="txtPassword"  ClientIDMode="Static" CssClass="form-control" TextMode="Password" Style="border-radius: 5px; height: 40px;" />
                     <span id="passwordError" class="text-danger"></span>
                 </div>
-                <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-primary" ID="btnIngresar" OnClientClick="return Validar();"
+                <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-primary" ID="btnIngresar" OnClientClick="return ValidarLogIn();"
                     OnClick="btnIngresar_Click" Style="border-radius: 5px; margin: 3px;" />                
                 <div class="registro">
                     <p>¿No tenés cuenta? <a href="Registro.aspx" style="color: darkslategrey; font-weight: bold; text-decoration: none;">Registrate</a></p>
