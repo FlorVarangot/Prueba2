@@ -84,10 +84,8 @@
                                         <strong>Precio:</strong> <%# Eval("Precio", "{0:C2}") %>
                                     </div>
                                     <div class="col-md-2">
-                                        <asp:Button runat="server" CommandName="Editar" CommandArgument='<%# Eval("Id") + "_Editar" %>'
-                                            Text="Editar" CssClass="btn btn-sm btn-primary" OnClientClick="return confirm('¿Está seguro que desea editar este artículo?');" />
-                                        <asp:Button runat="server" CommandName="Eliminar" CommandArgument='<%# Eval("Id") + "_Eliminar" %>'
-                                            Text="Eliminar" CssClass="btn btn-sm btn-danger ml-1" OnClientClick="return confirm('¿Está seguro que desea eliminar este artículo?');" />
+                                        <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-success" CommandName="Editar" CommandArgument='<%# Eval("Id") %>' />
+                                        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>' />
                                     </div>
                                 </div>
                             </ItemTemplate>

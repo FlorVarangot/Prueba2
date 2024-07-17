@@ -182,6 +182,12 @@ namespace TPC_Equipo26
                     detalle.IdArticulo = long.Parse(ddlArticulo.SelectedValue);
                     detalle.Cantidad = int.Parse(numCantidad.Value);
 
+                    if (detallesVenta.Any(d => d.IdArticulo == detalle.IdArticulo))
+                    {
+                        MostrarError("El artículo ya se encuentra agregado. Seleccione otro artículo");
+                        return;
+                    }
+
                     if (validarStock(detalle))
                     {
                         detallesVenta.Add(detalle);

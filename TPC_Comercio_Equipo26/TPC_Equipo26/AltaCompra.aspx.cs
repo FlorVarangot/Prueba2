@@ -188,11 +188,15 @@ namespace TPC_Equipo26
                     {
                         detallesCompra = new List<DetalleCompra>();
                     }
+
                     if (detallesCompra.Any(d => d.IdArticulo == detalle.IdArticulo))
                     {
                         MostrarError("El artículo ya se encuentra agregado. Seleccione otro artículo");
                         return;
                     }
+
+                    long nuevoId = detallesCompra.Count > 0 ? detallesCompra.Max(d => d.Id) + 1 : 1;
+                    detalle.Id = nuevoId;
                     detallesCompra.Add(detalle);
 
                     ArticuloNegocio negocioArticulo = new ArticuloNegocio();
@@ -375,25 +379,32 @@ namespace TPC_Equipo26
 
         protected void rptArticulosAgregados_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+            List<DetalleCompra> detallesCompra = Session["DetallesCompra"] as List<DetalleCompra>;
+
+            if (detallesCompra == null)
+                return;
+
             if (e.CommandName == "Editar")
             {
-                string commandArgument = e.CommandArgument.ToString();
                 long idDetalleCompra;
-
-                if (long.TryParse(commandArgument.Split('_')[0], out idDetalleCompra))
+                if (long.TryParse(e.CommandArgument.ToString(), out idDetalleCompra))
                 {
+                    
                     DetalleCompra detalle = detallesCompra.FirstOrDefault(d => d.Id == idDetalleCompra);
                     if (detalle != null)
                     {
+                       
                         txtCantidad.Text = detalle.Cantidad.ToString();
                         txtPrecio.Text = detalle.Precio.ToString();
                         ddlMarca.SelectedValue = detalle.IdMarca.ToString();
                         ddlMarca_SelectedIndexChanged(null, EventArgs.Empty);
                         ddlArticulo.SelectedValue = detalle.IdArticulo.ToString();
 
+                       
                         detallesCompra.Remove(detalle);
                         Session["DetallesCompra"] = detallesCompra;
 
+                        
                         ActualizarArticulosAgregados();
                         ActualizarCompra();
                     }
@@ -401,17 +412,18 @@ namespace TPC_Equipo26
             }
             else if (e.CommandName == "Eliminar")
             {
-                string commandArgument = e.CommandArgument.ToString();
                 long idDetalleCompra;
-
-                if (long.TryParse(commandArgument.Split('_')[0], out idDetalleCompra))
+                if (long.TryParse(e.CommandArgument.ToString(), out idDetalleCompra))
                 {
+                    
                     DetalleCompra detalle = detallesCompra.FirstOrDefault(d => d.Id == idDetalleCompra);
                     if (detalle != null)
                     {
+                       
                         detallesCompra.Remove(detalle);
                         Session["DetallesCompra"] = detallesCompra;
 
+                       
                         ActualizarArticulosAgregados();
                         ActualizarCompra();
                     }
