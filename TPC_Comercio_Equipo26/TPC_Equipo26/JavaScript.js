@@ -69,6 +69,17 @@ function mostrarMensajeStock() {
     });
 }
 
+function BuscarVacio(inputId) {
+    var searchBox = document.getElementById(inputId);
+
+    if (searchBox) {
+        searchBox.addEventListener('input', function () {
+            if (!searchBox.value) {
+                __doPostBack(searchBox.id, '');
+            }
+        });
+    }
+}
 //Reemplaza la funcion de arriba, muestra el cuadro como cuando guardas datos nuevos en MiPerfil.
 
 //function mostrarMensajeExitoArticulo() {

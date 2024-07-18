@@ -20,7 +20,8 @@ namespace TPC_Equipo26
                     CargarArticulos();
                     CargarMarcasYCategorias();
                     btnLimpiarFiltros.Visible = false;
-                }
+                    
+                }               
             }
             catch (Exception ex)
             {
@@ -145,6 +146,7 @@ namespace TPC_Equipo26
 
             gvArticulos.DataSource = listaArticulos;
             gvArticulos.DataBind();
+            MostrarBotonRestablecer();
         }
 
         private void MostrarBotonRestablecer()
@@ -160,32 +162,33 @@ namespace TPC_Equipo26
 
         protected void Filtro_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtFiltro.Text.Trim()))
+            {
+                txtFiltro.Text = string.Empty;
+            }
             FiltrarArticulos();
-            MostrarBotonRestablecer();
+            string script = $"BuscarVacio('{txtFiltro.ClientID}');";
+            ClientScript.RegisterStartupScript(this.GetType(), "BuscarVacio", script, true);
         }
 
         protected void chkIncluirInactivos_CheckedChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
-            MostrarBotonRestablecer();
         }
 
         protected void ddlMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
-            MostrarBotonRestablecer();
         }
 
         protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
-            MostrarBotonRestablecer();
         }
 
         protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarArticulos();
-            MostrarBotonRestablecer();
         }
 
         protected void BtnLimpiarFiltros_Click(object sender, EventArgs e)
@@ -201,7 +204,7 @@ namespace TPC_Equipo26
             gvArticulos.PageIndex = 0;
             CargarArticulos();
             MostrarBotonRestablecer();          
-            btnLimpiarFiltros.Visible = false;
+            btnLimpiarFiltros.Visible = false;          
         }
 
         protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -242,7 +245,7 @@ namespace TPC_Equipo26
         protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
         {
             pnlFiltroAvanzado.Visible = chkAvanzado.Checked;
-            txtFiltro.Enabled = !chkAvanzado.Checked;
+            txtFiltro.Enabled = true ;
             if (!chkAvanzado.Checked)
             {
                 ddlMarca.SelectedIndex = 0;
@@ -321,6 +324,8 @@ namespace TPC_Equipo26
             return false;
         }
 
+        
+        
     }
 
 }

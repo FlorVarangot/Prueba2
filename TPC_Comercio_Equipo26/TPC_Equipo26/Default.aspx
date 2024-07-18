@@ -10,8 +10,8 @@
 
         <div class="row mb-2">
             <div class="col-6">
-                <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar artículos, marcas y más..." />
-            </div>
+                <asp:TextBox runat="server" ID="txtFiltro" ClientIDMode="Static" CssClass="form-control" AutoPostBack="true" OnTextChanged="Filtro_TextChanged" Placeholder="Buscar artículos, marcas y más..." TextMode="Search"/>
+             </div>
             <div class="col-6" style="display: flex; flex-direction: column">
                 <asp:CheckBox Text="Filtro" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
             </div>
@@ -92,4 +92,22 @@
         <a href="AltaArticulo.aspx" class="btn btn-success">Agregar un artículo</a>
     </div>
     <% } %>
+
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchBox = document.getElementById('<%= txtFiltro.ClientID %>');
+        
+        if (searchBox) {
+            searchBox.addEventListener('input', function() {
+                if (searchBox.value === '') {
+                    searchBox.dispatchEvent(new Event('change'));
+                }
+            });
+
+            searchBox.addEventListener('change', function() {
+                __doPostBack(searchBox.id, '');
+            });
+        }
+    });
+</script>
 </asp:Content>
