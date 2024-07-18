@@ -39,7 +39,8 @@
                         <asp:ListItem Text="Stock ↓" Value="StockDisponibleDesc" />
                         <asp:ListItem Text="Stock ↑" Value="StockDisponibleAsc" />
                         <asp:ListItem Text="Precio ↓" Value="PrecioUnitarioDesc" />
-                        <asp:ListItem Text="Precio ↑" Value="PrecioUnitarioAsc" />
+                        <asp:ListItem Text="ID ↑" Value="IdAsc" />
+                        <asp:ListItem Text="ID ↓" Value="IdDesc" />
                     </asp:DropDownList>
                 </div>
                 <div class="col-3 mb-3 mt-4 text-end">

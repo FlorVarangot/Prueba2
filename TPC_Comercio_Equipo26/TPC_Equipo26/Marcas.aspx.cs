@@ -85,7 +85,7 @@ namespace TPC_Equipo26
                     lista = lista.OrderByDescending(x => x.ID).ToList();
                     break;
                 default:
-                    lista = lista.OrderBy(x => x.ID).ToList();
+                    lista = lista.OrderBy(x => x.Descripcion).ToList();
                     break;
             }
 
@@ -154,6 +154,7 @@ namespace TPC_Equipo26
         {
             ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
             List<Proveedor> proveedores = proveedorNegocio.Listar();
+            proveedores = proveedores.OrderBy(x=>x.Nombre).ToList();
             ddlProveedor.DataSource = proveedores;
             ddlProveedor.DataTextField = "Nombre";
             ddlProveedor.DataValueField = "ID";

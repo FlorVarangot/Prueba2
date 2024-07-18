@@ -57,6 +57,7 @@ namespace TPC_Equipo26
             {
                 MarcaNegocio marcaNegocio = new MarcaNegocio();
                 List<Marca> marcas = marcaNegocio.Listar();
+                marcas = marcas.OrderBy(p => p.Descripcion).ToList();
                 ddlMarca.DataSource = marcas;
                 ddlMarca.DataTextField = "Descripcion";
                 ddlMarca.DataValueField = "ID";
@@ -65,6 +66,7 @@ namespace TPC_Equipo26
 
                 CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
                 List<Categoria> categorias = categoriaNegocio.Listar();
+                categorias = categorias.OrderBy(p => p.Descripcion).ToList();
                 ddlCategoria.DataSource = categorias;
                 ddlCategoria.DataTextField = "Descripcion";
                 ddlCategoria.DataValueField = "ID";
@@ -128,8 +130,14 @@ namespace TPC_Equipo26
                 case "PrecioUnitarioDesc":
                     listaArticulos = listaArticulos.OrderByDescending(x => datoNegocio.ObtenerPrecioArticulo(x.ID)).ToList();
                     break;
-                default:
+                case "IdAsc":
                     listaArticulos = listaArticulos.OrderBy(x => x.ID).ToList();
+                    break;
+                case "IdDesc":
+                    listaArticulos = listaArticulos.OrderByDescending(x => x.ID).ToList();
+                    break;
+                default:
+                    listaArticulos = listaArticulos.OrderBy(x => x.Descripcion).ToList();
                     break;
             }
 

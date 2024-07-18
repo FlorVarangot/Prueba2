@@ -56,10 +56,10 @@ VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',9,1,55,'https://th.bing.com/t
 		('AAA008','HS-10 A','ABROCHADORA KANGARO 10',15,1,40,'https://th.bing.com/th/id/OIP.XbjP9o4a_TbHV52zTs2nxQHaHa?rs=1&pid=ImgDetMain',10,1),
 		('AAA009','POCKET 10','ABROCHADORA POCKET 10',9,1,40,'https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png',10,1),
 		('AAA010','STAPLER 10','ABROCHADORA STAPLER 10',9,1,40,'https://http2.mlstatic.com/D_NQ_NP_682857-MLA42884052846_072020-O.webp',10,1),
-		('AAA011','BOLTRIO X12','BOLIG. CONSUL TRIO ROJO RETRACTIL',3,7,35,'https://th.bing.com/th/id/OIP.y6DixmrxZHDJLjXKQMeN_gHaHa?pid=ImgDet&w=474&h=474&rs=1',10,1),
-		('AAA012','BOL. NEGRO 1MM X36','BOLIGRAFO FILGO FASTRACK NEGRO 1MM RETRACTIL',4,7,35,'https://http2.mlstatic.com/D_NQ_NP_2X_634662-MLA31351168191_072019-F.jpg',10,1),
-		('AAA013','BOL. ROJO 1MM X36','BOLIGRAFO FILGO FASTRACK ROJO 1MM RETRACTIL',4,7,35,'https://th.bing.com/th/id/OIP.wDyxHYaByxp7QhV-XV6LrQHaGH?rs=1&pid=ImgDetMain',10,0),
-		('AAA014','BOL. AZUL 1MM X36 F','BOLIGRAFO FILGO GINZA AZUL 1MM RETRACTIL',4,7,35,'https://th.bing.com/th/id/OIP.zruOwX-CinBzr7XNSIc8LgHaHa?rs=1&pid=ImgDetMain',10,0),
+		('AAA011','BOLTRIO X12','BOLIG. CONSUL TRIO ROJO RETRACTIL',3,3,35,'https://th.bing.com/th/id/OIP.y6DixmrxZHDJLjXKQMeN_gHaHa?pid=ImgDet&w=474&h=474&rs=1',10,1),
+		('AAA012','BOL. NEGRO 1MM X36','BOLIGRAFO FILGO FASTRACK NEGRO 1MM RETRACTIL',4,3,35,'https://http2.mlstatic.com/D_NQ_NP_2X_634662-MLA31351168191_072019-F.jpg',10,1),
+		('AAA013','BOL. ROJO 1MM X36','BOLIGRAFO FILGO FASTRACK ROJO 1MM RETRACTIL',4,3,35,'https://th.bing.com/th/id/OIP.wDyxHYaByxp7QhV-XV6LrQHaGH?rs=1&pid=ImgDetMain',10,0),
+		('AAA014','BOL. AZUL 1MM X36 F','BOLIGRAFO FILGO GINZA AZUL 1MM RETRACTIL',4,3,35,'https://th.bing.com/th/id/OIP.zruOwX-CinBzr7XNSIc8LgHaHa?rs=1&pid=ImgDetMain',10,0),
 		('LIB001', 'CUADERNO N3', 'CUADERNO DE TAPA DURA CON HOJAS RAYADAS',2,5,30,'https://th.bing.com/th/id/OIP.wX4ntH06UQV4yyzg2gVC6gHaFj?rs=1&pid=ImgDetMain', 30,1),
 		('LIB002', 'LÁPIZ HB', 'LÁPIZ DE GRAFITO PARA ESCRIBIR Y DIBUJAR',1,10,15, 'https://papeleriademexico.com/4158-thickbox_default/lapiz-bic-de-grafito-conte-hb-no-2-8pzas.jpg', 40,1),
 		('LIB003', 'MCD-223', 'SET DE 12 MARCADORES DE COLORES VARIADOS',4,10,25, 'https://example.com/marcadores_colores.jpg', 40,0),
@@ -119,7 +119,7 @@ VALUES ('Juan', 'Pérez', '12345678', '011-555-1234', 'juan@email.com', 'Av. Riv
 	   ('Ana', 'García', '12345678', '555-1111', 'ana@example.com', 'Calle de los Libros 456'),
 	   ('Patricio', 'Malman', '98765432', '555-2222', 'carlos@example.com', 'Avenida de las Letras 789'),
 	   ('Fernanda', 'Menotti', '54321098', '555-3333', 'laura@example.com', 'Plaza de la Cultura 101'),
-	   ('Pablo', 'Bielsa', '87654321', '555-4444', 'pedro@example.com', 'Rincón de los Escritores 23'),
+	   ('Pablo', 'Bielsa', '87654321', '555-4444', 'pablo@example.com', 'Rincón de los Escritores 23'),
 	   ('Susana', 'Donamara', '13579246', '555-5555', 'maria@example.com', 'Esquina de los Libros 7');
 GO
 
@@ -270,5 +270,6 @@ GO
 INSERT INTO USUARIOS (Nombre, Apellido, Email, Usuario, Contraseña, Imagen, Tipo)
 VALUES 
     ('Juan', NULL, 'admin@admin.com', 'Admin', 'admin1', 'perfil-1.jpg', 1),
-    ('Pedro', 'Perez', 'pperez@mail.com', 'Vendedor', 'vendedor2', 'perfil-2.jpg', 0);
+    ('Paula', 'Perez', 'pperez@mail.com', 'Vendedor', 'vendedor2', 'perfil-2.jpg', 0),
+    ('Mario', 'Encargado', 'marioe@email.com', 'Encargado', 'encargado3', 'perfil-3.jpg', 1);
 	GO

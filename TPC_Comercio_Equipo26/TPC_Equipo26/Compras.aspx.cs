@@ -44,6 +44,7 @@ namespace TPC_Equipo26
             {
                 ProveedorNegocio negocio = new ProveedorNegocio();
                 List<Proveedor> proveedores = negocio.Listar();
+                proveedores = proveedores.OrderBy(x => x.Nombre).ToList();
 
                 ddlProveedor.DataSource = proveedores;
                 ddlProveedor.DataTextField = "Nombre";

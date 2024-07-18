@@ -33,7 +33,6 @@ namespace TPC_Equipo26
         {
             try
             {
-
                 ChkIncluirInactivos.Checked = false;
                 ProveedorNegocio negocio = new ProveedorNegocio();
                 List<Proveedor> proveedores = negocio.Listar();
@@ -78,7 +77,7 @@ namespace TPC_Equipo26
                     lista = lista.OrderByDescending(x => x.ID).ToList();
                     break;
                 default:
-                    lista = lista.OrderBy(x => x.ID).ToList();
+                    lista = lista.OrderBy(x => x.Nombre).ToList();
                     break;
             }
 
@@ -92,8 +91,6 @@ namespace TPC_Equipo26
         {
             LimpiarFiltros();
         }
-
-        
 
         protected void GvProveedores_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -138,6 +135,7 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
             }
         }
+        
         protected bool ValidarSesionActiva()
         {
             if (Seguridad.sesionActiva(Session["Usuario"]))
@@ -145,7 +143,6 @@ namespace TPC_Equipo26
             return false;
         }
    
-
         protected void GvProveedores_PageIndexChanging1(object sender, GridViewPageEventArgs e)
         {
             try

@@ -355,11 +355,11 @@ namespace TPC_Equipo26
                 string emailDestino = cliente.Email;
                 string asunto = "Confirmación de compra";
                 string cuerpo = $"Hola {cliente.Nombre} {cliente.Apellido}!<br>" +
-                                $"Tenemos una comora registrada a tu nombre.<br><br>" +
-                                $"Detalles de la compra:<br>" +
-                                $"Fecha: {venta.FechaVenta.ToString("dd/MM/yyyy")}<br>" +
-                                $"Total: {venta.Total.ToString("C2")}<br>" +
-                                $"Id Vendedor: {user.ID.ToString()}<br><br>" +
+                                $"Tenemos una compra registrada a tu nombre.<br><br>" +
+                                $"*************************************** Detalles de la compra ************************************<br>" +
+                                $"Fecha: {venta.FechaVenta.ToString("dd/MM/yyyy")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                $"&nbsp;&nbsp; Vendedor: {user.ID} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                                $"Total: {venta.Total.ToString("C2")}<br><br>" +
                                 $"Productos comprados:<br>";
 
                 foreach (var detalle in venta.Detalles)
@@ -367,13 +367,15 @@ namespace TPC_Equipo26
                     ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                     Articulo articulo = articuloNegocio.ObtenerArticuloPorID(detalle.IdArticulo);
 
-                    cuerpo += $"{articulo.Nombre} - {articulo.Descripcion} - Cantidad: {detalle.Cantidad}<br>";
+                    cuerpo += $"{articulo.Nombre} {articulo.Descripcion} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cantidad: {detalle.Cantidad}<br>";
                 }
 
-                cuerpo += "<br>Esperamos que disfrutes de tus productos.<br>" +
-                            $"¡Gracias por elegirnos!";
-                emailService.ArmarCorreo(emailDestino, asunto, cuerpo);
+                cuerpo += $"<br>******************************************************************************************************<br><br>" +
+                            $"<br>Esperamos que disfrutes tus productos.<br>" +
+                            $"¡Gracias por elegirnos! <br>" +
+                            $"<em>Nombre de la tienda</em>";
 
+                emailService.ArmarCorreo(emailDestino, asunto, cuerpo);
                 emailService.enviarEmail();
             }
             catch (Exception ex)
@@ -400,16 +402,15 @@ namespace TPC_Equipo26
                 DatoArticuloNegocio datoNegocio = new DatoArticuloNegocio();
                 int stock = datoNegocio.ObtenerStockArticulo(idArticulo);
 
-                string emailDestino = user.Email + ",admin@admin.com";
+                string emailDestino = user.Email + ", pperez@mail.com"; //Encargado/a en copia
                 string asunto = "Recordatorio de compra: Stock bajo";
                 string cuerpo = $"Hola {user.Nombre + user.Apellido},<br><br>" +
-                        $"Le informamos que el artículo <strong>{articulo.Nombre}</strong> (ID: {idArticulo.ToString()}) está por agotarse.<br>" +
+                        $"Le informamos que el artículo <strong>{articulo.Nombre}</strong> (ID: {idArticulo}) está por agotarse.<br>" +
                         $"Descripción: {articulo.Descripcion}<br>" +
                         $"Marca: {marca.Descripcion}<br>" +
                         $"Proveedor: {proveedor.Nombre}<br>" +
                         $"Stock actual: {stock}<br><br>" +
-                        $"Para reabastecer este artículo, puede contactar al proveedor:<br>" +
-                        $"Nombre: {proveedor.Nombre}<br>" +
+                        $"Para reabastecer este artículo, puede contactar al proveedor {proveedor.Nombre}<br>" +
                         $"Email: {proveedor.Email}<br>" +
                         $"Teléfono: {proveedor.Telefono}<br><br>" +
                         $"Le recomendamos realizar un nuevo pedido para evitar quedarse sin stock.<br><br>" +

@@ -60,6 +60,7 @@ namespace TPC_Equipo26
             {
                 ClienteNegocio negocio = new ClienteNegocio();
                 List<Cliente> clientes = negocio.Listar();
+                clientes = clientes.OrderBy(x=>x.Apellido).ToList();
 
                 var apellidoNombre = clientes.Select(cli => new
                 {

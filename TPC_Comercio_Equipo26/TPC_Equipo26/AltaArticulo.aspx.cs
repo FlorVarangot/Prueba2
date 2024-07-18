@@ -439,6 +439,8 @@ namespace TPC_Equipo26
                 MarcaNegocio negocioMarca = new MarcaNegocio();
                 List<Marca> listaMarca = negocioMarca.Listar();
 
+                listaMarca = listaMarca.OrderBy(m => m.Descripcion).ToList();
+
                 ddlMarca.DataSource = listaMarca;
                 ddlMarca.DataValueField = "ID";
                 ddlMarca.DataTextField = "Descripcion";
@@ -446,6 +448,8 @@ namespace TPC_Equipo26
 
                 CategoriaNegocio negocioCategoria = new CategoriaNegocio();
                 List<Categoria> listaCategoria = negocioCategoria.Listar();
+
+                listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();
 
                 ddlCategoria.DataSource = listaCategoria;
                 ddlCategoria.DataValueField = "ID";

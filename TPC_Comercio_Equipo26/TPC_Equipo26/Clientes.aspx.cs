@@ -90,7 +90,7 @@ namespace TPC_Equipo26
                     lista = lista.OrderByDescending(x => x.Dni).ToList();
                     break;
                 default:
-                    lista = lista.OrderBy(x => x.ID).ToList();
+                    lista = lista.OrderBy(x => x.Apellido).ToList();
                     break;
             }
 
