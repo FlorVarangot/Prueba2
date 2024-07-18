@@ -6,8 +6,7 @@
     <div class="container">
         <div class="text-center my-4">
             <h1>COMPRAS</h1>
-        </div>
-        <div id="contenedorFiltros" runat="server" visible="false">
+        </div>        
             <div class="row mb-3">
                 <div class="col-3">
                     <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" Placeholder="Buscar por Fecha o Compra..." OnTextChanged="txtFiltro_TextChanged" />
@@ -32,7 +31,7 @@
                 </div>
             </div>
         </div>
-    </div>
+   
     <asp:GridView ID="gvCompras" runat="server" DataKeyNames="ID" CssClass="table table-success table-hover"
         Style="text-align: center" AutoGenerateColumns="false" EmptyDataText="No hay datos disponibles"
         AllowPaging="true" PageSize="10"

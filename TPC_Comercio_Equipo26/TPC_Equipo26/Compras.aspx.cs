@@ -22,8 +22,7 @@ namespace TPC_Equipo26
                     {
                         CargarCompras();
                         CargarProveedores();
-                    }
-                    VerificarMostrarFiltros();
+                    }                 
                 }
                 catch (Exception ex)
                 {
@@ -118,6 +117,7 @@ namespace TPC_Equipo26
 
             gvCompras.DataSource = listaCompras;
             gvCompras.DataBind();
+            MostrarBotonRestablecer();
         }
 
         protected void gvCompras_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -176,11 +176,12 @@ namespace TPC_Equipo26
                 ddlProveedor.SelectedIndex = 0;
                 txtFiltro.Text = string.Empty;
                 ddlOrdenarPor.SelectedIndex = 0;
-               gvCompras.PageIndex = 0;
+                gvCompras.PageIndex = 0;
+
                 CargarCompras();
+                FiltrarCompras();
                 btnRestablecer.Visible = false;
 
-                FiltrarCompras();
                 MostrarBotonRestablecer();
             }
             catch (Exception ex)
@@ -202,26 +203,17 @@ namespace TPC_Equipo26
         protected void txtFiltro_TextChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
-            MostrarBotonRestablecer();
         }
 
         protected void ddlProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
-            MostrarBotonRestablecer();
         }
 
         protected void ddlOrdenarPor_SelectedIndexChanged(object sender, EventArgs e)
         {
             FiltrarCompras();
-            MostrarBotonRestablecer();
-        }
-
-        private void VerificarMostrarFiltros()
-        {
-            bool mostrarFiltros = gvCompras.Rows.Count > 0;
-            contenedorFiltros.Visible = mostrarFiltros;
-        }
+        }       
 
         protected bool ValidarSesionActiva()
         {
