@@ -64,6 +64,7 @@
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
                             AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged" />
                         <asp:Label ID="lblImagenUrl" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
+                        <asp:RegularExpressionValidator runat="server" ControlToValidate="txtImagenUrl"  ErrorMessage="Ingrese una URL válida" CssClass="text-danger" ValidationExpression="^https?:\/\/([\w\-]+\.)+[\w\-]+(\/[\w\-.,@?^=%&:\/~+#]*)?$"/>
                     </div>
                     <asp:Image runat="server" ID="imgArticulos" Width="145px" Style="max-width: 100%; height: 145px;"
                         ImageUrl="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg" />

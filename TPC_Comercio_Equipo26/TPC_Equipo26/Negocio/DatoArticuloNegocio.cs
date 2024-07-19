@@ -202,18 +202,32 @@ namespace TPC_Equipo26.Negocio
                     Articulo articulo = articuloNegocio.ObtenerArticuloPorID(idArticulo);
                     decimal ganancia = articulo.Ganancia;
                     decimal precioFinal = precioCompra + (precioCompra * ganancia / 100);
-
                     int nuevoStock = ultimoStock + cantidad;
+
+                    int count = 0;
 
                     using (AccesoDatos datosArticulo = new AccesoDatos())
                     {
-                        if (ultimoStock == 0)
+                        datosArticulo.setearConsulta("SELECT COUNT(*) FROM DATOS_ARTICULOS WHERE IdArticulo = @IdArticulo AND Fecha = @Fecha");
+                        datosArticulo.setearParametro("@IdArticulo", idArticulo);
+                        datosArticulo.setearParametro("@Fecha", fecha);
+                        datosArticulo.ejecutarLectura();
+
+                        if (datosArticulo.Lector.Read())
                         {
-                            datosArticulo.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");
+                            count = Convert.ToInt32(datosArticulo.Lector[0]);
+                        }
+                    }
+
+                    using (AccesoDatos datosArticulo = new AccesoDatos())
+                    {
+                        if (count > 0)
+                        {
+                            datosArticulo.setearConsulta("UPDATE DATOS_ARTICULOS SET Stock = @Stock, Precio = @Precio WHERE IdArticulo = @IdArticulo AND Fecha = @Fecha");
                         }
                         else
                         {
-                            datosArticulo.setearConsulta("UPDATE DATOS_ARTICULOS SET Stock = @Stock, Precio = @Precio WHERE IdArticulo = @IdArticulo AND Fecha = @Fecha");
+                            datosArticulo.setearConsulta("INSERT INTO DATOS_ARTICULOS (IdArticulo, Fecha, Stock, Precio) VALUES (@IdArticulo, @Fecha, @Stock, @Precio)");
                         }
                         datosArticulo.setearParametro("@IdArticulo", idArticulo);
                         datosArticulo.setearParametro("@Fecha", fecha);
