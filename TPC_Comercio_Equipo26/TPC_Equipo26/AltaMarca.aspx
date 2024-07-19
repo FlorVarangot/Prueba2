@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AltaMarca.aspx.cs" Inherits="TPC_Equipo26.AltaMarca" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">   
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="my-4">
@@ -12,8 +12,8 @@
     <div class="col">
         <div class="mb-3">
             <label for="txtDescripcion" class="form-label">Nombre: </label>
-            <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" Required="true"/>
-             <asp:Label ID="lblDescripcion" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
+            <asp:TextBox runat="server" ID="txtDescripcion" CssClass="form-control" Required="true" />
+            <asp:Label ID="lblDescripcion" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
         </div>
     </div>
 
@@ -32,6 +32,8 @@
                     <label for="txtImagenUrl" class="form-label">Url Imagen:</label>
                     <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
                         AutoPostBack="true" OnTextChanged="TxtImagenUrl_TextChanged" />
+                    <asp:Label ID="lblImagenUrl" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
+                    <asp:RegularExpressionValidator runat="server" ControlToValidate="txtImagenUrl" ErrorMessage="Ingrese una URL válida" CssClass="text-danger" ValidationExpression="^https?:\/\/([\w\-]+\.)+[\w\-]+(\/[\w\-.,@?^=%&:\/~+#]*)?$" />
                 </div>
                 <asp:Image runat="server" ID="imgMarcas" Width="20%" Style="max-width: 100%; height: auto;"
                     ImageUrl="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg" />
