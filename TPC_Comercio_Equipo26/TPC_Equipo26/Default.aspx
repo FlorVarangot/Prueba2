@@ -93,21 +93,5 @@
     </div>
     <% } %>
 
-    <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        var searchBox = document.getElementById('<%= txtFiltro.ClientID %>');
-        
-        if (searchBox) {
-            searchBox.addEventListener('input', function() {
-                if (searchBox.value === '') {
-                    searchBox.dispatchEvent(new Event('change'));
-                }
-            });
-
-            searchBox.addEventListener('change', function() {
-                __doPostBack(searchBox.id, '');
-            });
-        }
-    });
-</script>
+    
 </asp:Content>

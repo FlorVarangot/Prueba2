@@ -490,7 +490,7 @@ namespace TPC_Equipo26
         {
             bool isValid = true;
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombre.Text, "^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\\s\\-°#]+$"))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombre.Text, "^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\\s\\-°#.,]+$"))
             {
                 lblNombre.Text = "El nombre no puede contener números o caracteres especiales";
                 lblNombre.Visible = true;
