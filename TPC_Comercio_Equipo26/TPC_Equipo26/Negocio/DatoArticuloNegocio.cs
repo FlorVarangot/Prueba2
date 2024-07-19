@@ -39,7 +39,6 @@ namespace TPC_Equipo26.Negocio
 
         }     
 
-        //Trae ultimo precio
         public decimal ObtenerPrecioArticulo(long idArticulo)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -69,7 +68,6 @@ namespace TPC_Equipo26.Negocio
             }
         }
 
-        //Trae el precio mas reciente a la fecha que recibe (fecha <=)
         public decimal ObtenerPrecioHistorico(long idArticulo, DateTime fechaVenta)
         {
             AccesoDatos datos = new AccesoDatos();

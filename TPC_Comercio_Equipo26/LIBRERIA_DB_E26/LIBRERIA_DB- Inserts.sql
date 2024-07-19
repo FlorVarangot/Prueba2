@@ -27,21 +27,21 @@ VALUES	('FERNANDEZ INS','30-70822107-9', 'fernandezins@gmail.com','1111111111','
 GO
 
 INSERT INTO MARCAS (Descripcion, IdProveedor, ImagenUrl,Activo)
-VALUES	('BIC', 1, 'https://th.bing.com/th/id/OIP.CF_jE1QZzGJqoOXE1E_ZlQHaFP?rs=1&pid=ImgDetMain',1),
+VALUES	('BIC', 1, 'https://img.favpng.com/25/20/14/bic-cristal-ballpoint-pen-logo-png-favpng-C8HXdLwdXxr5RHCy82Ry4XLYT.jpg',1),
 		('LAPRIDA', 1, 'https://www.conexioncom.com.ar/img/cms/Marcas/Laprida.png',1),
 		('CONSUL TRIO', 2, 'https://i.pinimg.com/736x/b2/07/1f/b2071f1213da8ab3fbec184038c3e447.jpg',1),
 		('FILGO', 2, 'https://d2r9epyceweg5n.cloudfront.net/stores/002/254/237/products/7483febf-a0eb-444c-b545-3d400bbb867f1-f7539175982bd714d816620494259461-640-0.jpeg',1),
-		('SABONIS',2,'https://sabonis.cl/wp-content/uploads/2022/04/1640629353913-sb-logo-azul-_1_.png',1),
+		('SABONIS',2,'https://img77.uenicdn.com/image/upload/v1586646819/business/2a4dacf4-ac8a-4a78-b5f2-3adbde33c38a/inbound1725558791jpg.jpg',1),
 		('CRAYOLA',3,'https://logodix.com/logo/1856464.jpg',0),
 		('FABER CASTELL',3,'https://th.bing.com/th/id/OIP.u-AailQosyvwTFolvD0eIwHaCZ?rs=1&pid=ImgDetMain',0),
-		('BOREAL',3, 'https://th.bing.com/th/id/OIP.tmTKipbOAPzXKzuZzzDiHgHaCe?rs=1&pid=ImgDetMain',1),
+		('BOREAL',3, 'https://www.pngkey.com/png/full/889-8894516_boreal-logo-standard-png-boreal-outdoor.png',1),
 		('MAPED',4,'https://dabdoob-cdn-primary.fra1.cdn.digitaloceanspaces.com/media/master/brand/5psEFe/c45518da-73f2-4e5b-9e8c-2ebcdc0e58da_GLkuor2sEU.png',1),
-		('PAPER MATE',4,'https://th.bing.com/th/id/OIP.OmgeY2LgD74_xM8CiIYWBQHaCL?rs=1&pid=ImgDetMain',1),
-		('PELIKAN',5,'https://www.liblogo.com/img-logo/pe4721pdf4-pelikan-logo-pelikan-logo-industry--com.png',1),
-		('SIMBALL',5,'https://simball.com.ar/wp-content/uploads/2022/01/logo-web.png',1),
-		('PARKER',6,'https://cdn.shopify.com/s/files/1/0782/2043/collections/parker_62de1b2a-c0b3-48af-ba6b-912d072dd4f9_1024x1024.png?v=1586433453',1),
+		('PAPER MATE',4,'https://th.bing.com/th/id/OIP.BHIQfB-INM-UGRwM0KcMRgAAAA?rs=1&pid=ImgDetMain',1),
+		('PELIKAN',5,'https://i.pinimg.com/originals/24/5e/05/245e05fd238d9ed5ae905fff5b5b34e8.jpg',1),
+		('SIMBALL',5,'https://librerialp.com/wp-content/uploads/2020/01/lapicera-boligrafo-birome-micro-moon-retractil-azul-simball-D_NQ_NP_931225-MLA28329030625_102018-F.jpg',1),
+		('PARKER',6,'https://kapuga.pl/wp-content/uploads/2019/11/Logo-Parker.png',1),
 		('CHICCO',6,'https://th.bing.com/th/id/R.5706539ad4695d6f118b901eb7a4e279?rik=7XYX8Puwbb0Igg&pid=ImgRaw&r=0',1),
-		('KANGARO',1,'https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png',1),
+		('KANGARO',1,'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg',1),
 		('VOLIGOMA',6,'https://voligoma.com.ar/wp-content/themes/voligoma/images/logo.png',0)
 GO
 
@@ -54,7 +54,7 @@ VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',9,1,55,'https://th.bing.com/t
 		('AAA006','ABACO PLÁSTICO N° 4','ABACO PLASTICO 4 COLUMNAS',14,2,38,'https://http2.mlstatic.com/D_NQ_NP_762471-MLB48316881887_112021-O.jpg',10,1),
 		('AAA007','ABACO PLÁSTICO N° 5','ABACO PLASTICO 5 COLUMNAS',14,2,40,'https://th.bing.com/th/id/OIP.hf3sjOaKOk3_kx9o4ZpxSgHaHa?w=500&h=500&rs=1&pid=ImgDetMain',10,1),
 		('AAA008','HS-10 A','ABROCHADORA KANGARO 10',15,1,40,'https://th.bing.com/th/id/OIP.XbjP9o4a_TbHV52zTs2nxQHaHa?rs=1&pid=ImgDetMain',10,1),
-		('AAA009','POCKET 10','ABROCHADORA POCKET 10',9,1,40,'https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png',10,1),
+		('AAA009','POCKET 10','ABROCHADORA POCKET 10',9,1,40,'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg',10,1),
 		('AAA010','STAPLER 10','ABROCHADORA STAPLER 10',9,1,40,'https://http2.mlstatic.com/D_NQ_NP_682857-MLA42884052846_072020-O.webp',10,1),
 		('AAA011','BOLTRIO X12','BOLIG. CONSUL TRIO ROJO RETRACTIL',3,3,35,'https://th.bing.com/th/id/OIP.y6DixmrxZHDJLjXKQMeN_gHaHa?pid=ImgDet&w=474&h=474&rs=1',10,1),
 		('AAA012','BOL. NEGRO 1MM X36','BOLIGRAFO FILGO FASTRACK NEGRO 1MM RETRACTIL',4,3,35,'https://http2.mlstatic.com/D_NQ_NP_2X_634662-MLA31351168191_072019-F.jpg',10,1),
@@ -62,7 +62,7 @@ VALUES	('AAA001','HP-210','ABROCHADORA PINZA 24/6',9,1,55,'https://th.bing.com/t
 		('AAA014','BOL. AZUL 1MM X36 F','BOLIGRAFO FILGO GINZA AZUL 1MM RETRACTIL',4,3,35,'https://th.bing.com/th/id/OIP.zruOwX-CinBzr7XNSIc8LgHaHa?rs=1&pid=ImgDetMain',10,0),
 		('LIB001', 'CUADERNO N3', 'CUADERNO DE TAPA DURA CON HOJAS RAYADAS',2,5,30,'https://th.bing.com/th/id/OIP.wX4ntH06UQV4yyzg2gVC6gHaFj?rs=1&pid=ImgDetMain', 30,1),
 		('LIB002', 'LÁPIZ HB', 'LÁPIZ DE GRAFITO PARA ESCRIBIR Y DIBUJAR',1,10,15, 'https://papeleriademexico.com/4158-thickbox_default/lapiz-bic-de-grafito-conte-hb-no-2-8pzas.jpg', 40,1),
-		('LIB003', 'MCD-223', 'SET DE 12 MARCADORES DE COLORES VARIADOS',4,10,25, 'https://example.com/marcadores_colores.jpg', 40,0),
+		('LIB003', 'MCD-223', 'SET DE 10 MARCADORES DE COLORES VARIADOS',4,10,25, 'https://http2.mlstatic.com/D_NQ_NP_2X_994516-MLA47248037119_082021-F.jpg', 40,0),
 		('LIB004', 'ASEM 36-2', 'AGENDA CON VISTA SEMANAL Y ESPACIO PARA NOTAS',5,7,30.5, 'https://i.pinimg.com/originals/86/bf/99/86bf99b83d315d01decb01a87d125364.jpg', 10,1),
 		('AAA015','BOREAL A4-70','RESMA PAPEL A4 70GR 21x29,7',8,5,40,'https://resmasboreal.com.ar/assets/uploads/product/8_1449676166.jpg',10,1),
 		('AAA016','SKU# 015540105','REGLA FLEXIBLE DE 20CM',9,12,40,'https://th.bing.com/th/id/R.6a0d43e6f01f6e55e8da5bb954ef411a?rik=eZ4Jv7DVKdQCqw&pid=ImgRaw&r=0',10,1),
@@ -270,6 +270,6 @@ GO
 INSERT INTO USUARIOS (Nombre, Apellido, Email, Usuario, Contraseña, Imagen, Tipo)
 VALUES 
     ('Juan', NULL, 'admin@admin.com', 'Admin', 'admin1', 'perfil-1.jpg', 1),
-    ('Paula', 'Perez', 'pperez@mail.com', 'Vendedor', 'vendedor2', 'perfil-2.jpg', 0),
+    ('Paula', 'Perez', 'pperez@mail.com', 'Vendedora', 'vendedora2', 'perfil-2.jpg', 0),
     ('Mario', 'Encargado', 'marioe@email.com', 'Encargado', 'encargado3', 'perfil-3.jpg', 1);
 	GO

@@ -207,6 +207,7 @@ namespace TPC_Equipo26.Negocio
                 datosNombre.cerrarConexion();
             }
         }
+        
         public string VerificarArticulo(string codigo, string nombre, long idArticulo)
         {
             AccesoDatos datosCodigo = new AccesoDatos();

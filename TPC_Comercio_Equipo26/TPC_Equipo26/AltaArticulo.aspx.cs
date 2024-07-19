@@ -76,8 +76,8 @@ namespace TPC_Equipo26
                     {
                         numGanancia.Value = (articulo.Ganancia * 100).ToString(CultureInfo.InvariantCulture);
                     }
-                    numStockMinimo.Value = articulo.StockMin.ToString();
 
+                    numStockMinimo.Value = articulo.StockMin.ToString();
                     ddlMarca.SelectedValue = articulo.Marca.ID.ToString();
                     ddlCategoria.SelectedValue = articulo.Categoria.ID.ToString();
 
@@ -90,7 +90,7 @@ namespace TPC_Equipo26
                     else
                     {
                         txtImagenUrl.Text = "";
-                        imgArticulos.ImageUrl = "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
+                        imgArticulos.ImageUrl = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                     }
 
                     if (articulo.Activo == true)
@@ -215,6 +215,7 @@ namespace TPC_Equipo26
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
                 decimal ganancia;
+                
                 if (decimal.TryParse(numGanancia.Value, NumberStyles.Number, CultureInfo.InvariantCulture, out ganancia))
                 {
                     if (ganancia < 1)
@@ -467,7 +468,7 @@ namespace TPC_Equipo26
         {
             if (!Seguridad.esAdmin(Session["Usuario"]))
             {
-                Session.Add("Error", "No tenes permisos para ingresar a esta pantalla.");
+                Session.Add("Error", "No tenés permisos para ingresar a esta pantalla.");
                 Response.Redirect("Error.aspx", false);
             }
         }

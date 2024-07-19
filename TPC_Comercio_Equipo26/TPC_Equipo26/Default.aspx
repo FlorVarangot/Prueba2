@@ -36,8 +36,9 @@
                         <asp:ListItem Text="Ordenar por..." Value="" />
                         <asp:ListItem Text="Descripcion A-Z" Value="DescripcionAZ" />
                         <asp:ListItem Text="Descripcion Z-A" Value="DescripcionZA" />
-                        <asp:ListItem Text="Stock ↓" Value="StockDisponibleDesc" />
                         <asp:ListItem Text="Stock ↑" Value="StockDisponibleAsc" />
+                        <asp:ListItem Text="Stock ↓" Value="StockDisponibleDesc" />
+                        <asp:ListItem Text="Precio ↑" Value="PrecioUnitarioAsc" />
                         <asp:ListItem Text="Precio ↓" Value="PrecioUnitarioDesc" />
                         <asp:ListItem Text="ID ↑" Value="IdAsc" />
                         <asp:ListItem Text="ID ↓" Value="IdDesc" />

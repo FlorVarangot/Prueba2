@@ -1,9 +1,9 @@
+
+--STORED PROCEDURES TPC-E26
+
 USE LIBRERIA_DB
 GO
 
--------------------------------------------STORED PROCEDURES-------------------------------------------
-
------CATEGORIAS-----
 CREATE PROCEDURE sp_listarCategorias
 AS
 BEGIN
@@ -89,7 +89,6 @@ BEGIN
 END
 GO
 
------MARCAS-----
 CREATE PROCEDURE sp_ListarMarcas
 AS
 BEGIN
@@ -185,7 +184,6 @@ BEGIN
 END
 GO
 
------CLIENTES-----
 CREATE PROCEDURE sp_listarClientes
 AS
 BEGIN
@@ -297,7 +295,6 @@ BEGIN
 END
 GO
 
------USUARIOS-----
 CREATE PROCEDURE SP_NuevoUsuario
 @User VARCHAR(50),
 @Pass VARCHAR(50),
@@ -323,14 +320,3 @@ BEGIN
     WHERE Id = @Id
 END
 GO
-
-
------ARTICULOS-----
-
------PROVEEDORES-----
-
------COMPRAS-----
-
------VENTAS-----
-
-

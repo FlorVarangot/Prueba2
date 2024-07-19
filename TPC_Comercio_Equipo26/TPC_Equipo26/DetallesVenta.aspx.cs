@@ -22,7 +22,6 @@ namespace TPC_Equipo26
                     {
                         if (Request.QueryString["ID"] != null)
                         {
-                            //lblTitulo.Text = "Detalles de Venta";
                             long ventaID = Convert.ToInt64(Request.QueryString["ID"]);
                             lblVentaID.Text = "Venta n° 00" + ventaID;
                             lblCliente.Text = "Cliente: " + TraerNombreCliente(ventaID);
@@ -81,7 +80,6 @@ namespace TPC_Equipo26
         {
             string id = gvDetalle.SelectedDataKey.Value.ToString();
             Response.Redirect("DetallesVenta.aspx?ID=" + id);
-
         }
 
         protected void gvDetalle_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -98,15 +96,14 @@ namespace TPC_Equipo26
                 int cantidad = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "Cantidad"));
 
                 decimal precioUnitario = datoArticuloNegocio.ObtenerPrecioHistorico(idArt, fechaVenta);
-                decimal totalParcial = cantidad * precioUnitario;
+                decimal importeParcial = cantidad * precioUnitario;
 
-                e.Row.Cells[0].Text = nombreArticulo;
-                e.Row.Cells[1].Text = precioUnitario.ToString("C2");
-                e.Row.Cells[3].Text = totalParcial.ToString("C2");
+                e.Row.Cells[1].Text = nombreArticulo;
+                e.Row.Cells[2].Text = precioUnitario.ToString("C2");
+                e.Row.Cells[3].Text = importeParcial.ToString("C2");
             }
         }
 
-        //F: Revisar optimización de este metodo: se repite tal cual en Venta y en DetallesVenta.
         private string TraerNombreCliente(long id)
         {
             try
@@ -157,7 +154,6 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
                 return DateTime.MinValue;
             }
-
         }
 
         private decimal TraerTotalVenta(long id)
@@ -181,15 +177,12 @@ namespace TPC_Equipo26
                 Response.Redirect("Error.aspx", false);
                 return 0;
             }
-
-
         }
 
         private long TraerUltimoId()
         {
             VentaNegocio ventaNegocio = new VentaNegocio();
             return ventaNegocio.TraerUltimoId();
-
         }
 
         private string ObtenerVentaSiguiente()

@@ -66,7 +66,7 @@
                         <asp:Label ID="lblImagenUrl" runat="server" Text="*" ForeColor="Red" CssClass="required-field" Visible="false"></asp:Label>
                     </div>
                     <asp:Image runat="server" ID="imgArticulos" Width="145px" Style="max-width: 100%; height: 145px;"
-                        ImageUrl="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png" />
+                        ImageUrl="https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>

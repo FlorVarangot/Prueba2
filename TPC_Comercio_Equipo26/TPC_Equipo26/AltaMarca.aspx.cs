@@ -60,9 +60,19 @@ namespace TPC_Equipo26
                 {
                     txtDescripcion.Text = marca.Descripcion;
                     txtImagenUrl.Text = marca.ImagenUrl ?? string.Empty;
-                    imgMarcas.ImageUrl = !string.IsNullOrEmpty(marca.ImagenUrl) ? marca.ImagenUrl : "https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png";
-
+                    imgMarcas.ImageUrl = !string.IsNullOrEmpty(marca.ImagenUrl) ? marca.ImagenUrl : "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
                     ddlProveedor.SelectedValue = marca.IdProveedor.ToString();
+
+                    if (marca.ImagenUrl != null)
+                    {
+                        txtImagenUrl.Text = marca.ImagenUrl;
+                        imgMarcas.ImageUrl = marca.ImagenUrl;
+                    }
+                    else
+                    {
+                        txtImagenUrl.Text = "";
+                        imgMarcas.ImageUrl = "https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg";
+                    }
 
                     if (marca.Activo == true)
                     {
@@ -124,16 +134,6 @@ namespace TPC_Equipo26
             else
             {
                 lblProveedor.Visible = false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtImagenUrl.Text))
-            {
-                lblImagenUrl.Visible = true;
-                camposValidos = false;
-            }
-            else
-            {
-                lblImagenUrl.Visible = false;
             }
 
             if (!camposValidos)
