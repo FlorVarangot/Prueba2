@@ -11,11 +11,11 @@ Por cada COMPRA (a un proveedor) se registrará el precio de costo del artículo
 Los artículos serán discriminados por categorías, y estarán asociados a una marca, que a su vez estará asociada a un proveedor. Además contarán con un stock disponible y un stock mínimo, a tener en cuenta para proyectar las compras y condicionar el registro de venta, en caso de que el stock sea insuficiente. Habrá un aviso 
 En el registro de compras y ventas se podrá consultar el histórico de operaciones realizadas para cada proveedor y para cada cliente.
 
-PERFILES:
+Perfiles:
 - Un usuario con permisos de VENDEDOR/A podrá registrar y consultar las compras y ventas realizadas, registrar nuevos clientes y ver los artículos.
 - El perfil ADMINISTRADOR/A contará con permisos totales. Sumará al perfil vendedor/a la posibilidad de: dar de alta nuevos artículos, marcas, categorías y proveedores, y realizar nuevas asociaciones o modificar las existentes.
 
-
+Correos:
 * Para cada registro nuevo se enviará un mail de confirmación de registro.
 * Para cada venta confirmada se enviará un mail al cliente con el detalle de la venta.
 * Cuando el stock disponible de un artículo alcance 1 o 0 luego de una venta, se enviará un mail de recordatorio de compra al vendedor/a involucrado/a en la venta con copia al encargado/a.
